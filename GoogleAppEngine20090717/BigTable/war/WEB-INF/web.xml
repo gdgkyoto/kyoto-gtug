@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>BigTable.html</welcome-file>
+  </welcome-file-list>
+  
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>datastoreServlet</servlet-name>
+    <servlet-class>org.kyoto_gtug.gae.jdo.server.BigTableServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>datastoreServlet</servlet-name>
+    <url-pattern>/bigtable/datastore</url-pattern>
+  </servlet-mapping>
+
+</web-app>
