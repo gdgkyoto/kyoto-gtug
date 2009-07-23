@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+	<application>kyoto-it</application>
+	<version>php4</version>
+	
+	<!-- PHPファイルを静的なファイルから除外 -->
+	<static-files>
+    	<exclude path="/**.php" />
+	</static-files>
+	<!-- PHPファイルをリソースファイルとして登録 -->
+	<resource-files>
+	    <include path="/**.php" />
+	</resource-files>
+</appengine-web-app>
