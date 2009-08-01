@@ -18,6 +18,15 @@ public class WicketApplication extends WebApplication {
 	protected ISessionStore newSessionStore() {
 		return new HttpSessionStore(this);
 	}
+
+	//***文字コードの設定***//
+	@Override
+	protected void init() {
+		super.init();
+		getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
+		getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
+	}
+
 	
 	//***初期ページ設定***//
 	public Class<IndexPage> getHomePage() {
