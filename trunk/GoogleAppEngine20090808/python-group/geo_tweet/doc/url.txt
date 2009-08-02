@@ -1,0 +1,29 @@
+URLの説明
+
+* Webページ
+
+/
+	最近のつぶやきを地図上に表示
+/{user_id}
+	特定ユーザーのつぶやきを地図上に表示
+/messages
+	最近のつぶやきをリスト表示
+/messages?user_id=xxx
+	特定ユーザーのつぶやきをリスト表示
+/messages?lat1=xxx&lon1=xxx&lat2=xxx&lon2=xxx
+	二点で指定される領域内のつぶやきをリスト表示
+/messages?lat=xxx&lon=xxx&rad=xxx
+	一点と半径（単位：メートル）で指定される領域内のつぶやきをリスト表示
+/messages/new
+	新規メッセージの投稿ページ
+
+* API
+
+/messages.json
+	最近のつぶやきをJSON形式で返す
+/messages.json?user_id=xxx
+	特定ユーザーのつぶやきをJSON形式で返す
+/messages.json?lat1=xxx&lon1=xxx&lat2=xxx&lon2=xxx
+	二点で指定される領域内のつぶやきをJSON形式で返す
+/messages.json?lat=xxx&lon=xxx&rad=xxx
+	一点と半径（単位：メートル）で指定される領域内のつぶやきをJSON形式で返す
