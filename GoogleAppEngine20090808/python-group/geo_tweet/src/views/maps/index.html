@@ -1,21 +1,129 @@
 {%extends "../base.html" %}
 {%block main%}  
+
+  <script type="text/javascript" src="/js/gt_api.js"></script>
+  
+  <script type="text/javascript">
+    request = getXMLHttpRequestObject();
+
+    function postNewMessage() {
+      if (request == null) {
+        alert("Request object is null");
+      }
+      var form = document.getElementById("newMessageForm");
+      var message = form.message.value;
+      if (message.length === 0) {
+        alert("Message is empty!");
+        return;
+      }
+      var place = [form.latitude.value, form.longitude.value];
+      if (place[0] === '-999') {
+        alert("Location is not detected!");
+        return;
+      }
+
+      post_message(request, message, place, postNewMessageResponseHandler);
+    }
+
+    function postNewMessageResponseHandler() {
+      if (request.readyState == 4) {
+        if (request.status == 200) {
+          // Succeeded
+          response = eval("(" + request.responseText + ")");
+          msgElm = messageObjectToHtml(response.message);
+          var contentElm = document.getElementById("message-list");
+          contentElm.innerHTML = msgElm + contentElm.innerHTML;
+        } else {
+          alert("Failed");
+          // Failed
+        }
+      } else {
+        ;
+      }
+    }
+
+    function messageObjectToHtml(message) {
+        var s = "<p class='message-body'>" + message.text + "</p>";
+        s += "By <span class='user-name'>" + message.user.nickname + "</span> ";
+        s += "at <span class='location'>(" + message.location.latitude + ", " + message.location.longitude + ")</span>" 
+        return "<div class='message'>" + s + "</div>";
+    }
+
+    function getMessages(curLoc) {
+      var area = {'center':curLoc, 'radius':100000};
+      get_messages(request, area, getMessagesResponseHandler);
+    }
+
+    function getMessagesResponseHandler() {
+      if (request.readyState == 4) {
+        if (request.status == 200) {
+          // Succeeded
+          var msgElmList = "";
+          response = eval("(" + request.responseText + ")");
+          for (i = 0; i < response.messages.length; i++) {
+            var message = response.messages[i];
+            msgElmList += messageObjectToHtml(message);
+          }
+          var contentElm = document.getElementById("message-list");
+          contentElm.innerHTML = msgElmList;
+        } else {
+          alert("Failed");
+          // Failed
+        }
+      } else {
+        ;
+      }
+    }
+  </script>
+  
+  <script type="text/javascript">
+    theUserLocation = null;
+    
+    function locupdate(pos) {
+      var newMessageDiv = document.getElementById("newMessage");
+      if (newMessageDiv) {
+        var d = document.getElementById("current_location");
+        d.innerHTML = "lat: " + pos.coords.latitude + " long: " + pos.coords.longitude + " accuracy: " + pos.coords.accuracy;
+    
+        var form = document.getElementById("newMessageForm");
+        form.latitude.value = pos.coords.latitude;
+        form.longitude.value = pos.coords.longitude;
+      }
+      theUserLocation = {'latitude':pos.coords.latitude, 'longitude':pos.coords.longitude};
+
+      getMessages(theUserLocation);
+    }
+
+    function handleError(a) {
+      var d = document.getElementById("d");
+      if (d) {
+        d.innerHTML = "<p> error: " + a.code + "</p>";
+      }
+    }
+  
+    window.onload = function(){
+      navigator.geolocation.watchPosition(locupdate, handleError)
+    };
+  </script>
+  
   <h1>Messages on Map</h1>
+  
+  {% if user %}
+  <div id="newMessage">
+    <form id="newMessageForm" action="/messages.json" method="post">
+      <label>今なにしてはりますの？</label><br>
+      <textarea name="message" rows="4" cols="60"></textarea>
+      <input type="hidden" name="latitude" value="-999">
+      <input type="hidden" name="longitude" value="-999">
+      <div><input type="button" name="button" value="Send" onclick="postNewMessage();"></div>
+    </form>
+    <div id="current_location"><br></div>
+  </div>
+  {% endif %}
 
   <div id="content">
-    {% for message in messages %}
-      <p class="message-body">{{ message.text|escape }}</p>
-      {% if message.user.google_account %}
-        by {{ message.user.google_account.nickname }}
-      {% else %}
-        by an anonymous person
-      {% endif %}
-    
-      {% if message.place %}
-        <span class="location">at {{ message.place.location }}</span>
-      {% else %}
-        <span class="location">at somewhere on the earth</span>
-      {% endif %}
-    {% endfor %}
+    <div id="message-list">
+      <p>Wait a minite.</p>
+    </div>
   </div>
 {%endblock%}

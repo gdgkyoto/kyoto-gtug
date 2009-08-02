@@ -9,7 +9,7 @@ from gt.controllers.users_controller import UsersController
 application = webapp.WSGIApplication([('/', MapsController),
                                       ('/(\d+)', MapsController),
                                       ('/messages', MessagesController),
-                                      ('/messages.json', MessagesController),
+                                      ('/messages\.json', MessagesController),
                                       ('/messages/(\d+|new)', MessagesController),
                                       ('/messages/(\d+)/(edit|delete)', MessagesController),
                                       ('/users', UsersController),

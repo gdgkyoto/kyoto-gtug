@@ -4,6 +4,7 @@
 
   <div id="content">
     {% for message in messages %}
+    <div class="message">
       <p class="message-body">{{ message.text|escape }}</p>
       {% if message.user %}
         by {{ message.user.google_account.nickname }}
@@ -16,6 +17,7 @@
       {% else %}
         <span class="location">at somewhere on the earth</span>
       {% endif %}
+    </div>
     {% endfor %}
   </div>
 {%endblock%}

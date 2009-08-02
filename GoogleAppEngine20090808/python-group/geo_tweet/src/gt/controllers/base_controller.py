@@ -8,6 +8,7 @@ Created on 2009/08/01
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from ..models.user import User
+import logging
 
 class LoginRequiredException(Exception):
   def __init__(self, redirect_url):
@@ -65,3 +66,4 @@ class BaseController(webapp.RequestHandler):
       self.response.headers['Content-Type'] = 'application/json'
     else:
       self.response_format = 'html'
+    logging.info("FORMAT:" + self.response_format)

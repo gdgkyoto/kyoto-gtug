@@ -74,7 +74,7 @@ class MessagesController(base_controller.BaseController):
       'editable': editable,
       'message': message
     }
-    path = os.path.join(os.path.dirname(__file__), '../../views/messages/show.html')
+    path = os.path.join(os.path.dirname(__file__), "../../views/messages/show.%s" % self.response_format)
     self.response.out.write(template.render(path, template_values))
     
   def create(self):
@@ -91,15 +91,24 @@ class MessagesController(base_controller.BaseController):
     if longitude != None and latitude != None and len(longitude) > 0 and len(latitude) > 0:
       lat = float(latitude)
       lon = float(longitude)
-      place = Location(location=db.GeoPt(lat, lon), user_id=user.key().id())
-      place.update_location()
-      place.put()
-      logging.info("Message's locaiton=%s", str(place))
+      try:
+        place = Location(location=db.GeoPt(lat, lon), user_id=user.key().id())
+        place.update_location()
+        place.put()
+        logging.info("Message's locaiton=%s", str(place))
+      except Exception,e:
+        logging.warn(e)
+        place = None
     message = Message(user=user, text=text)
     if place:
       message.place = place
     message.put()
-    self.redirect("/messages?user_id=%d" % user.key().id())
+    
+    if self.response_format == 'json':
+      path = os.path.join(os.path.dirname(__file__), "../../views/messages/show.json")
+      self.response.out.write(template.render(path, {'message': message}))
+    else:
+      self.redirect("/messages?user_id=%d" % user.key().id())
                        
 
   def edit(self, message_id):

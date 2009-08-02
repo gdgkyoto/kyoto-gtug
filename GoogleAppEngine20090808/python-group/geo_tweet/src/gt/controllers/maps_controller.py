@@ -16,6 +16,7 @@ class MapsController(base_controller.BaseController):
       
   def index(self):
     logging.info("ENTER:MapsController.index")
+    user = User.get_current_user()
     auth_url = None
     auth_url_string = None
     user = User.get_current_user()
@@ -30,7 +31,8 @@ class MapsController(base_controller.BaseController):
     template_values = {
       'messages': messages,
       'auth_url': auth_url,
-      'auth_url_string': auth_url_string
+      'auth_url_string': auth_url_string,
+      'user': user
     }
     path = os.path.join(os.path.dirname(__file__), "../../views/maps/index.html")
     self.response.out.write(template.render(path, template_values))
