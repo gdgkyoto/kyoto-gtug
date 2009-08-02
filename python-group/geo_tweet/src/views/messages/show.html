@@ -1,0 +1,41 @@
+<html>
+
+<head>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+</head>
+
+<body>
+
+  <div id="header">
+  </div>
+
+  
+  <div>
+    <ul class="navigation">
+      <li><a href="/">Top</a></li>
+      <li><a href="/messages">Messages</a></li>      
+      <li><a href="/messages/new">New message</a></li>
+    </ul>    
+  </div>
+  
+  <hr />
+  
+  <h1>Message</h1>
+
+  <div id="message">
+    <p class="message-body">{{ message.text|escape }}</p>
+    {% if message.user %}
+    by <span class="signature">{{ message.user.google_account.nickname }}</span>
+    {% else %}
+    by <span class="signature">an anonymous person</span>
+    {% endif %}
+
+    {% if message.place %}
+    <p>Place:({{post.place.lat}}, {{post.place.lon}})</p>
+    {% else %}
+    <p>Place:unknown</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>
