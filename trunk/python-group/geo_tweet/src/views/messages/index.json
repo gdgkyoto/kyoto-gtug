@@ -1,0 +1,13 @@
+{
+  "messages": [
+    {% for message in messages %}
+      {
+        "text":"{{message.text}}",
+        "user":{"id":{{message.user.key.id}},
+                "nickname":"{{message.user.google_account.nickname}}",
+        "location":[{{message.place.location.lat}}, {{message.place.location.lon}}]
+        "created":{{message.date}}
+      },
+    {% endfor %}
+  ]
+}

@@ -1,0 +1,11 @@
+p.message-body {
+	font-size:14pt;
+	width: 40em;
+	height: 50pt;
+	border: 1px solid #CCCCCC;
+}
+
+span.signature {
+	font-size:10pt;
+	color:blue;
+}

@@ -1,0 +1,41 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+</head>
+
+<body>
+  <div id="header">
+    <a href="{{ auth_url }}">{{auth_url_string}}</a>
+  </div>
+  
+  <div>
+    <ul class="navigation">
+      <li><a href="/">Top</a></li>
+      <li><a href="/messages">Messages</a></li>      
+      <li><a href="/messages/new">New message</a></li>
+    </ul>    
+  </div>
+	
+  <hr />
+  
+  <h1>Messages on Map</h1>
+
+  <div id="content">
+    {% for message in messages %}
+      <p class="message-body">{{ message.text|escape }}</p>
+      {% if message.user.google_account %}
+        by {{ message.user.google_account.nickname }}
+      {% else %}
+        by an anonymous person
+      {% endif %}
+    
+      {% if message.place %}
+        <span class="location">at {{ message.place.location }}</span>
+      {% else %}
+        <span class="location">at somewhere on the earth</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+</body>
+</html>
