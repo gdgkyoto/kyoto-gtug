@@ -1,0 +1,10 @@
+{
+  "message":
+    {
+      "text":"{{message.text}}",
+      "user":{"id":{{message.user.key.id}},
+              "nickname":"{{message.user.google_account.nickname}}"},
+      "location":{"latitude":{{message.place.location.lat}}, "longitude":{{message.place.location.lon}} },
+      "created":{{message.date}}
+    }
+}

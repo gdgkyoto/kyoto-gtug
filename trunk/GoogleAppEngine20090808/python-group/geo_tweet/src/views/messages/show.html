@@ -5,9 +5,9 @@
   <div id="message">
     <p class="message-body">{{ message.text|escape }}</p>
     {% if message.user %}
-    by <span class="signature">{{ message.user.google_account.nickname }}</span>
+    by <span class="user-name">{{ message.user.google_account.nickname }}</span>
     {% else %}
-    by <span class="signature">an anonymous person</span>
+    by <span class="user-name">an anonymous person</span>
     {% endif %}
 
     {% if message.place %}

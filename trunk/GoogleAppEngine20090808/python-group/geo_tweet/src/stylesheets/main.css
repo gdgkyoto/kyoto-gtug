@@ -1,11 +1,16 @@
 p.message-body {
 	font-size:14pt;
-	width: 40em;
+	width: 600px;
 	height: 50pt;
 	border: 1px solid #CCCCCC;
 }
 
-span.signature {
+span.user-name {
 	font-size:10pt;
 	color:blue;
+}
+
+div.message {
+	background-color: #FFFFCC;
+	width: 600px;
 }
