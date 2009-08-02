@@ -6,7 +6,8 @@ from gt.controllers.maps_controller import MapsController
 from gt.controllers.messages_controller import MessagesController
 from gt.controllers.users_controller import UsersController
 
-application = webapp.WSGIApplication([('/(\d+)?', MapsController),
+application = webapp.WSGIApplication([('/', MapsController),
+                                      ('/(\d+)', MapsController),
                                       ('/messages', MessagesController),
                                       ('/messages.json', MessagesController),
                                       ('/messages/(\d+|new)', MessagesController),

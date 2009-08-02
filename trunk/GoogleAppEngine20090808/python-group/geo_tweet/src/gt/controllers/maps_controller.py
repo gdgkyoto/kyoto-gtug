@@ -10,18 +10,9 @@ from google.appengine.ext.webapp import template
 import logging
 from ..models.message import Message
 from ..models.user import User
+import base_controller
 
-class MapsController(webapp.RequestHandler):
-
-  def get(self, user_id):
-    if user_id:
-      return self.show(user_id)
-    else:
-      return self.index()
-  
-  def post(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write("MapsController POST")
+class MapsController(base_controller.BaseController):
       
   def index(self):
     logging.info("ENTER:MapsController.index")
@@ -48,7 +39,7 @@ class MapsController(webapp.RequestHandler):
     logging.info("ENTER:MapsController.show")
     user = User.get_by_id(long(user_id))
     if user == None:
-      raise Redirect('/')
+      raise base_controller.Redirect('/')
     query = Message.all().order("-created").filter("user =", user)
     messages = query.fetch(20)
     template_values = {
