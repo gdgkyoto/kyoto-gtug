@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  <script type="text/javascript" src="/js/geotweet.js" ></script>
+</head>
+
+<body>
+  <div id="header">
+    <a href="{{ auth_url }}">{{auth_url_string}}</a>  
+  </div>
+  
+  <div>
+    <ul class="navigation">
+      <li><a href="/">Top</a></li>
+      <li><a href="/messages">Messages</a></li>      
+      <li><a href="/messages/new">New message</a></li>
+    </ul>    
+  </div>
+  
+  <hr />
+{%block main%}{%endblock%}
+</body>
+</html>

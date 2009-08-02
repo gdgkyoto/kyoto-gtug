@@ -1,25 +1,5 @@
-<html>
-
-<head>
-  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-</head>
-
-<body>
-
-  <div id="header">
-  </div>
-
-  
-  <div>
-    <ul class="navigation">
-      <li><a href="/">Top</a></li>
-      <li><a href="/messages">Messages</a></li>      
-      <li><a href="/messages/new">New message</a></li>
-    </ul>    
-  </div>
-  
-  <hr />
-  
+{%extends "../base.html" %}
+{% block main %}
   <h1>Message</h1>
 
   <div id="message">
@@ -36,6 +16,4 @@
     <p>Place:unknown</p>
     {% endif %}
   </div>
-
-</body>
-</html>
+{% endblock %}
