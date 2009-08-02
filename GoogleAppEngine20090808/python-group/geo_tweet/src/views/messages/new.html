@@ -1,41 +1,5 @@
-<html>
-<head>
-  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-  <script>
-    function locupdate(pos) {
-    var d = document.getElementById("d");
-    d.innerHTML = "lat: " + pos.coords.latitude + " long: " + pos.coords.longitude + " accuracy: " + pos.coords.accuracy;
-
-    var form = document.getElementById("form");
-    form.longitude.setAttribute('value', pos.coords.longitude);
-    form.latitude.setAttribute('value', pos.coords.latitude);
-    }
-
-    function handleError(a) {
-    var d = document.getElementById("d");
-    d.innerHTML = "<p> error: " + a.code + "</p>";
-    }
-
-    window.onload = function(){
-    navigator.geolocation.watchPosition(locupdate, handleError)
-    };
-  </script>
-</head>
-
-<body>
-  <div id="header">
-  </div>
-  
-  <div>
-    <ul class="navigation">
-      <li><a href="/">Top</a></li>
-      <li><a href="/messages">Messages</a></li>      
-      <li><a href="/messages/new">New message</a></li>
-    </ul>    
-  </div>
-  
-  <hr />
-  
+{%extends "../base.html" %}
+{%block main%}    
   <h1>New message</h1>
 
   <div id="content">
@@ -60,5 +24,29 @@
 
   </div>
 
-</body>
-</html>
+<script type="text/javascript">
+(function(){
+	var locupdate = function(pos){
+	    var d = document.getElementById("d");
+	    d.innerHTML = "lat: " + pos.coords.latitude + " long: " + pos.coords.longitude + " accuracy: " + pos.coords.accuracy;
+
+	    var form = document.getElementById("form");
+	    form.longitude.setAttribute('value', pos.coords.longitude);
+	    form.latitude.setAttribute('value', pos.coords.latitude);
+	};
+
+	var handleError = function(a){
+	    var d = document.getElementById("d");
+	    d.innerHTML = "<p> error: " + a.code + "</p>";		
+	};
+
+	window.onload = function(){
+		if(navigator.geolocation){
+			navigator.geolocation.watchPosition(locupdate,handleError);
+		}else{
+			alert("ご利用のブラウザでは位置情報が利用出来ません");
+		}
+	};
+})();
+</script>  
+{%endblock%}
