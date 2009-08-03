@@ -7,5 +7,7 @@ public class MakeRecipe extends WebPage{
 	
 	public MakeRecipe(final PageParameters parameters) {
 		System.out.println("デバッグ中");
+		
+		
 	}
 }
