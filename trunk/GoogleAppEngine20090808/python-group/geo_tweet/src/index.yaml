@@ -10,91 +10,91 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 4 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_1
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_10
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_11
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_12
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_13
   - name: created
     direction: desc
 
-# Used 4 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_2
   - name: created
     direction: desc
 
-# Used 26 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_3
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_4
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_5
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_6
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_7
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_8
   - name: created
     direction: desc
 
-# Used 48 times in query history.
+# Used 2 times in query history.
 - kind: Location
   properties:
   - name: location_geocell_9

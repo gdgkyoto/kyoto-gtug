@@ -9,6 +9,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from ..models.user import User
 import logging
+import os
 
 class LoginRequiredException(Exception):
   def __init__(self, redirect_url):
@@ -20,6 +21,9 @@ class Redirect(Exception):
 
 
 class BaseController(webapp.RequestHandler):
+  
+  VIEWS_PATH = os.path.join(os.path.dirname(__file__), "../../views") 
+  
   def get(self, *args):
     self.decide_response_format()
     try:

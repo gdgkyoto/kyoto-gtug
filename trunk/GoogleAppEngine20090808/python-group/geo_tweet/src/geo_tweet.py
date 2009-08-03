@@ -5,6 +5,7 @@ import logging
 from gt.controllers.maps_controller import MapsController
 from gt.controllers.messages_controller import MessagesController
 from gt.controllers.users_controller import UsersController
+from gt.controllers.tweets_controller import TweetsController
 
 application = webapp.WSGIApplication([('/', MapsController),
                                       ('/(\d+)', MapsController),
@@ -14,13 +15,11 @@ application = webapp.WSGIApplication([('/', MapsController),
                                       ('/messages/(\d+)/(edit|delete)', MessagesController),
                                       ('/users', UsersController),
                                       ('/users/(\d+|new)', UsersController),
-                                      ('/users/(\d+)/(edit|delete)', UsersController)],
+                                      ('/users/(\d+)/(edit|delete)', UsersController),
+                                      ('/tweets', TweetsController)],
                                      debug=True)
 
-logging.info("AAA")
-
 def main():
-    logging.info("HELLO")
     run_wsgi_app(application)
 
 if __name__ == "__main__":
