@@ -6,22 +6,17 @@ Created on 2009/08/01
 
 import logging
 import base_controller
-from ..models.user import User
-
 
 class TweetsController(base_controller.BaseController):
   
   def index(self):
-    logging.info("ENTER:MessagesController.index")
-    raise base_controller.Redirect('/')
+    pass
 
   def new(self):
-    # ASSERT LOGGED IN
-    raise base_controller.Redirect('/')
+    pass
 
   def show(self, message_id):
-    user = User.get_current_user()
-    raise base_controller.Redirect('/')
+    pass
     
   def create(self):
     # ASSERT LOGGED IN
@@ -35,16 +30,7 @@ class TweetsController(base_controller.BaseController):
     logging.info("Tweet was successfully posted")
     
   def edit(self, message_id):
-    # ASSERT LOGGED IN
-    user = User.get_current_user()
-    if user == None:
-      raise LoginRequiredException(self.request.uri)
-    raise base_controller.Redirect('/')
+    pass
 
   def delete(self, message_id):
-    # ASSERT LOGGED IN
-    # ASSERT User is the owner of this message
-    user = User.get_current_user()
-    if user == None:
-      raise LoginRequiredException(self.request.uri)
-    raise base_controller.Redirect('/')
+    pass
