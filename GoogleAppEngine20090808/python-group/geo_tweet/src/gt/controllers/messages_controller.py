@@ -7,6 +7,7 @@ Created on 2009/08/01
 import cgi
 #from google.appengine.api import users
 from google.appengine.ext import webapp
+from google.appengine.api.labs import taskqueue
 from google.appengine.ext import db
 import os
 from google.appengine.ext.webapp import template
@@ -82,7 +83,7 @@ class MessagesController(base_controller.BaseController):
     logging.info("ENTER:MessagesController.create")
     user = User.get_current_user()
     if user == None:
-      raise LoginRequiredException('/')
+      raise base_controller.LoginRequiredException('/')
     text = self.request.get("text")
     longitude = self.request.get("longitude")
     latitude = self.request.get("latitude")
@@ -103,6 +104,11 @@ class MessagesController(base_controller.BaseController):
     if place:
       message.place = place
     message.put()
+    
+    if user.twitter_account:
+      logging.debug("Posting a new tweet!")
+      taskqueue.add(url='/tweets', params={'oauth_token': user.twitter_account.oauth_token, 'tweet': text})
+      logging.debug("Posted a new tweet!")
     
     if self.response_format == 'json':
       path = os.path.join(os.path.dirname(__file__), "../../views/messages/show.json")

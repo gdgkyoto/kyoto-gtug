@@ -7,6 +7,4 @@ Created on 2009/08/01
 from google.appengine.ext import db
 
 class TwitterAccount(db.Model):
-  user = db.UserProperty(required=True)
-  account = db.StringProperty(required=True)
-  password = db.StringProperty(required=True)
+  oauth_token = db.StringProperty(required=True)

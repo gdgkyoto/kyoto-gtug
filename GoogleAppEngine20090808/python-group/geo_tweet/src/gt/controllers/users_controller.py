@@ -8,13 +8,22 @@ import cgi
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 import base_controller
-
+import os
+from ..models.user import User
+from ..models.twitter_account import TwitterAccount
 
 class UsersController(base_controller.BaseController):
 
   def index(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write("UsersController INDEX")
+    user = User.get_current_user()
+    if user == None:
+      raise base_controller.LoginRequiredException(self.request.url)
+    if self.request.get("oauth_token", None):
+      twitter_account = TwitterAccount(oauth_token=self.request.get("oauth_token"))
+      twitter_account.put()
+      user.twitter_account = twitter_account
+      user.put()
+    self.redirect(user.path())
 
   def new(self):
     # ASSERT LOGGED IN
@@ -22,8 +31,18 @@ class UsersController(base_controller.BaseController):
     self.response.out.write("UsersController NEW")
 
   def show(self, user_id):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write("UsersController SHOW: %s" % user_id)
+    user = User.get_current_user()
+    if user == None:
+      raise base_controller.LoginRequiredException(self.request.url)
+    editable = False
+    if user.key().id() == long(user_id):
+      editable = True
+    template_values = {
+      'user': user,
+      'editable': editable
+    }
+    path = os.path.join(self.VIEWS_PATH, "users/show.%s" % self.response_format)
+    self.response.out.write(template.render(path, template_values))
 
   def edit(self, user_id):
     # ASSERT LOGGED IN
