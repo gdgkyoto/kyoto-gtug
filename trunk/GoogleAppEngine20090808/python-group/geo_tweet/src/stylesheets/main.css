@@ -14,3 +14,19 @@ div.message {
 	background-color: #FFFFCC;
 	width: 600px;
 }
+
+ul#navigation {
+	list-style: none;
+}
+
+ul#navigation li {
+	display: inline;
+}
+
+ul#navigation a {
+	padding: 0.2em 0.3em;
+}
+
+ul#navigation a:hover {
+	background-color: #AAAAFF;
+}
