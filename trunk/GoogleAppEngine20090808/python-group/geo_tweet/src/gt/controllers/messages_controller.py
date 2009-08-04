@@ -107,7 +107,11 @@ class MessagesController(base_controller.BaseController):
     
     if user.twitter_account:
       logging.debug("Posting a new tweet!")
-      taskqueue.add(url='/tweets', params={'oauth_token': user.twitter_account.oauth_token, 'tweet': text})
+      taskqueue.add(url='/tweets',
+                    params={'oauth_token': user.twitter_account.oauth_token,
+                            'tweet': text,
+                            'user_id': user.key().id(),
+                            'message_id': message.key().id()})
       logging.debug("Posted a new tweet!")
     
     if self.response_format == 'json':

@@ -12,6 +12,9 @@ handlers:
 
 - url: /twitter/.*
   script: twitter_oauth_handler.py
+  
+- url: /images/.*
+  static_dir: images
 
 - url: /.*
   script: geo_tweet.py
