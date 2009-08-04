@@ -7,20 +7,31 @@
 </head>
 
 <body>
+
+<div id="wrap">
+
   <div id="header">
-    <a href="{{ auth_url }}">{{auth_url_string}}</a>  
-  </div>
-  
-  <div>
-    <ul id="navigation">
-      <li><a href="/">Top</a></li>
-      <li><a href="/messages">Messages</a></li>      
-      <li><a href="/messages/new">New message</a></li>
-      <li><a href="/users">Account</a></li>
-    </ul>    
+    <h1 id="title">GeoTweet beta</h1>
+    <div id="auth_url"><a href="{{ auth_url }}">{{auth_url_string}}</a></div>  
+    <div id="nav">
+      <ul id="navigation">
+        <li><a href="/">Top</a></li>
+        <li><a href="/messages">Messages</a></li>      
+        <li><a href="/messages/new">New message</a></li>
+        <li><a href="/users">Account</a></li>
+      </ul>    
+    </div>
   </div>
   
   <hr />
+  
+  <div id="main">
+  
 {%block main%}{%endblock%}
+  
+  </div>
+
+</div>
+
 </body>
 </html>
