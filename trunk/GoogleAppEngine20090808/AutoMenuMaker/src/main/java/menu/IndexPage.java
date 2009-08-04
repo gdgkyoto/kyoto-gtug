@@ -38,22 +38,21 @@ public class IndexPage extends WebPage {
                 
                 //***検索処理***//
                 final TextField<String> text=new TextField<String>("search",new PropertyModel<String>(this,"input"));
-        Form<Void> searchForm = new Form<Void>("searchForm"){
-                protected void onSubmit(){
-                        String inputData=text.getModelObject();
-                        searchword=input;
-                        //***検索ワードでDBにアクセスして検索を行う***//
-                        //***検索結果を画面に反映させる***//
-                        //***遷移したあとはテキストフィールドを消去しておく***//
-                        System.out.println("デバッグ中:"+searchword);
+                Form<Void> searchForm = new Form<Void>("searchForm"){
+                	protected void onSubmit(){
+                			String inputData=text.getModelObject();
+                			searchword=input;
+	                        //***検索ワードでDBにアクセスして検索を行う***//
+	                        //***検索結果を画面に反映させる***//
+	                        //***遷移したあとはテキストフィールドを消去しておく***//
+	                        System.out.println("デバッグ中:"+searchword);
                         
-                        //***テキストフィールドの消去***//
-                        input="";
-                        setResponsePage(IndexPage.class);
-                }
-       };
-       searchForm.add(text);
-       add(searchForm);
-       
+	                        //***テキストフィールドの消去***//
+	                        input="";
+	                        setResponsePage(IndexPage.class);
+	                }
+                };
+                searchForm.add(text);
+                add(searchForm);
         }
 }
