@@ -14,7 +14,7 @@ div#div {
 	margin : 0;
 	padding : 0;
 	width : 500px;
-	height : 1000px;
+	height : 700px;
 }
 div#canvas {
 	position : absolute;
@@ -51,6 +51,16 @@ table#amitabha td.pole.pole_on:hover {
 table#amitabha td.pole.route {
 	background : #f00;
 }
+table#amitabha img.image {
+	border: 3px solid #fff;
+	width : 50%;
+	height : 50%;
+}
+table#amitabha img.image_on,
+table#amitabha img.image:hover,
+table#amitabha img.image:active {
+	border: 3px solid #f00;
+}
 -->
 </style>
 <script type="text/javascript">
@@ -63,8 +73,11 @@ table#amitabha td.pole.route {
 	var Util;
 	(function() {
 		var _Util = Class.create({
-			/** コンストラクタ */
-			initialize : function() { },
+			/**
+			 * コンストラクタ
+			 */
+			initialize : function() {
+			},
 			/**
 			 * 行・列のインデックスからセルのIDを生成する
 			 * @param inR 行のインデックス
@@ -73,6 +86,9 @@ table#amitabha td.pole.route {
 			 */
 			getCellId : function(inR,inC) {
 				return 'pole_'+inR+'_'+inC;
+			},
+			getImageId : function(inC) {
+				return 'image_' + inC;
 			},
 			getCanvas : function() {
 				return $('canvas');
@@ -88,6 +104,12 @@ table#amitabha td.pole.route {
 			},
 			getRouteClassName : function() {
 				return 'route';
+			},
+			getImageClassName : function() {
+				return 'image';
+			},
+			getImageOnClassName : function() {
+				return 'image_on';
 			}
 		});
 		Util = new _Util();
@@ -98,36 +120,110 @@ table#amitabha td.pole.route {
 	 */
 	var amitabha;
 	(function() {
-		var userId = '1';
 		amitabha = {}
+//
+// ▽ JSPにてロジックを生成する部分 ▽
+//
+		/** ユーザID */
+		var userId = '1';
+		/**
+		 * 初期設定メソッド
+		 */
 		amitabha.init = function() {
 			this.setNumRows(100);
-			this.addUser(new User('0',new Point(0,0),'#f00','#f00'));
-			this.addUser(new User('1',new Point(0,2),'#0f0','#0f0'));
-			this.addUser(new User('2',new Point(0,4),'#00f','#00f'));
-			this.addUser(new User('3',new Point(0,6),'#ff0','#ff0'));
-			this.addUser(new User('3',new Point(0,8),'#f0f','#f0f'));
-			this.addUser(new User('3',new Point(0,10),'#0ff','#0ff'));
+			this.addUser(new User('0','名前0',new Point(0,0),'#f00','#f00'));
+			this.addUser(new User('1','名前1',new Point(0,1),'#0f0','#0f0'));
+			this.addUser(new User('2','名前2',new Point(0,2),'#00f','#00f'));
+			this.addUser(new User('3','名前3',new Point(0,3),'#ff0','#ff0'));
+			this.addUser(new User('4','名前4',new Point(0,4),'#f0f','#f0f'));
+			this.addUser(new User('5','名前5',new Point(0,5),'#0ff','#0ff'));
+
+			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
+			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
+			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
+			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
+			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
+			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
 		};
+		/**
+		 * 開始メソッド
+		 */
+		amitabha.start = function() {
+
+			this.setRouteDelay(0.1);
+			this.setIsRunning(true);
+		};
+//
+// △ JSPにてロジックを生成する部分 △
+//
+		/**
+		 * 継続中フラグ
+		 */
+		var isRunning;
+		amitabha.getIsRunning = function() {
+			return isRunning;
+		};
+		amitabha.setIsRunning = function(inR) {
+			isRunning = inR;
+		};
+		/** 行数 */
 		var numRows;
+		/**
+		 * 行数を取得する
+		 * @return 行数
+		 */
 		amitabha.getNumRows = function() {
 			return numRows;
 		};
+		/**
+		 * 行数を設定する
+		 * @param inN 行数
+		 */
 		amitabha.setNumRows = function(inN) {
 			numRows = inN;
 		};
 		/** ユーザのリスト */
 		var users = $A();
+		/**
+		 * ユーザを追加する
+		 * @param inU ユーザ
+		 */
 		amitabha.addUser = function(inU) {
 			users.push(inU);
 		};
+		/**
+		 * ユーザ数を取得する
+		 * @return ユーザ数
+		 */
 		amitabha.getNumUsers = function() {
 			return users.length;
 		};
-		amitabha.getUser = function() {
+		/**
+		 * ユーザIDからユーザを取得する
+		 * @param inId ユーザID
+		 * @return ユーザ
+		 */
+		amitabha.getUser = function(inId) {
+			if(inId === undefined) inId = userId;
 			return users.find(function(user,index) {
-				return user.getId() == userId
+				return user.getId() == inId;
 			});
+		};
+		/**
+		 * インデックスからユーザを取得する
+		 * @param inI インデックス
+		 * @return ユーザ
+		 */
+		amitabha.getUserByIndex = function(inI) {
+			return users[inI];
+		};
+		/** 画像のリスト */
+		var images = $A();
+		amitabha.addImage = function(inImg) {
+			images.push(inImg);
+		};
+		amitabha.getImageByIndex = function(inI) {
+			return images[inI];
 		};
 		/** ラインのリスト */
 		var lines = $A();
@@ -158,6 +254,11 @@ table#amitabha td.pole.route {
 				return line.isCross(inL);
 			});
 		};
+		/**
+		 * ラインを取得する
+		 * @param inP ラインの端ポイント
+		 * @return ポイントを所有するライン
+		 */
 		amitabha.getLine = function(inP) {
 			return lines.find(function(line,index) {
 				var toPoint = line.getTo();
@@ -168,6 +269,11 @@ table#amitabha td.pole.route {
 				return false;
 			});
 		};
+		/**
+		 * 次のポイントを取得する
+		 * @param inP ポイント
+		 * @return 次のポイント
+		 */
 		amitabha.getNextPoint = function(inP) {
 			var line = this.getLine(inP);
 			if(!line) {
@@ -184,6 +290,24 @@ table#amitabha td.pole.route {
 				return new Point(_p.getRow()+1,_p.getCol());
 			}
 		};
+		/** ルート表示アニメーション間隔 */
+		var routeDelay;
+		amitabha.getRouteDelay = function() {
+			return routeDelay;
+		};
+		amitabha.setRouteDelay = function(inR) {
+			routeDelay = inR;
+		},
+		amitabha.crearRoutes = function() {
+			var tds = $A(Util.getAmitabha().getElementsByClassName(Util.getRouteClassName()));
+			tds.each(function(td) {
+				td.removeClassName(Util.getRouteClassName());
+			});
+			var images = $A(Util.getAmitabha().getElementsByClassName(Util.getImageOnClassName()));
+			images.each(function(image) {
+				image.removeClassName(Util.getImageOnClassName());
+			});
+		}
 	})();
 
 	/**
@@ -222,14 +346,18 @@ table#amitabha td.pole.route {
 	 * ユーザクラス
 	 */
 	var User = Class.create({
-		initialize : function(inId,inP,inPoleC,inPassC) {
+		initialize : function(inId,inN,inP,inPoleC,inPassC) {
 			this.id = inId;
+			this.name = inN;
 			this.startPoint = inP;
 			this.poleColor = inPoleC;
 			this.passColor = inPassC;
 		},
 		getId : function() {
 			return this.id;
+		},
+		getName : function() {
+			return this.name;
 		},
 		getStartPoint : function() {
 			return this.startPoint;
@@ -239,6 +367,21 @@ table#amitabha td.pole.route {
 		},
 		getPassColor : function() {
 			return this.passColor;
+		}
+	});
+
+	/**
+	 * 画像クラス
+	 */
+	var Image = Class.create({
+		initialize : function(inU) {
+			this.url = inU;
+		},
+		getHtmlElement : function() {
+			var img = new Element('img');
+			img.setAttribute('src',this.url);
+			img.addClassName(Util.getImageClassName());
+			return img;
 		}
 	});
 
@@ -281,8 +424,13 @@ table#amitabha td.pole.route {
 		underThan: function(inP) {
 			return inP.getRow() < this.getRow();
 		},
+		/**
+		 * 隣のポールかどうかを返す
+		 * @param inP チェック対象ポイント
+		 * @return 隣のポールであればtrue
+		 */
 		isNext : function(inP) {
-			return Math.abs(this.getCol() - inP.getCol()) == 2;
+			return Math.abs(this.getCol() - inP.getCol()) == 1;
 		},
 		equalCell : function(inP) {
 			return ((this.getRow() == inP.getRow()) && (this.getCol() == inP.getCol()));
@@ -293,16 +441,33 @@ table#amitabha td.pole.route {
 	 * ライン情報クラス
 	 */
 	var Line = Class.create({
+		/**
+		 * コンストラクタ
+		 * @param inTo 始点ポイント
+		 * @param inFrom 終点ポイント
+		 */
 		initialize : function(inTo,inFrom) {
 			this.to = inTo;
 			this.from = inFrom;
 		},
+		/**
+		 * 先にクリックされたポイントを取得する
+		 * @return 先にクリックされたポイント
+		 */
 		getTo : function() {
 			return this.to;
 		},
+		/**
+		 * 後にクリックされたポイントを取得する
+		 * @return 後にクリックされたポイント
+		 */
 		getFrom : function() {
 			return this.from;
 		},
+		/**
+		 * ラインの左端のポイントを取得する
+		 * @return ラインの左端のポイント
+		 */
 		getLeft : function() {
 			if(this.getTo().getCol() < this.getFrom().getCol()) {
 				return this.getTo();
@@ -310,6 +475,10 @@ table#amitabha td.pole.route {
 				return this.getFrom();
 			}
 		},
+		/**
+		 * ラインの右端のポイントを取得する
+		 * @return ラインの右端のポイント
+		 */
 		getRight : function() {
 			if(this.getTo().getCol() < this.getFrom().getCol()) {
 				return this.getFrom();
@@ -317,6 +486,11 @@ table#amitabha td.pole.route {
 				return this.getTo();
 			}
 		},
+		/**
+		 * ラインが交差しているかどうかをチェックする
+		 * @param inL チェック対象ライン
+		 * @return ラインが交差していればtrue
+		 */
 		isCross : function(inL) {
 			if(!this.getLeft().isCommonCol(inL.getLeft())) {
 				return false;
@@ -335,46 +509,122 @@ table#amitabha td.pole.route {
 		}
 	});
 
+	//
+	// オンロードイベント登録
+	//
 	Event.observe(document,'dom:loaded',function(inE) {
+		//
+		// 初期設定値を読み込み
+		//
 		amitabha.init();
+
 		var row = amitabha.getNumRows();
 		var num = amitabha.getNumUsers();
 		var table = Util.getAmitabha();
 		var canvas = Util.getCanvas();
+
 		//
 		// テーブル生成
 		//
 		(function() {
+			//
+			// あみだくじ生成
+			//
 			for(var i=0; i<row; ++i) {
 				var tr = $(table.insertRow(i));
-				if(0 < num) {
-					var td = $(tr.insertCell(0));
-					td.addClassName(Util.getPoleClassName());
-					td.setAttribute('id',Util.getCellId(i,0));
-					td.setAttribute('row',i);
-					td.setAttribute('col',0);
-				}
-				for(var j=1; j<num; ++j) {
-					var td = $(tr.insertCell(j*2-1));
+				for(var j=0; j<num; ++j) {
+					var index = j*3;
+					var td = $(tr.insertCell(index));
 					td.addClassName('empty');
-					td = $(tr.insertCell(j*2));
+					++index; 
+					td = $(tr.insertCell(index));
 					td.addClassName(Util.getPoleClassName());
-					td.setAttribute('id',Util.getCellId(i,j*2));
+					td.setAttribute('id',Util.getCellId(i,j));
 					td.setAttribute('row',i);
-					td.setAttribute('col',j*2);
+					td.setAttribute('col',j);
+					++index;
+					td = $(tr.insertCell(index));
+					td.addClassName('empty');
 				}
 			}
+			//
+			// ボタン配置
+			//
+			var tr = $(table.insertRow(0));
+			var routeTimer;
+			for(var j=0; j<num; ++j) {
+				var td = $(tr.insertCell(j));
+				td.setAttribute('colspan',3);
+				td.setStyle({'textAlign':'center','paddingLeft':'auto','paddingRight':'auto'});
+				var _user = amitabha.getUserByIndex(j);
+				var button = new Element('button');
+				button.appendChild(document.createTextNode(_user.getName()));
+				td.appendChild(button);
+				//
+				// ルート表示アニメーション登録
+				// タイマはすべてのボタンで共通とする
+				//
+				(function() {
+					var user = _user;
+					Event.observe(button,'click',function(inE) {
+						if(routeTimer) routeTimer.stop();
+						amitabha.crearRoutes();
+						var point = user.getStartPoint();
+						routeTimer = new PeriodicalExecuter(function() {
+							$(point.getId()).addClassName(Util.getRouteClassName());
+							var _point = amitabha.getNextPoint(point);
+							if(!_point) {
+								routeTimer.stop();
+								$(Util.getImageId(point.getCol())).addClassName(Util.getImageOnClassName());
+							}
+							point = _point;
+						},amitabha.getRouteDelay());
+					});
+				})();
+			}
+			var tr = $(table.insertRow(0));
+			var td = $(tr.insertCell(0));
+			td.setAttribute('colspan',num*3);
+			td.setStyle({'textAlign':'right','paddingLeft':'auto','paddingRight':'auto'});
+			var button = new Element('button');
+			button.appendChild(document.createTextNode('clear'));
+			td.appendChild(button);
+			Event.observe(button,'click',function(inE) {
+				if(routeTimer) routeTimer.stop();
+				amitabha.crearRoutes();
+			});
+			//
+			// 画像配置
+			//
+			var tr = $(table.insertRow(table.rows.length)); // table.rows DOM2プロパティ
+			for(var j=0; j<num; ++j) {
+				var td = $(tr.insertCell(j));
+				td.setAttribute('colspan',3);
+				td.setStyle({'textAlign':'center','paddingLeft':'auto','paddingRight':'auto'});
+				var img = amitabha.getImageByIndex(j).getHtmlElement();
+				img.setAttribute('id',Util.getImageId(j));
+				td.appendChild(img);
+			}
 		})();
+
+		//
+		// 各種イベント登録
+		//
 		(function() {
-			var isClickable = function(inR,inC) {
-				var point = new Point(inR,inC);
-				if(amitabha.hasClickedPoint(point)) return false;
-				if(status.findClickedPoint(point)) return false;
+			/**
+			 * セルがクリックできるかどうかを返す
+			 * @param inR セルの行
+			 * @param inC セルの列
+			 */
+			var isClickable = function(inP) {
+				if(!amitabha.getIsRunning()) return false;
+				if(amitabha.hasClickedPoint(inP)) return false;
+				if(status.findClickedPoint(inP)) return false;
 				var startPoint = status.getStartPoint();
 				if(!startPoint) return true;
-				if(!startPoint.isNext(point)) return false;
-				var point = new Point(inR,inC);
-				var line = new Line(startPoint,point);
+				if(!startPoint.isNext(inP)) return false;
+				if(!startPoint.isCommonRow(inP)) return false; // 横線のみ
+				var line = new Line(startPoint,inP);
 				if(amitabha.hasCrossLine(line)) return false;
 				return true;
 			};
@@ -390,27 +640,27 @@ table#amitabha td.pole.route {
 				Event.observe(inTd,'click',function(inE) {
 					currentCell = null;
 					var td = Event.element(inE);
-					var id = td.getAttribute('id');
 					var row = td.getAttribute('row');
 					var col = td.getAttribute('col');
-					if(!isClickable(row,col)) return;
+					var point = new Point(row,col);
+					if(!isClickable(point)) return;
 					td.addClassName(Util.getPoleOnClassName());
 					currentCell = td;
 				});
 				Event.observe(inTd,'mouseover',function(inE) {
 					var td = Event.element(inE);
-					var id = td.getAttribute('id');
 					var row = td.getAttribute('row');
 					var col = td.getAttribute('col');
-					if(!isClickable(row,col)) return;
+					var point = new Point(row,col);
+					if(!isClickable(point)) return;
 					td.addClassName(Util.getPoleOnClassName());
 				});
 				Event.observe(inTd,'mouseout',function(inE) {
 					var td = Event.element(inE);
-					var id = td.getAttribute('id');
 					var row = td.getAttribute('row');
 					var col = td.getAttribute('col');
-					if(!isClickable(row,col)) return;
+					var point = new Point(row,col);
+					if(!isClickable(point)) return;
 					td.removeClassName(Util.getPoleOnClassName());
 				});
 			});
@@ -433,7 +683,7 @@ table#amitabha td.pole.route {
 					var jg2 = new jsGraphics(canvas);
 					jg2.setColor(amitabha.getUser().getPassColor());
 					jg2.drawLine(preX,preY,x,y);
-					jg2.drawLine(preX+1,preY+1,x+1,y+1);
+//					jg2.drawLine(preX+1,preY+1,x+1,y+1);
 					jg2.drawLine(preX-1,preY-1,x-1,y-1);
 //					jg2.drawImage('./gtug-mini145x59.png',(preX+x)/2,(preY+y)/2,20,20);
 					jg2.paint();
@@ -443,32 +693,12 @@ table#amitabha td.pole.route {
 					status.setStartPoint(point);
 				}
 			});
-			//
-			//
-			//
-			var routeTimer;
-			Event.observe($('route'),'click',function(inE) {
-				if(routeTimer) routeTimer.stop();
-				var tds = $A(Util.getAmitabha().getElementsByClassName(Util.getRouteClassName()));
-				tds.each(function(td) {
-					td.removeClassName(Util.getRouteClassName());
-				});
-				var user = amitabha.getUser();
-				var point = user.getStartPoint();
-/*
-				while(point) {
-					$(point.getId()).addClassName(Util.getRouteClassName());
-					point = amitabha.getNextPoint(point);
-				}
-*/
-				routeTimer = new PeriodicalExecuter(function() {
-					$(point.getId()).addClassName(Util.getRouteClassName());
-					point = amitabha.getNextPoint(point);
-					if(!point) routeTimer.stop();
-				},0.1);
-
-			});
 		})();
+
+		//
+		// 開始
+		//
+		amitabha.start();
 	});
 
 	/**
@@ -491,9 +721,6 @@ table#amitabha td.pole.route {
 			ボタンを押すと経路に色が付きます。
 		</div>
 		<br />
-		<div>
-			<input type="button" name="" id="route" value="route" />
-		</div>
 		<br />
 		<div id="div">
 			<div id="canvas"></div>
