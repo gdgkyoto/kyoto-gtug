@@ -1,0 +1,505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<title>あみだくじサンプル</title>
+		<script type="text/javascript" src="./prototype.js"></script>
+		<script type="text/javascript" src="./wz_jsgraphics.js"></script>
+<style type="text/css">
+<!--
+div#div {
+	position : relative;
+	margin : 0;
+	padding : 0;
+	width : 500px;
+	height : 1000px;
+}
+div#canvas {
+	position : absolute;
+	margin : 0;
+	padding : 0;
+	width : 100%;
+	height : 100%;
+	z-index : 0;
+}
+table#amitabha {
+	border-collapse : collapse;
+	border-spacing : 0;
+	position : absolute;
+	margin : 0;
+	padding : 0;
+	width : 100%;
+	height : 100%;
+	z-index : 1;
+}
+table#amitabha td.pole {
+	border : 1px solid;
+	width : 10px;
+	background : #999;
+}
+table#amitabha td.pole.pole_on {
+	border : 1px solid;
+	width : 10px;
+	background : #f99;
+	cursor : pointer;
+}
+table#amitabha td.pole.pole_on:hover {
+	background : #9f9;
+}
+table#amitabha td.pole.route {
+	background : #f00;
+}
+-->
+</style>
+<script type="text/javascript">
+<!--
+(function() {
+
+	/**
+	 * ユーティリティ
+	 */
+	var Util;
+	(function() {
+		var _Util = Class.create({
+			/** コンストラクタ */
+			initialize : function() { },
+			/**
+			 * 行・列のインデックスからセルのIDを生成する
+			 * @param inR 行のインデックス
+			 * @param inC 列のインデックス
+			 * @return セルのID
+			 */
+			getCellId : function(inR,inC) {
+				return 'pole_'+inR+'_'+inC;
+			},
+			getCanvas : function() {
+				return $('canvas');
+			},
+			getAmitabha : function() {
+				return $('amitabha');
+			},
+			getPoleClassName : function() {
+				return 'pole';
+			},
+			getPoleOnClassName : function() {
+				return 'pole_on';
+			},
+			getRouteClassName : function() {
+				return 'route';
+			}
+		});
+		Util = new _Util();
+	})();
+
+	/**
+	 * あみだくじデータ
+	 */
+	var amitabha;
+	(function() {
+		var userId = '1';
+		amitabha = {}
+		amitabha.init = function() {
+			this.setNumRows(100);
+			this.addUser(new User('0',new Point(0,0),'#f00','#f00'));
+			this.addUser(new User('1',new Point(0,2),'#0f0','#0f0'));
+			this.addUser(new User('2',new Point(0,4),'#00f','#00f'));
+			this.addUser(new User('3',new Point(0,6),'#ff0','#ff0'));
+			this.addUser(new User('3',new Point(0,8),'#f0f','#f0f'));
+			this.addUser(new User('3',new Point(0,10),'#0ff','#0ff'));
+		};
+		var numRows;
+		amitabha.getNumRows = function() {
+			return numRows;
+		};
+		amitabha.setNumRows = function(inN) {
+			numRows = inN;
+		};
+		/** ユーザのリスト */
+		var users = $A();
+		amitabha.addUser = function(inU) {
+			users.push(inU);
+		};
+		amitabha.getNumUsers = function() {
+			return users.length;
+		};
+		amitabha.getUser = function() {
+			return users.find(function(user,index) {
+				return user.getId() == userId
+			});
+		};
+		/** ラインのリスト */
+		var lines = $A();
+		/**
+		 * ラインを追加する
+		 * @param inL 追加するライン
+		 */
+		amitabha.addLine = function(inL) {
+			lines.push(inL);
+		};
+		/**
+		 * クリック済みであるかチェックする
+		 * @param inP チェック対象ポイント
+		 * @return クリック済みの場合は真
+		 */
+		amitabha.hasClickedPoint = function(inP) {
+			return lines.find(function(line,index) {
+				return line.getTo().getId() == inP.getId() || line.getFrom().getId() == inP.getId();
+			});
+		};
+		/**
+		 * 交差するラインがあるかチェックする
+		 * @param inL チェック対象ライン
+		 * @return 交差するラインがある場合は真
+		 */
+		amitabha.hasCrossLine = function(inL) {
+			return lines.find(function(line,index) {
+				return line.isCross(inL);
+			});
+		};
+		amitabha.getLine = function(inP) {
+			return lines.find(function(line,index) {
+				var toPoint = line.getTo();
+				var fromPoint = line.getFrom();
+				if(toPoint.equalCell(inP) || fromPoint.equalCell(inP)) {
+					return true;
+				}
+				return false;
+			});
+		};
+		amitabha.getNextPoint = function(inP) {
+			var line = this.getLine(inP);
+			if(!line) {
+				if(this.getNumRows() <= inP.getRow()+1) return;
+				return new Point(inP.getRow()+1,inP.getCol());
+			}
+			if(line.getTo().equalCell(inP)) {
+				var _p = line.getFrom();
+				if(this.getNumRows() <= _p.getRow()+1) return;
+				return new Point(_p.getRow()+1,_p.getCol());
+			} else {
+				var _p = line.getTo();
+				if(this.getNumRows() <= _p.getRow()+1) return;
+				return new Point(_p.getRow()+1,_p.getCol());
+			}
+		};
+	})();
+
+	/**
+	 * 状態データ
+	 */
+	var status;
+	(function() {
+		status = {};
+		/** 開始ポイント */
+		var startPoint;
+		/**
+		 * 開始ポイントを取得する
+		 * @return 開始ポイント
+		 */
+		status.getStartPoint = function() {
+			return startPoint;
+		};
+		/**
+		 * 開始ポイントを設定する
+		 * @param 開始ポイント
+		 */
+		status.setStartPoint = function(inP) {
+			startPoint = inP;
+		};
+		/**
+		 * クリック済みであるかチェックする
+		 * @param inP チェック対象ポイント
+		 * @return クリック済みの場合は真
+		 */
+		status.findClickedPoint = function(inP) {
+			return (startPoint && (startPoint.getId() == inP.getId()));
+		};
+	})();
+
+	/**
+	 * ユーザクラス
+	 */
+	var User = Class.create({
+		initialize : function(inId,inP,inPoleC,inPassC) {
+			this.id = inId;
+			this.startPoint = inP;
+			this.poleColor = inPoleC;
+			this.passColor = inPassC;
+		},
+		getId : function() {
+			return this.id;
+		},
+		getStartPoint : function() {
+			return this.startPoint;
+		},
+		getPoleColor : function() {
+			return this.poleColor;
+		},
+		getPassColor : function() {
+			return this.passColor;
+		}
+	});
+
+	/**
+	 * クリック位置情報クラス
+	 */
+	var Point = Class.create({
+		initialize : function(inR,inC,inX,inY) {
+			this.row = parseInt(inR);
+			this.col = parseInt(inC);
+			this.x = parseInt(inX);
+			this.y = parseInt(inY);
+		},
+		getRow : function() {
+			return this.row;
+		},
+		getCol : function() {
+			return this.col;
+		},
+		getX : function() {
+			return this.x;
+		},
+		getY : function() {
+			return this.y;
+		},
+		getId : function() {
+			if((this.getRow() || this.getRow()===0) && (this.getCol() || this.getCol()===0)) {
+				return Util.getCellId(this.getRow(),this.getCol());
+			}
+		},
+		isCommonRow : function(inP) {
+			return this.getRow() == inP.getRow();
+		},
+		isCommonCol : function(inP) {
+			return this.getCol() == inP.getCol();
+		},
+		upperThan : function(inP) {
+			return this.getRow() < inP.getRow();
+		},
+		underThan: function(inP) {
+			return inP.getRow() < this.getRow();
+		},
+		isNext : function(inP) {
+			return Math.abs(this.getCol() - inP.getCol()) == 2;
+		},
+		equalCell : function(inP) {
+			return ((this.getRow() == inP.getRow()) && (this.getCol() == inP.getCol()));
+		}
+	});
+
+	/**
+	 * ライン情報クラス
+	 */
+	var Line = Class.create({
+		initialize : function(inTo,inFrom) {
+			this.to = inTo;
+			this.from = inFrom;
+		},
+		getTo : function() {
+			return this.to;
+		},
+		getFrom : function() {
+			return this.from;
+		},
+		getLeft : function() {
+			if(this.getTo().getCol() < this.getFrom().getCol()) {
+				return this.getTo();
+			} else {
+				return this.getFrom();
+			}
+		},
+		getRight : function() {
+			if(this.getTo().getCol() < this.getFrom().getCol()) {
+				return this.getFrom();
+			} else {
+				return this.getTo();
+			}
+		},
+		isCross : function(inL) {
+			if(!this.getLeft().isCommonCol(inL.getLeft())) {
+				return false;
+			}
+			if(this.getLeft().upperThan(inL.getLeft())
+				&& this.getRight().upperThan(inL.getRight())
+			) {
+				return false;
+			}
+			if(this.getLeft().underThan(inL.getLeft())
+				&& this.getRight().underThan(inL.getRight())
+			) {
+				return false;
+			}
+			return true;
+		}
+	});
+
+	Event.observe(document,'dom:loaded',function(inE) {
+		amitabha.init();
+		var row = amitabha.getNumRows();
+		var num = amitabha.getNumUsers();
+		var table = Util.getAmitabha();
+		var canvas = Util.getCanvas();
+		//
+		// テーブル生成
+		//
+		(function() {
+			for(var i=0; i<row; ++i) {
+				var tr = $(table.insertRow(i));
+				if(0 < num) {
+					var td = $(tr.insertCell(0));
+					td.addClassName(Util.getPoleClassName());
+					td.setAttribute('id',Util.getCellId(i,0));
+					td.setAttribute('row',i);
+					td.setAttribute('col',0);
+				}
+				for(var j=1; j<num; ++j) {
+					var td = $(tr.insertCell(j*2-1));
+					td.addClassName('empty');
+					td = $(tr.insertCell(j*2));
+					td.addClassName(Util.getPoleClassName());
+					td.setAttribute('id',Util.getCellId(i,j*2));
+					td.setAttribute('row',i);
+					td.setAttribute('col',j*2);
+				}
+			}
+		})();
+		(function() {
+			var isClickable = function(inR,inC) {
+				var point = new Point(inR,inC);
+				if(amitabha.hasClickedPoint(point)) return false;
+				if(status.findClickedPoint(point)) return false;
+				var startPoint = status.getStartPoint();
+				if(!startPoint) return true;
+				if(!startPoint.isNext(point)) return false;
+				var point = new Point(inR,inC);
+				var line = new Line(startPoint,point);
+				if(amitabha.hasCrossLine(line)) return false;
+				return true;
+			};
+			////
+			// ※ イベントAの直後にイベントBが発生する
+			////
+			var currentCell;
+			//
+			// 始点終点セルクリックイベント(A)、マウスオーバーイベント登録
+			//
+			var tds = $A(table.getElementsByClassName(Util.getPoleClassName()));
+			tds.each(function(inTd) {
+				Event.observe(inTd,'click',function(inE) {
+					currentCell = null;
+					var td = Event.element(inE);
+					var id = td.getAttribute('id');
+					var row = td.getAttribute('row');
+					var col = td.getAttribute('col');
+					if(!isClickable(row,col)) return;
+					td.addClassName(Util.getPoleOnClassName());
+					currentCell = td;
+				});
+				Event.observe(inTd,'mouseover',function(inE) {
+					var td = Event.element(inE);
+					var id = td.getAttribute('id');
+					var row = td.getAttribute('row');
+					var col = td.getAttribute('col');
+					if(!isClickable(row,col)) return;
+					td.addClassName(Util.getPoleOnClassName());
+				});
+				Event.observe(inTd,'mouseout',function(inE) {
+					var td = Event.element(inE);
+					var id = td.getAttribute('id');
+					var row = td.getAttribute('row');
+					var col = td.getAttribute('col');
+					if(!isClickable(row,col)) return;
+					td.removeClassName(Util.getPoleOnClassName());
+				});
+			});
+			//
+			// 座標取得クリックイベント(B)登録
+			//
+			Event.observe(table,'click',function(inE) {
+				if(!currentCell) return;
+				var offset = Element.cumulativeOffset(table)
+				var x = Event.pointerX(inE) - offset[0];
+				var y = Event.pointerY(inE) - offset[1];
+				var id = currentCell.getAttribute('id');
+				var row = currentCell.getAttribute('row');
+				var col = currentCell.getAttribute('col');
+				var point = new Point(row,col,x,y);
+				currentCell = null;
+				if(status.getStartPoint()) {
+					var preX = status.getStartPoint().getX();
+					var preY = status.getStartPoint().getY();
+					var jg2 = new jsGraphics(canvas);
+					jg2.setColor(amitabha.getUser().getPassColor());
+					jg2.drawLine(preX,preY,x,y);
+					jg2.drawLine(preX+1,preY+1,x+1,y+1);
+					jg2.drawLine(preX-1,preY-1,x-1,y-1);
+//					jg2.drawImage('./gtug-mini145x59.png',(preX+x)/2,(preY+y)/2,20,20);
+					jg2.paint();
+					amitabha.addLine(new Line(status.getStartPoint(), point));
+					status.setStartPoint(null);
+				} else {
+					status.setStartPoint(point);
+				}
+			});
+			//
+			//
+			//
+			var routeTimer;
+			Event.observe($('route'),'click',function(inE) {
+				if(routeTimer) routeTimer.stop();
+				var tds = $A(Util.getAmitabha().getElementsByClassName(Util.getRouteClassName()));
+				tds.each(function(td) {
+					td.removeClassName(Util.getRouteClassName());
+				});
+				var user = amitabha.getUser();
+				var point = user.getStartPoint();
+/*
+				while(point) {
+					$(point.getId()).addClassName(Util.getRouteClassName());
+					point = amitabha.getNextPoint(point);
+				}
+*/
+				routeTimer = new PeriodicalExecuter(function() {
+					$(point.getId()).addClassName(Util.getRouteClassName());
+					point = amitabha.getNextPoint(point);
+					if(!point) routeTimer.stop();
+				},0.1);
+
+			});
+		})();
+	});
+
+	/**
+	 * ログを表示する
+	 * @param inM メッセージ
+	 */
+	var log = function(inM) {
+		var div = new Element('div');
+		div.appendChild(document.createTextNode(inM));
+		$('log').appendChild(div);
+	};
+})();
+//-->
+</script>
+	</head>
+	<body>
+		<h2>あみだくじサンプル</h2>
+		<div>
+			セルをクリックして線を引けます。<br />
+			ボタンを押すと経路に色が付きます。
+		</div>
+		<br />
+		<div>
+			<input type="button" name="" id="route" value="route" />
+		</div>
+		<br />
+		<div id="div">
+			<div id="canvas"></div>
+			<table summary="" id="amitabha">
+			</table>
+		</div>
+		<div id="log"></div>
+	</body>
+</html>
