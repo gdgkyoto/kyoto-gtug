@@ -5,34 +5,34 @@
         <title></title>
 </head>
         <body>
-                <form>
+                <form wicket:id="recipeForm" method="post">
                 <table>
                         <tr>
-                                <td>タイトル</td>
+							<td>タイトル</td>
                         </tr>
                         <tr>
-                                <td><input type="text"></td>
+                        	<td><input type="text" wicket:id="title"/></td>
                         </tr>
                         <tr>
-                                <td>画像</td>
+                        	<td>画像</td>
                         </tr>
                         <tr>
-                                <td><input type="file"></td>
+							<td><input type="file"></td>
                         </tr>
                         <tr>
-                                <td>材料</td>
+							<td>材料</td>
                         </tr>
                         <tr>
-                                <td><textarea></textarea></td>
+							<td><textarea wicket:id="Material"></textarea></td>
                         </tr>
                         <tr>
-                                <td>作り方</td>
+							<td>作り方</td>
                         </tr>
                         <tr>
-                                <td><textarea></textarea></td>
+							<td><textarea wicket:id="Cook"></textarea></td>
                         </tr>
                         <tr>
-                                <td align="right"><input type="submit" value="登録"></td>
+							<td align="right"><input type="submit" value="登録"/></td>
                         </tr>
                 </table>
                 </form>

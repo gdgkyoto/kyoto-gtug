@@ -19,12 +19,17 @@ public class WicketApplication extends WebApplication {
                 return new HttpSessionStore(this);
         }
 
-        //***文字コードの設定***//
+        //***初期化***//
         @Override
         protected void init() {
-                super.init();
-                getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
-                getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
+        	super.init();
+        	
+        	//***文字コードの設定***//
+        	getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
+        	getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
+        	
+        	//***ページ設定***//
+        	mountBookmarkablePage("/MakeRecipe", MakeRecipe.class);
         }
 
        
