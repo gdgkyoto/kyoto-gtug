@@ -102,7 +102,11 @@
     }
   
     window.onload = function(){
-      navigator.geolocation.watchPosition(locupdate, handleError)
+      if(navigator.geolocation){
+        navigator.geolocation.watchPosition(locupdate,handleError);
+      }else{
+        alert("ご利用のブラウザでは位置情報が利用出来ません");
+      }
     };
   </script>
   
