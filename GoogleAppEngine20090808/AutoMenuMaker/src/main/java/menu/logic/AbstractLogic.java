@@ -7,7 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import menu.PMF;
+import menu.dao.PMF;
 
 public class AbstractLogic<T> {
 
