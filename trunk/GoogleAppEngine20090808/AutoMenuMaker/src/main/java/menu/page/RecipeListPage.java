@@ -1,18 +1,57 @@
-package menu;
+package menu.page;
+
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
+import menu.MakeRecipe;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
 
-public class IndexPage extends WebPage {
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
+public class RecipeListPage extends WebPage {
         
         private String input="";
         private String searchword="";
         
-        public IndexPage(final PageParameters parameters) {
+        public RecipeListPage(final PageParameters parameters) {
+        	
+	        	UserService userService = UserServiceFactory.getUserService();
+	    		HttpServletRequest request = getWebRequestCycle().getWebRequest().getHttpServletRequest();
+	    		String thisURL = request.getRequestURI();
+	    		Principal principal = request.getUserPrincipal();
+	    		if (principal != null) {
+	    			User user = userService.getCurrentUser();
+	    			Label nicknameLabel = new Label("nickname", user.getNickname());
+	    			add(nicknameLabel);
+	                
+	                String url = userService.createLogoutURL(thisURL);
+	                ExternalLink link = new ExternalLink("logout", url);
+	                add(link);
+	    		}
+	    		else {
+	    			setResponsePage(new IndexPage(null));
+	    		}
+	    		
+	    		Link<String> importRecipe = new Link<String>("importRecipe"){
+	    			@Override
+	    			public void onClick() {
+	    				setResponsePage(new CookPadRecipeListPage(null));
+	    			}
+	    		};
+	    		add(importRecipe);
+
                 
                 //***献立表示ページへのリンク***//
                 Form<Void> menuForm = new Form<Void>("menuForm");
@@ -49,7 +88,7 @@ public class IndexPage extends WebPage {
                         
 	                        //***テキストフィールドの消去***//
 	                        input="";
-	                        setResponsePage(IndexPage.class);
+	                        setResponsePage(RecipeListPage.class);
 	                }
                 };
                 searchForm.add(text);
