@@ -1,4 +1,0 @@
-C:/choi/prog/jruby-1.3.1/bin/../bin/jruby.bat extconf.rb
-C:/choi/prog/jruby-1.3.1/bin/../lib/ruby/1.8/mkmf.rb:7: JRuby does not support native extensions. Check wiki.jruby.org for alternatives. (NotImplementedError)
-	from C:/choi/prog/jruby-1.3.1/bin/../lib/ruby/1.8/mkmf.rb:1:in `require'
-	from extconf.rb:1
