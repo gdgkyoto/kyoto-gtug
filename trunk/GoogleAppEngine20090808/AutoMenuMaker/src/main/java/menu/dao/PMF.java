@@ -1,4 +1,4 @@
-package menu;
+package menu.dao;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
