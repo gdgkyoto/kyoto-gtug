@@ -9,9 +9,13 @@
 		<script type="text/javascript" src="./wz_jsgraphics.js"></script>
 <style type="text/css">
 <!--
+div#rest {
+	text-align : right;
+	padding-right : 5em;
+}
 div#div {
 	position : relative;
-	margin : 0;
+	margin : 0 auto;
 	padding : 0;
 	width : 500px;
 	height : 700px;
@@ -48,7 +52,7 @@ table#amitabha td.pole.pole_on {
 table#amitabha td.pole.pole_on:hover {
 	background : #9f9;
 }
-table#amitabha td.pole.route {
+#amitabha td.pole.route {
 	background : #f00;
 }
 table#amitabha img.image {
@@ -110,6 +114,33 @@ table#amitabha img.image:active {
 			},
 			getImageOnClassName : function() {
 				return 'image_on';
+			},
+			setClickCell : function(inC) {
+				inC.addClassName(this.getPoleOnClassName());
+			},
+			setOverCell : function(inC) {
+				inC.addClassName(this.getPoleOnClassName());
+			},
+			setOutCell : function(inC) {
+				inC.removeClassName(this.getPoleOnClassName());
+			},
+			drawLine : function(inX1,inY1,inX2,inY2,inC) {
+				var jg2 = new jsGraphics(this.getCanvas());
+				jg2.setColor(inC);
+				jg2.drawLine(inX1,inY1,inX2,inY2);
+//					jg2.drawLine(preX+1,preY+1,x+1,y+1);
+//				jg2.drawLine(preX-1,preY-1,x-1,y-1);
+//					jg2.drawImage('./gtug-mini145x59.png',(preX+x)/2,(preY+y)/2,20,20);
+				jg2.paint();
+			},
+			loadLine : function(row1,col1,x1,y1,row2,col2,x2,y2,id) {
+				Util.setClickCell($(Util.getCellId(row1,col1)));
+				Util.setClickCell($(Util.getCellId(row2,col2)));
+				Util.drawLine(x1,y1,x2,y2,amitabha.getUser(id).getPassColor());
+				amitabha.addLine(new Line(new Point(row1,col1,x1,y1), new Point(row2,col2,x2,y2)));
+			},
+			updateRestTime : function(inT) {
+				$('restTime').innerHTML = (inT);
 			}
 		});
 		Util = new _Util();
@@ -121,16 +152,19 @@ table#amitabha img.image:active {
 	var amitabha;
 	(function() {
 		amitabha = {}
-//
-// ▽ JSPにてロジックを生成する部分 ▽
-//
 		/** ユーザID */
-		var userId = '1';
+		var userId;
 		/**
 		 * 初期設定メソッド
 		 */
 		amitabha.init = function() {
+//
+// ▽ JSPにてロジックを生成する部分 ▽
+//
 			this.setNumRows(100);
+			this.setRouteDelay(0.1);
+			this.setFinalAreaRow(30);
+			userId = '1';
 			this.addUser(new User('0','名前0',new Point(0,0),'#f00','#f00'));
 			this.addUser(new User('1','名前1',new Point(0,1),'#0f0','#0f0'));
 			this.addUser(new User('2','名前2',new Point(0,2),'#00f','#00f'));
@@ -144,27 +178,74 @@ table#amitabha img.image:active {
 			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
 			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
 			this.addImage(new Image('http://tbn3.google.com/images?q=tbn:Kk9PQPUbc5LihM:http://gigazine.jp/img/2008/01/30/vladstudio/vladstudio000.jpg'));
+//
+// △ JSPにてロジックを生成する部分 △
+//
 		};
 		/**
 		 * 開始メソッド
 		 */
 		amitabha.start = function() {
-
-			this.setRouteDelay(0.1);
-			this.setIsRunning(true);
-		};
+//
+// ▽ JSPにてロジックを生成する部分 ▽
+//
+			Util.loadLine(1,2,100,100,1,3,200,100,'1');
+			Util.loadLine(12,2,200,100,12,3,200,200,'1');
+			this.setRestTime(10);
+			this.setCurrentRow(20);
 //
 // △ JSPにてロジックを生成する部分 △
 //
-		/**
-		 * 継続中フラグ
-		 */
+			this.setIsRunning(true);
+		};
+		/** 継続中フラグ */
 		var isRunning;
 		amitabha.getIsRunning = function() {
 			return isRunning;
 		};
 		amitabha.setIsRunning = function(inR) {
 			isRunning = inR;
+		};
+		/** 現在の行 */
+		var currentRow;
+		amitabha.getCurrentRow = function() {
+			return currentRow;
+		};
+		amitabha.setCurrentRow = function(inC) {
+			currentRow = inC;
+		};		
+		/** 残り時間 */
+		var restTime;
+		var _rest_timer;
+		amitabha.getRestTime = function() {
+			return restTime;
+		};
+		amitabha.setRestTime = function(inR) {
+			restTime = inR;
+			Util.updateRestTime(restTime);
+			if(_rest_timer) _rest_timer.stop();
+			var _rest_timer = new PeriodicalExecuter(function() {
+				--restTime;
+				Util.updateRestTime(restTime);
+				if(!restTime) {
+					_rest_timer.stop();
+				}
+			},1);
+		};
+		/** 最終エリアのが始まる行 */
+		var finalAreaRow;
+		amitabha.getFinalAreaRow = function() {
+			return finalAreaRow;
+		};
+		amitabha.setFinalAreaRow = function(inF) {
+			finalAreaRow = inF;
+		};
+		/**
+		 * 最終領域に入っているかどうかをチェックする
+		 * @return 最終領域に入っていればtrue
+		 */
+		amitabha.isInFinalArea = function() {
+			return this.getFinalAreaRow() - this.getCurrentRow() <= 0;
 		};
 		/** 行数 */
 		var numRows;
@@ -297,7 +378,7 @@ table#amitabha img.image:active {
 		};
 		amitabha.setRouteDelay = function(inR) {
 			routeDelay = inR;
-		},
+		};
 		amitabha.crearRoutes = function() {
 			var tds = $A(Util.getAmitabha().getElementsByClassName(Util.getRouteClassName()));
 			tds.each(function(td) {
@@ -535,6 +616,7 @@ table#amitabha img.image:active {
 				for(var j=0; j<num; ++j) {
 					var index = j*3;
 					var td = $(tr.insertCell(index));
+					td.setStyle({'width':(100/num)*0.45+'%'});
 					td.addClassName('empty');
 					++index; 
 					td = $(tr.insertCell(index));
@@ -542,8 +624,10 @@ table#amitabha img.image:active {
 					td.setAttribute('id',Util.getCellId(i,j));
 					td.setAttribute('row',i);
 					td.setAttribute('col',j);
+					td.setStyle({'width':(100/num)*0.1+'%'});
 					++index;
 					td = $(tr.insertCell(index));
+					td.setStyle({'width':(100/num)*0.45+'%'});
 					td.addClassName('empty');
 				}
 			}
@@ -555,7 +639,7 @@ table#amitabha img.image:active {
 			for(var j=0; j<num; ++j) {
 				var td = $(tr.insertCell(j));
 				td.setAttribute('colspan',3);
-				td.setStyle({'textAlign':'center','paddingLeft':'auto','paddingRight':'auto'});
+				td.setStyle({'textAlign':'center'});
 				var _user = amitabha.getUserByIndex(j);
 				var button = new Element('button');
 				button.appendChild(document.createTextNode(_user.getName()));
@@ -585,7 +669,7 @@ table#amitabha img.image:active {
 			var tr = $(table.insertRow(0));
 			var td = $(tr.insertCell(0));
 			td.setAttribute('colspan',num*3);
-			td.setStyle({'textAlign':'right','paddingLeft':'auto','paddingRight':'auto'});
+			td.setStyle({'textAlign':'right'});
 			var button = new Element('button');
 			button.appendChild(document.createTextNode('clear'));
 			td.appendChild(button);
@@ -600,7 +684,7 @@ table#amitabha img.image:active {
 			for(var j=0; j<num; ++j) {
 				var td = $(tr.insertCell(j));
 				td.setAttribute('colspan',3);
-				td.setStyle({'textAlign':'center','paddingLeft':'auto','paddingRight':'auto'});
+				td.setStyle({'textAlign':'center'});
 				var img = amitabha.getImageByIndex(j).getHtmlElement();
 				img.setAttribute('id',Util.getImageId(j));
 				td.appendChild(img);
@@ -640,28 +724,22 @@ table#amitabha img.image:active {
 				Event.observe(inTd,'click',function(inE) {
 					currentCell = null;
 					var td = Event.element(inE);
-					var row = td.getAttribute('row');
-					var col = td.getAttribute('col');
-					var point = new Point(row,col);
+					var point = new Point(td.getAttribute('row'),td.getAttribute('col'));
 					if(!isClickable(point)) return;
-					td.addClassName(Util.getPoleOnClassName());
+					Util.setClickCell(td);
 					currentCell = td;
 				});
 				Event.observe(inTd,'mouseover',function(inE) {
 					var td = Event.element(inE);
-					var row = td.getAttribute('row');
-					var col = td.getAttribute('col');
-					var point = new Point(row,col);
+					var point = new Point(td.getAttribute('row'),td.getAttribute('col'));
 					if(!isClickable(point)) return;
-					td.addClassName(Util.getPoleOnClassName());
+					Util.setOverCell(td);
 				});
 				Event.observe(inTd,'mouseout',function(inE) {
 					var td = Event.element(inE);
-					var row = td.getAttribute('row');
-					var col = td.getAttribute('col');
-					var point = new Point(row,col);
+					var point = new Point(td.getAttribute('row'),td.getAttribute('col'));
 					if(!isClickable(point)) return;
-					td.removeClassName(Util.getPoleOnClassName());
+					Util.setOutCell(td);
 				});
 			});
 			//
@@ -672,21 +750,12 @@ table#amitabha img.image:active {
 				var offset = Element.cumulativeOffset(table)
 				var x = Event.pointerX(inE) - offset[0];
 				var y = Event.pointerY(inE) - offset[1];
-				var id = currentCell.getAttribute('id');
-				var row = currentCell.getAttribute('row');
-				var col = currentCell.getAttribute('col');
-				var point = new Point(row,col,x,y);
+				var point = new Point(currentCell.getAttribute('row'),currentCell.getAttribute('col'),x,y);
 				currentCell = null;
 				if(status.getStartPoint()) {
 					var preX = status.getStartPoint().getX();
 					var preY = status.getStartPoint().getY();
-					var jg2 = new jsGraphics(canvas);
-					jg2.setColor(amitabha.getUser().getPassColor());
-					jg2.drawLine(preX,preY,x,y);
-//					jg2.drawLine(preX+1,preY+1,x+1,y+1);
-					jg2.drawLine(preX-1,preY-1,x-1,y-1);
-//					jg2.drawImage('./gtug-mini145x59.png',(preX+x)/2,(preY+y)/2,20,20);
-					jg2.paint();
+					Util.drawLine(preX,preY,x,y,amitabha.getUser().getPassColor());
 					amitabha.addLine(new Line(status.getStartPoint(), point));
 					status.setStartPoint(null);
 				} else {
@@ -722,6 +791,7 @@ table#amitabha img.image:active {
 		</div>
 		<br />
 		<br />
+		<div id="rest">残り<span id="restTime"></span>秒</div>
 		<div id="div">
 			<div id="canvas"></div>
 			<table summary="" id="amitabha">
