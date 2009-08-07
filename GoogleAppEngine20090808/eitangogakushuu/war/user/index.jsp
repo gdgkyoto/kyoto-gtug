@@ -22,8 +22,6 @@
 <c:forEach var="e" items="${userList}">
 <tr>
 <td>${f:h(e.email)}</td>
-<c:set var="addWordUrl" value="addword?key=${e.key}&version=${e.version}"/>
-<td><a href="${f:url(addWordUrl)}" onclick="return confirm('add word OK?')">Add Word</a></td>
 <c:set var="deleteUrl" value="delete?key=${e.key}&version=${e.version}"/>
 <td><a href="${f:url(deleteUrl)}" onclick="return confirm('delete OK?')">Delete</a></td>
 </tr>
@@ -31,6 +29,7 @@
 </tbody>
 </table>
 <hr>
+追加：<br />
 <form action="${f:url('insert')}" method="post">
 メールアドレス<br />
 <input type="text" ${f:text("email")} class="${f:errorClass('email', 'error')}"/>${f:h(errors.email)}<br />

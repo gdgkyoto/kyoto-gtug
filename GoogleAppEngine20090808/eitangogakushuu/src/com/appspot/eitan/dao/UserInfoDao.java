@@ -38,7 +38,7 @@ public class UserInfoDao extends GenericDao<UserInfo> {
         return info;
     }
 
-    synchronized public UserInfo addWodKey(String userkey, String wordkey){
+    synchronized public UserInfo addWordKey(String userkey, String wordkey){
         begin();
         UserInfo info = find(userkey);
         if(info != null){
