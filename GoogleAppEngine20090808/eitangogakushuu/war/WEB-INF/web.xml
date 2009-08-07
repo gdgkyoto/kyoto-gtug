@@ -23,6 +23,10 @@
         <filter-class>org.slim3.controller.HotReloadingFilter</filter-class>
     </filter>    
 	<filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>com.appspot.eitan.filter.AuthenticationFilter</filter-class>
+    </filter>
+	<filter>
         <filter-name>frontController</filter-name>
         <filter-class>org.slim3.controller.FrontController</filter-class>
     </filter>
@@ -35,6 +39,13 @@
     <filter-mapping>
         <filter-name>hotReloadingFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/translate/*</url-pattern>
+        <url-pattern>/mylist/*</url-pattern>
+        <url-pattern>/exam/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>    
     <filter-mapping>
