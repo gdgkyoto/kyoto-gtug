@@ -1,4 +1,4 @@
-package com.kyotogtug.amidakuji.jdo;
+package com.kyotogtug.amidakuji.jdo.entity;
 
 import java.util.Date;
 
@@ -23,10 +23,6 @@ public class Line {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key id;
-
-	/** ‚ ‚İ‚¾‚­‚¶ID */
-	@Persistent
-	private Key amidaId;
 
 	/** ü‚ÌÀ•W */
 	@Persistent
@@ -53,21 +49,6 @@ public class Line {
 	 */
 	public void setId(Key id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the amidaId
-	 */
-	public Key getAmidaId() {
-		return amidaId;
-	}
-
-	/**
-	 * @param amidaId
-	 *            the amidaId to set
-	 */
-	public void setAmidaId(Key amidaId) {
-		this.amidaId = amidaId;
 	}
 
 	/**
