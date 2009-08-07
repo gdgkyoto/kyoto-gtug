@@ -1,4 +1,7 @@
 <%@page pageEncoding="UTF-8" isELIgnored="false"%>
+
+<%@page import="com.appspot.eitan.util.AuthenticationUtil" %>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="f" uri="http://www.slim3.org/functions"%>
@@ -25,13 +28,12 @@
 $(function(){
   $('li span:eq(0)').addClass('selected');
 
-  $('li span:gt(0)').
-   mouseover(function(){
-    $(this).addClass('hover');
-   }).
-   mouseout(function(){
-    $(this).removeClass('hover');
-   });
+  if(<%= AuthenticationUtil.instance().isLogin() %>) {
+    $('li span:gt(0)').mouseover(function(){ $(this).addClass('hover'); }).
+                     mouseout(function(){ $(this).removeClass('hover'); });
+  } else {
+    $('li:gt(0)').css('visibility', 'hidden');
+  }
 });
 
 </script>

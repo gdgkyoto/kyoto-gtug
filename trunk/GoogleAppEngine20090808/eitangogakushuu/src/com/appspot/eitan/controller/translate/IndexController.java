@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.appspot.eitan.util.AuthenticationUtil;
+
 public class IndexController extends Controller {
 
     @SuppressWarnings("unused")
@@ -11,6 +13,9 @@ public class IndexController extends Controller {
 
     @Override
     public Navigation run() {
+        String link = AuthenticationUtil.instance().createLink(request);
+        requestScope("authenticationLink", link);
+        
         return forward("index.jsp");
     }
 }
