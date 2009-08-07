@@ -2,6 +2,7 @@ package com.appspot.eitan.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.appspot.eitan.model.UserInfo;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
@@ -45,5 +46,10 @@ public class AuthenticationUtil {
     public boolean isLogin() {
         UserService userService = UserServiceFactory.getUserService();
         return userService.isUserLoggedIn();
+    }
+
+    public String getLoginUserEmail() {
+        UserService userService = UserServiceFactory.getUserService();
+        return userService.getCurrentUser().getEmail();
     }
 }
