@@ -16,10 +16,15 @@ import com.google.appengine.api.users.UserServiceFactory;
 public class IndexPage extends WebPage {
 	
 	public IndexPage(final PageParameters parameters) {
+		
 		UserService userService = UserServiceFactory.getUserService();
+		
 		HttpServletRequest request = getWebRequestCycle().getWebRequest().getHttpServletRequest();
+		
 		String thisURL = request.getRequestURI();
+		
 		Principal principal = request.getUserPrincipal();
+		
 		if (principal != null) {            
 			setResponsePage(new RecipeListPage(null));
 		}

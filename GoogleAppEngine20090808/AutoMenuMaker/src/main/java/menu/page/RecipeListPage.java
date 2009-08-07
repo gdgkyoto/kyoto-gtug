@@ -4,7 +4,6 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
-import menu.MakeRecipe;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
@@ -70,7 +69,7 @@ public class RecipeListPage extends WebPage {
                                 //ボタンを押すとレシピ作成のページに遷移
                                 @Override
                                 public void onSubmit() {
-                                        setResponsePage(MakeRecipe.class);
+                                        setResponsePage(MakeRecipePage.class);
                                 }
                         });
                 add(recipeForm);
