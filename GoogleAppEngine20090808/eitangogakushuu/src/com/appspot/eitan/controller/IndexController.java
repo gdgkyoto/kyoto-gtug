@@ -7,6 +7,6 @@ public class IndexController extends Controller {
 
     @Override
     public Navigation run() {
-        return forward("index.jsp");
+        return redirect("/translate/");
     }
 }
