@@ -1,4 +1,4 @@
-package com.kyotogtug.amidakuji.jdo;
+package com.kyotogtug.amidakuji.jdo.entity;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;

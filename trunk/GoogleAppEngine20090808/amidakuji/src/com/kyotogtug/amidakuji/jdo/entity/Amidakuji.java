@@ -1,4 +1,4 @@
-package com.kyotogtug.amidakuji.jdo;
+package com.kyotogtug.amidakuji.jdo.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +47,24 @@ public class Amidakuji {
 	/** Googleアカウントのリスト */
 	@Persistent
 	private List<User> userList = new ArrayList<User>();
+
+	/** あみだくじ線の本リスト */
+	@Persistent
+	private List<Line> lineList = new ArrayList<Line>();
+
+	/**
+	 * @return the lineList
+	 */
+	public List<Line> getLineList() {
+		return lineList;
+	}
+
+	/**
+	 * @param lineList the lineList to set
+	 */
+	public void setLineList(List<Line> lineList) {
+		this.lineList = lineList;
+	}
 
 	/**
 	 * @return the id
