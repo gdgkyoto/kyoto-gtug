@@ -58,7 +58,7 @@ public class RecipeListPage extends WebPage {
                                 //ボタンを押すと献立表示ページに遷移
                                 @Override
                                 public void onSubmit() {
-//                                      setResponsePage(<T>.class);
+                                      setResponsePage(AutoMenuPage.class);
                                 }
                         });
                 add(menuForm);

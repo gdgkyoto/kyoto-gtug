@@ -1,8 +1,11 @@
 package menu;
 
+import menu.page.AutoMenuPage;
+import menu.page.CookPadRecipeListPage;
 import menu.page.ErrorPage;
 import menu.page.IndexPage;
 import menu.page.MakeRecipePage;
+import menu.page.RecipeListPage;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.Request;
@@ -41,8 +44,11 @@ public class AutoMenuMakerApplication extends WebApplication {
 		getApplicationSettings().setInternalErrorPage(ErrorPage.class);
 		getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
 
-		// ***ページ設定***//
-		mountBookmarkablePage("/MakeRecipe", MakeRecipePage.class);
+		//***ページ設定***//
+		mountBookmarkablePage("/RecipeList", RecipeListPage.class);
+		//mountBookmarkablePage("/RecipeList/CookPadRecipeList", CookPadRecipeListPage.class);
+		mountBookmarkablePage("/RecipeList/MakeRecipe", MakeRecipePage.class);
+		mountBookmarkablePage("/RecipeList/AutoMenu", AutoMenuPage.class);
 	}
 
 	@Override
