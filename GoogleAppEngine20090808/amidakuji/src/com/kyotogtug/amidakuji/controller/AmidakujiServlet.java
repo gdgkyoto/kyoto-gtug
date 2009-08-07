@@ -6,6 +6,11 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import com.kyotogtug.amidakuji.logic.AmidaConfig;
+import com.kyotogtug.amidakuji.logic.AmidaLogic;
+import com.kyotogtug.amidakuji.logic.AmidaLogicFactory;
+import com.kyotogtug.amidakuji.logic.AmidaStatus;
+
 /**
  * アミダくじの画面のためのサーブレット
  * @author R.Takahashi
@@ -60,20 +65,28 @@ public class AmidakujiServlet extends HttpServlet {
 	*/
 	private void makeData(HttpServletRequest req, long id) {
 
+		//アミダロジックを取得し、現在の状態を得る
+		AmidaLogic logic = AmidaLogicFactory.get(id);
+		logic.initialize();
+		AmidaStatus status = logic.getStatus();
+
 		//静的情報
-		req.setAttribute("id",id);
-		req.setAttribute("title", "居酒屋選手権！");
-		/*
-		req.setAttribute("users", "");
-		req.setAttribute("images", "");
-		req.setAttribute("endTime", date);
-		req.setAttribute("length",  Integer.valueOf(100));
-		req.setAttribute("lastLength", Integer.valueOf(20));
-		req.setAttribute("sycInterval", Long.valueOf(3000));
-		*/
+		req.setAttribute("id",status.getId());
+		req.setAttribute("title", status.getTitle());
+		//req.setAttribute("users", "");
+		//req.setAttribute("images", "");
+		req.setAttribute("endTime", status.getEndTime());
+		req.setAttribute("length", AmidaConfig.AMIDA_LENGTH);
+		req.setAttribute("lastLength", AmidaConfig.AMIDA_LAST_LENGTH);
+		req.setAttribute("sycInterval", AmidaConfig.SYNC_INTERVAL);
 
 		//動的情報
 		//req.setAttribute("lines", "");
+		req.setAttribute("currentTime", status.getCurrentTime());
+		req.setAttribute("currentPositionX", status.getCurrentsPositionX());
+		req.setAttribute("currentPositionY", status.getCurrentPositionY());
+		req.setAttribute("finished", status.isFinished());
+		req.setAttribute("leftTime", status.getLeftTime());
 	}
 
 }
