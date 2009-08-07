@@ -4,14 +4,39 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+
+	<!--==================== servlets ====================-->
 	<servlet>
 		<servlet-name>Amidakuji</servlet-name>
-		<servlet-class>com.kyotogtug.amidakuji.AmidakujiServlet</servlet-class>
+		<servlet-class>com.kyotogtug.amidakuji.controller.AmidakujiServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Get Amida Data</servlet-name>
+		<servlet-class>com.kyotogtug.amidakuji.controller.AmidaDataAjaxServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Put Line</servlet-name>
+		<servlet-class>com.kyotogtug.amidakuji.controller.PutLineAjaxServlet</servlet-class>
+	</servlet>
+
+
+
+	<!--==================== servlet-mappings ====================-->
 	<servlet-mapping>
 		<servlet-name>Amidakuji</servlet-name>
 		<url-pattern>/amidakuji</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Get Amida Data</servlet-name>
+		<url-pattern>/getAmidaData</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Put Line</servlet-name>
+		<url-pattern>/putLine</url-pattern>
+	</servlet-mapping>
+
+
+	<!--==================== welcome-file-list ====================-->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
