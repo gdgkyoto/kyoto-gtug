@@ -11,6 +11,7 @@
 </head>
 <body>
 
+ユーザー情報
 <table>
 <thead>
 <tr><th>メールアドレス</th></tr>
@@ -26,12 +27,16 @@
 
 <hr>
 
-<form action="${f:url('create')}" method="post">
-データを初期化します<br />
-<input type="submit" value="Create sample" name="create" />
-<input type="submit" value="Delete all" name="delete" />
+<form action="${f:url('reset')}" method="post">
+サンプルデータ初期化<br />
+<input type="hidden" name="clean" value="0" />
+<input type="submit" value="Reset" />
 </form>
 
-<a href="${f:url('')}">${f:url('')}</a>
+<form action="${f:url('reset')}" method="post">
+全データ削除<br />
+<input type="hidden" name="clean" value="1" />
+<input type="submit" value="Clean" />
+</form>
 </body>
 </html>
