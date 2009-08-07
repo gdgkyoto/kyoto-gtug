@@ -1,4 +1,6 @@
-#Tue Aug 04 00:44:39 JST 2009
+#Thu Aug 06 22:27:03 JST 2009
 eclipse.preferences.version=1
+encoding//src/gt/helpers/revgeo.py=utf-8
 encoding//src/views/maps/index.html=UTF-8
+encoding//src/views/messages/new.html=UTF-8
 encoding//src/views/users/show.html=UTF-8

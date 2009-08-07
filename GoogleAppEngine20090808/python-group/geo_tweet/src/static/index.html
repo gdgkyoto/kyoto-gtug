@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  <script type="text/javascript" src="/js/geotweet.js" ></script>
+  <script type="text/javascript" src="/js/scriptaculous/prototype.js" ></script>
+  <script type="text/javascript" src="/js/scriptaculous/scriptaculous.js" ></script>
+  <script type="text/javascript">
+    var fadeeee = function () {
+      new Effect.Appear("screen",
+          { from:0.0, 
+            to:1.0,
+            delay:0,
+            fps:30,
+            duration: 1, 
+            //beforeStartInternal: function(effect) {alert('start');}, 
+            //afterFinishInternal: function(effect) {alert('end');}
+          }); 
+    };
+
+    function Test() {
+      alert("hey");
+    }
+
+    window.onload = fadeeee;
+  </script>
+  <style type="text/css">
+    div#screen {
+      width:200px;
+      height: 200px;
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="wrap">
+
+  <div id="main">
+  
+    <div id="screen">
+    
+    </div>
+    <button onclick="fadeeee();">hoge</button>
+  
+  </div>
+
+</div>
+
+</body>
+</html>
