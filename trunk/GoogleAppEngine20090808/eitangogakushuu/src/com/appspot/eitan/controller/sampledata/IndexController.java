@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.appspot.eitan.dao.UserInfoDao;
+
 public class IndexController extends Controller {
 
     @SuppressWarnings("unused")
@@ -11,6 +13,8 @@ public class IndexController extends Controller {
 
     @Override
     public Navigation run() {
+        UserInfoDao userdao = new UserInfoDao();
+        requestScope("userList",userdao.findAll());
         return forward("index.jsp");
     }
 }

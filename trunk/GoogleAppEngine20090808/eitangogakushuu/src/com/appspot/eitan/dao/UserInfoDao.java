@@ -24,6 +24,14 @@ public class UserInfoDao extends GenericDao<UserInfo> {
         super(UserInfo.class, pm);
     }
 
+    @Override
+    protected SelectQuery<UserInfo> from() {
+        return new SelectQuery<UserInfo>(pm, m.getModelClass());
+    }
+
+    public UserInfo getByKey(String key){
+        return find(key);
+    }
     public UserInfo getByEmail(String email){
         return from().where(m.email.eq(email.toLowerCase())).getFirstResult();
     }
@@ -54,11 +62,6 @@ public class UserInfoDao extends GenericDao<UserInfo> {
         }
         commit();
         return info;
-    }
-
-    @Override
-    protected SelectQuery<UserInfo> from() {
-        return new SelectQuery<UserInfo>(pm, m.getModelClass());
     }
 
 }

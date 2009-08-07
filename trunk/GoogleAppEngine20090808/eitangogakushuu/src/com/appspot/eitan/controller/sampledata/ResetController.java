@@ -29,6 +29,15 @@ public class ResetController extends Controller {
         //  WordInfo
 
 
+        if(asInteger("clean") == 0){
+            //  サンプルデータ作成
+            UserInfo userinfo;
+            userinfo = _userdao.insert("sos1219@gmail.com");
+            userinfo = _userdao.insert("mr.hanaoka@gmail.com");
+            userinfo = _userdao.insert("kazubs16@gmail.com");
+            userinfo = _userdao.insert("masaki.toyoshima@gmail.com");
+
+        }
         return redirect(basePath);
     }
 }
