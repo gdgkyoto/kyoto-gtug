@@ -11,6 +11,7 @@ import com.google.appengine.api.users.UserServiceFactory;
  * @author toyoshima
  */
 public class AuthenticationUtil {
+
     private static AuthenticationUtil instance = new AuthenticationUtil();
 
     private AuthenticationUtil() {
@@ -25,8 +26,9 @@ public class AuthenticationUtil {
 
         String result = null;
         if (userService.isUserLoggedIn()) {
+            String email = userService.getCurrentUser().getEmail();
             result =
-                userService.getCurrentUser().getEmail()
+                email
                     + " | <a href=\""
                     + userService.createLogoutURL(req.getRequestURI())
                     + "\">logout</a>";
@@ -39,7 +41,7 @@ public class AuthenticationUtil {
 
         return result;
     }
-    
+
     public boolean isLogin() {
         UserService userService = UserServiceFactory.getUserService();
         return userService.isUserLoggedIn();
