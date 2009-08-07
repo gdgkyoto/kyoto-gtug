@@ -8,15 +8,15 @@
 <link rel="stylesheet" type="text/css" href="/css/global.css" />
 </head>
 <body>
-<jsp:include page="/header.jsp">
-    <jsp:param name="title" value="Index"/>
-</jsp:include>
-<jsp:include page="/menu.jsp" />
-<div id="body">
-
-<h1>Welcome to Slim3</h1>
-
-</div>
-<jsp:include page="/footer.jsp" />
+	<jsp:include page="/header.jsp">
+	    <jsp:param name="title" value="Index"/>
+	</jsp:include>
+	<jsp:include page="/menu.jsp" />
+	<div id="body">
+		<h1>Welcome to Slim3</h1>
+	</div>
+	<jsp:include page="/footer.jsp" />
+	
+</script>
 </body>
 </html>

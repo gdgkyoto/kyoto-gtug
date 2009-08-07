@@ -2,33 +2,98 @@
 
 .error { border-style: solid; border-width: medium; border-color: red; }
 
+body {
+ background-color: #EEEECC;
+}
+
+#login {
+ margin-top: -10px;
+ margin-bottom: 5px;
+ font-weight: bold;
+ width: 970px;
+ text-align: right;
+ background-color: #F5F5F5;
+}
+
 #header{
- width:760px;
- background-color: orange;
+ width: 970px;
+}
+
+#header h1 {
+ padding-left: 33px;
+ background-image: url("../images/pencil.png");
+ background-repeat: no-repeat;
+ margin: 0px;
 }
 
 #menu{
- width:160px;
- height:400px;
+ width: 970px;
  text-align:left;
  vertical-align: top;
- float:left;
- background-color: aqua;
+ background-image: url(/images/nav_bg.png);
 }
 
+#menu .hover {
+ color: white;
+}
+
+#menu .selected {
+ color: orange;
+}
+
+#menu ul {
+ list-style-type: none;
+ display: block;
+ position: relative;
+ height: 50px;
+ padding: 0px;
+}
+
+#menu li {
+ width: 90px;
+ border-right: 1px solid #5A3333;
+ float: left;
+ height: 50px;
+ display: block;
+ text-align: center;
+ padding-left: 5px;
+}
+
+#menu a {
+ height: 50px;
+ display: block;
+}
+
+#menu span {
+ color: #D7CCCC;
+ font-weight: bold;
+ display: block;
+ padding: 10px 0 0;
+}
+
+.translate {
+ padding-left: 10px;
+ background-image: url("../images/menu_translate.png");
+ background-repeat: no-repeat;
+}
+
+
 #body{
- width:600px;
+ width:970px;
  height:400px;
  float:left;
  background-color: white;
 }
 
 #footer{
- width:760px;
- text-align:left;
- background-color: black;
- color: white;
- clear: left;
+ width: 970px;
+ text-align: center;
+ color: black;
+ font-size: small;
 }
 
 
+li a:link, a:visited {
+ text-decoration: none;
+
+}

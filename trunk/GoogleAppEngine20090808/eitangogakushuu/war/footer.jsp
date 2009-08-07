@@ -1,3 +1,3 @@
 <div id="footer">
-footer
+powered by Google App Engine.
 </div>
