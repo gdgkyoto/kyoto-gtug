@@ -2,6 +2,7 @@ package menu;
 
 import menu.page.ErrorPage;
 import menu.page.IndexPage;
+import menu.page.MakeRecipePage;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.Request;
@@ -41,7 +42,7 @@ public class AutoMenuMakerApplication extends WebApplication {
 		getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
 
 		// ***ページ設定***//
-		mountBookmarkablePage("/MakeRecipe", MakeRecipe.class);
+		mountBookmarkablePage("/MakeRecipe", MakeRecipePage.class);
 	}
 
 	@Override
