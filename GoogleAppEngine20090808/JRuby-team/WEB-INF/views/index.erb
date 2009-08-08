@@ -26,19 +26,16 @@
 <body>
 日本語を入力してください。<br/>
 <form action="/" method="post">
- content:  <input name="person[content]" /><br/>
+ content:  <input name="trans[original]" /><br/>
  <input type="submit"/>
 </form>
-<% count = 0 %>
 <table border="1">
 <tr>
-	<td>日本語</td><td>英語</td>
+	<td>日</td><td>英</td><td>韓</td><td>英</td><td>日</td>
 </tr>
-<% for p in @persons %>
+<% for t in @trans %>
 <tr>
-	<td><span id="text<%= count %>"><%= p.content %></span></td><td><span id="translation<%= count %>"></span></td>
-	<script>initialize("text<%= count %>","translation<%= count %>");</script>
-   <% count = count +1 %>
+	<td><%=t.original %></td><td><%=t.jpToEn %></td><td><%=t.enToKo %></td><td><%=t.koToEn %></td><td><%=t.enToJp %></td>
 </tr>
 <% end %>
 </table>
