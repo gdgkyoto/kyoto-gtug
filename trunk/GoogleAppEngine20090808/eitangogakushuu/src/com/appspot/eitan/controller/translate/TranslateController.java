@@ -51,18 +51,27 @@ public class TranslateController extends Controller {
         HttpSession session = request.getSession();
         UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
         if(loginUser != null){
-            HashMap<String, RefInfo> refmap = wordInfo.getRefmap();
-            if(refmap == null){
+            HashMap<String, RefInfo> refmap;
+
+            HashMap<String, RefInfo> orgmap = wordInfo.getRefmap();
+            if(orgmap != null){
+                refmap = new HashMap<String, RefInfo>(orgmap);
+            }else{
                 refmap = new HashMap<String, RefInfo>();
-                wordInfo.setRefmap(refmap);
             }
-            refInfo = refmap.get(loginUser.getKey());
-            if(refInfo == null){
-                refInfo = new RefInfo();
-                refmap.put(loginUser.getKey(),refInfo);
+
+            refInfo = new RefInfo();
+            RefInfo orgrefinfo = refmap.get(loginUser.getKey());
+            if(orgrefinfo != null){
+                refInfo.setRefCount(orgrefinfo.getRefCount());
+                refInfo.setLastSearch(orgrefinfo.getLastSearch());
+                refInfo.setLastExam(orgrefinfo.getLastExam());
+                refInfo.setExamResult(orgrefinfo.getExamResult());
             }
             refInfo.incrementRefCount();
             refInfo.lastSearch = new Date();
+            refmap.put(loginUser.getKey(),refInfo);
+            wordInfo.setRefmap(refmap);
             wordInfo = _worddao.update(wordInfo);
 
             loginUser = _userdao.addWordKey(loginUser.getKey(),wordInfo.getKey());
