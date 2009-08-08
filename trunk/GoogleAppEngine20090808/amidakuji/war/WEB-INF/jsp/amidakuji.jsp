@@ -610,7 +610,7 @@ Array.prototype.remove = function(obj) {
 									}
 									option.lines = lines;
 								}
-								var _cps = obj.currentPoint;
+								var _cps = obj.currentPosition;
 								if(_cps) {
 									var currentPoints = $A();
 									for(var i=0; i<_cps.length; ++i) {
@@ -619,7 +619,7 @@ Array.prototype.remove = function(obj) {
 									}
 									option.currentPoints = currentPoints;
 								}
-								option.isRunning = obj.finished;
+								option.isRunning = !obj.finished;
 								option.lastLineId = obj.lastLineId;
 								option.restTime = obj.leftTime;
 								option.lastEnable = obj.lastEnable;
@@ -637,7 +637,7 @@ Array.prototype.remove = function(obj) {
 					if(!this.isRunning) {
 						this._rest_timer.stop();
 					}
-				}.bind(this),this.reloadDelay);
+				}.bind(this),this.reloadDelay/1000);
 			}
 		},
 		/**
@@ -884,11 +884,11 @@ Array.prototype.remove = function(obj) {
 				new Image({'id':'4','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'})
 			];
 			var option = {
-				'id' : <c:out value="${id}"/>,
+				'id' : '<c:out value="${id}"/>',
 				'title' : '<c:out value="${title}"/>',
-				'numRows' : 100,
-				'numRowsFinal' : 80,
-				'reloadDelay' : 3,
+				'numRows' : <c:out value="${length}"/>,
+				'numRowsFinal' : <c:out value="${lastLength}"/>,
+				'reloadDelay' : <c:out value="${sycInterval}"/>,
 				'routeDelay' : 0.02,
 				'users' : users,
 				'images' : images
@@ -899,14 +899,21 @@ Array.prototype.remove = function(obj) {
 		(function() {
 			// 現在位置
 			var points = [
-				new Point(3,0,'0'),
-				new Point(3,2,'1'),
-				new Point(3,3,'2'),
-				new Point(3,1,'3')
+			 	<c:forEach var="point" items="currentPosition">
+			 		<c:if test="${varStatus.index != 0}">
+			 			,
+			 		</c:if>
+					new Point(${point[1]},${point[0]},'${point[2]}')
+				</c:forEach>
 			];
 			// 履歴ラインリスト
 			var lines = [
-				new Line(1,2,'0')
+			 	<c:forEach var="line" items="lines">
+			 		<c:if test="${varStatus.index != 0}">
+			 			,
+			 		</c:if>
+					new Line(${line[1]},${line[0]},'${line[2]}')
+			 	</c:forEach>
 			];
 			var option = {
 				'restTime' : (<c:out value="${leftTime}"/>),
