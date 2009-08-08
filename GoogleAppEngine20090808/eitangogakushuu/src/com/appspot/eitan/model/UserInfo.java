@@ -77,7 +77,22 @@ public class UserInfo implements Serializable {
     }
 
     public List<WordInfo> getWordList() {
+        
+        
+        List<WordInfo> list = new WordInfoDao().findAll();
+        
+        for(WordInfo w : list) {
+            System.out.println(w.getKey() + ", " + w.getSpell());
+        }
+        
         HashSet<String> wordkeyset2 = getWordkeyset();
+
+        if (wordkeyset2 != null) {
+            System.out.println("キー数" + wordkeyset2.size());
+        } else {
+            System.out.println("キーはnull");
+        }
+
         return new WordInfoDao().getWordInfoList(wordkeyset2);
     }
 }

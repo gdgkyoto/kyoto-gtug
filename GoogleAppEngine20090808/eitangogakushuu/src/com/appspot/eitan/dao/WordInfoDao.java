@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import org.slim3.jdo.GenericDao;
 import org.slim3.jdo.SelectQuery;
@@ -52,10 +53,20 @@ public class WordInfoDao extends GenericDao<WordInfo> {
             return new ArrayList<WordInfo>();
         }
 
-        return (List<WordInfo>) pm.getObjectById(keyCollection);
+        Query query = pm.newQuery(WordInfo.class);
+        query.setFilter("key == :keys");
+        List<WordInfo> wordInfoList =
+            (List<WordInfo>) query.execute(keyCollection);
+
+        return wordInfoList;
     }
 
-    synchronized public WordInfo insert(String spell, List<Meaning> meaninglist, Text memo, String userkey){
+    public List<WordInfo> findAll() {
+        return from().getResultList();
+    }
+
+    synchronized public WordInfo insert(String spell,
+            List<Meaning> meaninglist, Text memo, String userkey) {
         WordInfo info = getBySpell(spell);
         if (info == null) {
             info = new WordInfo();
