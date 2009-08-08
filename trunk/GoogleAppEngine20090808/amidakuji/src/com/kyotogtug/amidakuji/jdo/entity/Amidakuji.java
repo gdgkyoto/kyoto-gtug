@@ -42,15 +42,15 @@ public class Amidakuji {
 
 	/** イメージURLのリスト */
 	@Persistent
-	private List<String> imageUrlList;
+	private List<String> imageUrlList = new ArrayList<String>();
 
 	/** Googleメールアドレスのリスト */
 	@Persistent
-	private List<String> mailAddressList;
+	private List<String> mailAddressList = new ArrayList<String>();
 
 	/** あみだくじ線の本リスト */
 	@Persistent
-	private List<Line> lineList;
+	private List<Line> lineList = new ArrayList<Line>();;
 
 	/**
 	 * @return the lineList
