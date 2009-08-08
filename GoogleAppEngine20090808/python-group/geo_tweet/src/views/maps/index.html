@@ -60,10 +60,15 @@
           // Succeeded
           var msgElmList = "";
           response = eval("(" + request.responseText + ")");
-          for (i = 0; i < response.messages.length; i++) {
-            var message = response.messages[i];
+          var msgs = response.messages;
+          for (i = 0; i < msgs.length; i++) {
+            var message = msgs[i];
             msgElmList += messageObjectToHtml(message);
-          }
+          }          
+          //
+          var point = new GM.LatLng(msgs[0].location.latitude,msgs[0].location.longitude);
+          map.openInfoWindowHtml(point,message.text);
+          //
           var contentElm = document.getElementById("message-list");
           contentElm.innerHTML = msgElmList;
         } else {
@@ -105,7 +110,16 @@
       if(navigator.geolocation){
         map = new GM.Map2(document.getElementById("map"));
         map.addControl(new GM.SmallMapControl());
-        map.addControl(new GM.MapTypeControl());    
+        map.addControl(new GM.MapTypeControl());
+        
+
+
+        
+//        map.addControl(new GM.NavLabelControl());
+
+
+
+
         navigator.geolocation.watchPosition(locupdate,handleError);        
       }else{
         alert("ご利用のブラウザでは位置情報が利用出来ません");
