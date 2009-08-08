@@ -17,6 +17,7 @@ import base_controller
 from ..models.message import Message
 from ..models.location import Location
 from ..models.user import User
+from ..models.user_location import UserLocation
 
 
 class MessagesController(base_controller.BaseController):
@@ -114,6 +115,37 @@ class MessagesController(base_controller.BaseController):
                             'message_id': message.key().id()})
       logging.debug("Posted a new tweet!")
     
+    #if user.geocast:
+    if True:
+      logging.debug("GEO casting.")
+      logging.info("GEO casting.")
+      taskqueue.add(url='/geocast',
+                    params={
+                            'message_id': message.key().id(),
+                    })
+      logging.debug("GEO casted.")
+      logging.info("GEO casted.")
+    if False:
+      radius = 100 * 1000 #[m]
+      near_users = UserLocation.find_in_circle(message.place.location, radius)
+      email_addrs = [User.get_by_id(loc.user_id).google_account.email() for loc in near_users]
+      result = email_addrs
+      logging.debug("EMAIL ADDR: %s", result)
+      from google.appengine.api import mail
+      body="""\
+TEST
+%s
+"""
+      email = mail.EmailMessage(sender="example.com support <support@example.com>",
+                                  subject="New tweet in you around.")
+      email.body = body % message.text
+      logging.debug("EMAIL BODY: %s", message.text)
+      for addr in email_addrs:
+        email.to = addr
+        email.send()
+        logging.debug("SEND EMAIL: [%s] %s", addr, message)
+
+
     if self.response_format == 'json':
       path = os.path.join(os.path.dirname(__file__), "../../views/messages/show.json")
       self.response.out.write(template.render(path, {'message': message}))

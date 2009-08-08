@@ -6,6 +6,7 @@ from gt.controllers.maps_controller import MapsController
 from gt.controllers.messages_controller import MessagesController
 from gt.controllers.users_controller import UsersController
 from gt.controllers.tweets_controller import TweetsController
+from gt.controllers.geocast_controller import GEOCastController
 
 webapp.template.register_template_library('gt.filters')
 application = webapp.WSGIApplication([('/', MapsController),
@@ -17,6 +18,7 @@ application = webapp.WSGIApplication([('/', MapsController),
                                       ('/users', UsersController),
                                       ('/users/(\d+|new)', UsersController),
                                       ('/users/(\d+)/(edit|delete)', UsersController),
+                                      ('/geocast', GEOCastController),
                                       ('/tweets', TweetsController)],
                                      debug=True)
 
