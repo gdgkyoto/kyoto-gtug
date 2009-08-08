@@ -6,6 +6,7 @@ import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.controller.validator.Validators;
 
+import com.appspot.eitan.model.WordInfo;
 import com.appspot.eitan.model.beans.Meaning;
 import com.appspot.eitan.search.SmartFmItemSearcher;
 
@@ -28,6 +29,12 @@ public class TranslateController extends Controller {
         List<Meaning> result = searcher.search(spell);
         
         /* TODO Bigtable‚Ö‚ÌQÆ‰ñ”‚Ì“o˜^i‘å’Ø‚³‚ñ‚¨Šè‚¢‚µ‚Ü‚·j*/
+        
+        WordInfo wordInfo = new WordInfo();
+        wordInfo.setSpell(spell);
+        wordInfo.setMeaninglist(result);
+        
+        requestScope("wordInfo", wordInfo);
         
         return forward("confirm.jsp");
     }
