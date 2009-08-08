@@ -88,13 +88,12 @@
 		var html	= "";
 		html += '<table border="1">';
 		html += '<th><td>icon</td><td>name</td><td>contents</td><td>memo</td><td>time</td></th>';
-alert(rs.rows.item(0).profile_image_url);
 			
 		for(var i=0; i<rs.rows.length; i++) {
 			var row = rs.rows.item(i);
 			html += '<tr>';
 			html += '	<td><input type="radio" id="" onclick=""></td>';
-			html += '	<td><img src="'+row.profile_image_url+'"/></td>';
+			html += '	<td><img src="'+row.icon_url+'"/></td>';
 			html += '	<td>'+row.user_name+'</td>';
 			html += '	<td>'+row.content+'</td>';
 			html += '	<td>'+row.memo+'</td>';
