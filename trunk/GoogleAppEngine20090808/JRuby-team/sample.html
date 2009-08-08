@@ -1,0 +1,85 @@
+ <!DOCTYPE html>
+  <html>
+  <head>
+    <script src="http://gear5.googlecode.com/hg/src/javascript/gear5.js"> 
+    </script>
+    <meta charset="UTF-8" />
+    <title>ローカルデータベースの使用例</title>
+    <script type="text/javascript" language="JavaScript">
+    // DBとアドレス表の初期化
+    var db;
+    function init() {
+      try {
+        if (window.openDatabase) {
+          db = window.openDatabase("addresslist", "", "Address list", "1048576");
+          if (!db) {
+            alert("データベースストレージが使えません。");
+          } else{
+            getAddressList();   // アドレス表の初期化
+          }
+        } else
+          alert("データベースストレージはサポートされていません。");
+        }
+      catch (error) {}
+    }
+
+// DBから全アドレスを取得してアドレス表を作成
+    function getAddressList() {
+      db.transaction(function(tx) {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS AddressList(name TEXT, address TEXT)', []);
+          tx.executeSql('SELECT * FROM AddressList', [], createAddressTable);
+        });
+    }
+
+    // アドレス表を作成
+    function createAddressTable(tx, rs) {
+      for(var i = 0; i < rs.rows.length; i++) {
+        var row = rs.rows.item(i);
+        addTableRow(row.name, row.address);
+      }
+    }
+
+    // アドレス表に行を追加
+    function addTableRow(name, address) {
+      var tableElement = document.getElementById('addressTable');
+      // テーブルに追加
+      var tr = tableElement.insertRow(tableElement.rows.length);
+      var td1 = tr.insertCell(0);
+      td1.innerHTML = name;
+      var td2 = tr.insertCell(1);
+      td2.innerHTML = address;
+    }
+
+// DBにアドレスを追加
+    function addAddress() {
+      name = document.getElementById("namefield").value;
+      address = document.getElementById("addressfield").value;
+      db.transaction(function(tx) {
+          tx.executeSql('INSERT INTO AddressList VALUES(?, ?)', [ name, address ]);
+        }, 
+        function(error) {
+        }, 
+        function() {
+          addTableRow(name, address);    // アドレス表の更新
+        });
+    }
+
+
+
+    </script>
+  </head>
+
+  <body onload="init()">
+
+    <h1>ローカルデータベースの使用例</h1>
+
+    名前：<input type="text" id="namefield"><br/>
+    アドレス：<input type="text" id="addressfield"><br/>
+    <input type="submit" value="追加" onClick="addAddress()">
+
+    <table id="addressTable" border="1">
+      <tr><th>名前</th><th>アドレス</th><tr>
+    </table>
+
+   </body>
+ </html>
