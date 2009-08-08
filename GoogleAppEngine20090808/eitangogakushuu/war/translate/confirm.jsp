@@ -4,6 +4,8 @@
 <%@taglib prefix="f" uri="http://www.slim3.org/functions"%>
 
 <%@page import="com.appspot.eitan.model.WordInfo"%><html>
+<%@page import="com.appspot.eitan.model.UserInfo"%><html>
+<%@page import="com.appspot.eitan.model.beans.RefInfo"%><html>
 
 <html>
 <head>
@@ -16,11 +18,13 @@
 <h1>Result of Translattion</h1>
 <div>
 <%
+	UserInfo userInfo = (WordInfo)request.getAttribute("userInfo");
 	WordInfo wordInfo = (WordInfo)request.getAttribute("wordInfo");
+	RefInfo refInfo = (WordInfo)request.getAttribute("refInfo");
 %>
 
 
-	<%= wordInfo.getSpell() %> 参照階数: 
+	<%= wordInfo.getSpell() %> 参照回数: <%= refInfo.getRefCount() %>
 </div>
 
 <c:forEach var="m"  items="${wordInfo.meaninglist}">
