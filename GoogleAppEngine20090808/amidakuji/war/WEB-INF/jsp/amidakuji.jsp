@@ -8,8 +8,8 @@
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta http-equiv="Content-Script-Type" content="text/javascript" />
 		<title>‚ ‚Ý‚¾‚­‚¶</title>
-		<script type="text/javascript" src="./prototype.js"></script>
-		<script type="text/javascript" src="./wz_jsgraphics.js"></script>
+		<script type="text/javascript" src="prototype.js"></script>
+		<script type="text/javascript" src="wz_jsgraphics.js"></script>
 <style type="text/css">
 <!--
 div#container {
@@ -504,8 +504,8 @@ Array.prototype.remove = function(obj) {
 											var _right = rightPoint;
 											var _line = line;
 											var _cell = cell;
-											var obj = request.responseJSON;
-											if(obj.result) {
+											var obj = request.responseText;
+											if(obj == 'OK') {
 												this.drawLine(_line);
 											} else {
 												_cell.removeClassName(NameUtil.getLineOnClassName());
@@ -601,6 +601,7 @@ Array.prototype.remove = function(obj) {
 								LogUtil.writeLog('reload success');
 								var option = {};
 								var obj = request.responseJSON;
+alert(obj);
 								var _ls = obj.lines;
 								if(_ls) {
 									var lines = $A();
