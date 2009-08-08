@@ -40,3 +40,26 @@ function get_messages(requestObj, area, callback) {
 	requestObj.onreadystatechange = callback;
 	requestObj.send(null);
 }
+
+function postData(request, path, data, callback) {
+  request.open('POST', path);
+  request.onreadystatechange = callback;
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+  request.send(data);
+}
+
+function updateUserLocation(userId, lat, lon, callback) {
+  path = "/users/" + userId;
+  data = "lat=" + encodeURIComponent(lat) + "&lon=" + encodeURIComponent(lon);
+  request = getXMLHttpRequestObject();
+  postData(request, path, data, updateUserLocationResultHandler);
+}
+
+function updateUserLocationResultHandler() {
+  if (theRequest.readyState == 4 && theRequest.status == 200) {
+    // Succeeded
+    alert("Succeeded");
+  } else {
+    //alert("Failed");
+  }
+}

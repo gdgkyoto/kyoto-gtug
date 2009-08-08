@@ -96,7 +96,11 @@
 
       if(GBrowserIsCompatible()){
           map.setCenter(new GM.LatLng(theUserLocation.latitude,theUserLocation.longitude),14);
-      }      
+      }
+
+      {% if user %}
+      updateUserLocation({{user.key.id}}, pos.coords.latitude, pos.coords.longitude);
+      {% endif %}
     }
 
     function handleError(a) {
