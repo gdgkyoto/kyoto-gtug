@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.appspot.eitan.search.Meaning;
+import com.appspot.eitan.model.beans.Meaning;
 import com.appspot.eitan.search.PartOfSpeech;
 
 
@@ -68,9 +68,9 @@ class DOMStrategy implements ParsingStrategy {
 	
 	private void parseItemNode(List<Meaning> result, Node itemNode) {
 		try {
-			PartOfSpeech pos = parseForPartOfSpeech(itemNode);
+			// TODO PartOfSpeech pos = parseForPartOfSpeech(itemNode);
 			String meaning = parseForMeaning(itemNode);
-			result.add(new Meaning(meaning, pos));
+			result.add(new Meaning(meaning, Meaning.WordCategory.OTHER));
 		} catch (Exception e) {
 			// ÉpÅ[ÉXé∏îsÇµÇΩÇÁí«â¡ÇµÇ»Ç¢
 			e.printStackTrace();

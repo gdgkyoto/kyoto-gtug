@@ -6,8 +6,9 @@ import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.controller.validator.Validators;
 
+import com.appspot.eitan.model.beans.Meaning;
 import com.appspot.eitan.search.SmartFmItemSearcher;
-import com.appspot.eitan.search.Meaning;
+
 
 public class TranslateController extends Controller {
 
@@ -25,7 +26,6 @@ public class TranslateController extends Controller {
         
         SmartFmItemSearcher searcher = new SmartFmItemSearcher();
         List<Meaning> result = searcher.search(spell);
-        
         
         /* TODO Bigtable‚Ö‚ÌQÆ‰ñ”‚Ì“o˜^i‘å’Ø‚³‚ñ‚¨Šè‚¢‚µ‚Ü‚·j*/
         

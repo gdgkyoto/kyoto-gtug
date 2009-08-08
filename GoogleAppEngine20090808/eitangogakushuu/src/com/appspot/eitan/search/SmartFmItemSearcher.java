@@ -12,7 +12,7 @@ import java.net.URL;
 
 import com.appspot.eitan.search.parsers.ParsingStrategy;
 import com.appspot.eitan.search.parsers.ParsingStrategyFactory;
-
+import com.appspot.eitan.model.beans.Meaning;
 
 /**
  * smart fm APIを使って、単語の翻訳検索結果を得る。

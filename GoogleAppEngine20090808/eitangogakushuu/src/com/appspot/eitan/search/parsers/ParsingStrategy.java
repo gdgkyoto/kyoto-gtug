@@ -6,7 +6,8 @@ package com.appspot.eitan.search.parsers;
 import java.io.InputStream;
 import java.util.List;
 
-import com.appspot.eitan.search.Meaning;
+import com.appspot.eitan.model.beans.Meaning;
+
 
 
 /**
