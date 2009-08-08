@@ -41,9 +41,11 @@ public final class PutLineAjaxServlet extends HttpServlet {
 			id=Long.parseLong(req.getParameter("id"));
 		}
 		catch(Exception e){
+			System.out.println("parse error");
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
+		System.out.println("parse ok);
 
 
 		//ÉçÉWÉbÉNê∂ê¨
