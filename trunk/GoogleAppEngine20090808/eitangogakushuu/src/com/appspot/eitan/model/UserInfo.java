@@ -2,6 +2,7 @@ package com.appspot.eitan.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.jdo.JDOHelper;
@@ -14,6 +15,8 @@ import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Version;
 import javax.jdo.annotations.VersionStrategy;
 
+import com.appspot.eitan.dao.WordInfoDao;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
 @Version(strategy = VersionStrategy.VERSION_NUMBER)
 public class UserInfo implements Serializable {
@@ -21,7 +24,8 @@ public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SuppressWarnings("unused")
-    private static final Logger logger = Logger.getLogger(UserInfo.class.getName());
+    private static final Logger logger =
+        Logger.getLogger(UserInfo.class.getName());
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -61,7 +65,7 @@ public class UserInfo implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = (email != null)? email.toLowerCase(): email;
+        this.email = (email != null) ? email.toLowerCase() : email;
     }
 
     public HashSet<String> getWordkeyset() {
@@ -70,5 +74,10 @@ public class UserInfo implements Serializable {
 
     public void setWordkeyset(HashSet<String> wordkeyset) {
         this.wordkeyset = wordkeyset;
+    }
+
+    public List<WordInfo> getWordList() {
+        HashSet<String> wordkeyset2 = getWordkeyset();
+        return new WordInfoDao().getWordInfoList(wordkeyset2);
     }
 }
