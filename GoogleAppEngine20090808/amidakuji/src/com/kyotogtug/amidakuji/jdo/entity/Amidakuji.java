@@ -42,15 +42,15 @@ public class Amidakuji {
 
 	/** イメージURLのリスト */
 	@Persistent
-	private List<String> imageUrlList = new ArrayList<String>();
+	private List<String> imageUrlList;
 
 	/** Googleメールアドレスのリスト */
 	@Persistent
-	private List<String> mailAddressList = new ArrayList<String>();
+	private List<String> mailAddressList;
 
 	/** あみだくじ線の本リスト */
 	@Persistent
-	private List<Line> lineList = new ArrayList<Line>();
+	private List<Line> lineList;
 
 	/**
 	 * @return the lineList
@@ -63,6 +63,9 @@ public class Amidakuji {
 	 * @return the lineList
 	 */
 	public void addLineList( Line line ) {
+		if( this.lineList==null ){
+			this.lineList = new ArrayList<Line>();
+		}
 		this.lineList.add( line );
 	}
 
@@ -143,6 +146,9 @@ public class Amidakuji {
 	/**
 	 */
 	public void addMailAddressList(String mail) {
+		if( this.mailAddressList==null ){
+			this.mailAddressList = new ArrayList<String>();
+		}
 		mailAddressList.add(mail);
 	}
 
@@ -165,6 +171,9 @@ public class Amidakuji {
 	 * @return the imageUrlList
 	 */
 	public void addImageUrlList( String url ) {
+		if( this.imageUrlList==null ){
+			this.imageUrlList = new ArrayList<String>();
+		}
 		imageUrlList.add(url);
 	}
 
