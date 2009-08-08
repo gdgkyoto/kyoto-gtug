@@ -1,7 +1,6 @@
 package menu;
 
 import menu.page.AutoMenuPage;
-import menu.page.CookPadRecipeListPage;
 import menu.page.ErrorPage;
 import menu.page.IndexPage;
 import menu.page.MakeRecipePage;
@@ -21,6 +20,7 @@ import org.apache.wicket.settings.IExceptionSettings;
 public class AutoMenuMakerApplication extends WebApplication {
 	public AutoMenuMakerApplication() {
     }
+	
 
 	@Override
 	public String getConfigurationType() {
