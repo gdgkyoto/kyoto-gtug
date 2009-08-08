@@ -1,5 +1,6 @@
 package menu.page;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,7 +17,7 @@ import org.apache.wicket.model.PropertyModel;
 
 import menu.dao.MakeRecipeDao;
 import menu.dto.MakeRecipe;
-import menu.page.ChoiceElement;
+
 
 public class MakeRecipePage extends WebPage{
 	
@@ -91,6 +92,42 @@ public class MakeRecipePage extends WebPage{
         	recipeForm.add(Material);
         	recipeForm.add(Cook);
         	add(recipeForm);
+	}
+	
+	public class ChoiceElement implements Serializable {
+
+		private String id;
+		private String name;
+		private String listStr;
+		
+		public ChoiceElement(String id,String name){
+			this.id=id;
+			this.name=name;
+		}
+		
+		public String getId(){
+			return id;
+		}
+		
+		public void setId(String id){
+			this.id=id;
+		}
+		
+		public String getName(){
+			return name;
+		}
+		
+		public void setName(String name){
+			this.name=name;
+		}
+		
+		public String getListStr() {
+		    return listStr;
+		  }
+
+		  public void setListStr(String listStr) {
+		    this.listStr = listStr;
+		  }
 	}
 }
 
