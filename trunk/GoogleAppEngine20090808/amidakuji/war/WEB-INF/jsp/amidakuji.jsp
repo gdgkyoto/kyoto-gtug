@@ -871,7 +871,7 @@ Array.prototype.remove = function(obj) {
 			// ユーザリスト
 			var colors = ['blue','pink','yellow','red','gray'];
 			var users = [
-			 	<c:forEach var="user" items="users" varStatus="status">
+			 	<c:forEach var="user" items="${users}" varStatus="status">
 			 		<c:if test="${status.index != 0}">
 			 			,
 			 		</c:if>
@@ -886,7 +886,7 @@ Array.prototype.remove = function(obj) {
 			];
 			// 画像リスト
 			var images = [
-			 	<c:forEach var="image" items="images" varStatus="status">
+			 	<c:forEach var="image" items="${images}" varStatus="status">
 			 		<c:if test="${status.index != 0}">
 			 			,
 			 		</c:if>
@@ -916,24 +916,20 @@ Array.prototype.remove = function(obj) {
 		(function() {
 			// 現在位置
 			var points = [
-			 	<c:forEach var="point" items="currentPosition" varStatus="status">
+			 	<c:forEach var="point" items="${currentPosition}" varStatus="status">
 			 		<c:if test="${status.index != 0}">
 			 			,
 			 		</c:if>
-<%--
 			 			new Point(${point[1]},${point[0]},'${point[2]}')
---%>
 				</c:forEach>
 			];
 			// 履歴ラインリスト
 			var lines = [
-			 	<c:forEach var="line" items="lines" varStatus="status">
+			 	<c:forEach var="line" items="${lines}" varStatus="status">
 			 		<c:if test="${status.index != 0}">
 			 			,
 			 		</c:if>
-<%--
 					new Line(${line[1]},${line[0]},'${line[2]}')
---%>
 			 	</c:forEach>
 			];
 			var option = {
