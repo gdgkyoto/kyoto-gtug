@@ -45,7 +45,7 @@ public final class PutLineAjaxServlet extends HttpServlet {
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
-		System.out.println("parse ok);
+		System.out.println("parse ok");
 
 
 		//ÉçÉWÉbÉNê∂ê¨
