@@ -46,7 +46,7 @@
 					<input type="submit" id="start" value="START!">
 		</form>
 
-
+		<button id="btn">hanaoka</button>
 
 	</div>
 	<jsp:include page="/footer.jsp" />
@@ -64,7 +64,9 @@ $(function(){
     $('li:gt(0)').css('visibility', 'hidden');
   }
 
-
+  $('#btn').click(function(){
+      window.open('/exam/selectExamWord', 'mywindow1', 'width=400, height=300, menubar=no, toolbar=no, scrollbars=yes');
+  });
 
 });
 
