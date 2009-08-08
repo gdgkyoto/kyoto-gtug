@@ -54,8 +54,8 @@ span.subject {
 	<div>
 		&nbsp;&nbsp;
 		<button onclick="document.getElementById('scoreId').value='3';submit();">&nbsp;覚えてた！&nbsp;</button>
-		<button onclick="document.getElementById('scoreId').value='3';submit();">&nbsp;&nbsp;微妙。&nbsp;&nbsp;</button>
-		<button onclick="document.getElementById('scoreId').value='3';submit();">(((( ；ﾟДﾟ))</button>
+		<button onclick="document.getElementById('scoreId').value='2';submit();">&nbsp;&nbsp;微妙。&nbsp;&nbsp;</button>
+		<button onclick="document.getElementById('scoreId').value='1';submit();">(((( ；ﾟДﾟ))</button>
 	</div>
 
 </div>
@@ -69,13 +69,6 @@ span.subject {
 <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript">
 
-$(function(){
-  $('#answer').hide();
-
-  $('#showAnswer').click(function(){
-	  $('#answer').show();
-  });
-});
 
 </script>
 </body>
