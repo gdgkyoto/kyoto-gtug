@@ -34,7 +34,7 @@ public class RecipeDataProvider implements IDataProvider<Recipe> {
 		
 		resolveDao();
 
-		return dao.findList(getCondition()).iterator();
+		return dao.findListByTitle(getCondition()).iterator();
 	}
 
 	@Override

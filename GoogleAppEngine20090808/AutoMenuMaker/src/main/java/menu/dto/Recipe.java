@@ -16,19 +16,23 @@ public class Recipe implements Serializable {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Long id;
-	@Persistent  
-	private String title = null;
-	@Persistent  
-	private String description = null;
 	@Persistent
-	private String material = null;
+	private String category;
+
+	@Persistent  
+	private String title;
 	@Persistent
-	private String imgPath = null;
+	private String material;
+	@Persistent  
+	private String description;
+	@Persistent
+	private String imgPath;
 	
 	public Recipe() {
 	}
 	
-	public Recipe(String title, String description, String material, String imgPath) {
+	public Recipe(String category, String title, String description, String material, String imgPath) {
+		this.category = category;
 		this.title = title;
 		this.description = description;
 		this.material = material;
@@ -69,6 +73,15 @@ public class Recipe implements Serializable {
 	
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 
