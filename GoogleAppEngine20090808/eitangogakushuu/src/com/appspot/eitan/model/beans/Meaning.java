@@ -2,22 +2,35 @@ package com.appspot.eitan.model.beans;
 
 import java.io.Serializable;
 
-import com.google.appengine.api.datastore.Text;
-
 /**
- * ’PŒê–ó
+ * ï¿½Pï¿½ï¿½ï¿½
  * @author Shinji Otsubo
  *
  */
 public class Meaning implements Serializable {
     private static final long serialVersionUID = -4504952574361249686L;
 
-    enum WordCategory {OTHER}; //   http://www.sk.cs.chubu.ac.jp/~joy/japanese/hinshi/00-hinshi.html ‚æ‚è11í—Ş ‚¾‚ªA¡‰ñ‚ÍŠÔ‚ª‚È‚¢‚Ì‚Å ‘S‚ÄOTHER‚Æ‚·‚é
+    public static enum WordCategory {OTHER}; //   http://www.sk.cs.chubu.ac.jp/~joy/japanese/hinshi/00-hinshi.html ï¿½ï¿½ï¿½11ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Íï¿½ï¿½Ô‚ï¿½ï¿½È‚ï¿½ï¿½Ì‚ï¿½ ï¿½Sï¿½ï¿½OTHERï¿½Æ‚ï¿½ï¿½ï¿½
 
 
-    /** •iŒ */
-    public WordCategory category = WordCategory.OTHER;
+    /** ï¿½iï¿½ï¿½ */
+    private WordCategory category = WordCategory.OTHER;
 
-    /** ˜a–ó */
-    public Text jptext;
+    /** ï¿½aï¿½ï¿½ */
+    private String jptext;
+
+    public Meaning(String mean,WordCategory wc){
+        this.jptext = mean;
+        this.category = wc;
+
+    }
+
+    public WordCategory getCategory() {
+        return category;
+    }
+
+    public String getJptext() {
+        return jptext;
+    }
+
 }
