@@ -87,6 +87,9 @@ Array.prototype.remove = function(obj) {
 			 */
 			initialize : function() {
 			},
+			getTitleId : function() {
+				return 'title';
+			},
 			getDrawLineUrl : function() {
 				return './putLine';
 			},
@@ -180,6 +183,9 @@ Array.prototype.remove = function(obj) {
 		 * @param option 初期パラメータ
 		 */
 		initialize : function(option) {
+		},
+		setTitle : function(inT) {
+			$(NameUtil.getTitleId()).innerHTML = inT;
 		},
 		/**
 		 * 残り時間を設定する
@@ -304,12 +310,31 @@ Array.prototype.remove = function(obj) {
 				return new Point(_p.getRow()+1,_p.getCol());
 			}
 		},
+		setLastEnable : function(inB) {
+			this.lastEnable = inB;
+			var color;
+			if(inB) {
+				color = 'white';
+			} else {
+				color = 'gray';
+			}
+			this.elements.lines.each(function(line) {
+				var row = parseInt(line.getAttribute('row'));
+				if(this.numRowsFinal <= row) line.setStyle({'backgroundColor':color});
+			}.bind(this));
+		},
 		/**
 		 * ラインをクリックできるかどうかを返す
 		 * @return ラインをクリックできるかどうか
 		 */
 		isClickable : function(inL) {
 			if(!this.isRunning) return false;
+			if(!this.lineEnable) return false;
+			if(!this.lastEnable) {
+				if(this.numRowsFinal <= inL.getRow()) {
+					return false;
+				}
+			}
 			for(var i=0; i<this.status.points.length; ++i) {
 				var point = this.status.points[i];
 				if(inL.getLeftPoint().equals(point)) return false;
@@ -335,6 +360,7 @@ Array.prototype.remove = function(obj) {
 			this.users = option.users;
 			this.images = option.images;
 			this.userId = option.userId;
+			this.setTitle(option.title);
 
 			//
 			// あみだくじ生成
@@ -357,7 +383,7 @@ Array.prototype.remove = function(obj) {
 				div.setStyle({'textAlign':'right'});
 				container.insert(div);
 				var button = new Element('button');
-				button.appendChild(document.createTextNode('clear'));
+				button.appendChild(document.createTextNode('クリア'));
 				div.insert(button);
 				Event.observe(button,'click',function(inE) {
 					if(routeTimer) routeTimer.stop();
@@ -394,6 +420,13 @@ Array.prototype.remove = function(obj) {
 							this.crearRoutes();
 							var point = user.getStartPoint();
 							routeTimer = new PeriodicalExecuter(function() {
+								if(!this.lastEnable) {
+									if(this.numRowsFinal <= point.getRow()) {
+										routeTimer.stop();
+										point = null;
+										return;
+									}
+								}
 								point.getHtmlElement().addClassName(NameUtil.getPoleOnClassName());
 								var _point = this.getNextPoint(point);
 								if(!_point) {
@@ -595,7 +628,7 @@ Array.prototype.remove = function(obj) {
 			this.setRestTime(option.restTime);
 			this.isRunning = option.isRunning;
 			this.lastLineId = option.lastLineId;
-			this.lastEnable = option.lastEnable;
+			this.setLastEnable(option.lastEnable);
 			this.lineEnable = option.lineEnable;
 		}
 	});
@@ -829,9 +862,9 @@ Array.prototype.remove = function(obj) {
 			];
 			var option = {
 				'id' : 1,
-				'title' : 'タイトル',
+				'title' : 'あみだくじ',
 				'numRows' : 100,
-				'numRowsFinal' : 20,
+				'numRowsFinal' : 80,
 				'reloadDelay' : 3,
 				'routeDelay' : 0.02,
 				'users' : users,
@@ -882,7 +915,7 @@ Array.prototype.remove = function(obj) {
 </script>
 	</head>
 	<body>
-		<h2>あみだくじサンプル</h2>
+		<h2 id="title"></h2>
 		<div>
 			セルをクリックして線を引けます。<br />
 			ボタンを押すと経路に色が付きます。
