@@ -108,7 +108,7 @@ public final class AmidaLogic {
 			line.setYPoint(y);
 
 			ILineDao dao = new LineDaoImpl();
-			dao.insertLine(id, new Line());
+			dao.insertLine(id, line);
 			return true;
 		}
 
