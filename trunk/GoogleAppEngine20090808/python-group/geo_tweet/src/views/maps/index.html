@@ -4,7 +4,7 @@
   <script type="text/javascript" src="/js/gt_api.js"></script>
   
   <script type="text/javascript">  
-    request = getXMLHttpRequestObject();
+    var request = getXMLHttpRequestObject();
 
     function postNewMessage() {
       if (request == null) {
@@ -74,17 +74,14 @@
         ;
       }
     }
-  </script>
-  
-  <script type="text/javascript">
+
     var theUserLocation = null, map, GM = google.maps;
     
     function locupdate(pos) {
       var newMessageDiv = document.getElementById("newMessage");
       if (newMessageDiv) {
         var d = document.getElementById("current_location");
-        d.innerHTML = "lat: " + pos.coords.latitude + " long: " + pos.coords.longitude + " accuracy: " + pos.coords.accuracy;
-    
+        d.innerHTML = "lat: " + pos.coords.latitude + " long: " + pos.coords.longitude + " accuracy: " + pos.coords.accuracy;    
         var form = document.getElementById("newMessageForm");
         form.latitude.value = pos.coords.latitude;
         form.longitude.value = pos.coords.longitude;
@@ -118,7 +115,7 @@
   
   <h1>Messages on Map</h1>
   
-  <div id="map" style="width:300px;height:300px;border:solid 1px #ddd;"></div>
+  <div id="map" style="width:720px;height:300px;border:solid 1px #ddd;"></div>
   
   {% if user %}
   <div id="newMessage">
