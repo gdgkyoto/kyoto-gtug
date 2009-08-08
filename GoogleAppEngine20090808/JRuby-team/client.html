@@ -1,0 +1,85 @@
+<html>
+<head>
+	<title>TranslationChecker</title>
+	<meta charset="UTF-8" />
+	<script src="http://gear5.googlecode.com/hg/src/javascript/gear5.js" ></script>
+	<script src="js/prototype.js" ></script>
+	<script type="text/javascript" language="JavaScript">	
+	function init() {
+		/*
+        
+		try {
+			if (window.openDatabase) {
+        		db = window.openDatabase("translation_chk", "1.0", "TranslationChecker", "1048576");
+        		if (!db) {
+            		alert("データベースストレージが使えません。");
+        		} else{
+            		alert("debug:DB接続成功");
+        		}
+			} else {
+				alert("データベースストレージはサポートされていません。");
+			}
+		} catch(error) {
+		  alert("例外が発生しました");
+		}
+		*/
+		
+   	}
+			
+	
+	function readTwitter() {
+		var url = "http://twitter.com/statuses/public_timeline.json";
+		
+		var req = new Ajax.Request(
+			url,
+			{
+				method: "get",
+				onComplete: writeToDB
+			}
+		);
+	}
+	
+	function writeToDB(req) {
+		var icon_url	= null;
+		var user_name	= null;
+		var contents	= null;
+		var memo		= null;
+		var created_at	= null;
+		var user		= null;
+		var result		= req.responseText;
+		var array		= eval(result);
+		
+		//for(i=0; i<array.length; i++) {
+		for(i=0; i<1; i++) {
+			hash 		= array[i];
+			user		= hash["user"];
+			icon_url	= user["profile_image_url"];
+			user_name	= user["name"];
+			contents	= hash["text"];
+			memo		= "";
+			created_at	= hash["created_at"];
+
+			$("icon_url").value		= icon_url;
+			$("user_name").value	= user_name;
+			$("contents").value		= contents;
+			$("memo").value			= memo;
+			$("created_at").value	= created_at;
+		}
+	}
+	</script>
+</head>
+<body onload="init()">
+	
+	<input type="button" value="read" onclick="readTwitter()"/>
+	
+	<form method="post" action="" id="send">
+		<input type="submit" value="send" />
+		<input type="text" value="" name="trans[icon_url]" id="icon_url"/>
+		<input type="text" value="" name="trans[user_name]" id="user_name"/>
+		<input type="text" value="" name="trans[content]" id="contents"/>
+		<input type="text" value="" name="trans[memo]" id="memo"/>
+		<input type="text" value="" name="trans[created_at]" id="created_at"/>
+	</form>
+	
+</body>
+</html>
