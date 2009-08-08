@@ -4,8 +4,8 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import com.kyotogtug.amidakuji.dao.*;
-import com.kyotogtug.amidakuji.dao.impl.AmidakujiDaoImpl;
-import com.kyotogtug.amidakuji.dao.impl.LineDaoImpl;
+import com.kyotogtug.amidakuji.dao.memoryimpl.AmidakujiDaoImpl;
+import com.kyotogtug.amidakuji.dao.memoryimpl.LineDaoImpl;
 import com.kyotogtug.amidakuji.jdo.entity.Amidakuji;
 import com.kyotogtug.amidakuji.jdo.entity.Line;
 
@@ -18,8 +18,6 @@ public final class AmidaLogic {
 
 	//ロガー
 	private static final Logger log = Logger.getLogger(AmidaLogic.class.getName());
-
-
 
 
 	//-------------------- 変数 --------------------
@@ -228,7 +226,7 @@ public final class AmidaLogic {
 
 		//スワップ
 		for(Line line: sortList){
-			System.out.println(line.getXPoint() + "," + line.getYPoint());
+			System.out.println("整列された線：" + line.getXPoint() + "," + line.getYPoint());
 			int x=line.getXPoint();
 			int tmp = xpos[x];
 			xpos[x] = xpos[x+1];
@@ -242,6 +240,7 @@ public final class AmidaLogic {
 			plist.add(Integer.valueOf(xpos[i]));
 			plist.add(Integer.valueOf(y));
 			plist.add(fixedStatus.getUserList().get(i));
+			System.out.println("現在:"+ Integer.valueOf(xpos[i]) + "," + Integer.valueOf(y) + "," + fixedStatus.getUserList().get(i) );
 			position.add(plist);
 		}
 
@@ -251,12 +250,16 @@ public final class AmidaLogic {
 			List<Object>e  = new ArrayList<Object>();
 			e.add(line.getXPoint());
 			e.add(line.getYPoint());
+			String out;
 			if(line.getCreateUser()!=null){
 				e.add(line.getCreateUser().getEmail());
+				out = line.getCreateUser().getEmail();
 			}
 			else{
 				e.add(null);
+				out = "null;";
 			}
+			System.out.println("線：" + line.getXPoint() + "," + line.getYPoint() + "," + out);
 			lineListOutput.add(e);
 		}
 

@@ -81,7 +81,7 @@ public class AmidakujiServlet extends HttpServlet {
 		req.setAttribute("sycInterval", AmidaConfig.SYNC_INTERVAL);      //long
 
 		//“®“Iî•ñ
-		req.setAttribute("lines", status.gerLines());                        //List<List<Object>>
+		req.setAttribute("lines", status.getLines());                        //List<List<Object>>
 		req.setAttribute("currentTime", status.getCurrentTime());
 		req.setAttribute("currentPosition",status.getCurrentPosition());     //List<List<Object>>
 		req.setAttribute("currentPositionY", status.getCurrentPositionY());  //int

@@ -42,7 +42,7 @@ public final class AmidaStatus {
 		variableStatus = status;
 	}
 
-	public List<List<Object>> gerLines(){
+	public List<List<Object>> getLines(){
 		return variableStatus.getLineList();
 	}
 	public Date getCurrentTime() {
