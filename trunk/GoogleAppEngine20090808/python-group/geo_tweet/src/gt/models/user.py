@@ -13,6 +13,7 @@ class User(db.Model):
   
   def update_location(self, lat, lon):
     new_loc = user_location.UserLocation(location=db.GeoPt(lat, lon));
+    new_loc.update_location();
     new_loc.put()
     if self.location:
       self.location.delete()
