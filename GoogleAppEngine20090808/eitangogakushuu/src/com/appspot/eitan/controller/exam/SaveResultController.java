@@ -44,7 +44,6 @@ public class SaveResultController extends Controller {
         String nextWordKey  = wordKeyList.get(index);
         WordInfo nextwordInfo  =wid.getByKey(nextWordKey);
 
-
         requestScope("word",nextwordInfo);
         int nextIndex   = index+1;
         requestScope("index",nextIndex);
