@@ -16,9 +16,10 @@
         		} else{
             		alert("debug:DB接続成功");
             		//なければテーブルを作成
+            		
             		db.transaction(function(tx) {
         				tx.executeSql('CREATE TABLE IF NOT EXISTS TwitterList(id INTEGER PRIMARY KEY, icon_url TEXT, user_name TEXT, content TEXT, memo TEXT, created_at TEXT)', []);
-          			}
+          			});
             		alert("テーブルもあります");
             		
         		}
@@ -65,9 +66,9 @@
 			created_at	= hash["created_at"];
 
 			//DBに書き込む
-			db.transaction(function(tx) {
+			//db.transaction(function(tx) {
         	//	tx.executeSql('SELECT * FROM AddressList', [], createAddressTable);
-        	}
+        	//}
 		}
 	}
 	</script>
