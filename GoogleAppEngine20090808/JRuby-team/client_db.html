@@ -4,7 +4,8 @@
 	<meta charset="UTF-8" />
 	<script src="http://gear5.googlecode.com/hg/src/javascript/gear5.js" ></script>
 	<script src="js/prototype.js" ></script>
-	<script type="text/javascript" language="JavaScript">	
+	<script type="text/javascript" language="JavaScript">
+	var db; //Databaseオブジェクト
 	function init() {
 		
 		try {
@@ -13,12 +14,13 @@
         		if (!db) {
             		alert("データベースストレージが使えません。");
         		} else{
+            		alert("debug:DB接続成功");
             		//なければテーブルを作成
             		db.transaction(function(tx) {
         				tx.executeSql('CREATE TABLE IF NOT EXISTS TwitterList(id INTEGER PRIMARY KEY, icon_url TEXT, user_name TEXT, content TEXT, memo TEXT, created_at TEXT)', []);
           			}
+            		alert("テーブルもあります");
             		
-            		alert("debug:DB接続成功");
         		}
 			} else {
 				alert("データベースストレージはサポートされていません。");
