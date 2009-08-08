@@ -39,15 +39,14 @@ public class SaveResultController extends Controller {
         RefInfo refInfo              = refMap.get(userInfo.getKey());
         refInfo.setExamResult(scoreValue);
         refInfo.setLastExam(new Date());
-
         RefInfo newrefinfo = new RefInfo();
         newrefinfo.setRefCount(refInfo.getRefCount());
         newrefinfo.setLastSearch(refInfo.getLastSearch());
         newrefinfo.setLastExam(refInfo.getLastExam());
         newrefinfo.setExamResult(refInfo.getExamResult());
 
-        refMap.put(userInfo.getKey(),newrefinfo);
         HashMap<String, RefInfo> newRefMap = new HashMap<String, RefInfo>(refMap);
+        newRefMap.put(userInfo.getKey(),newrefinfo);
         wordInfo.setRefmap(newRefMap);
         wid.update(wordInfo);
 
