@@ -33,6 +33,12 @@
           msgElm = messageObjectToHtml(response.message);
           var contentElm = document.getElementById("message-list");
           contentElm.innerHTML = msgElm + contentElm.innerHTML;
+
+          var point = getRandomPoint();
+          var color = GeoTweet.col[parseInt(Math.random()*GeoTweet.col.length)];
+          map.addOverlay(new TweetMarker(point,response.message,color.get()));          
+
+          
         } else {
           alert("Failed");
           // Failed
@@ -61,16 +67,15 @@
           var msgElmList = "";
           response = eval("(" + request.responseText + ")");
           var msgs = response.messages;
+
           for (i = 0; i < msgs.length; i++) {
             var message = msgs[i];
             msgElmList += messageObjectToHtml(message);
+            //var point = new GM.LatLng(southWest.lat() + latSpan * Math.random(),southWest.lng() + lngSpan * Math.random());
+            var point = getRandomPoint();
+            var color = GeoTweet.col[parseInt(Math.random()*GeoTweet.col.length)];
+            map.addOverlay(new TweetMarker(point,message,color.get()));
           }                    
-          //
-          var point = new GM.LatLng(msgs[0].location.latitude,msgs[0].location.longitude);
-          //map.openInfoWindowHtml(point,message.text);
-          var marker = new TweetMarker(point,msgs[0]);
-          map.addOverlay(marker);
-          //
           var contentElm = document.getElementById("message-list");
           contentElm.innerHTML = msgElmList;
         } else {
@@ -81,6 +86,22 @@
         ;
       }
     }
+
+    var getRandomPoint = function(){
+        
+        var bounds = map.getBounds();
+        var southWest = bounds.getSouthWest();
+        var northEast = bounds.getNorthEast();
+        var lngSpan = northEast.lng() - southWest.lng();
+        var latSpan = northEast.lat() - southWest.lat();
+        getRandomPoint = function(){
+        	return new GM.LatLng(southWest.lat() + latSpan * Math.random(),southWest.lng() + lngSpan * Math.random())            
+        }
+        return getRandomPoint();
+    }
+
+
+    
 
     var theUserLocation = null, map, GM = google.maps;
     
