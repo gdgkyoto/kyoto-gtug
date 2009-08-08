@@ -32,6 +32,7 @@ from time import time
 from urllib import urlencode, quote as urlquote
 from uuid import uuid4
 from wsgiref.handlers import CGIHandler
+from gt.models.user import User
 
 sys.path.insert(0, join_path(dirname(__file__), 'lib')) # extend sys.path
 
@@ -202,6 +203,11 @@ class OAuthClient(object):
         return self.get_request_token()
 
     def logout(self, return_to='/'):
+        #geotweet‚Ìƒg[ƒNƒ“‚ğíœ‚·‚é
+        user = User.get_current_user()
+        user.twitter_account = None
+        user.put()
+
         self.expire_cookie()
         self.handler.redirect(self.handler.request.get("return_to", return_to))
 
