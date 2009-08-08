@@ -27,9 +27,9 @@
 	WordInfo wordInfo = (WordInfo)request.getAttribute("wordInfo");
 %>
 	<table>
-	<tr><td>単語</td><td>参照回数</td><td>全利用者参照回数</td></tr>
+	<tr><td>単語</td><td>参照回数</td><td>全利用者参照回数</td><td>覚えたか？</td></tr>
 		<c:forEach var="w"  items="${worddispinfolist}">
-			<tr><td>${f:h(w.spell)}</td><td>${f:h(w.count)}</td><td>${f:h(w.publicCount)}</td></tr>
+			<tr><td>${f:h(w.spell)}</td><td>${f:h(w.count)}</td><td>${f:h(w.publicCount)}</td><td>${f:h(w.status)}</td></tr>
 		</c:forEach>
 	</table>
 	</div>
