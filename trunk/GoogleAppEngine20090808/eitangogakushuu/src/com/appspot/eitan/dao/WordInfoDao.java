@@ -50,12 +50,14 @@ public class WordInfoDao extends GenericDao<WordInfo> {
             info = new WordInfo();
             info.setSpell(spell);
             info.setMeaninglist(meaninglist);
-            RefInfo ref = new RefInfo();
-            ref.incrementRefCount();
-            ref.setLastSearch(new Date());
-            HashMap<String, RefInfo> refmap = new HashMap<String, RefInfo>();
-            refmap.put(userkey,ref);
-            info.setRefmap(refmap);
+            if(userkey != null){
+                RefInfo ref = new RefInfo();
+                ref.incrementRefCount();
+                ref.setLastSearch(new Date());
+                HashMap<String, RefInfo> refmap = new HashMap<String, RefInfo>();
+                refmap.put(userkey,ref);
+                info.setRefmap(refmap);
+            }
             info.setMemo(memo);
 
             makePersistentInTx(info);
