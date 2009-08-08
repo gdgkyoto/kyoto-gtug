@@ -58,6 +58,16 @@ public class RefInfo implements Serializable{
         return refCount;
     }
 
+    public int examResult ;
+
+    public int getExamResult() {
+        return examResult;
+    }
+    public void setExamResult(int examResult) {
+        this.examResult = examResult;
+    }
+
+
 //  /** �������� */
 //  public EnumExamResult examResult = EnumExamResult.AVERAGE;
 //
