@@ -42,6 +42,7 @@ public class TranslateController extends Controller {
             wordInfo.setMeaninglist(meaninglist);
             wordInfo = _worddao.insert(spell,meaninglist,null,null);
         }
+        RefInfo refInfo = null;
         UserInfo loginUser = (UserInfo)request.getSession().getAttribute("loginUser");
         if(loginUser != null){
             HashMap<String, RefInfo> refmap = wordInfo.getRefmap();
@@ -49,7 +50,7 @@ public class TranslateController extends Controller {
                 refmap = new HashMap<String, RefInfo>();
                 wordInfo.setRefmap(refmap);
             }
-            RefInfo refInfo = refmap.get(loginUser.getKey());
+            refInfo = refmap.get(loginUser.getKey());
             if(refInfo == null){
                 refInfo = new RefInfo();
                 refmap.put(loginUser.getKey(),refInfo);
@@ -61,6 +62,8 @@ public class TranslateController extends Controller {
             _userdao.addWordKey(loginUser.getKey(),wordInfo.getKey());
         }
         requestScope("wordInfo", wordInfo);
+        requestScope("refInfo",refInfo);
+        requestScope("userInfo",loginUser);
 
         return forward("confirm.jsp");
     }
