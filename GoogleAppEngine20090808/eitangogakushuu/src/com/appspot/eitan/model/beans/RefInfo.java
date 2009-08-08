@@ -4,22 +4,29 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * QÆî•ñ
+ * ï¿½Qï¿½Æï¿½ï¿½
  * @author Shinji Otsubo
  *
  */
 public class RefInfo implements Serializable{
     private static final long serialVersionUID = -8918135097760836862L;
 
-    enum EnumExamResult {POOR, AVERAGE, GOOD};   //  ˆ«‚¢A•’ÊA—Ç‚¢ ‚ÌO’iŠK
+//    enum EnumExamResult {POOR, AVERAGE, GOOD};   //  ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÊAï¿½Ç‚ï¿½ ï¿½ÌOï¿½iï¿½K
 
-    /** QÆ‰ñ” */
+    /** Ã—ã‚’ã‚ã‚‰ã‚ã™è©•ä¾¡ */
+    public static final int POOR        = 1 ;
+
+    /** â–³ã‚’ã‚ã‚‰ã‚ã™è©•ä¾¡ */
+    public static final int AVERAGE     = 2 ;
+
+    /** â—‹ã‚’ã‚ã‚‰ã‚ã™è©•ä¾¡ */
+    public static final int GOOD        = 3 ;
+
+    /** ï¿½Qï¿½Æ‰ï¿½ */
     public int refCount = 0;
-    /** Œ±Œ‹‰Ê */
-    public EnumExamResult examResult = EnumExamResult.AVERAGE;
-    /** ÅIŒŸõ“ú */
+    /** ï¿½ÅIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     public Date lastSearch = null;
-    /** ÅIŒ±“ú */
+    /** ï¿½ÅIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     public Date lastExam = null;
 
     public int getRefCount() {
@@ -28,12 +35,7 @@ public class RefInfo implements Serializable{
     public void setRefCount(int refCount) {
         this.refCount = refCount;
     }
-    public EnumExamResult getExamResult() {
-        return examResult;
-    }
-    public void setExamResult(EnumExamResult examResult) {
-        this.examResult = examResult;
-    }
+
     public Date getLastSearch() {
         return lastSearch;
     }
@@ -48,12 +50,22 @@ public class RefInfo implements Serializable{
     }
 
     /**
-     * QÆŠK”‚ğƒCƒ“ƒNƒŠƒƒ“ƒg‚·‚é
+     * ï¿½Qï¿½ÆŠKï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½
      * @return
      */
     public int incrementRefCount(){
-        if(refCount < Integer.MAX_VALUE) ++refCount;    //  ˆê‰ƒI[ƒo[ƒtƒ[‘Îô
+        if(refCount < Integer.MAX_VALUE) ++refCount;    //  ï¿½ê‰ï¿½Iï¿½[ï¿½oï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½Îï¿½
         return refCount;
     }
+
+//  /** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+//  public EnumExamResult examResult = EnumExamResult.AVERAGE;
+//
+//  public EnumExamResult getExamResult() {
+//      return examResult;
+//  }
+//  public void setExamResult(EnumExamResult examResult) {
+//      this.examResult = examResult;
+//  }
 
 }
