@@ -106,6 +106,7 @@
 	}
 	
 	function selectContent(id) {
+		alert("clicked);
 		db.transaction(function(tx) {
 			tx.executeSql(
 				"SELECT * FROM TwitterList WHERE id = ?",
