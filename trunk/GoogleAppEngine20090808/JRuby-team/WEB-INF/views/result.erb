@@ -1,1 +1,24 @@
-<%=@xml %>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Twitter translate test</title>
+	<link rel="stylesheet" href="/css/main.css" type="text/css" media="all">
+	<script type="text/javascript" src="/js/jquery-1.2.6.pack.js" charset="shift_jis"></script>
+	<script type="text/javascript"><!--
+	$(function(){
+	$("#block1").show(1000);
+	$("#block2").show(5000);
+	$("#block3").show(10000);
+	$("#block4").show(15000);
+	$("#block5").show(20000);
+	});
+	// --></script>
+</head>
+	<body>
+			<div id="block1">日本語<%= @jp %></div>
+			<div id="block2">英語<%= @jpToEn %></div>
+			<div id="block3">韓国語<%= @enToKo %></div>
+			<div id="block4">英語<%= @koToEn %></div>
+			<div id="block5">日本語<%= @enToJp %></div>
+	</body>
+</html>
