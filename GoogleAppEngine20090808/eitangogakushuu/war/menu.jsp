@@ -6,7 +6,7 @@
 <div id="menu">
 <ul>
 <li><a href="${f:url('/translate/')}"><span><fmt:message key="menu.translate"/></span></a></li>
-<li><a href="${f:url('/blog/')}"><span><fmt:message key="menu.mylist"/></span></a></li>
-<li><a href="${f:url('/locale/')}"><span><fmt:message key="menu.exam"/></span></a></li>
+<li><a href="${f:url('/mylist/')}"><span><fmt:message key="menu.mylist"/></span></a></li>
+<li><a href="${f:url('/exam/')}"><span><fmt:message key="menu.exam"/></span></a></li>
 </ul>
 </div>
