@@ -19,12 +19,12 @@
 	<jsp:include page="/menu.jsp" />
 	<div id="body">
 		<h1>this is Exam page!</h1>
-		
+
 		<button id="start">START!</button>
-		
+
 	</div>
 	<jsp:include page="/footer.jsp" />
-	
+
 <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript">
 
@@ -37,11 +37,11 @@ $(function(){
   } else {
     $('li:gt(0)').css('visibility', 'hidden');
   }
-  
+
   $('#start').click(function(){
-      window.open('exam.jsp', 'mywindow1', 'width=400, height=300, menubar=no, toolbar=no, scrollbars=yes');
+      window.open('/exam/selectExamWord', 'mywindow1', 'width=400, height=300, menubar=no, toolbar=no, scrollbars=yes');
   });
-  
+
 });
 
 </script>
