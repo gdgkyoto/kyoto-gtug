@@ -90,9 +90,8 @@
 		html += '<th><td>icon</td><td>name</td><td>contents</td><td>memo</td><td>time</td></th>';
 			
 		for(var i=0; i<rs.rows.length; i++) {
-			var row = rs.rows.item(i);
 			html += '<tr>';
-			html += '	<td><input type="radio" id="" onclick=""></td>';
+			html += '	<td><input type="radio" id="contents" onclick="setContent('+row.id+')"></td>';
 			html += '	<td><img src="'+row.icon_url+'"/></td>';
 			html += '	<td>'+row.user_name+'</td>';
 			html += '	<td>'+row.content+'</td>';
@@ -104,6 +103,24 @@
 		list.innerHTML = html;
 	}
 	
+	function selectContent(id) {
+		db.transaction(function(tx) {
+			tx.executeSql(
+				"SELECT * FROM TwitterList WHERE id = ?",
+				[id],
+				setParameter
+			);	
+		});
+	}
+		
+	function setParameters(tx, rs) {
+		var row = rs.rows.item(0);
+		$("icon_url").value		= row.icon_url;
+		$("user_name").value	= row.user_name;
+		$("content").value		= row.content;
+		$("memo").value			= row.memo;
+		$("created_at").value	= row.created_at;
+	}
 	</script>
 </head>
 <body onload="init()">
@@ -116,7 +133,7 @@
 		<input type="submit" value="send" />
 		<input type="text" value="" name="trans[icon_url]" id="icon_url"/>
 		<input type="text" value="" name="trans[user_name]" id="user_name"/>
-		<input type="text" value="" name="trans[content]" id="contents"/>
+		<input type="text" value="" name="trans[content]" id="content"/>
 		<input type="text" value="" name="trans[memo]" id="memo"/>
 		<input type="text" value="" name="trans[created_at]" id="created_at"/>
 	</form>
