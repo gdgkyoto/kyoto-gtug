@@ -199,8 +199,8 @@ Array.prototype.remove = function(obj) {
 			this.restTime = inR;
 			if(this._rest_timer) this._rest_timer.stop();
 			this._rest_timer = new PeriodicalExecuter(function() {
-				--this.restTime;
-				$(NameUtil.getRestTimeId()).innerHTML = this.restTime;
+				this.restTime -= 1000
+				$(NameUtil.getRestTimeId()).innerHTML = (this.restTime/1000);
 				if(!this.restTime) {
 					this._rest_timer.stop();
 				}
@@ -482,7 +482,6 @@ Array.prototype.remove = function(obj) {
 								var line = new Line(cell.getAttribute('row'),cell.getAttribute('col'),this.userId);
 								if(!this.isClickable(line)) return;
 								cell.addClassName(NameUtil.getLineOnClassName());
-
 								//
 								// Ajax
 								//  success : ラインを登録,待機ラインを削除
@@ -493,7 +492,7 @@ Array.prototype.remove = function(obj) {
 								this.status.waitPoints.push(rightPoint);
 								this.status.waitLines.push(line);
 								LogUtil.writeLog('write-line start');
-								var params = ('id='+this.id+'&X='+line.getCol()+'&Y='+line.getRow());
+								var params = ('id='+this.id+'&x='+line.getCol()+'&y='+line.getRow());
 								LogUtil.writeLog(params);
 								var ajax = new Ajax.Request(NameUtil.getDrawLineUrl(),
 									{
@@ -600,10 +599,32 @@ Array.prototype.remove = function(obj) {
 							'parameters' : params,
 							onSuccess : function(request) {
 								LogUtil.writeLog('reload success');
+								var option = {};
 								var obj = request.responseJSON;
-								if(success) {
-								} else {
+								var _ls = obj.lines;
+								if(_ls) {
+									var lines = $A();
+									for(var i=0; i<_ls.length; ++i) {
+										var _l = _ls[i];
+										lines.push(new Line(_l[1],_l[1],_l[2]));
+									}
+									option.lines = lines;
 								}
+								var _cps = obj.currentPoint;
+								if(_cps) {
+									var currentPoints = $A();
+									for(var i=0; i<_cps.length; ++i) {
+										var _cp = _cps[i];
+										currentPoints.push(new Point(_cp[1],_cp[0],_cp[2]));
+									}
+									option.currentPoints = currentPoints;
+								}
+								option.isRunning = obj.finished;
+								option.lastLineId = obj.lastLineId;
+								option.restTime = obj.leftTime;
+								option.lastEnable = obj.lastEnable;
+								option.lineEnable = obj.lineEnable;
+								this.loadOption(option);
 							}.bind(this),
 							onFailure : function(request) {
 								LogUtil.writeLog('reload failure');
@@ -619,7 +640,6 @@ Array.prototype.remove = function(obj) {
 				}.bind(this),this.reloadDelay);
 			}
 		},
-
 		/**
 		 * パラメータを読み込む
 		 * @param option パラメータ
@@ -889,7 +909,7 @@ Array.prototype.remove = function(obj) {
 				new Line(1,2,'0')
 			];
 			var option = {
-				'restTime' : (<c:out value="${leftTime}"/>/1000),
+				'restTime' : (<c:out value="${leftTime}"/>),
 				'isRunning' : !<c:out value="${finished}"/>,
 				'lastLineId' : 1,
 				'currentPoints' : points,
