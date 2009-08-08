@@ -18,7 +18,7 @@
             		db.transaction(function(tx) {
         				tx.executeSql('CREATE TABLE IF NOT EXISTS TwitterList(id INTEGER PRIMARY KEY, icon_url TEXT, user_name TEXT, content TEXT, memo TEXT, created_at TEXT)', []);
           			});
-            		
+            		showTwitterList();
         		}
 			} else {
 				alert("データベースストレージはサポートされていません。");
@@ -58,7 +58,7 @@
 			user		= hash["user"];
 			icon_url	= user["profile_image_url"];
 			user_name	= user["name"];
-			content	= hash["text"];
+			content		= hash["text"];
 			memo		= "";
 			created_at	= hash["created_at"];
 
@@ -72,11 +72,33 @@
         	});
 		}
 	}
+	
+	function showTwitterList() {
+		var list 	= $("twitter_list");
+		var html	= "";
+		html += '<table>';
+		html += '<th><td>icon</td><td>name</td><td>contents</td><td>memo</td><td>time</td></th>';
+
+		html += '<tr>';
+		html += '	<td><input type="radio" id="" onclick=""></td>';
+		html += '	<td></td>';
+		html += '	<td></td>';
+		html += '	<td></td>';
+		html += '	<td></td>';
+		html += '	<td></td>';
+		html += '</tr>';
+		
+		html += '</table>';
+		list.innerHTML = html;
+	}
+	
 	</script>
 </head>
 <body onload="init()">
 	
 	<input type="button" value="read" onclick="readTwitter()"/>
+	
+	<div id="twitter_list"></div>
 	
 	<form method="post" action="" id="send">
 		<input type="submit" value="send" />
