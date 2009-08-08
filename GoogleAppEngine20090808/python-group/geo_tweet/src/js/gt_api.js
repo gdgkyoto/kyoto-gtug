@@ -68,9 +68,10 @@ function updateUserLocationResultHandler() {
 	// }
 }
 
-var TweetMarker = function(latlng, message) {
+var TweetMarker = function(latlng, message, bgcolor) {
 	this.latlng = latlng;
 	this.message = message;
+	this.bgcolor = bgcolor || "#ffffff";
 }
 
 TweetMarker.prototype = new GOverlay();
@@ -79,7 +80,7 @@ TweetMarker.prototype = {
 	initialize : function(map) {
 		var div = document.createElement("div");
 		div.style.border = "1px solid #ddd";
-		div.style.background = "#ffffff";
+		div.style.background = this.bgcolor;
 		div.style.position = "absolute";
 		div.style["-border-radius"] = "8px";
 		div.style["-moz-border-radius"] = "8px";		
@@ -111,6 +112,7 @@ TweetMarker.prototype = {
 		this.div.style.top = center.y + "px";
 		this.div.innerHTML = msg;		
 		
-		j$div.fadeIn();
+		var speed = Math.random() * 3000;		
+		j$div.fadeIn(speed);
 	}
 }
