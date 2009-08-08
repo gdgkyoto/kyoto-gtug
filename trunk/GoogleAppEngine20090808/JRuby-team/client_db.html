@@ -31,7 +31,8 @@
 			
 	
 	function readTwitter() {
-		var url = "http://twitter.com/statuses/public_timeline.json";
+		//var url = "http://twitter.com/statuses/public_timeline.json";
+		var url = "http://twitter.com/statuses/friends_timeline.json";
 		
 		var req = new Ajax.Request(
 			url,
@@ -106,7 +107,6 @@
 	}
 	
 	function selectContent(id) {
-		alert("clicked "+id);
 		db.transaction(function(tx) {
 			tx.executeSql(
 				"SELECT * FROM TwitterList WHERE id = ?",
