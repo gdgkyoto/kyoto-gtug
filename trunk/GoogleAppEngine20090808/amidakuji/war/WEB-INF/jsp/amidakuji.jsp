@@ -601,7 +601,7 @@ Array.prototype.remove = function(obj) {
 								LogUtil.writeLog('reload success');
 								var option = {};
 								var obj = request.responseJSON;
-alert(obj);
+
 								var _ls = obj.lines;
 								if(_ls) {
 									var lines = $A();
