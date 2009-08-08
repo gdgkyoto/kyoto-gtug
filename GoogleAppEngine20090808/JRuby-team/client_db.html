@@ -93,7 +93,7 @@
 		for(var i=0; i<rs.rows.length; i++) {
 			row = rs.rows.item(i);
 			html += '<tr>';
-			html += '	<td><input type="radio" id="contents" onclick="selectContent('+row.id+')"></td>';
+			html += '	<td><input type="radio" name="contents" onclick="selectContent('+row.id+')"></td>';
 			html += '	<td><img src="'+row.icon_url+'"/></td>';
 			html += '	<td>'+row.user_name+'</td>';
 			html += '	<td>'+row.content+'</td>';
@@ -111,7 +111,7 @@
 			tx.executeSql(
 				"SELECT * FROM TwitterList WHERE id = ?",
 				[id],
-				setParameter
+				setParameters
 			);	
 		});
 	}
