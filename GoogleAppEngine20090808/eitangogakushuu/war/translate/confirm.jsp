@@ -6,6 +6,7 @@
 <%@page import="com.appspot.eitan.model.WordInfo"%><html>
 <%@page import="com.appspot.eitan.model.UserInfo"%><html>
 <%@page import="com.appspot.eitan.model.beans.RefInfo"%><html>
+<%@page import="com.google.appengine.api.datastore.Text"%><html>
 
 <html>
 <head>
@@ -31,6 +32,13 @@
 	${f:h(m.jptext)}<br />
 </c:forEach>
 
-<a href="${f:url('translate')}">${f:url('translate')}</a>
+<hr>
+
+<form action="${f:url('regist')}" method="post">
+メモ：<br />
+<textarea name="memo" cols="60" rows="5"><%=(wordInfo.getMemo() != null)? wordInfo.getMemo().getValue(): ""%></textarea><br />
+<input type="hidden" name="wordinfokey" value="<%=wordInfo.getKey()%>" />
+<input type="submit" value="OK"/>
+</form>
 </body>
 </html>
