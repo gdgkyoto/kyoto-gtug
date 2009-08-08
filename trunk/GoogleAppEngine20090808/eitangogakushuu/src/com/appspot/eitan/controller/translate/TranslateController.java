@@ -15,6 +15,7 @@ import com.appspot.eitan.model.UserInfo;
 import com.appspot.eitan.model.WordInfo;
 import com.appspot.eitan.model.beans.Meaning;
 import com.appspot.eitan.model.beans.RefInfo;
+import com.appspot.eitan.search.SearchOption;
 import com.appspot.eitan.search.SmartFmItemSearcher;
 
 
@@ -37,7 +38,9 @@ public class TranslateController extends Controller {
         if(wordInfo == null){
             wordInfo = new WordInfo();
             SmartFmItemSearcher searcher = new SmartFmItemSearcher();
-            List<Meaning> meaninglist = searcher.search(spell);
+            SearchOption opt = new SearchOption();
+            opt.setPerPage(5);
+            List<Meaning> meaninglist = searcher.search(spell, opt);
             wordInfo.setSpell(spell);
             wordInfo.setMeaninglist(meaninglist);
             wordInfo = _worddao.insert(spell,meaninglist,null,null);
