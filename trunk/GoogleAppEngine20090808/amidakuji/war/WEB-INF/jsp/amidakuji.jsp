@@ -491,15 +491,15 @@ Array.prototype.remove = function(obj) {
 								this.status.waitPoints.push(leftPoint);
 								this.status.waitPoints.push(rightPoint);
 								this.status.waitLines.push(line);
-								LogUtil.writeLog('write-line start');
+LogUtil.writeLog('write-line start');
 								var params = ('id='+this.id+'&x='+line.getCol()+'&y='+line.getRow());
-								LogUtil.writeLog(params);
+LogUtil.writeLog(params);
 								var ajax = new Ajax.Request(NameUtil.getDrawLineUrl(),
 									{
 										'method' : 'get',
 										'parameters' : params,
 										onSuccess : function(request) {
-											LogUtil.writeLog('write-line onSuccess');
+LogUtil.writeLog('write-line onSuccess');
 											var _left = leftPoint;
 											var _right = rightPoint;
 											var _line = line;
@@ -601,8 +601,7 @@ Array.prototype.remove = function(obj) {
 								LogUtil.writeLog('reload success');
 								var option = {};
 								var obj = request.responseJSON;
-LogUtil.writeLog(request);
-LogUtil.writeLog(request.responseJSON);
+LogUtil.writeLog('reload json : ' + (request.responseJSON?'OK':'ERROR'));
 								var _ls = obj.lines;
 								if(_ls) {
 									var lines = $A();
@@ -622,7 +621,7 @@ LogUtil.writeLog(request.responseJSON);
 									option.currentPoints = currentPoints;
 								}
 								option.isRunning = !obj.finished;
-								option.lastLineId = obj.lastLineId;
+								option.lastLineId = obj.lastLength;
 								option.restTime = obj.leftTime;
 								option.lastEnable = obj.lastEnable;
 								option.lineEnable = obj.lineEnable;
@@ -905,7 +904,7 @@ LogUtil.writeLog(request.responseJSON);
 			var option = {
 				'id' : '<c:out value="${id}"/>',
 				'title' : '<c:out value="${title}"/>',
-				'userId' : 0,
+				'userId' : 'player1@gmail.com',
 				'numRows' : <c:out value="${length}"/>,
 				'numRowsFinal' : <c:out value="${lastLength}"/>,
 				'reloadDelay' : <c:out value="${sycInterval}"/>,
