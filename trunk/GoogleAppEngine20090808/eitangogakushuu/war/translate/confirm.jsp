@@ -18,9 +18,9 @@
 <h1>Result of Translattion</h1>
 <div>
 <%
-	UserInfo userInfo = (WordInfo)request.getAttribute("userInfo");
+	UserInfo userInfo = (UserInfo)request.getAttribute("userInfo");
 	WordInfo wordInfo = (WordInfo)request.getAttribute("wordInfo");
-	RefInfo refInfo = (WordInfo)request.getAttribute("refInfo");
+	RefInfo refInfo = (RefInfo)request.getAttribute("refInfo");
 %>
 
 
