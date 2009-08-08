@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import menu.dao.RecipeDao;
+import menu.dto.Recipe;
+
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -15,12 +18,10 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.PropertyModel;
 
-import menu.dao.MakeRecipeDao;
-import menu.dto.MakeRecipe;
-
 
 public class MakeRecipePage extends WebPage{
 	
+	private transient RecipeDao dao = new RecipeDao();
 	private String inputTitle="";
 	private String inputMaterial="";
 	private String inputCook="";
@@ -72,15 +73,9 @@ public class MakeRecipePage extends WebPage{
         			String materialData=Material.getModelObject();
         			String cookData=Material.getModelObject();
         			
-        			MakeRecipe makeRecipe = new MakeRecipe(categoryData,titleData,materialData,cookData);
-        			MakeRecipeDao dao = new MakeRecipeDao();
+        			Recipe makeRecipe = new Recipe(categoryData,titleData,cookData, materialData, null);
         			System.out.println("test");
-        			dao.save(makeRecipe);
-        			
-        			System.out.println("デバッグ中:"+categoryData);
-        			System.out.println("デバッグ中:"+titleData);
-        			System.out.println("デバッグ中:"+materialData);
-        			System.out.println("デバッグ中:"+cookData);
+        			dao.insert(makeRecipe);
         			
         			//***次のページに遷移***//
         			setResponsePage(RecipeListPage.class);

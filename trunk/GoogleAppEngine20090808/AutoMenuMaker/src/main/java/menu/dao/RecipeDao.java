@@ -29,12 +29,17 @@ public class RecipeDao {
 		}
 	}
 
-	public List<Recipe> findList(String condition) {
+	public List<Recipe> findListByTitle(String condition) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			Query query = pm.newQuery(Recipe.class);
-			//String query = "select from " + Recipe.class.getName();
-			return (List<Recipe>) query.execute();
+			if (condition != null) {
+				query.setFilter("title == condition");
+				query.declareParameters("String condition");
+			}
+			List<Recipe> result = (List<Recipe>) query.execute(condition);
+			result.size();
+			return result;
 		} finally {
 			pm.close();
 		}
@@ -44,9 +49,11 @@ public class RecipeDao {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			Query query = pm.newQuery(Recipe.class);
-			//String query = "select from " + Recipe.class.getName();
-			int size = ((List<Recipe>) query.execute()).size();
-			System.out.println("size=" + size);
+			if (condition != null) {
+				query.setFilter("title == condition");
+				query.declareParameters("String condition");
+			}
+			int size = ((List<Recipe>) query.execute(condition)).size();
 			return size;
 		} finally {
 			pm.close();
