@@ -59,7 +59,6 @@ public class WordInfoDao extends GenericDao<WordInfo> {
                 info.setRefmap(refmap);
             }
             info.setMemo(memo);
-
             makePersistentInTx(info);
         }
         return info;
