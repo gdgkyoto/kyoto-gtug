@@ -86,10 +86,12 @@
 	function showTwitterList(tx, rs) {
 		var list 	= $("twitter_list");
 		var html	= "";
+		var row		= null;
 		html += '<table border="1">';
 		html += '<th><td>icon</td><td>name</td><td>contents</td><td>memo</td><td>time</td></th>';
 			
 		for(var i=0; i<rs.rows.length; i++) {
+			row = rows.item(i);
 			html += '<tr>';
 			html += '	<td><input type="radio" id="contents" onclick="selectContent('+row.id+')"></td>';
 			html += '	<td><img src="'+row.icon_url+'"/></td>';
