@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -18,8 +19,8 @@ import javax.servlet.http.*;
 import com.google.appengine.api.datastore.Key;
 import com.kyotogtug.amidakuji.dao.IAmidakujiDao;
 import com.kyotogtug.amidakuji.dao.ILineDao;
-import com.kyotogtug.amidakuji.dao.impl.AmidakujiDaoImpl;
-import com.kyotogtug.amidakuji.dao.impl.LineDaoImpl;
+import com.kyotogtug.amidakuji.dao.memoryimpl.AmidakujiDaoImpl;
+import com.kyotogtug.amidakuji.dao.memoryimpl.LineDaoImpl;
 import com.kyotogtug.amidakuji.jdo.entity.Amidakuji;
 import com.kyotogtug.amidakuji.jdo.entity.Line;
 
@@ -34,7 +35,7 @@ public class MakeAmidaServlet extends HttpServlet {
 	//	resp.setContentType("text/plain");
 	//	resp.getWriter().println("(doGet) Hello, world");
 	//}
-	
+
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		//resp.setContentType("text/plain");
 		resp.setContentType("text/html; charset=UTF-8");
@@ -70,7 +71,7 @@ public class MakeAmidaServlet extends HttpServlet {
 
 		//終了日時
 		String finishDateTime01 = req.getParameter("finishDateTime");
-		
+
 		//アミダ初期データの作成
 
 		/* Amidakujiを登録 */
@@ -82,7 +83,7 @@ public class MakeAmidaServlet extends HttpServlet {
 		mailList.add( playerEmail04 );
 		mailList.add( playerEmail05 );
 		mailList.add( playerEmail06 );
-		
+
 		List<String> urlList = new ArrayList<String>();
 		//urlList.add( "http://tbn2.google.com/images?q=tbn:yWyWojyPlyH1YM:http://katourosagazou1.up.seesaa.net/image/B2C3C6A3A5EDA1BCA5B5A1A1B2E8C1FCA1A1CAC9BBE6A1A1A5ADA5EAA5F3A5D3A5D0A5ECA5C3A5B8.jpg" );
 		//urlList.add( "http://tbn2.google.com/images?q=tbn:lst6tn8Vfpjs8M:http://www.namisaru.net/photo/20080730.jpg" );
@@ -93,20 +94,23 @@ public class MakeAmidaServlet extends HttpServlet {
 		urlList.add( goal04 );
 		urlList.add( goal05 );
 		urlList.add( goal06 );
-		
+
 		Amidakuji amidakuji = new Amidakuji();
 		amidakuji.setImageUrlList(urlList);
 		amidakuji.setMailAddressList(mailList);
 		amidakuji.setLength(100);
 		//amidakuji.setEndTime(toDate("2009/08/08 17:30:00"));
-		amidakuji.setEndTime(toDate(finishDateTime01));
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MILLISECOND, (int)com.kyotogtug.amidakuji.logic.AmidaConfig.TOTAL_TIME);
+		//amidakuji.setEndTime(toDate(finishDateTime01));
+		amidakuji.setEndTime(cal.getTime());
 		//amidakuji.setTitle( "壁紙選手権！" );
 		amidakuji.setTitle( amidaTitle01 );
-		
+
 		IAmidakujiDao amidakujiDao = new AmidakujiDaoImpl();
 		amidakujiDao.insertAmidakuji(amidakuji);
-		
-		
+
+
 		//アミダ作成完了の表示
 		//resp.sendRedirect("makeAmidaDone.jsp");
         PrintWriter out = resp.getWriter();
