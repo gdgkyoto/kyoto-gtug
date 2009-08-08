@@ -98,4 +98,12 @@ public class WordInfo implements Serializable {
     public void setMemo(Text memo) {
         this.memo = memo;
     }
+    
+    public int getPublicCount() {
+        int result = 0;
+        for (RefInfo ri : this.refmap.values()) {
+            result += ri.refCount;
+        }
+        return result;
+    }
 }
