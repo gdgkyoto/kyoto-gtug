@@ -24,7 +24,7 @@
 				alert("データベースストレージはサポートされていません。");
 			}
 		} catch(error) {
-		  alert("例外が発生しました");
+		  alert("例外が発生しました "+error);
 		}
 		
    	}
@@ -130,15 +130,18 @@
 	
 	<input type="button" value="write log" onclick="readTwitter()"/>
 	<input type="button" value="update view" onclick="selectContents()"/>
+	<br>
 	<div id="twitter_list"></div>
-	
-	<form method="post" action="" id="send">
+	<br/>
+	<form method="post" action="http://" id="send">
 		<input type="submit" value="send" />
-		<input type="text" value="" name="trans[icon_url]" id="icon_url"/>
-		<input type="text" value="" name="trans[user_name]" id="user_name"/>
-		<input type="text" value="" name="trans[content]" id="content"/>
-		<input type="text" value="" name="trans[memo]" id="memo"/>
-		<input type="text" value="" name="trans[created_at]" id="created_at"/>
+		<br/>
+		---debug---<br/>
+		icon_url: <input type="text" value="" name="trans[icon_url]" id="icon_url"/><br/>
+		user_name: <input type="text" value="" name="trans[user_name]" id="user_name"/><br/>
+		content: <input type="text" value="" name="trans[content]" id="content"/><br/>
+		memo: <input type="text" value="" name="trans[memo]" id="memo"/><br/>
+		created_at: <input type="text" value="" name="trans[created_at]" id="created_at"/>
 	</form>
 	
 </body>
