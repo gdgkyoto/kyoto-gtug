@@ -80,9 +80,9 @@ public class MakeAmidaServlet extends HttpServlet {
 		mailList.add( playerEmail01 );
 		mailList.add( playerEmail02 );
 		mailList.add( playerEmail03 );
-		mailList.add( playerEmail04 );
-		mailList.add( playerEmail05 );
-		mailList.add( playerEmail06 );
+//		mailList.add( playerEmail04 );
+//		mailList.add( playerEmail05 );
+//		mailList.add( playerEmail06 );
 
 		List<String> urlList = new ArrayList<String>();
 		//urlList.add( "http://tbn2.google.com/images?q=tbn:yWyWojyPlyH1YM:http://katourosagazou1.up.seesaa.net/image/B2C3C6A3A5EDA1BCA5B5A1A1B2E8C1FCA1A1CAC9BBE6A1A1A5ADA5EAA5F3A5D3A5D0A5ECA5C3A5B8.jpg" );
@@ -91,9 +91,9 @@ public class MakeAmidaServlet extends HttpServlet {
 		urlList.add( goal01 );
 		urlList.add( goal02 );
 		urlList.add( goal03 );
-		urlList.add( goal04 );
-		urlList.add( goal05 );
-		urlList.add( goal06 );
+//		urlList.add( goal04 );
+//		urlList.add( goal05 );
+//		urlList.add( goal06 );
 
 		Amidakuji amidakuji = new Amidakuji();
 		amidakuji.setImageUrlList(urlList);
