@@ -50,8 +50,8 @@ OAUTH_APP_SETTINGS = {
 
     'twitter': {
 
-        'consumer_key': '9hLQ9tglOUGoUV4AmuscGA',
-        'consumer_secret': 'y46IeNPqefufOUXYOGi9neR5v7ET5qEZCY7BFhBPw',
+        'consumer_key': 'q334T1W3B48wxhfkFOkA',
+        'consumer_secret': 'DYhwnbaZuPeh2SHZaq8ZjEZYumXB3pZhVhdYMu4ao4',
 
         'request_token_url': 'https://twitter.com/oauth/request_token',
         'access_token_url': 'https://twitter.com/oauth/access_token',
@@ -203,7 +203,7 @@ class OAuthClient(object):
         return self.get_request_token()
 
     def logout(self, return_to='/'):
-        #geotweet‚Ìƒg[ƒNƒ“‚ğíœ‚·‚é
+        #geotweetï¿½Ìƒgï¿½[ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½
         user = User.get_current_user()
         user.twitter_account = None
         user.put()
