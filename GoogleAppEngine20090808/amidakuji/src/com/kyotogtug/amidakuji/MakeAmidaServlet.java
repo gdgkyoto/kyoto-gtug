@@ -4,24 +4,24 @@ import java.io.IOException;
 import javax.servlet.http.*;
 import java.io.PrintWriter;
 
-//import java.util.Date;
-//import java.util.logging.Logger;
+import java.util.Date;
+import java.util.logging.Logger;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-//import javax.servlet.ServletException;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-//import com.google.appengine.api.datastore.Key;
-//import com.kyotogtug.amidakuji.dao.IAmidakujiDao;
-//import com.kyotogtug.amidakuji.dao.ILineDao;
-//import com.kyotogtug.amidakuji.dao.impl.AmidakujiDaoImpl;
-//import com.kyotogtug.amidakuji.dao.impl.LineDaoImpl;
-//import com.kyotogtug.amidakuji.jdo.entity.Amidakuji;
-//import com.kyotogtug.amidakuji.jdo.entity.Line;
+import com.google.appengine.api.datastore.Key;
+import com.kyotogtug.amidakuji.dao.IAmidakujiDao;
+import com.kyotogtug.amidakuji.dao.ILineDao;
+import com.kyotogtug.amidakuji.dao.impl.AmidakujiDaoImpl;
+import com.kyotogtug.amidakuji.dao.impl.LineDaoImpl;
+import com.kyotogtug.amidakuji.jdo.entity.Amidakuji;
+import com.kyotogtug.amidakuji.jdo.entity.Line;
 
 /**
  * @author Hashimoto
@@ -94,18 +94,18 @@ public class MakeAmidaServlet extends HttpServlet {
 		urlList.add( goal05 );
 		urlList.add( goal06 );
 		
-/*		Amidakuji amidakuji = new Amidakuji();
+		Amidakuji amidakuji = new Amidakuji();
 		amidakuji.setImageUrlList(urlList);
 		amidakuji.setMailAddressList(mailList);
 		amidakuji.setLength(100);
 		//amidakuji.setEndTime(toDate("2009/08/08 17:30:00"));
-		amidakuji.setEndTime(toDate(finishDateTime));
+		amidakuji.setEndTime(toDate(finishDateTime01));
 		//amidakuji.setTitle( "壁紙選手権！" );
-		amidakuji.setTitle( amidaTitle );
+		amidakuji.setTitle( amidaTitle01 );
 		
-		//IAmidakujiDao amidakujiDao = new AmidakujiDaoImpl();
-		//amidakujiDao.insertAmidakuji(amidakuji);
-*/		
+		IAmidakujiDao amidakujiDao = new AmidakujiDaoImpl();
+		amidakujiDao.insertAmidakuji(amidakuji);
+		
 		
 		//アミダ作成完了の表示
 		//resp.sendRedirect("makeAmidaDone.jsp");
@@ -138,5 +138,14 @@ public class MakeAmidaServlet extends HttpServlet {
         out.println("<p>参加者に招待メールを発送しました</p>");
         out.println("</body>");
         out.println("</html>");
+	}
+
+	private Date toDate(String string) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
+		try {
+			return dateFormat.parse(string);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
