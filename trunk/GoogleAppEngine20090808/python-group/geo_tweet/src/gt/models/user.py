@@ -12,7 +12,7 @@ class User(db.Model):
     return "/users/%s" % str(self.key().id())
   
   def update_location(self, lat, lon):
-    new_loc = user_location.UserLocation(location=db.GeoPt(lat, lon));
+    new_loc = user_location.UserLocation(user_id=self.key().id(), location=db.GeoPt(lat, lon));
     new_loc.update_location();
     new_loc.put()
     if self.location:

@@ -3,9 +3,10 @@ from ..geo.geomodel import GeoModel
 from ..geo import geotypes
 
 class UserLocation(GeoModel):
+  user_id = db.IntegerProperty(required=True)
   created = db.DateTimeProperty(auto_now_add=True)
   updated = db.DateTimeProperty(auto_now_add=True)
-
+  
   @classmethod
   def find_in_area(cls, area, limit=20, user_id=None):
     query = UserLocation.all().order("-created")
