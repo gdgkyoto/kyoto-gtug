@@ -111,7 +111,6 @@ public final class AmidaDataAjaxServlet extends HttpServlet {
 			ret.add(a);
 		}
 		return ret;
-
 	}
 }
 
