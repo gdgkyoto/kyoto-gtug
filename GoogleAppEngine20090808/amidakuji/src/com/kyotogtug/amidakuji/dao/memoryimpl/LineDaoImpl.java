@@ -1,5 +1,6 @@
 package com.kyotogtug.amidakuji.dao.memoryimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.appengine.api.datastore.Key;
@@ -16,9 +17,13 @@ public class LineDaoImpl implements ILineDao{
 		Amidakuji amida = MemorySingleton.getAmida(amidakujiId);
 		List<Line> lineList = amida.getLineList();
 		
-		Key key = KeyFactory.createKey(Amidakuji.class.getSimpleName(), MemorySingleton.createId());
+		Key key = KeyFactory.createKey(Line.class.getSimpleName(), MemorySingleton.createId());
 		
 		line.setId( key );
+		
+		if(lineList==null){
+			lineList = new ArrayList<Line>();
+		}
 		
 		lineList.add( line );
 		amida.setLineList(lineList);
