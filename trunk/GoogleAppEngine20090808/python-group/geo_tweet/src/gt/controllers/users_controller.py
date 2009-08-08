@@ -11,6 +11,7 @@ import base_controller
 import os
 from ..models.user import User
 from ..models.twitter_account import TwitterAccount
+import logging
 
 class UsersController(base_controller.BaseController):
 
@@ -54,3 +55,18 @@ class UsersController(base_controller.BaseController):
     # ASSERT User is the owner of this message
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.out.write("UsersController DELETE: %s" % user_id)
+
+  def update(self, user_id):
+    logging.info("ENTER: users_controller.update")
+    user = User.get_current_user()
+    if user == None:
+      raise base_controller.LoginRequiredException(self.request.url)
+    if user.key().id() != long(user_id):
+      raise base_controller.Redirect(self.request.url)
+    lat = self.request.get("lat", None)
+    lon = self.request.get("lon", None)
+    if lat != None and lon != None:
+      # Update user location
+      user.update_location(lat, lon)
+      logging.info("User's location is updated!")
+    

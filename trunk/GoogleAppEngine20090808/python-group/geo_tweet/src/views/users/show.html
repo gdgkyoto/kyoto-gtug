@@ -1,5 +1,45 @@
 {%extends "../base.html" %}
 {% block main %}
+
+<script type="text/javascript" src="/js/gt_api.js"></script>
+
+<script type="text/javascript">
+
+  var theRequest = getXMLHttpRequestObject();
+  
+  function resultHandler() {
+    if (theRequest.readyState == 4 && theRequest.status == 200) {
+      // Succeeded
+      var divLoc = document.getElementById("location");
+      divLoc.innerHTML = "Location updated!"
+    } else {
+      //alert("Failed");
+    }
+  }
+  
+  function updateLocation(lat, lon) {
+    path = "/users/{{user.key.id}}";
+    data = "lat=" + encodeURIComponent(lat) + "&lon=" + encodeURIComponent(lon);
+    postData(theRequest, path, data, resultHandler);
+  }
+  
+  function locupdate(pos) {
+    updateLocation(pos.coords.latitude, pos.coords.longitude);
+  }
+  
+  function handleError(a) {
+    alert("Failed");
+  }
+  
+  window.onload = function(){
+    if(navigator.geolocation){
+      navigator.geolocation.watchPosition(locupdate,handleError);
+    }else{
+      alert("ご利用のブラウザでは位置情報が利用出来ません");
+    }
+  };
+</script>
+
   <h1>User</h1>
 
   <div id="user">
@@ -21,6 +61,9 @@
     {% else %}
       <p><a href="/twitter/oauth/twitter/login">twitterにログインする</a></p>
     {% endif %}
+  </div>
+  
+  <div id="location">
   </div>
   
 {% endblock %}

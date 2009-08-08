@@ -1,13 +1,23 @@
 from google.appengine.ext import db
 from google.appengine.api import users
 from twitter_account import TwitterAccount
+import user_location
 
 class User(db.Model):
   google_account = db.UserProperty(required=True)
   twitter_account = db.ReferenceProperty(TwitterAccount)
+  location = db.ReferenceProperty(user_location.UserLocation)
   
   def path(self):
     return "/users/%s" % str(self.key().id())
+  
+  def update_location(self, lat, lon):
+    new_loc = user_location.UserLocation(location=db.GeoPt(lat, lon));
+    new_loc.put()
+    if self.location:
+      self.location.delete()
+    self.location = new_loc;
+    self.put()
 
   @classmethod
   def get_current_user(cls):
