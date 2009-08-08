@@ -3,9 +3,11 @@ package com.kyotogtug.amidakuji.logic;
 import java.util.*;
 import java.util.logging.Logger;
 
-import com.google.appengine.api.datastore.Link;
-import com.google.appengine.api.users.User;
-
+import com.kyotogtug.amidakuji.dao.*;
+import com.kyotogtug.amidakuji.dao.impl.AmidakujiDaoImpl;
+import com.kyotogtug.amidakuji.dao.impl.LineDaoImpl;
+import com.kyotogtug.amidakuji.jdo.entity.Amidakuji;
+import com.kyotogtug.amidakuji.jdo.entity.Line;
 
 /**
  * アミダくじのロジックを実装するクラスです。<br>
@@ -34,8 +36,6 @@ public final class AmidaLogic {
 	//あみだくじの可変情報
 	private AmidaVariableStatus variableStatus = null;
 
-	//デバッグ用
-	private Date endTimeForDebug;
 
 
 	//-------------------- メソッド --------------------
@@ -46,11 +46,6 @@ public final class AmidaLogic {
 	 */
 	AmidaLogic(long id){
 		this.id = id;
-
-		//デバッグ用
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MILLISECOND, (int)AmidaConfig.TOTAL_TIME);
-		endTimeForDebug = cal.getTime();
 	}
 
 	/**
@@ -89,7 +84,7 @@ public final class AmidaLogic {
 	 * このメソッドはスレッド同期されています。<br>
 	 * 先に、initialize()メソッドで初期化を行う必要があります。
 	 * @param x - 線の左上のX座標 (0≦X＜参加人数)
-	 * @param y - 線の左上のY座標 (0＜Y＜AMIDA_LENGTH+AMIDA_LAST_LENGTH)
+	 * @param y - 線の左上のY座標 (0＜Y＜AMIDA_LENGTH)
 	 */
 	public synchronized boolean insertLine(int x, int y){
 
@@ -97,7 +92,7 @@ public final class AmidaLogic {
 		if(!initialized)  throw new IllegalStateException("ロジックオブジェクトは初期化されていません");
 
 		//Y座標チェック
-		if(y<=0 || y>=AmidaConfig.AMIDA_LENGTH + AmidaConfig.AMIDA_LAST_LENGTH)
+		if(y<=0 || y>=AmidaConfig.AMIDA_LENGTH)
 			throw new IllegalArgumentException("y座標が不正です : y=" + y);
 
 		//X座標チェック
@@ -108,6 +103,14 @@ public final class AmidaLogic {
 
 		//指定されたy座標が現在のy座標より大きい場合、許可される
 		if(variableStatus.getCurrentPositionY()>=y){
+			Line line = new Line();
+			line.setCreateUser(null);
+			line.setCreateTime(new Date());
+			line.setXPoint(x);
+			line.setYPoint(y);
+
+			ILineDao dao = new LineDaoImpl();
+			dao.insertLine(id, new Line());
 			return true;
 		}
 
@@ -121,20 +124,27 @@ public final class AmidaLogic {
 
 		if(initialized) return;
 
+		//データ取得
+		IAmidakujiDao dao = new AmidakujiDaoImpl();
+		Amidakuji amidakuji = dao.getAmidakujiById(this.id);
+		if(amidakuji==null) throw new IllegalArgumentException("Amidakujiオブジェクト取得に失敗 : id=" + id);
+
+
 		//固定情報を作成
 		AmidaFixedStatus fixedStatus = new AmidaFixedStatus();
 		fixedStatus.setId(id);
-		fixedStatus.setTitle("test");
-		fixedStatus.setUrlList(new ArrayList<Link>());
-		fixedStatus.setUserList(new ArrayList<User>());
-		fixedStatus.setEndTime(endTimeForDebug);
+		fixedStatus.setTitle(amidakuji.getTitle());
+		fixedStatus.setUrlList(amidakuji.getImageUrlList());
+		fixedStatus.setUserList(amidakuji.getMailAddressList());
+		fixedStatus.setEndTime(amidakuji.getEndTime());
 		this.fixedStatus = fixedStatus;
 		log.fine("固定情報の初期化が行われました。");
 
-		//線履歴をDBから取り出す
+		//可変情報を作成
 		AmidaVariableStatus variableStatus = new AmidaVariableStatus();
 		variableStatus.setCurrentPositionY(-1); //Y座標は-1
 		variableStatus.setFinished(false); //finishedフラグはfalseにしておく
+		variableStatus.setLineList(null);
 		variableStatus.lock(); //オブジェクトロック
 		this.variableStatus = variableStatus;
 		log.fine("可変情報の初期化が行われました。");
@@ -155,8 +165,9 @@ public final class AmidaLogic {
 		Date currentTime = new Date();
 		newVariableStatus.setCurrentTime(currentTime);
 		newVariableStatus.setCurrentPositionY(preVariableStatus.getCurrentPositionY());
-		newVariableStatus.setCurrentsPositionX(preVariableStatus.getCurrentPositionX());
+		newVariableStatus.setCurrentPosition(preVariableStatus.getCurrentPosition());
 		newVariableStatus.setFinished(preVariableStatus.isFinished());
+		newVariableStatus.setLineList(preVariableStatus.getLineList());
 
 		//すでに前の段階で終わっている場合はそのまま返す。
 		if(preVariableStatus.isFinished()){
@@ -166,9 +177,6 @@ public final class AmidaLogic {
 			return;
 		}
 
-		//可変情報を更新する。
-		//更新順序は、Y座標、線履歴、X座標の順(未実装)
-		//線履歴が更新された場合、結果をDBに保存する
 
 		//終了判定
 		long leftTime = fixedStatus.getEndTime().getTime() - currentTime.getTime(); //残り時間
@@ -177,6 +185,7 @@ public final class AmidaLogic {
 
 		//Y座標を計算
 		long elapsedTime = AmidaConfig.TOTAL_TIME - leftTime; //経過時間
+		if (elapsedTime <0) elapsedTime=0;
 		int y = (leftTime>0) ? (int)((long)elapsedTime / AmidaConfig.TIME_TO_MOVE) : AmidaConfig.AMIDA_LENGTH;
 		newVariableStatus.setCurrentPositionY(y);
 
@@ -188,9 +197,72 @@ public final class AmidaLogic {
 			return;
 		}
 
-		//線履歴を計算
-		newVariableStatus.setCurrentsPositionX(new ArrayList<Integer>());
+		//現在のX座標を計算
+		int xsize = fixedStatus.getUserList().size();
+		Integer[] xpos = new Integer[xsize];
+		for(int i=0; i<xsize; i++){
+			xpos[i]=i;
+		}
 
+		//lineList取得
+		IAmidakujiDao dao = new AmidakujiDaoImpl();
+		Amidakuji amida = dao.getAmidakujiById(id);
+		List<Line> lineList = amida.getLineList();
+		log.info("line count=" + lineList.size());
+		List<Line> sortList = new ArrayList<Line>(lineList);
+
+		//lineList2をy座標順にソートする
+		int n = sortList.size();
+		for(int i=0;i<n;i++){
+		    int min = i ;
+		    for(int j=i+1;j<n;j++){
+		    	if(sortList.get(min).getYPoint()>sortList.get(j).getYPoint())  min = j ;
+		    }
+		    //スワップ
+		    Line a = sortList.get(i);
+		    Line b = sortList.get(min);
+		    sortList.set(min, a);
+		    sortList.set(i, b);
+		}
+
+
+		//スワップ
+		for(Line line: sortList){
+			System.out.println(line.getXPoint() + "," + line.getYPoint());
+			int x=line.getXPoint();
+			int tmp = xpos[x];
+			xpos[x] = xpos[x+1];
+			xpos[x+1] = tmp;
+		}
+
+		//線リストから生成
+		List<List<Object>> position = new ArrayList<List<Object>>();
+		for(int i=0; i<xpos.length; i++){
+			List<Object> plist = new ArrayList<Object>();
+			plist.add(Integer.valueOf(xpos[i]));
+			plist.add(Integer.valueOf(y));
+			plist.add(fixedStatus.getUserList().get(i));
+			position.add(plist);
+		}
+
+		//線リスト作成
+		List<List<Object>> lineListOutput = new ArrayList<List<Object>>();
+		for(Line line : lineList){
+			List<Object>e  = new ArrayList<Object>();
+			e.add(line.getXPoint());
+			e.add(line.getYPoint());
+			if(line.getCreateUser()!=null){
+				e.add(line.getCreateUser().getEmail());
+			}
+			else{
+				e.add(null);
+			}
+			lineListOutput.add(e);
+		}
+
+		//結果をセットする
+		newVariableStatus.setLineList(lineListOutput);
+		newVariableStatus.setCurrentPosition(position);
 
 		//オブジェクトをロック
 		newVariableStatus.lock();

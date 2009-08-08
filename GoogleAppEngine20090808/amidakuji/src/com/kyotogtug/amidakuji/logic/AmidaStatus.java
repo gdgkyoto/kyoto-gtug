@@ -3,8 +3,6 @@ package com.kyotogtug.amidakuji.logic;
 import java.util.Date;
 import java.util.List;
 
-import com.google.appengine.api.datastore.Link;
-import com.google.appengine.api.users.User;
 
 public final class AmidaStatus {
 
@@ -28,10 +26,10 @@ public final class AmidaStatus {
 	public String getTitle(){
 		return fixedStatus.getTitle();
 	}
-	public List<User> getUserList() {
+	public List<String> getUserList() {
 	    return fixedStatus.getUserList();
 	}
-	public List<Link> getUrlList() {
+	public List<String> getUrlList() {
 	    return fixedStatus.getUrlList();
 	}
 	public Date getEndTime(){
@@ -44,6 +42,9 @@ public final class AmidaStatus {
 		variableStatus = status;
 	}
 
+	public List<List<Object>> gerLines(){
+		return variableStatus.getLineList();
+	}
 	public Date getCurrentTime() {
 	    return variableStatus.getCurrentTime();
 	}
@@ -54,8 +55,8 @@ public final class AmidaStatus {
 	public boolean isFinished() {
 		return variableStatus.isFinished();
 	}
-	public List<Integer> getCurrentsPositionX() {
-	    return variableStatus.getCurrentPositionX();
+	public List<List<Object>> getCurrentPosition(){
+		return variableStatus.getCurrentPosition();
 	}
 	public long getCurrentPositionY() {
 	    return variableStatus.getCurrentPositionY();

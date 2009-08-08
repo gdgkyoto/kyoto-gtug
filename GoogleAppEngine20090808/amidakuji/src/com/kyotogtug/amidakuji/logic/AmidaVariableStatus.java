@@ -10,13 +10,13 @@ import java.util.List;
  */
 final class AmidaVariableStatus {
 	//線リスト
-	//List<Line> lineList;
+	List<List<Object>> lineList;
 
 	//現在時刻
 	private Date currentTime;
 
-	//現在位置(X座標)のリスト
-	private List<Integer> currentPositionX;
+	//現在位置(x,y,userリスト)
+	private List<List<Object>> currentPosition;
 
 	//現在位置(Y座標)
 	private long currentPositionY;
@@ -30,6 +30,22 @@ final class AmidaVariableStatus {
 	void lock(){
 		if(locked) throw new IllegalStateException();
 		locked=true;
+	}
+
+	/**
+	 * lineListを取得します。
+	 * @return lineList
+	 */
+	public List<List<Object>>  getLineList() {
+	    return lineList;
+	}
+
+	/**
+	 * lineListを設定します。
+	 * @param lineList lineList
+	 */
+	public void setLineList(List<List<Object>> lineList) {
+	    this.lineList = lineList;
 	}
 
 	/**
@@ -50,20 +66,19 @@ final class AmidaVariableStatus {
 	}
 
 	/**
-	 * currentsPositionXを取得します。
-	 * @return currentPositionX
+	 * currentPositionを取得します。
+	 * @return currentPosition
 	 */
-	List<Integer> getCurrentPositionX() {
-	    return currentPositionX;
+	public List<List<Object>> getCurrentPosition() {
+	    return currentPosition;
 	}
 
 	/**
-	 * currentsPositionXを設定します。
-	 * @param currentPositionX currentPositionX
+	 * currentPositionを設定します。
+	 * @param currentPosition currentPosition
 	 */
-	void setCurrentsPositionX(List<Integer> currentPositionX) {
-		if(locked) throw new IllegalStateException();
-	    this.currentPositionX = currentPositionX;
+	public void setCurrentPosition(List<List<Object>> currentPosition) {
+	    this.currentPosition = currentPosition;
 	}
 
 	/**

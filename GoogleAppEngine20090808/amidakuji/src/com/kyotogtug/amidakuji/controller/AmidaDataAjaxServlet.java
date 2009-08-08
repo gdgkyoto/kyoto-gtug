@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kyotogtug.amidakuji.logic.AmidaConfig;
+import com.kyotogtug.amidakuji.logic.AmidaLogic;
+import com.kyotogtug.amidakuji.logic.AmidaLogicFactory;
+import com.kyotogtug.amidakuji.logic.AmidaStatus;
+
 import net.sf.json.*;
 
 
@@ -46,7 +51,7 @@ public final class AmidaDataAjaxServlet extends HttpServlet {
 		//出力を行う
 		resp.setContentType("text/plain"); //デバッグ用
 		//resp.setContentType("application/json"); //本番用
-		resp.setCharacterEncoding("Windows-31J");
+		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().println(outData);
 
 		log.info("ok");
@@ -60,11 +65,39 @@ public final class AmidaDataAjaxServlet extends HttpServlet {
 	 * @return str - JSONオブジェクトの文字列
 	 */
 	private String makeData(HttpServletRequest req, long id){
+
+		//アミダロジックを取得し、現在の状態を得る
+		AmidaLogic logic = AmidaLogicFactory.get(id);
+		logic.initialize();
+		AmidaStatus status = logic.getStatus();
+
+		//データ作成
 		JSONObject obj = new JSONObject();
 
+		//ユーザーリスト
+		JSONArray users = new JSONArray();
+		users.addAll(status.getUserList());
+
+		//URLリスト
+		JSONArray urls = new JSONArray();
+		urls.addAll(status.getUrlList());
+
+
+		//静的情報
 		obj.put("id", id);
-		obj.put("title", "居酒屋選手権！");
+		obj.put("title", "テストタイトル");
+		obj.put("users", users);
+		obj.put("images", urls);
+		obj.put("length", AmidaConfig.AMIDA_LENGTH);            //int(100)
+		obj.put("lastLength", AmidaConfig.AMIDA_LAST_LENGTH);   //int(20)
+		obj.put("sycInterval", AmidaConfig.SYNC_INTERVAL);      //long
+
+		//動的情報
+		obj.put("finished", false);
+		obj.put("leftTime", 1000);
+
 		return obj.toString();
 	}
 
 }
+
