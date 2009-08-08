@@ -2,6 +2,7 @@ package com.kyotogtug.amidakuji.controller;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -93,11 +94,24 @@ public final class AmidaDataAjaxServlet extends HttpServlet {
 		obj.put("sycInterval", AmidaConfig.SYNC_INTERVAL);      //long
 
 		//ìÆìIèÓïÒ
-		obj.put("finished", false);
-		obj.put("leftTime", 1000);
+		obj.put("lines", makeArray(status.getLines()));
+		obj.put("currentPosition", makeArray(status.getCurrentPosition()));
+		obj.put("currentPositionY", status.getCurrentPositionY());
+		obj.put("finished", status.isFinished());
+		obj.put("leftTime", status.getLeftTime());
 
 		return obj.toString();
 	}
 
+	JSONArray makeArray(List<List<Object>> list){
+		JSONArray ret = new JSONArray();
+		for(List<Object> l : list){
+			JSONArray a = new JSONArray();
+			a.addAll(l);
+			ret.add(a);
+		}
+		return ret;
+
+	}
 }
 
