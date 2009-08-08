@@ -57,17 +57,17 @@ public class MakeAmidaServlet extends HttpServlet {
 		String playerEmail01 = req.getParameter("playerEmail1");
 		String playerEmail02 = req.getParameter("playerEmail2");
 		String playerEmail03 = req.getParameter("playerEmail3");
-		String playerEmail04 = req.getParameter("playerEmail4");
-		String playerEmail05 = req.getParameter("playerEmail5");
-		String playerEmail06 = req.getParameter("playerEmail6");
+		String playerEmail04 = req.getParameter("playerEmail4"); playerEmail04 = "a@gmail.com";
+		String playerEmail05 = req.getParameter("playerEmail5"); playerEmail05 = "a@gmail.com";
+		String playerEmail06 = req.getParameter("playerEmail6"); playerEmail06 = "a@gmail.com";
 
 		//ゴールの選択肢
 		String goal01 = req.getParameter("goal1");
 		String goal02 = req.getParameter("goal2");
 		String goal03 = req.getParameter("goal3");
-		String goal04 = req.getParameter("goal4");
-		String goal05 = req.getParameter("goal5");
-		String goal06 = req.getParameter("goal6");
+		String goal04 = req.getParameter("goal4"); goal04 = goal01;
+		String goal05 = req.getParameter("goal5"); goal05 = goal02;
+		String goal06 = req.getParameter("goal6"); goal06 = goal03;
 
 		//終了日時
 		String finishDateTime01 = req.getParameter("finishDateTime");
