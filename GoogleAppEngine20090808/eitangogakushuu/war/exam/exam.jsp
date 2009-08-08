@@ -25,30 +25,18 @@ span.subject {
 
 <h1>This is Exam Word Page!!</h1>
 
-<form action="/exam/saveResult">
+<form action="/exam/saveResult" id="main">
 <div>
+<h2>
 	<span class="subject">
 		Ｑ<%= request.getAttribute("index") %>．
 	</span>
 	<br/>
 	&nbsp;&nbsp;<%= ((WordInfo)request.getAttribute("word")).getSpell() %>
+</h2>
 </div>
-
-<br/>
-<br/>
-<div class="anserArea">
-	<span class="subject">
-
-<button id="showAnswer">ＡＮＳＷＥＲ．</button>
-
-	</span>
 	<br/>
-<div id="answer">
-	<c:forEach var="m"  items="${word.meaninglist}" varStatus="meanIndex">
-		&nbsp;&nbsp;${meanIndex.index+1}．&nbsp;${f:h(m.jptext)}<br/>
-	</c:forEach>
-
-		<span class="subject">
+	<span class="subject">
 	評価☆
 	</span>
 	<div>
@@ -57,19 +45,48 @@ span.subject {
 		<button onclick="document.getElementById('scoreId').value='2';submit();">&nbsp;&nbsp;微妙。&nbsp;&nbsp;</button>
 		<button onclick="document.getElementById('scoreId').value='1';submit();">(((( ；ﾟДﾟ))</button>
 	</div>
-
-</div>
-	<br/>
-	<br/>
-</div>
+<br/>
 <input type="hidden" name="index"   value="<%= request.getAttribute("index") %>">
 <input type="hidden" name="wordKey" value="<%= ((WordInfo)request.getAttribute("word")).getKey() %>">
 <input type="hidden" name="score"   id="scoreId">
 </form>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<span class="subject">
+ＡＮＳＷＥＲ．
+
+	</span>
+	<br/>
+<div id="answer">
+	<c:forEach var="m"  items="${word.meaninglist}" varStatus="meanIndex">
+		&nbsp;&nbsp;${meanIndex.index+1}．&nbsp;${f:h(m.jptext)}<br/>
+	</c:forEach>
+
+
+</div>
 <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript">
-
-
 </script>
 </body>
 </html>

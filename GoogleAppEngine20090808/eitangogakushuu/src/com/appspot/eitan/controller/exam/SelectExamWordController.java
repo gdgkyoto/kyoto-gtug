@@ -33,6 +33,11 @@ public class SelectExamWordController extends Controller {
 
         List<Filtering> filterList = new ArrayList<Filtering>();
 
+
+        for(WordInfo w : wordList) {
+            System.out.println(w.getSpell() + " : " + w.getRefmap().get(userInfo.getKey()).examResult);
+        }
+
         Integer searchCount = asInteger("searchCount");
         if (searchCount != null) {
             filterList.add(new SearchCountFiltering(
