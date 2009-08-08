@@ -1,0 +1,36 @@
+ <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>コネクションテスト</title>
+	<script src="http://gear5.googlecode.com/hg/src/javascript/gear5.js" >
+	</script>
+<script type="text/javascript" language="JavaScript">
+// DBとアドレス表の初期化
+var db;
+function init() {
+      try {
+        	if (window.openDatabase) {
+        		db = window.openDatabase("addresslist", "", "Address list", "1048576");
+        		if (!db) {
+            		alert("データベースストレージが使えません。");
+        		} else{
+            		alert("DB接続成功");
+        		}
+			} else {
+				alert("データベースストレージはサポートされていません。");
+			}
+		} catch(error) {
+		  alert("例外が発生しました");
+		}
+    }
+	
+	</script>
+</head>
+
+  <body onload="init()">
+
+    <h1>コネクションテスト</h1>
+
+   </body>
+ </html>
