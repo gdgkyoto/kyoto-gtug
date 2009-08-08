@@ -39,21 +39,17 @@ public class SaveResultController extends Controller {
         wid.update(wordInfo);
 
         // 次のテスト内容
-        List<WordInfo> wordList = (List<WordInfo>)request.getSession().getAttribute("wordList");
+        List<String> wordKeyList    = (List<String>)request.getSession().getAttribute("wordKeyList");
 
-//        List<WordInfo> wordList   = sessionScope("wordList");
-        int size    = wordList.size();
+        String nextWordKey  = wordKeyList.get(index);
+        WordInfo nextwordInfo  =wid.getByKey(nextWordKey);
 
-        WordInfo wi = wordList.get(index);
-        if(wi == null){
-            System.out.println("null");
-        }
 
-        requestScope("word",wordList.get(index));
+        requestScope("word",nextwordInfo);
         int nextIndex   = index+1;
         requestScope("index",nextIndex);
 
-        if(nextIndex == wordList.size()){
+        if(nextIndex == wordKeyList.size()){
 
             // 最後の画面に今回の結果とか出せたらいいと思う。
             // 今回の結果 = 最新の結果
