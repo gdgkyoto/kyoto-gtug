@@ -20,7 +20,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.appspot.eitan.model.beans.Meaning;
-import com.appspot.eitan.search.PartOfSpeech;
 
 
 /**
@@ -68,22 +67,22 @@ class DOMStrategy implements ParsingStrategy {
 	
 	private void parseItemNode(List<Meaning> result, Node itemNode) {
 		try {
-			// TODO PartOfSpeech pos = parseForPartOfSpeech(itemNode);
+			Meaning.WordCategory category = parseForWordCategory(itemNode);
 			String meaning = parseForMeaning(itemNode);
-			result.add(new Meaning(meaning, Meaning.WordCategory.OTHER));
+			result.add(new Meaning(meaning, category));
 		} catch (Exception e) {
 			// ÉpÅ[ÉXé∏îsÇµÇΩÇÁí«â¡ÇµÇ»Ç¢
 			e.printStackTrace();
 		}
 	}
 	
-	private PartOfSpeech parseForPartOfSpeech(Node itemNode) {
+	private Meaning.WordCategory parseForWordCategory(Node itemNode) {
 		NodeList nodes = itemNode.getChildNodes();
 		for (int i = 0; i != nodes.getLength(); ++i) {
 			if (nodes.item(i).getNodeName().equals("cue")) {
 				NamedNodeMap attrs = nodes.item(i).getAttributes();
 				String value = attrs.getNamedItem("part_of_speech").getNodeValue();
-				return PartOfSpeech.fromString(value);
+				return Meaning.WordCategory.fromString(value);
 			}
 		}
 		throw new RuntimeException("Ç±Ç±Ç…ÇÕóàÇ»Ç¢");

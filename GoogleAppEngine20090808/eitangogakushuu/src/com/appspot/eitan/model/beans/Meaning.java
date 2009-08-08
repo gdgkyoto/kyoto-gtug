@@ -9,8 +9,43 @@ import java.io.Serializable;
  */
 public class Meaning implements Serializable {
     private static final long serialVersionUID = -4504952574361249686L;
-
-    public static enum WordCategory {OTHER}; //   http://www.sk.cs.chubu.ac.jp/~joy/japanese/hinshi/00-hinshi.html ���11��� �����A����͎��Ԃ��Ȃ��̂� �S��OTHER�Ƃ���
+    
+    //   http://www.sk.cs.chubu.ac.jp/~joy/japanese/hinshi/00-hinshi.html ���11��� �����A����͎��Ԃ��Ȃ��̂� �S��OTHER�Ƃ���
+    public static enum WordCategory {
+        /** meishi */
+        NOUN,
+        /** daimeishi */
+        PRONOUN,
+        /** doushi */
+        VERB,
+        /** keiyoushi */
+        ADJECTIVE,
+        /** hukushi */
+        ADVERB,
+        /** zenchishi */
+        PREPOSITION,
+        /** setuzokushi */
+        CONJUNCTION,
+        /** kandoushi */
+        INTERJECTION,
+        /** ku */
+        PHRASE,
+        /** sonota */
+        OTHER;
+        
+        public static WordCategory fromString(String s) {
+            if (s.equals("Noun"))         return NOUN;
+            if (s.equals("Pronoun"))      return PRONOUN;
+            if (s.equals("Verb"))         return VERB;
+            if (s.equals("Adjective"))    return ADJECTIVE;
+            if (s.equals("Adverb"))       return ADVERB;
+            if (s.equals("Preposition"))  return PREPOSITION;   
+            if (s.equals("Conjunction"))  return CONJUNCTION;       
+            if (s.equals("Interjection")) return INTERJECTION;  
+            if (s.equals("Phrase"))       return PHRASE;
+            return OTHER;
+        }
+    }
 
 
     /** �i�� */
