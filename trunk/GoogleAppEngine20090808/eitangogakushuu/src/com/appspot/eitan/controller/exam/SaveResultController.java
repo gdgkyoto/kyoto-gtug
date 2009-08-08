@@ -1,5 +1,7 @@
 package com.appspot.eitan.controller.exam;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -36,6 +38,17 @@ public class SaveResultController extends Controller {
         Map<String, RefInfo> refMap  = wordInfo.getRefmap();
         RefInfo refInfo              = refMap.get(userInfo.getKey());
         refInfo.setExamResult(scoreValue);
+        refInfo.setLastExam(new Date());
+
+        RefInfo newrefinfo = new RefInfo();
+        newrefinfo.setRefCount(refInfo.getRefCount());
+        newrefinfo.setLastSearch(refInfo.getLastSearch());
+        newrefinfo.setLastExam(refInfo.getLastExam());
+        newrefinfo.setExamResult(refInfo.getExamResult());
+
+        refMap.put(userInfo.getKey(),newrefinfo);
+        HashMap<String, RefInfo> newRefMap = new HashMap<String, RefInfo>(refMap);
+        wordInfo.setRefmap(newRefMap);
         wid.update(wordInfo);
 
         // 次のテスト内容
