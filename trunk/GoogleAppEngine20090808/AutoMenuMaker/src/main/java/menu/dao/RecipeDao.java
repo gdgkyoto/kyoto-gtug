@@ -3,6 +3,7 @@ package menu.dao;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import menu.dto.Recipe;
 
@@ -11,7 +12,9 @@ public class RecipeDao {
 	public void insert(Recipe recipe) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
+			//pm.currentTransaction().begin();
 			pm.makePersistent(recipe);
+			//pm.currentTransaction().commit();
 		} finally {
 			pm.close();
 		}
@@ -26,11 +29,25 @@ public class RecipeDao {
 		}
 	}
 
-	public List<Recipe> findList() {
+	public List<Recipe> findList(String condition) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
-			String query = "select from " + Recipe.class.getName();
-			return (List<Recipe>) pm.newQuery(query).execute();
+			Query query = pm.newQuery(Recipe.class);
+			//String query = "select from " + Recipe.class.getName();
+			return (List<Recipe>) query.execute();
+		} finally {
+			pm.close();
+		}
+	}
+	
+	public int count(String condition) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		try {
+			Query query = pm.newQuery(Recipe.class);
+			//String query = "select from " + Recipe.class.getName();
+			int size = ((List<Recipe>) query.execute()).size();
+			System.out.println("size=" + size);
+			return size;
 		} finally {
 			pm.close();
 		}
