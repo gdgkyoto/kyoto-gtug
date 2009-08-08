@@ -12,7 +12,8 @@
 <body>
 <h1>Finish!!Exam☆</h1>
 <div>
- <button onclick="window.close(); return false;">試験終了</button>
+<a href="${f:url('/exam/')}">試験終了</a>
+
 </div>
 </body>
 </html>

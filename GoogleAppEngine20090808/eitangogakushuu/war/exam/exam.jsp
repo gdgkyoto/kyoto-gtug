@@ -38,16 +38,17 @@ span.subject {
 <br/>
 <div class="anserArea">
 	<span class="subject">
-	ＡＮＳＷＥＲ．
+
+<button id="showAnswer">ＡＮＳＷＥＲ．</button>
+
 	</span>
 	<br/>
+<div id="answer">
 	<c:forEach var="m"  items="${word.meaninglist}" varStatus="meanIndex">
 		&nbsp;&nbsp;${meanIndex.index+1}．&nbsp;${f:h(m.jptext)}<br/>
 	</c:forEach>
 
-	<br/>
-	<br/>
-	<span class="subject">
+		<span class="subject">
 	評価☆
 	</span>
 	<div>
@@ -56,6 +57,10 @@ span.subject {
 		<button onclick="document.getElementById('scoreId').value='3';submit();">&nbsp;&nbsp;微妙。&nbsp;&nbsp;</button>
 		<button onclick="document.getElementById('scoreId').value='3';submit();">(((( ；ﾟДﾟ))</button>
 	</div>
+
+</div>
+	<br/>
+	<br/>
 </div>
 <input type="hidden" name="index"   value="<%= request.getAttribute("index") %>">
 <input type="hidden" name="wordKey" value="<%= ((WordInfo)request.getAttribute("word")).getKey() %>">
@@ -65,7 +70,11 @@ span.subject {
 <script type="text/javascript">
 
 $(function(){
+  $('#answer').hide();
 
+  $('#showAnswer').click(function(){
+	  $('#answer').show();
+  });
 });
 
 </script>
