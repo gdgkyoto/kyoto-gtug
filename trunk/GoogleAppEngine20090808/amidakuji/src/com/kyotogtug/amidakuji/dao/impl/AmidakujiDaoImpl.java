@@ -1,20 +1,46 @@
 package com.kyotogtug.amidakuji.dao.impl;
 
+import javax.jdo.PersistenceManager;
+
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.kyotogtug.amidakuji.dao.IAmidakujiDao;
+import com.kyotogtug.amidakuji.jdo.PMFactory;
 import com.kyotogtug.amidakuji.jdo.entity.Amidakuji;
 
+/**
+ * 
+ * @author htatsuwaki
+ *
+ */
 public class AmidakujiDaoImpl implements IAmidakujiDao{
 
 	@Override
 	public Amidakuji getAmidakujiById(long amidakujiId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//ÉLÅ[Çê∂ê¨
+		Key key = KeyFactory.createKey(Amidakuji.class.getSimpleName(), amidakujiId); 
+		
+		PersistenceManager persistenceManager = PMFactory.get().getPersistenceManager();
+		try{
+			// IDéwíËÇ≈éÊìæ
+			return persistenceManager.getObjectById(Amidakuji.class,key);
+		
+		}finally{
+			persistenceManager.close();
+		}
 	}
 
 	@Override
 	public void insertAmidakuji(Amidakuji amidakuji) {
-		// TODO Auto-generated method stub
+		PersistenceManager persistenceManager = PMFactory.get().getPersistenceManager();
+		try{
+			// âië±âª
+			persistenceManager.makePersistent(amidakuji);
 		
+		}finally{
+			persistenceManager.close();
+		}
 	}
 
 }

@@ -15,6 +15,6 @@ public interface ILineDao {
 	 * @param admidakujiId ‚ ‚İ‚¾‚­‚¶‚ÌID
 	 * @param line ’Ç‰Á‚·‚éü‚Ìî•ñ
 	 */
-	void insertLine( long admidakujiId , Line line );
+	void insertLine( long amidakujiId , Line line );
 	
 }
