@@ -55,16 +55,29 @@ table#amitabha img.image:active {
 div#rest {
 	text-align : right;
 }
+div#log {
+	position : absolute;
+	z-index : 100;
+}
 -->
 </style>
 <script type="text/javascript">
 <!--
+Array.prototype.remove = function(obj) {
+  var a = [];
+  for (var i=0; i<this.length; i++) {
+    if (this[i] != obj) {
+      a.push(this[i]);
+    }
+  }
+  return a;
+};
 (function() {
 //
 // ▼▼クラス定義▼▼
 //
 	/**
-	 * ユーティリティ
+	 * 名前ユーティリティ
 	 */
 	var NameUtil;
 	(function() {
@@ -73,6 +86,12 @@ div#rest {
 			 * コンストラクタ
 			 */
 			initialize : function() {
+			},
+			getDrawLineUrl : function() {
+				return './putLine';
+			},
+			getReloadUrl : function() {
+				return './getAmidaData';
 			},
 			getContainerId : function() {
 				return 'container';
@@ -133,6 +152,26 @@ div#rest {
 	})();
 
 	/**
+	 * ログユーティリティ
+	 */
+	var LogUtil;
+	(function() {
+		var _LogUtil = Class.create({
+			/**
+			 * コンストラクタ
+			 */
+			initialize : function() {
+			},
+			writeLog : function(inM) {
+				var div = new Element('div');
+				div.appendChild(document.createTextNode(inM));
+				$('log').insert(div);
+			}
+		});
+		LogUtil = new _LogUtil();
+	})();
+
+	/**
 	 * あみだくじクラス
 	 */
 	var Amida = Class.create({
@@ -149,7 +188,7 @@ div#rest {
 		 */
 		setRestTime : function(inR) {
 			this.restTime = inR;
-			if(this._rest_timer) _rest_timer.stop();
+			if(this._rest_timer) this._rest_timer.stop();
 			this._rest_timer = new PeriodicalExecuter(function() {
 				--this.restTime;
 				$(NameUtil.getRestTimeId()).innerHTML = this.restTime;
@@ -213,6 +252,13 @@ div#rest {
 				this.drawLine(line);
 			}.bind(this));
 		},
+		loadPoint : function(points) {
+			if(!points) return;
+			if(!points.each) points = $A(points);
+			points.each(function(point,index) {
+				point.getHtmlElement().setStyle({'backgroundColor':this.getUser(point.getUserId()).getLineColor()});
+			}.bind(this));
+		},
 		/**
 		 * ルート表示を消す
 		 */
@@ -263,18 +309,19 @@ div#rest {
 		 * @return ラインをクリックできるかどうか
 		 */
 		isClickable : function(inL) {
+			if(!this.isRunning) return false;
 			for(var i=0; i<this.status.points.length; ++i) {
 				var point = this.status.points[i];
 				if(inL.getLeftPoint().equals(point)) return false;
 				if(inL.getRightPoint().equals(point)) return false;
 			}
+			for(var i=0; i<this.status.waitPoints.length; ++i) {
+				var point = this.status.waitPoints[i];
+				if(inL.getLeftPoint().equals(point)) return false;
+				if(inL.getRightPoint().equals(point)) return false;
+			}
 			return true;
 		},
-
-		updateRestTime : function(inT) {
-			$('restTime').innerHTML = (inT);
-		},
-
 		/**
 		 * 初期化メソッド
 		 * @param option パラメータ
@@ -283,6 +330,7 @@ div#rest {
 			this.id = option.id;
 			this.numRows = option.numRows;
 			this.numRowsFinal = option.numRowsFinal;
+			this.reloadDelay = option.reloadDelay;
 			this.routeDelay = option.routeDelay;
 			this.users = option.users;
 			this.images = option.images;
@@ -295,6 +343,8 @@ div#rest {
 			this.status = {};
 			this.status.points = $A();
 			this.status.lines = $A();
+			this.status.waitPoints = $A();
+			this.status.waitLines = $A();
 
 			var container = $(NameUtil.getContainerId());
 
@@ -393,23 +443,66 @@ div#rest {
 
 							Event.observe(lineCell,'click',function(inE) {
 								var cell = Event.element(inE);
-								var line = new Line(cell.getAttribute('row'),cell.getAttribute('col'));
+								var line = new Line(cell.getAttribute('row'),cell.getAttribute('col'),this.userId);
 								if(!this.isClickable(line)) return;
 								cell.addClassName(NameUtil.getLineOnClassName());
 
 								//
 								// Ajax
-								//  success : ラインを登録して、cell.addClassName(NameUtil.getLineOnClassName());
-								//  failure : 
-								var result = true;
-								if(result) {
-									this.drawLine(line);
-								} else {
-								}
-								//
-								//
-								//
-
+								//  success : ラインを登録,待機ラインを削除
+								//  failure : 待機ラインを削除
+								var leftPoint = line.getLeftPoint();
+								var rightPoint = line.getRightPoint();
+								this.status.waitPoints.push(leftPoint);
+								this.status.waitPoints.push(rightPoint);
+								this.status.waitLines.push(line);
+								LogUtil.writeLog('write-line start');
+								var params = ('id='+this.id+'&X='+line.getCol()+'&Y='+line.getRow());
+								LogUtil.writeLog(params);
+								var ajax = new Ajax.Request(NameUtil.getDrawLineUrl(),
+									{
+										'method' : 'get',
+										'parameters' : params,
+										onSuccess : function(request) {
+											LogUtil.writeLog('write-line onSuccess');
+											var _left = leftPoint;
+											var _right = rightPoint;
+											var _line = line;
+											var _cell = cell;
+											var obj = request.responseJSON;
+											if(obj.result) {
+												this.drawLine(_line);
+											} else {
+												_cell.removeClassName(NameUtil.getLineOnClassName());
+											}
+											this.status.waitPoints = this.status.waitPoints.remove(_left);
+											this.status.waitPoints = this.status.waitPoints.remove(_right);
+											this.status.waitLines = this.status.waitLines.remove(_line);
+										}.bind(this),
+										onFailure : function(request) {
+											LogUtil.writeLog('write-line onFailure');
+											var _left = leftPoint;
+											var _right = rightPoint;
+											var _line = line;
+											var _cell = cell;
+											this.status.waitPoints = this.status.waitPoints.remove(_left);
+											this.status.waitPoints = this.status.waitPoints.remove(_right);
+											this.status.waitLines = this.status.waitLines.remove(_line);
+											_cell.removeClassName(NameUtil.getLineOnClassName());
+										}.bind(this),
+										onException : function(request) {
+											LogUtil.writeLog('write-line onException');
+											var _left = leftPoint;
+											var _right = rightPoint;
+											var _line = line;
+											var _cell = cell;
+											this.status.waitPoints = this.status.waitPoints.remove(_left);
+											this.status.waitPoints = this.status.waitPoints.remove(_right);
+											this.status.waitLines = this.status.waitLines.remove(_line);
+											_cell.removeClassName(NameUtil.getLineOnClassName());
+										}.bind(this)
+									}
+								);
 							}.bind(this));
 							Event.observe(lineCell,'mouseover',function(inE) {
 								var cell = Event.element(inE);
@@ -420,7 +513,6 @@ div#rest {
 							Event.observe(lineCell,'mouseout',function(inE) {
 								var cell = Event.element(inE);
 								var line = new Line(cell.getAttribute('row'),cell.getAttribute('col'));
-//								if(!this.isClickable(line)) return;
 								cell.removeClassName(NameUtil.getLineOverClassName());
 							}.bind(this));
 						}
@@ -457,10 +549,54 @@ div#rest {
 		 * @param option パラメータ
 		 */
 		start : function(option) {
+
+			this.loadOption(option);
+
+			if(this.isRunning) {
+				if(this._reload_timer) this._reload_timer.stop();
+				this._reload_timer = new PeriodicalExecuter(function() {
+					LogUtil.writeLog('reload start');
+					var params = ('id='+this.id+'&lastId='+this.lastLineId);
+					LogUtil.writeLog(params);
+					var ajax = new Ajax.Request(NameUtil.getReloadUrl(),
+						{
+							'method' : 'get',
+							'parameters' : params,
+							onSuccess : function(request) {
+								LogUtil.writeLog('reload success');
+								var obj = request.responseJSON;
+								if(success) {
+								} else {
+								}
+							}.bind(this),
+							onFailure : function(request) {
+								LogUtil.writeLog('reload failure');
+							}.bind(this),
+							onException : function(request) {
+								LogUtil.writeLog('reload onException');
+							}.bind(this)
+						}
+					);
+					if(!this.isRunning) {
+						this._rest_timer.stop();
+					}
+				}.bind(this),this.reloadDelay);
+			}
+		},
+
+		/**
+		 * パラメータを読み込む
+		 * @param option パラメータ
+		 */
+		loadOption : function(option) {
+			this.loadPoint(option.currentPoints);
 			this.loadLine(option.lines);
-			this.isRunning = option.isRunning;
 			this.currentRow = option.currentRow;
 			this.setRestTime(option.restTime);
+			this.isRunning = option.isRunning;
+			this.lastLineId = option.lastLineId;
+			this.lastEnable = option.lastEnable;
+			this.lineEnable = option.lineEnable;
 		}
 	});
 
@@ -552,9 +688,10 @@ div#rest {
 		 * @param inR 行
 		 * @param inC 列
 		 */
-		initialize : function(inR,inC) {
+		initialize : function(inR,inC,inI) {
 			this.row = parseInt(inR);
 			this.col = parseInt(inC);
+			this.userId = inI;
 		},
 		/**
 		 * 列を取得する
@@ -569,6 +706,13 @@ div#rest {
 		 */
 		getCol : function() {
 			return this.col;
+		},
+		/**
+		 * ユーザIDを取得する
+		 * @return ユーザID
+		 */
+		getUserId : function() {
+			return this.userId;
 		},
 		/**
 		 * 位置のHtml要素を取得する
@@ -668,39 +812,60 @@ div#rest {
 //
 		var amida = new Amida();
 		(function() {
+			// ユーザリスト
 			var users = [
-				new User({'startPoint':new Point(0,0),'lineColor':'blue'}),
-				new User({'startPoint':new Point(0,0),'lineColor':'blue'}),
-				new User({'startPoint':new Point(0,0),'lineColor':'blue'}),
-				new User({'startPoint':new Point(0,0),'lineColor':'blue'})
+				new User({'id':'0','name':'name0','startPoint':new Point(0,0),'lineColor':'pink'}),
+				new User({'id':'1','name':'name1','startPoint':new Point(0,1),'lineColor':'blue'}),
+				new User({'id':'2','name':'name2','startPoint':new Point(0,2),'lineColor':'green'}),
+				new User({'id':'3','name':'name3','startPoint':new Point(0,3),'lineColor':'gray'})
 			];
+			// 画像リスト
 			var images = [
 				new Image({'id':'0','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
-				new Image({'id':'1','url':'test','title':'t','startPoint':new Point(0,0)}),
-				new Image({'id':'2','url':'test','title':'t','startPoint':new Point(0,0)}),
-				new Image({'id':'3','url':'test','title':'t','startPoint':new Point(0,0)})
+				new Image({'id':'1','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
+				new Image({'id':'2','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
+				new Image({'id':'3','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
+				new Image({'id':'4','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'})
 			];
 			var option = {
 				'id' : 1,
+				'title' : 'タイトル',
 				'numRows' : 100,
 				'numRowsFinal' : 20,
+				'reloadDelay' : 3,
 				'routeDelay' : 0.02,
 				'users' : users,
 				'images' : images
 			};
 			amida.init(option);
 		})();
-//
-// △△初期設定△△
-//
-
 
 		(function() {
+			// 現在位置
+			var points = [
+				new Point(3,0,'0'),
+				new Point(3,2,'1'),
+				new Point(3,3,'2'),
+				new Point(3,1,'3')
+			];
+			// 履歴ラインリスト
+			var lines = [
+				new Line(1,2,'0')
+			];
 			var option = {
-				'restTime' : 100
+				'restTime' : 100,
+				'isRunning' : true,
+				'lastLineId' : 1,
+				'currentPoints' : points,
+				'lines' : lines,
+				'lastEnable' : false,
+				'lineEnable' : true
 			};
 			amida.start(option);
 		})();
+//
+// △△初期設定△△
+//
 	});
 
 	/**
