@@ -6,15 +6,17 @@
     <table>
       <tbody>
         <tr><td>なまえ:</td><td>{{user.google_account.nickname}}</td></tr>
+	<!--
         <tr><td>職業:</td><td>旅芸人</td></tr>
         <tr><td>生息地:</td><td>京都府, 日本</td></tr>
+	-->
       </tbody>
     </table>
-    
+      <p><a href="/twitter/oauth/twitter/logout">twitterからログアウトする</a></p>
     {% if user.twitter_account %}
     <div id="twitter">
       <p>Twitter OAuth token: {{user.twitter_account.oauth_token}}</p>
-      <!-- <p><a href="/twitter/oauth/twitter/logout">twitterからログアウトする</a></p> -->
+      <p><a href="/twitter/oauth/twitter/logout">twitterからログアウトする</a></p>
     </div>
     {% else %}
       <p><a href="/twitter/oauth/twitter/login">twitterにログインする</a></p>
