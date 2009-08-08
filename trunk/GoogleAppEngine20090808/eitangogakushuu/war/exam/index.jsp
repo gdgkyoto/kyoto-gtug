@@ -29,14 +29,14 @@
 						<input type="text" ${f:text("searchCount")} class="${f:errorClass('searchCount', 'error')}"/>回以上 ${f:h(errors.searchCount)}
 					</td>
 				</tr>
-				<tr>
+<!--				<tr>
 					<th>状態</th>
 					<td>
-						<input type="checkbox" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />
-						<input type="checkbox" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />
-						<input type="checkbox" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />${f:h(errors.status)}
+						<input type="checkbox" value="3" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />○
+						<input type="checkbox" value="2" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />△
+						<input type="checkbox" value="1" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />×${f:h(errors.status)}
 					</td>
-				</tr>
+				</tr>-->
 				<tr>
 					<th>試験する単語数</th>
 					<td><input type="text" ${f:text("wordCount")} class="${f:errorClass('wordCount', 'error')}"/>${f:h(errors.wordCount)}</td>
@@ -45,9 +45,6 @@
 			
 					<input type="submit" id="start" value="START!">
 		</form>
-
-		<button id="btn">hanaoka</button>
-
 	</div>
 	<jsp:include page="/footer.jsp" />
 
