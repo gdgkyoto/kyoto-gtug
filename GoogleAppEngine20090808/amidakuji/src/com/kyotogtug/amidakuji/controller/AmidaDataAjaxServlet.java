@@ -50,8 +50,8 @@ public final class AmidaDataAjaxServlet extends HttpServlet {
 		String outData = makeData(req,id);
 
 		//出力を行う
-		resp.setContentType("text/plain"); //デバッグ用
-		//resp.setContentType("application/json"); //本番用
+		//resp.setContentType("text/plain"); //デバッグ用
+		resp.setContentType("application/json"); //本番用
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().println(outData);
 
