@@ -1,8 +1,13 @@
 package com.appspot.eitan.controller.translate;
 
+import java.util.List;
 import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
+import org.slim3.controller.validator.Validators;
+
+import com.appspot.eitan.search.SmartFmItemSearcher;
+import com.appspot.eitan.search.Meaning;
 
 public class TranslateController extends Controller {
 
@@ -11,6 +16,25 @@ public class TranslateController extends Controller {
 
     @Override
     public Navigation run() {
+        if (!validate()) {
+            return forward(basePath);
+        }
+        String spell = requestScope("spell");
+        
+        /* TODO Bigtableへの参照回数問い合わせ（大坪さんお願いします）*/
+        
+        SmartFmItemSearcher searcher = new SmartFmItemSearcher();
+        List<Meaning> result = searcher.search(spell);
+        
+        
+        /* TODO Bigtableへの参照回数の登録（大坪さんお願いします）*/
+        
         return forward("confirm.jsp");
+    }
+    
+    protected boolean validate() {
+        Validators v = new Validators(request);
+        v.add("spell", v.required());
+        return v.validate();
     }
 }
