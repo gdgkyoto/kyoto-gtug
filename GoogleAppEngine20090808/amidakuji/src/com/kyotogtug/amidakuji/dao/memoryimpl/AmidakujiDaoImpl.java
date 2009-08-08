@@ -14,9 +14,8 @@ public class AmidakujiDaoImpl implements IAmidakujiDao{
 
 	@Override
 	public void insertAmidakuji(Amidakuji amidakuji) {
-		int size = MemorySingleton.getMap().keySet().size();
 		//ÉLÅ[Çê∂ê¨
-		Key key = KeyFactory.createKey(Amidakuji.class.getSimpleName(), size+1);
+		Key key = KeyFactory.createKey(Amidakuji.class.getSimpleName(), MemorySingleton.createId());
 		
 		amidakuji.setId(key);
 		

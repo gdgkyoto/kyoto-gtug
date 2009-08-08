@@ -10,6 +10,8 @@ public class MemorySingleton {
 
 	private static Map< Long ,  Amidakuji > map = new TreeMap<Long, Amidakuji>();
 	
+	private static long id = 0;
+	
 	public static synchronized Map< Long ,  Amidakuji > getMap(){
 		
 		return map;
@@ -23,4 +25,8 @@ public class MemorySingleton {
 		map.put(amidakuji.getId().getId(), amidakuji);
 	}
 	
+	public static long createId(){
+		id++;
+		return id;
+	}
 }
