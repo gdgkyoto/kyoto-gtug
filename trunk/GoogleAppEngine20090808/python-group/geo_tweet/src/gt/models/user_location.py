@@ -19,7 +19,7 @@ class UserLocation(GeoModel):
  
   @classmethod
   def find_in_circle(cls, center, radius, limit=20):
-    return UserLocation.proximity_fetch(Location.all().order("-created"),
+    return UserLocation.proximity_fetch(UserLocation.all().order("-created"),
                                         center,  # Or db.GeoPt
                                         max_results=limit,
                                         max_distance=radius)
