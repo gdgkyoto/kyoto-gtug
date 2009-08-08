@@ -11,5 +11,8 @@
     <static-files>
         <include path="/**.html" />
     </static-files>
+    <static-files>
+        <include path="/**.js" />
+    </static-files>
 
 </appengine-web-app>
