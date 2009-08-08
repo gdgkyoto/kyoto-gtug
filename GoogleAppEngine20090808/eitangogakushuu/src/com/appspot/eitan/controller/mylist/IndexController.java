@@ -10,6 +10,7 @@ import org.slim3.controller.Navigation;
 
 import com.appspot.eitan.model.UserInfo;
 import com.appspot.eitan.model.WordInfo;
+import com.appspot.eitan.model.beans.RefInfo;
 import com.appspot.eitan.model.beans.WordDispInfo;
 
 public class IndexController extends Controller {
@@ -28,9 +29,11 @@ public class IndexController extends Controller {
         List<WordDispInfo> worddispinfolist = new ArrayList<WordDispInfo>(); 
         for (WordInfo wi : wordinfolist) {
             String spell = wi.getSpell();
-            int count = wi.getRefmap().get(user.getKey()).refCount;
+            RefInfo refInfo = wi.getRefmap().get(user.getKey());
+            int count = refInfo.refCount;
             int publicCount = wi.getPublicCount();
-            worddispinfolist.add(new WordDispInfo(count, publicCount, spell));
+            int status = refInfo.examResult;
+            worddispinfolist.add(new WordDispInfo(count, publicCount, spell, status));
         }
         
         requestScope("worddispinfolist", worddispinfolist);
