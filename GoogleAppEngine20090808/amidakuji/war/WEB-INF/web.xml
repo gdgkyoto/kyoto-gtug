@@ -18,6 +18,10 @@
 		<servlet-name>Put Line</servlet-name>
 		<servlet-class>com.kyotogtug.amidakuji.controller.PutLineAjaxServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>com.kyotogtug.amidakuji.TestAmidakujiServlet</servlet-class>
+	</servlet>
 
 
 
@@ -33,6 +37,10 @@
 	<servlet-mapping>
 		<servlet-name>Put Line</servlet-name>
 		<url-pattern>/putLine</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 
 
