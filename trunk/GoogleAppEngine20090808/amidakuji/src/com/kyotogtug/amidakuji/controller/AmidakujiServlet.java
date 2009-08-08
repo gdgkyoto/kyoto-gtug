@@ -71,22 +71,22 @@ public class AmidakujiServlet extends HttpServlet {
 		AmidaStatus status = logic.getStatus();
 
 		//ê√ìIèÓïÒ
-		req.setAttribute("id",status.getId());
-		req.setAttribute("title", status.getTitle());
-		//req.setAttribute("users", "");
-		//req.setAttribute("images", "");
-		req.setAttribute("endTime", status.getEndTime());
-		req.setAttribute("length", AmidaConfig.AMIDA_LENGTH);
-		req.setAttribute("lastLength", AmidaConfig.AMIDA_LAST_LENGTH);
-		req.setAttribute("sycInterval", AmidaConfig.SYNC_INTERVAL);
+		req.setAttribute("id",status.getId());                           //long
+		req.setAttribute("title", status.getTitle());                    //String
+		req.setAttribute("users", status.getUserList());                 //List<String>
+		req.setAttribute("images", status.getUrlList());                 //List<String>
+		req.setAttribute("endTime", status.getEndTime());                //Date
+		req.setAttribute("length", AmidaConfig.AMIDA_LENGTH);            //int(100)
+		req.setAttribute("lastLength", AmidaConfig.AMIDA_LAST_LENGTH);   //int(20)
+		req.setAttribute("sycInterval", AmidaConfig.SYNC_INTERVAL);      //long
 
 		//ìÆìIèÓïÒ
-		//req.setAttribute("lines", "");
+		req.setAttribute("lines", status.gerLines());                        //List<List<Object>>
 		req.setAttribute("currentTime", status.getCurrentTime());
-		req.setAttribute("currentPositionX", status.getCurrentsPositionX());
-		req.setAttribute("currentPositionY", status.getCurrentPositionY());
-		req.setAttribute("finished", status.isFinished());
-		req.setAttribute("leftTime", status.getLeftTime());
+		req.setAttribute("currentPosition",status.getCurrentPosition());     //List<List<Object>>
+		req.setAttribute("currentPositionY", status.getCurrentPositionY());  //int
+		req.setAttribute("finished", status.isFinished());                   //boolean
+		req.setAttribute("leftTime", status.getLeftTime());                  //Date
 	}
 
 }

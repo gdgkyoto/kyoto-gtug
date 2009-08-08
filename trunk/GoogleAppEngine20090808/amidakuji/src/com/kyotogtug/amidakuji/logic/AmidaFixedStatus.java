@@ -3,8 +3,6 @@ package com.kyotogtug.amidakuji.logic;
 import java.util.Date;
 import java.util.List;
 
-import com.google.appengine.api.datastore.Link;
-import com.google.appengine.api.users.User;
 
 /**
  * あみだくじの開始時から変化しないデータをあらわすクラスです<br>
@@ -20,10 +18,10 @@ final class AmidaFixedStatus {
 	private String title;
 
 	//アミダくじの参加者
-	private List<User> userList;
+	private List<String> userList;
 
 	//イメージURLリスト
-	private List<Link> urlList;
+	private List<String> urlList;
 
 	//終了時刻
 	private Date endTime;
@@ -65,7 +63,7 @@ final class AmidaFixedStatus {
 	 * userListを取得します。
 	 * @return userList
 	 */
-	List<User> getUserList() {
+	List<String> getUserList() {
 	    return userList;
 	}
 
@@ -73,7 +71,7 @@ final class AmidaFixedStatus {
 	 * userListを設定します。
 	 * @param userList userList
 	 */
-	void setUserList(List<User> userList) {
+	void setUserList(List<String> userList) {
 	    this.userList = userList;
 	}
 
@@ -81,7 +79,7 @@ final class AmidaFixedStatus {
 	 * urlListを取得します。
 	 * @return urlList
 	 */
-	List<Link> getUrlList() {
+	List<String> getUrlList() {
 	    return urlList;
 	}
 
@@ -89,7 +87,7 @@ final class AmidaFixedStatus {
 	 * urlListを設定します。
 	 * @param urlList urlList
 	 */
-	void setUrlList(List<Link> urlList) {
+	void setUrlList(List<String> urlList) {
 	    this.urlList = urlList;
 	}
 

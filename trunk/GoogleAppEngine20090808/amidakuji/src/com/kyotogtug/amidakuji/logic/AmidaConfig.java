@@ -12,7 +12,7 @@ public final class AmidaConfig {
 	public static final int AMIDA_LENGTH = 100;
 
 	//ÅI—Ìˆæ
-	public static final int AMIDA_LAST_LENGTH = 100;
+	public static final int AMIDA_LAST_LENGTH = 20;
 
 	//“¯ŠúŠÔŠu(ms)
 	public static final  long SYNC_INTERVAL = 3000;
