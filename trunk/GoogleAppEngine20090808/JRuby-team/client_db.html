@@ -18,7 +18,7 @@
             		db.transaction(function(tx) {
         				tx.executeSql('CREATE TABLE IF NOT EXISTS TwitterList(id INTEGER PRIMARY KEY, icon_url TEXT, user_name TEXT, content TEXT, memo TEXT, created_at TEXT)', []);
           			});
-            		showTwitterList();
+            		selectContents();
         		}
 			} else {
 				alert("データベースストレージはサポートされていません。");
@@ -73,19 +73,31 @@
 		}
 	}
 	
-	function showTwitterList() {
+	function selectContents() {
+		db.transaction(function(tx) {
+			tx.executeSql(
+				"SELECT * FROM TwitterList",
+				[],
+				showTwitterList
+			);	
+		});
+	}
+	
+	function showTwitterList(tx, rs) {
 		var list 	= $("twitter_list");
 		var html	= "";
 		html += '<table>';
 		html += '<th><td>icon</td><td>name</td><td>contents</td><td>memo</td><td>time</td></th>';
 
+		var row = rs.rows.item(0);
+		
 		html += '<tr>';
 		html += '	<td><input type="radio" id="" onclick=""></td>';
 		html += '	<td></td>';
-		html += '	<td></td>';
-		html += '	<td></td>';
-		html += '	<td></td>';
-		html += '	<td></td>';
+		html += '	<td>'+row.name+'</td>';
+		html += '	<td>'+row.content+'</td>';
+		html += '	<td>'+row.memo+'</td>';
+		html += '	<td>'+row.created_at+'</td>';
 		html += '</tr>';
 		
 		html += '</table>';
