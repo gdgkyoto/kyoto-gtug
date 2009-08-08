@@ -18,7 +18,7 @@
 	<%= ((WordInfo)request.getAttribute("wordInfo")).getSpell() %>
 </div>
 
-<c:forEach var="m"  items="${word.meaninglist}">
+<c:forEach var="m"  items="${wordInfo.meaninglist}">
 	${f:h(m.jptext)}
 </c:forEach>
 
