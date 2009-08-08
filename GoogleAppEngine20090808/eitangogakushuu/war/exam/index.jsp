@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title><fmt:message key="menu.translate"/></title>
+<title><fmt:message key="menu.exam"/></title>
 <link rel="stylesheet" type="text/css" href="/css/global.css" />
 </head>
 <body>
@@ -19,8 +19,34 @@
 	<jsp:include page="/menu.jsp" />
 	<div id="body">
 		<h1>this is Exam page!</h1>
+		
+		<form method="post" action="${f:url('/exam/selectExamWord')}">
+			<table>
+				<caption>検索条件</caption>
+				<tr>
+					<th>検索回数</th>
+					<td>
+						<input type="text" ${f:text("searchCount")} class="${f:errorClass('searchCount', 'error')}"/>回以上 ${f:h(errors.searchCount)}
+					</td>
+				</tr>
+				<tr>
+					<th>状態</th>
+					<td>
+						<input type="checkbox" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />
+						<input type="checkbox" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />
+						<input type="checkbox" ${f:checkbox("status")} class="${f:errorClass('wordCount', 'error')}" />${f:h(errors.status)}
+					</td>
+				</tr>
+				<tr>
+					<th>試験する単語数</th>
+					<td><input type="text" ${f:text("wordCount")} class="${f:errorClass('wordCount', 'error')}"/>${f:h(errors.wordCount)}</td>
+				</tr>
+			</table>
+			
+					<input type="submit" id="start" value="START!">
+		</form>
 
-		<button id="start">START!</button>
+
 
 	</div>
 	<jsp:include page="/footer.jsp" />
@@ -38,9 +64,7 @@ $(function(){
     $('li:gt(0)').css('visibility', 'hidden');
   }
 
-  $('#start').click(function(){
-      window.open('/exam/selectExamWord', 'mywindow1', 'width=400, height=300, menubar=no, toolbar=no, scrollbars=yes');
-  });
+
 
 });
 
