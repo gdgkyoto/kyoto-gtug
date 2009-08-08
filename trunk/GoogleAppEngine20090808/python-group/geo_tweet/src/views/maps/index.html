@@ -58,6 +58,9 @@
     function getMessages(curLoc) {
       var area = {'center':curLoc, 'radius':100000};
       get_messages(request, area, getMessagesResponseHandler);
+      setTimeout(function(){
+         getMessages(curLoc); 
+      },10000);
     }
 
     function getMessagesResponseHandler() {
@@ -68,6 +71,7 @@
           response = eval("(" + request.responseText + ")");
           var msgs = response.messages;
 
+          map.clearOverlays();
           for (i = 0; i < msgs.length; i++) {
             var message = msgs[i];
             msgElmList += messageObjectToHtml(message);
