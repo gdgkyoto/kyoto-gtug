@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpSession;
+
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.controller.validator.Validators;
@@ -46,7 +48,8 @@ public class TranslateController extends Controller {
             wordInfo = _worddao.insert(spell,meaninglist,null,null);
         }
         RefInfo refInfo = null;
-        UserInfo loginUser = (UserInfo)request.getSession().getAttribute("loginUser");
+        HttpSession session = request.getSession();
+        UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
         if(loginUser != null){
             HashMap<String, RefInfo> refmap = wordInfo.getRefmap();
             if(refmap == null){
@@ -62,7 +65,8 @@ public class TranslateController extends Controller {
             refInfo.lastSearch = new Date();
             wordInfo = _worddao.update(wordInfo);
 
-            _userdao.addWordKey(loginUser.getKey(),wordInfo.getKey());
+            loginUser = _userdao.addWordKey(loginUser.getKey(),wordInfo.getKey());
+            session.setAttribute("loginUser",loginUser);
         }
         requestScope("wordInfo", wordInfo);
         requestScope("refInfo",refInfo);
