@@ -51,9 +51,10 @@ span.subject {
 	評価☆
 	</span>
 	<div>
-		&nbsp;&nbsp;<button onclick="document.getElementById('scoreId').value='3';submit();">&nbsp;覚えてた！&nbsp;</button>
-		<button onclick="submit();" name="score" value="2">&nbsp;&nbsp;微妙。&nbsp;&nbsp;</button>
-		<button onclick="submit();" name="score" value="1">(((( ；ﾟДﾟ))</button>
+		&nbsp;&nbsp;
+		<button onclick="document.getElementById('scoreId').value='3';submit();">&nbsp;覚えてた！&nbsp;</button>
+		<button onclick="document.getElementById('scoreId').value='3';submit();">&nbsp;&nbsp;微妙。&nbsp;&nbsp;</button>
+		<button onclick="document.getElementById('scoreId').value='3';submit();">(((( ；ﾟДﾟ))</button>
 	</div>
 </div>
 <input type="hidden" name="index"   value="<%= request.getAttribute("index") %>">
