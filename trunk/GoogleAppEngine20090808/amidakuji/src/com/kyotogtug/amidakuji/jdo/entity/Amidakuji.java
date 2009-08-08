@@ -42,11 +42,11 @@ public class Amidakuji {
 
 	/** イメージURLのリスト */
 	@Persistent
-	private List<Link> imageUrlList = new ArrayList<Link>();
+	private List<String> imageUrlList = new ArrayList<String>();
 
-	/** Googleアカウントのリスト */
+	/** Googleメールアドレスのリスト */
 	@Persistent
-	private List<User> userList = new ArrayList<User>();
+	private List<String> mailAddressList = new ArrayList<String>();
 
 	/** あみだくじ線の本リスト */
 	@Persistent
@@ -127,33 +127,31 @@ public class Amidakuji {
 	}
 
 	/**
+	 * @return the mailAddressList
+	 */
+	public List<String> getMailAddressList() {
+		return mailAddressList;
+	}
+
+	/**
+	 * @param mailAddressList the mailAddressList to set
+	 */
+	public void setMailAddressList(List<String> mailAddressList) {
+		this.mailAddressList = mailAddressList;
+	}
+
+	/**
 	 * @return the imageUrlList
 	 */
-	public List<Link> getImageUrlList() {
+	public List<String> getImageUrlList() {
 		return imageUrlList;
 	}
 
 	/**
-	 * @param imageUrlList
-	 *            the imageUrlList to set
+	 * @param imageUrlList the imageUrlList to set
 	 */
-	public void setImageUrlList(List<Link> imageUrlList) {
+	public void setImageUrlList(List<String> imageUrlList) {
 		this.imageUrlList = imageUrlList;
-	}
-
-	/**
-	 * @return the userList
-	 */
-	public List<User> getUserList() {
-		return userList;
-	}
-
-	/**
-	 * @param userList
-	 *            the userList to set
-	 */
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
 	}
 
 }

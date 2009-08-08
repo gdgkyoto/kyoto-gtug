@@ -1,5 +1,7 @@
 package com.kyotogtug.amidakuji.jdo.entity;
 
+import javax.jdo.annotations.Persistent;
+
 /**
  * 座標位置
  * 
@@ -9,27 +11,35 @@ package com.kyotogtug.amidakuji.jdo.entity;
 public class LinePosition {
 
 	/** ライン左端セル行 */
+	@Persistent
 	private int leftRow;
 
 	/** ライン左端セル列 */
+	@Persistent
 	private int leftCol;
 
 	/** ライン左端X座標 */
+	@Persistent
 	private int leftX;
 
 	/** ライン左端Y座標 */
+	@Persistent
 	private int leftY;
 
 	/** ライン右端セル行 */
+	@Persistent
 	private int rightRow;
 
 	/** ライン右端セル列 */
+	@Persistent
 	private int rightCol;
 
 	/** ライン右端X座標 */
+	@Persistent
 	private int rightX;
 
 	/** ライン右端Y座標 */
+	@Persistent
 	private int rightY;
 
 	/**
