@@ -22,6 +22,14 @@
 		<servlet-name>TestServlet</servlet-name>
 		<servlet-class>com.kyotogtug.amidakuji.TestAmidakujiServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>MakeAmida</servlet-name>
+		<servlet-class>com.kyotogtug.amidakuji.MakeAmidaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MakeAmida</servlet-name>
+		<url-pattern>/MakeAmida</url-pattern>
+	</servlet-mapping>
 
 
 
@@ -42,7 +50,10 @@
 		<servlet-name>TestServlet</servlet-name>
 		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>MakeAmida</servlet-name>
+		<url-pattern>/MakeAmida</url-pattern>
+	</servlet-mapping>
 
 	<!--==================== welcome-file-list ====================-->
 	<welcome-file-list>
