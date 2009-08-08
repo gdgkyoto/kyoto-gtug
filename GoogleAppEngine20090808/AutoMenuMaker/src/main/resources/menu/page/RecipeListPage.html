@@ -1,56 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd">
-        <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <title>AutoMenuMaker - Top</title>
-        </head>
-        <body>
-		        <strong>ようこそ<span wicket:id="nickname"></span>さん</strong>
-				<br />
-				<a wicket:id="logout">サインアウト</a><br/>
-				<a wicket:id="importRecipe">レシピ取り込み</a>
-
-                <form wicket:id="menuForm" method="post">
-                <table align="center" border="1">
-                        <tr>
-                                <td>献立生成</td>
-                        </tr>
-                        <tr>
-                                <td align="right">
-                                <input type="submit" value="生成" wicket:id="generateButton">
-                                </td>
-                        </tr>
-                </table>
-                </form>
-                <br>
-                <form wicket:id="recipeForm" method="post">
-                <table align="center" border="1">
-                        <tr>
-                                <td>レシピ作成</td>
-                        </tr>
-                        <tr>
-                                <td align="right">
-                                <input type="submit" value="生成" wicket:id="makeButton"/>
-                                </td>
-                        </tr>
-                </table>
-                </form>
-                <br>
-                <form wicket:id="searchForm" method="post">
-                        <table align="center" border="1">
-                                <tr>
-                                        <td align="center">検索</td>
-                                </tr>
-                                <tr>
-                                        <td>
-                                        <input type="text" wicket:id="search"/>
-                                        </td>
-                                </tr>
-                                <tr>
-                                        <td align="right">
-                                        <input type="submit" value="検索">
-                                        </td>
-                                </tr>
-                        </table>
-                </form>
-        </body>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>AutoMenuMaker - Top</title>
+</head>
+<body>
+	<strong>ようこそ<span wicket:id="nickname"></span>さん</strong>
+	<br />
+	<a wicket:id="logout">サインアウト</a>
+	<br />
+	<a wicket:id="importRecipe">レシピ取り込み</a>
+	
+	<form wicket:id="menuForm" method="post">
+		<table align="center" border="1">
+			<tr>
+				<td>献立生成</td>
+			</tr>
+			<tr>
+				<td align="right"><input type="submit" value="生成" wicket:id="generateButton" /></td>
+			</tr>
+		</table>
+	</form>
+	<br />
+	<form wicket:id="recipeForm" method="post">
+		<table align="center" border="1">
+			<tr>
+				<td>レシピ作成</td>
+			</tr>
+			<tr>
+				<td align="right"><input type="submit" value="生成" wicket:id="makeButton" /></td>
+			</tr>
+		</table>
+	</form>
+	<br />
+	<form wicket:id="searchForm" method="post">
+		<table align="center" border="1">
+			<tr>
+				<td align="center">検索</td>
+			</tr>
+			<tr>
+				<td><input type="text" wicket:id="search" /> <input type="submit" value="検索" /></td>
+			</tr>
+		</table>
+	</form>
+	<table width="100%">
+		<tr class="recipe-preview" wicket:id="recipeList">
+			<td wicket:id="no">1</td>
+			<td class="recipe-image">
+				<a href="/recipe/876005" >
+					<img class="thumbnail" alt="XXX" src="http://img7.cookpad.com/recipe/t/1198/755/F64EE27AF4008851823E14378E3C6543.jpg?1248713164" width="80" wicket:id="img"/>
+				</a>
+			</td>
+			<td class="recipe-text">
+				<span class="title font16" style="font-size: 22px; font-weight: bold">
+					<a class="recipe-title font13" href="http://cookpad.com/recipe/876005" wicket:id="title">ツナとトマトとキャベツのカレー</a>
+				</span>
+				<div style="line-height: 1.3em" class="description font14" wicket:id="description">オイルカットのツナ缶を使うとカロリーオフ♪ </div>
+				<div style="line-height: 1.2em" class="material">材料:<span wicket:id="material">ツナ缶、トマト、キャベツ、カレールー、にんにくみじん切り、（甘めにしたいなら）玉ねぎみじん切り、塩・こしょう、水 </span></div>
+			</td>
+		</tr>
+	</table>
+	<div wicket:id="paging" > 1,2 </div>
+</body>
 </html>
