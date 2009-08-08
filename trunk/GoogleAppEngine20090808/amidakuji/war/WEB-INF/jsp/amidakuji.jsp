@@ -7,7 +7,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta http-equiv="Content-Script-Type" content="text/javascript" />
-		<title>あみだくじサンプル</title>
+		<title>あみだくじ</title>
 		<script type="text/javascript" src="./prototype.js"></script>
 		<script type="text/javascript" src="./wz_jsgraphics.js"></script>
 <style type="text/css">
@@ -869,19 +869,36 @@ Array.prototype.remove = function(obj) {
 		var amida = new Amida();
 		(function() {
 			// ユーザリスト
+			var colors = ['blue','pink','yellow','red','gray'];
 			var users = [
+			 	<c:forEach var="user" items="users" varStatus="status">
+			 		<c:if test="${status.index != 0}">
+			 			,
+			 		</c:if>
+					new User({'id':'${user}','name':'${user}','startPoint':new Point(0,${status.index}),'lineColor':colors[${status.index}]})
+				</c:forEach>
+/*
 				new User({'id':'0','name':'name0','startPoint':new Point(0,0),'lineColor':'pink'}),
 				new User({'id':'1','name':'name1','startPoint':new Point(0,1),'lineColor':'blue'}),
 				new User({'id':'2','name':'name2','startPoint':new Point(0,2),'lineColor':'green'}),
 				new User({'id':'3','name':'name3','startPoint':new Point(0,3),'lineColor':'gray'})
+*/
 			];
 			// 画像リスト
 			var images = [
-				new Image({'id':'0','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
+			 	<c:forEach var="image" items="images" varStatus="status">
+			 		<c:if test="${status.index != 0}">
+			 			,
+			 		</c:if>
+					new Image({'id':'${status.index}','url':'${image}','title':'${status.index}'})
+				</c:forEach>
+/*
+				/new Image({'id':'0','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
 				new Image({'id':'1','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
 				new Image({'id':'2','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
 				new Image({'id':'3','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'}),
 				new Image({'id':'4','url':'http://www.aa-movie.com/image/index/index_AA.jpg','title':'t'})
+*/
 			];
 			var option = {
 				'id' : '<c:out value="${id}"/>',
@@ -899,20 +916,24 @@ Array.prototype.remove = function(obj) {
 		(function() {
 			// 現在位置
 			var points = [
-			 	<c:forEach var="point" items="currentPosition">
-			 		<c:if test="${varStatus.index != 0}">
+			 	<c:forEach var="point" items="currentPosition" varStatus="status">
+			 		<c:if test="${status.index != 0}">
 			 			,
 			 		</c:if>
-					new Point(${point[1]},${point[0]},'${point[2]}')
+<%--
+			 			new Point(${point[1]},${point[0]},'${point[2]}')
+--%>
 				</c:forEach>
 			];
 			// 履歴ラインリスト
 			var lines = [
-			 	<c:forEach var="line" items="lines">
-			 		<c:if test="${varStatus.index != 0}">
+			 	<c:forEach var="line" items="lines" varStatus="status">
+			 		<c:if test="${status.index != 0}">
 			 			,
 			 		</c:if>
+<%--
 					new Line(${line[1]},${line[0]},'${line[2]}')
+--%>
 			 	</c:forEach>
 			];
 			var option = {
