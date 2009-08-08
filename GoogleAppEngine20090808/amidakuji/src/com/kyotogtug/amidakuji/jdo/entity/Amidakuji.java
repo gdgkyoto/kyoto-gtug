@@ -20,7 +20,7 @@ import com.google.appengine.api.users.User;
  * 
  * @author htatsuwaki
  */
-@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
+@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "false")
 public class Amidakuji {
 
 	/** ID */

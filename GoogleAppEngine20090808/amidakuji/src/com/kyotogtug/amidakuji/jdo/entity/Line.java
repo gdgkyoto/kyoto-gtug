@@ -24,9 +24,13 @@ public class Line {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key id;
 
-	/** 線の座標 */
+	/** 線のx座標 */
 	@Persistent
-	private LinePosition linePosition;
+	private int xPoint;
+
+	/** 線のy座標 */
+	@Persistent
+	private int yPoint;
 
 	/** 作成日・時刻 */
 	@Persistent
@@ -49,21 +53,6 @@ public class Line {
 	 */
 	public void setId(Key id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the linePosition
-	 */
-	public LinePosition getLinePosition() {
-		return linePosition;
-	}
-
-	/**
-	 * @param linePosition
-	 *            the linePosition to set
-	 */
-	public void setLinePosition(LinePosition linePosition) {
-		this.linePosition = linePosition;
 	}
 
 	/**
@@ -94,6 +83,34 @@ public class Line {
 	 */
 	public void setCreateUser(User createUser) {
 		this.createUser = createUser;
+	}
+
+	/**
+	 * @return the xPoint
+	 */
+	public int getXPoint() {
+		return xPoint;
+	}
+
+	/**
+	 * @param point the xPoint to set
+	 */
+	public void setXPoint(int point) {
+		xPoint = point;
+	}
+
+	/**
+	 * @return the yPoint
+	 */
+	public int getYPoint() {
+		return yPoint;
+	}
+
+	/**
+	 * @param point the yPoint to set
+	 */
+	public void setYPoint(int point) {
+		yPoint = point;
 	}
 
 }
