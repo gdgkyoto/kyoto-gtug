@@ -504,12 +504,12 @@ Array.prototype.remove = function(obj) {
 											var _right = rightPoint;
 											var _line = line;
 											var _cell = cell;
-											var obj = request.responseText;
-											if(obj == 'OK') {
+//											var obj = request.responseJSON;
+//											if(obj) {
 												this.drawLine(_line);
-											} else {
-												_cell.removeClassName(NameUtil.getLineOnClassName());
-											}
+//											} else {
+//												_cell.removeClassName(NameUtil.getLineOnClassName());
+//											}
 											this.status.waitPoints = this.status.waitPoints.remove(_left);
 											this.status.waitPoints = this.status.waitPoints.remove(_right);
 											this.status.waitLines = this.status.waitLines.remove(_line);
@@ -601,7 +601,8 @@ Array.prototype.remove = function(obj) {
 								LogUtil.writeLog('reload success');
 								var option = {};
 								var obj = request.responseJSON;
-
+LogUtil.writeLog(request);
+LogUtil.writeLog(request.responseJSON);
 								var _ls = obj.lines;
 								if(_ls) {
 									var lines = $A();
@@ -904,6 +905,7 @@ Array.prototype.remove = function(obj) {
 			var option = {
 				'id' : '<c:out value="${id}"/>',
 				'title' : '<c:out value="${title}"/>',
+				'userId' : 0,
 				'numRows' : <c:out value="${length}"/>,
 				'numRowsFinal' : <c:out value="${lastLength}"/>,
 				'reloadDelay' : <c:out value="${sycInterval}"/>,
