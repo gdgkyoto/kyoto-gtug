@@ -1,21 +1,16 @@
 package com.kyotogtug.amidakuji;
 
-//import java.util.Date;
-//import java.util.logging.Logger;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-//import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.google.appengine.api.datastore.Key;
 import com.kyotogtug.amidakuji.dao.IAmidakujiDao;
 import com.kyotogtug.amidakuji.dao.ILineDao;
-import com.kyotogtug.amidakuji.dao.impl.AmidakujiDaoImpl;
-import com.kyotogtug.amidakuji.dao.impl.LineDaoImpl;
 import com.kyotogtug.amidakuji.jdo.entity.Amidakuji;
 import com.kyotogtug.amidakuji.jdo.entity.Line;
 
@@ -47,7 +42,7 @@ public class TestAmidakujiServlet extends HttpServlet {
 		amidakuji.setEndTime(toDate("2009/08/08 17:30:00"));
 		amidakuji.setTitle( "壁紙選手権！" );
 		
-		IAmidakujiDao amidakujiDao = new AmidakujiDaoImpl();
+		IAmidakujiDao amidakujiDao = new com.kyotogtug.amidakuji.dao.memoryimpl.AmidakujiDaoImpl();
 		amidakujiDao.insertAmidakuji(amidakuji);
 		
 		/* あみだくじの取得 */
@@ -61,14 +56,14 @@ public class TestAmidakujiServlet extends HttpServlet {
 //		line.setCreateUser(createUser);
 //		line.setAmidakuji(gettedAmidakuji);
 
-		ILineDao lineDao = new LineDaoImpl();
+		ILineDao lineDao = new com.kyotogtug.amidakuji.dao.memoryimpl.LineDaoImpl();
 		lineDao.insertLine( amidakuji.getId().getId() , line );
 		
 		// 念のため確認
 		Amidakuji gettedAmidakuji2 = amidakujiDao.getAmidakujiById(gettedAmidakuji.getId().getId());
 		List<Line> lineList = gettedAmidakuji2.getLineList();
 		
-		Amidakuji amidakuji3 = amidakujiDao.getAmidakujiById(3);
+//		Amidakuji amidakuji3 = amidakujiDao.getAmidakujiById(3);
 		
 		resp.setContentType("text/html");
 		resp.getOutputStream().println("gettedAmidakuji2:" + gettedAmidakuji2.getId().getId());
