@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import menu.dao.RecipeDao;
+import menu.dto.Recipe;
+
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -17,24 +21,91 @@ public class AutoMenuPage extends WebPage {
 	 
 	public AutoMenuPage(final PageParameters parameters) {
 		
+		RecipeDao dao=new RecipeDao();
+		List<Recipe> mainList= dao.findListByCategory("[メイン]");
+		List<Recipe> mealList= dao.findListByCategory("[ご飯]");
+		List<Recipe> appetizerList= dao.findListByCategory("[前菜]");
+		List<Recipe> soupList= dao.findListByCategory("[スープ]");
 		
 		
-		String meal="";
-		String apptizer="";
-		String main="";
-		String soup="";
+		
+		int monMainIndex = RandomUtils.nextInt(mainList.size());
+		Recipe monmain = mainList.get(monMainIndex);
+		
+		int monMealIndex = RandomUtils.nextInt(mealList.size());
+		Recipe monmeal = mealList.get(monMealIndex);
+		
+		int monApptizerIndex = RandomUtils.nextInt(appetizerList.size());
+		Recipe monapptizer = appetizerList.get(monApptizerIndex);
+		
+		int monSoupIndex = RandomUtils.nextInt(soupList.size());
+		Recipe monsoup = soupList.get(monSoupIndex);
+		
+
+		int tueMainIndex = RandomUtils.nextInt(mainList.size());
+		Recipe tuemain = mainList.get(tueMainIndex);
+		int tueMealIndex = RandomUtils.nextInt(mealList.size());
+		Recipe tuemeal = mealList.get(tueMealIndex);
+		int tueApptizerIndex = RandomUtils.nextInt(appetizerList.size());
+		Recipe tueapptizer = appetizerList.get(tueApptizerIndex);
+		int tueSoupIndex = RandomUtils.nextInt(soupList.size());
+		Recipe tuesoup = soupList.get(tueSoupIndex);
 		
 		
+		int wedMainIndex = RandomUtils.nextInt(mainList.size());
+		Recipe wedmain = mainList.get(wedMainIndex);
+		int wedMealIndex = RandomUtils.nextInt(mealList.size());
+		Recipe wedmeal = mealList.get(wedMealIndex);
+		int wedApptizerIndex = RandomUtils.nextInt(appetizerList.size());
+		Recipe wedapptizer = appetizerList.get(wedApptizerIndex);
+		int wedSoupIndex = RandomUtils.nextInt(soupList.size());
+		Recipe wedsoup = soupList.get(wedSoupIndex);
+		
+		int thuMainIndex = RandomUtils.nextInt(mainList.size());
+		Recipe thumain = mainList.get(thuMainIndex);
+		int thuMealIndex = RandomUtils.nextInt(mealList.size());
+		Recipe thumeal = mealList.get(thuMealIndex);
+		int thuApptizerIndex = RandomUtils.nextInt(appetizerList.size());
+		Recipe thuapptizer = appetizerList.get(thuApptizerIndex);
+		int thuSoupIndex = RandomUtils.nextInt(soupList.size());
+		Recipe thusoup = soupList.get(thuSoupIndex);
+		
+		int friMainIndex = RandomUtils.nextInt(mainList.size());
+		Recipe frimain = mainList.get(friMainIndex);
+		int friMealIndex = RandomUtils.nextInt(mealList.size());
+		Recipe frimeal = mealList.get(friMealIndex);
+		int friApptizerIndex = RandomUtils.nextInt(appetizerList.size());
+		Recipe friapptizer = appetizerList.get(friApptizerIndex);
+		int friSoupIndex = RandomUtils.nextInt(soupList.size());
+		Recipe frisoup = soupList.get(friSoupIndex);
+		
+		int satMainIndex = RandomUtils.nextInt(mainList.size());
+		Recipe satmain = mainList.get(satMainIndex);
+		int satMealIndex = RandomUtils.nextInt(mealList.size());
+		Recipe satmeal = mealList.get(satMealIndex);
+		int satApptizerIndex = RandomUtils.nextInt(appetizerList.size());
+		Recipe satapptizer = appetizerList.get(satApptizerIndex);
+		int satSoupIndex = RandomUtils.nextInt(soupList.size());
+		Recipe satsoup = soupList.get(satSoupIndex);
+		
+		int sunMainIndex = RandomUtils.nextInt(mainList.size());
+		Recipe sunmain = mainList.get(sunMainIndex);
+		int sunMealIndex = RandomUtils.nextInt(mealList.size());
+		Recipe sunmeal = mealList.get(sunMealIndex);
+		int sunApptizerIndex = RandomUtils.nextInt(appetizerList.size());
+		Recipe sunapptizer = appetizerList.get(sunApptizerIndex);
+		int sunSoupIndex = RandomUtils.nextInt(soupList.size());
+		Recipe sunsoup = soupList.get(sunSoupIndex);
 		
 		//for(int i=0; i<week.length;i++){
 			final List weekList = Arrays.asList(
-				new Data("月曜日",meal,apptizer,main,soup),
-				new Data("火曜日",meal,apptizer,main,soup),
-				new Data("水曜日",meal,apptizer,main,soup),
-				new Data("木曜日",meal,apptizer,main,soup),
-				new Data("金曜日",meal,apptizer,main,soup),
-				new Data("土曜日",meal,apptizer,main,soup),
-				new Data("日曜日",meal,apptizer,main,soup)
+				new Data("月曜日",monmeal.getTitle(),monapptizer.getTitle(),monmain.getTitle(),monsoup.getTitle()),
+				new Data("火曜日",tuemeal.getTitle(),tueapptizer.getTitle(),tuemain.getTitle(),tuesoup.getTitle()),
+				new Data("水曜日",wedmeal.getTitle(),wedapptizer.getTitle(),wedmain.getTitle(),wedsoup.getTitle()),
+				new Data("木曜日",thumeal.getTitle(),thuapptizer.getTitle(),thumain.getTitle(),thusoup.getTitle()),
+				new Data("金曜日",frimeal.getTitle(),friapptizer.getTitle(),frimain.getTitle(),frisoup.getTitle()),
+				new Data("土曜日",satmeal.getTitle(),satapptizer.getTitle(),satmain.getTitle(),satsoup.getTitle()),
+				new Data("日曜日",sunmeal.getTitle(),sunapptizer.getTitle(),sunmain.getTitle(),sunsoup.getTitle())
 			);	
 		//}
 		
@@ -78,6 +149,7 @@ public class AutoMenuPage extends WebPage {
 			this.soup = soup;
 		}
 		  
+
 	}
 	
 }
