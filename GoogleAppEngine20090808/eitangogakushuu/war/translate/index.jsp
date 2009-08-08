@@ -1,4 +1,4 @@
-<%@page pageEncoding="UTF-8" isELIgnored="false"%>
+﻿<%@page pageEncoding="UTF-8" isELIgnored="false"%>
 
 <%@page import="com.appspot.eitan.util.AuthenticationUtil" %>
 
@@ -18,13 +18,18 @@
 	</jsp:include>
 	<jsp:include page="/menu.jsp" />
 	<div id="body">
-		<h1>this is translate page!</h1>
+		<form action="${f:url('translate')}" method="post">
+		単語を入力してください<br />
+		<input type="text" ${f:text("spell")} class="${f:errorClass('spell', 'error')}"/>${f:h(errors.spell)}<br />
+		<input type="submit" value="翻訳"/>
+		</form>
+
 	</div>
+
 	<jsp:include page="/footer.jsp" />
 	
 <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript">
-
 $(function(){
   $('li span:eq(0)').addClass('selected');
 
@@ -35,7 +40,6 @@ $(function(){
     $('li:gt(0)').css('visibility', 'hidden');
   }
 });
-
 </script>
 </body>
 </html>
