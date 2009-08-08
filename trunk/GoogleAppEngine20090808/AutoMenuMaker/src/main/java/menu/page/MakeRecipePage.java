@@ -14,6 +14,8 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.PropertyModel;
 
+import menu.dao.MakeRecipeDao;
+import menu.dto.MakeRecipe;
 import menu.page.ChoiceElement;
 
 public class MakeRecipePage extends WebPage{
@@ -51,7 +53,8 @@ public class MakeRecipePage extends WebPage{
         	
         	//***新規レシピ入力フォーム***//
         	Form<Void> recipeForm = new Form<Void>("recipeForm"){
-        		protected void onSubmit(){
+        		@Override
+				protected void onSubmit(){
         			
         			//***入力データの取得***//
         			String categoryData="";
@@ -63,12 +66,15 @@ public class MakeRecipePage extends WebPage{
 	         			}
 	         			categoryData=labelValue.toString();
         			}else{
-        				
         			}
-	         		
         			String titleData=title.getModelObject();
         			String materialData=Material.getModelObject();
         			String cookData=Material.getModelObject();
+        			
+        			MakeRecipe makeRecipe = new MakeRecipe(categoryData,titleData,materialData,cookData);
+        			MakeRecipeDao dao = new MakeRecipeDao();
+        			System.out.println("test");
+        			dao.save(makeRecipe);
         			
         			System.out.println("デバッグ中:"+categoryData);
         			System.out.println("デバッグ中:"+titleData);
