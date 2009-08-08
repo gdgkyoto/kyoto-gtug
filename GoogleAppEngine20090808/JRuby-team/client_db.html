@@ -91,7 +91,7 @@
 		html += '<th><td>icon</td><td>name</td><td>contents</td><td>memo</td><td>time</td></th>';
 			
 		for(var i=0; i<rs.rows.length; i++) {
-			row = rows.item(i);
+			row = rs.rows.item(i);
 			html += '<tr>';
 			html += '	<td><input type="radio" id="contents" onclick="selectContent('+row.id+')"></td>';
 			html += '	<td><img src="'+row.icon_url+'"/></td>';
