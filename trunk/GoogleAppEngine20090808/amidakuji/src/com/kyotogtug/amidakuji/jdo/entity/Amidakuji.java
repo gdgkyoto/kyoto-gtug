@@ -60,6 +60,13 @@ public class Amidakuji {
 	}
 
 	/**
+	 * @return the lineList
+	 */
+	public void addLineList( Line line ) {
+		this.lineList.add( line );
+	}
+
+	/**
 	 * @param lineList the lineList to set
 	 */
 	public void setLineList(List<Line> lineList) {
@@ -134,6 +141,13 @@ public class Amidakuji {
 	}
 
 	/**
+	 */
+	public void addMailAddressList(String mail) {
+		mailAddressList.add(mail);
+	}
+
+
+	/**
 	 * @param mailAddressList the mailAddressList to set
 	 */
 	public void setMailAddressList(List<String> mailAddressList) {
@@ -145,6 +159,13 @@ public class Amidakuji {
 	 */
 	public List<String> getImageUrlList() {
 		return imageUrlList;
+	}
+
+	/**
+	 * @return the imageUrlList
+	 */
+	public void addImageUrlList( String url ) {
+		imageUrlList.add(url);
 	}
 
 	/**

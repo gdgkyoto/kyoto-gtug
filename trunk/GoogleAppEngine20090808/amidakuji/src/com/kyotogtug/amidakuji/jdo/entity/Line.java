@@ -16,7 +16,7 @@ import com.google.appengine.api.users.User;
  * 
  * @author htatsuwaki
  */
-@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
+@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "false")
 public class Line {
 
 	/** ID */
@@ -39,7 +39,7 @@ public class Line {
 	/** ì¬ƒ†[ƒU[ */
 	@Persistent
 	private User createUser;
-
+	
 	/**
 	 * @return the id
 	 */

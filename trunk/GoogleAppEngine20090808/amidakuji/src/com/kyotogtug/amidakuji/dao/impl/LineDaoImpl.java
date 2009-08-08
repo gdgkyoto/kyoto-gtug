@@ -30,11 +30,12 @@ public class LineDaoImpl implements ILineDao {
 			final Amidakuji amidakuji = persistenceManager.getObjectById(Amidakuji.class,key);
 			
 			// 線リストを更新
-			final List<Line> lineList = amidakuji.getLineList();
-			lineList.add(line);
+			amidakuji.addLineList(line);
+			amidakuji.addMailAddressList("hogemail");
+			amidakuji.addImageUrlList("imagehoge");
+			persistenceManager.makePersistent(amidakuji);
 			
-			// セット
-			amidakuji.setLineList(lineList);
+			System.out.println( amidakuji.getId() );
 			
 		}finally{
 			persistenceManager.close();
