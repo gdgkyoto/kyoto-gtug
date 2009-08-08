@@ -57,7 +57,7 @@ public class SelectExamWordController extends Controller {
         Integer wordCount = asInteger("wordCount");
         if (wordCount != null) {
             if (wordList.size() > wordCount) {
-                wordList = wordList.subList(0, wordCount);
+                wordList = wordList.subList(0, wordCount+1);
             }
         }
 
