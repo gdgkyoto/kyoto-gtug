@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>GAE on Sinatra with Bumble - Data Store Test</title>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+    google.load("language", "1");
+
+    function initialize(source,target) {
+      var text = document.getElementById(source).innerHTML;
+      google.language.detect(text, function(result) {
+        if (!result.error && result.language) {
+          google.language.translate(text, result.language, "en",
+                                    function(result) {
+            var translated = document.getElementById(target);
+            if (result.translation) {
+              translated.innerHTML = result.translation;
+            }
+          });
+        }
+      });
+    }
+    </script>
+</head>
+<body>
+日本語を入力してください。<br/>
+<form action="/" method="post">
+ content:  <input name="trans[original]" /><br/>
+ <input type="submit"/>
+</form>
+<table border="1">
+<tr>
+	<td>日</td><td>英</td><td>韓</td><td>英</td><td>日</td>
+</tr>
+<% for t in @trans %>
+<tr>
+	<td><%=t.original %></td><td><%=t.jpToEn %></td><td><%=t.enToKo %></td><td><%=t.koToEn %></td><td><%=t.enToJp %></td>
+</tr>
+<% end %>
+</table>
+</div>
+</body>
+</html>
