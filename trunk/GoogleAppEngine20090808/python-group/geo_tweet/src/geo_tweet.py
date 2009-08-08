@@ -7,6 +7,7 @@ from gt.controllers.messages_controller import MessagesController
 from gt.controllers.users_controller import UsersController
 from gt.controllers.tweets_controller import TweetsController
 
+webapp.template.register_template_library('gt.filters')
 application = webapp.WSGIApplication([('/', MapsController),
                                       ('/(\d+)', MapsController),
                                       ('/messages', MessagesController),
