@@ -45,6 +45,22 @@ public class RecipeDao {
 		}
 	}
 	
+	public List<Recipe> findListByCategory(String condition) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		try {
+			Query query = pm.newQuery(Recipe.class);
+			if (condition != null) {
+				query.setFilter("category == condition");
+				query.declareParameters("String condition");
+			}
+			List<Recipe> result = (List<Recipe>) query.execute(condition);
+			result.size();
+			return result;
+		} finally {
+			pm.close();
+		}
+	}
+	
 	public int count(String condition) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
