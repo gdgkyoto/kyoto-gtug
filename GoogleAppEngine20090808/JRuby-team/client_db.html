@@ -91,7 +91,7 @@
 			
 		for(var i=0; i<rs.rows.length; i++) {
 			html += '<tr>';
-			html += '	<td><input type="radio" id="contents" onclick="setContent('+row.id+')"></td>';
+			html += '	<td><input type="radio" id="contents" onclick="selectContent('+row.id+')"></td>';
 			html += '	<td><img src="'+row.icon_url+'"/></td>';
 			html += '	<td>'+row.user_name+'</td>';
 			html += '	<td>'+row.content+'</td>';
@@ -125,7 +125,7 @@
 </head>
 <body onload="init()">
 	
-	<input type="button" value="read" onclick="readTwitter()"/>
+	<input type="button" value="write" onclick="readTwitter()"/>
 	
 	<div id="twitter_list"></div>
 	
