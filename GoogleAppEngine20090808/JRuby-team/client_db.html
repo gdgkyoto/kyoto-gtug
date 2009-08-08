@@ -6,14 +6,18 @@
 	<script src="js/prototype.js" ></script>
 	<script type="text/javascript" language="JavaScript">	
 	function init() {
-		/*
-        
+		
 		try {
 			if (window.openDatabase) {
         		db = window.openDatabase("translation_chk", "1.0", "TranslationChecker", "1048576");
         		if (!db) {
             		alert("データベースストレージが使えません。");
         		} else{
+            		//なければテーブルを作成
+            		db.transaction(function(tx) {
+        				tx.executeSql('CREATE TABLE IF NOT EXISTS TwitterList(id INTEGER PRIMARY KEY, icon_url TEXT, user_name TEXT, content TEXT, memo TEXT, created_at TEXT)', []);
+          			}
+            		
             		alert("debug:DB接続成功");
         		}
 			} else {
@@ -22,7 +26,6 @@
 		} catch(error) {
 		  alert("例外が発生しました");
 		}
-		*/
 		
    	}
 			
@@ -59,11 +62,10 @@
 			memo		= "";
 			created_at	= hash["created_at"];
 
-			$("icon_url").value		= icon_url;
-			$("user_name").value	= user_name;
-			$("contents").value		= contents;
-			$("memo").value			= memo;
-			$("created_at").value	= created_at;
+			//DBに書き込む
+			db.transaction(function(tx) {
+        	//	tx.executeSql('SELECT * FROM AddressList', [], createAddressTable);
+        	}
 		}
 	}
 	</script>
