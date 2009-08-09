@@ -1,0 +1,146 @@
+<html>
+<head>
+	<title>TranslationChecker</title>
+	<meta charset="UTF-8" />
+	<script src="http://gear5.googlecode.com/hg/src/javascript/gear5.js" ></script>
+	<script src="js/prototype.js" ></script>
+	<script type="text/javascript" language="JavaScript">
+	var db; //Databaseオブジェクト
+	function init() {
+		
+		try {
+			if (window.openDatabase) {
+        		db = window.openDatabase("translation_chk", "1.0", "TranslationChecker", "1048576");
+        		if (!db) {
+            		alert("データベースストレージが使えません。");
+        		} else{
+            		//なければテーブルを作成
+            		db.transaction(function(tx) {
+        				tx.executeSql('CREATE TABLE IF NOT EXISTS TwitterList(id INTEGER PRIMARY KEY, icon_url TEXT, user_name TEXT, content TEXT, memo TEXT, created_at TEXT)', []);
+          			});
+            		selectContents();
+        		}
+			} else {
+				alert("データベースストレージはサポートされていません。");
+			}
+		} catch(error) {
+		  alert("例外が発生しました");
+		}
+		
+   	}
+			
+	
+	function readTwitter() {
+		//var url = "http://twitter.com/statuses/public_timeline.json";
+		var url = "http://twitter.com/statuses/friends_timeline.json";
+		
+		var req = new Ajax.Request(
+			url,
+			{
+				method: "get",
+				onComplete: writeToDB
+			}
+		);
+	}
+	
+	function writeToDB(req) {
+		var icon_url	= null;
+		var user_name	= null;
+		var contents	= null;
+		var memo		= null;
+		var created_at	= null;
+		var user		= null;
+		var result		= req.responseText;
+		var array		= eval(result);
+		
+		//for(i=0; i<array.length; i++) {
+		for(i=0; i<1; i++) {
+			hash 		= array[i];
+			user		= hash["user"];
+			icon_url	= user["profile_image_url"];
+			user_name	= user["name"];
+			content		= hash["text"];
+			memo		= "";
+			created_at	= hash["created_at"];
+
+			//DBに書き込む
+			db.transaction(function(tx) {
+        		tx.executeSql(
+        			'INSERT INTO TwitterList(icon_url, user_name, content, memo, created_at) VALUES(?,?,?,?,?)',
+        			[icon_url, user_name, content, memo, created_at]
+        			
+        		 );
+        	});
+		}
+	}
+	
+	function selectContents() {
+		db.transaction(function(tx) {
+			tx.executeSql(
+				"SELECT * FROM TwitterList",
+				[],
+				showTwitterList
+			);	
+		});
+	}
+	
+	function showTwitterList(tx, rs) {
+		var list 	= $("twitter_list");
+		var html	= "";
+		var row		= null;
+		html += '<table border="1">';
+		html += '<th><td>icon</td><td>name</td><td>contents</td><td>memo</td><td>time</td></th>';
+			
+		for(var i=0; i<rs.rows.length; i++) {
+			row = rs.rows.item(i);
+			html += '<tr>';
+			html += '	<td><input type="radio" name="contents" onclick="selectContent('+row.id+')"></td>';
+			html += '	<td><img src="'+row.icon_url+'"/></td>';
+			html += '	<td>'+row.user_name+'</td>';
+			html += '	<td>'+row.content+'</td>';
+			html += '	<td>'+row.memo+'</td>';
+			html += '	<td>'+row.created_at+'</td>';
+			html += '</tr>';
+		}
+		html += '</table>';
+		list.innerHTML = html;
+	}
+	
+	function selectContent(id) {
+		db.transaction(function(tx) {
+			tx.executeSql(
+				"SELECT * FROM TwitterList WHERE id = ?",
+				[id],
+				setParameters
+			);	
+		});
+	}
+		
+	function setParameters(tx, rs) {
+		var row = rs.rows.item(0);
+		$("icon_url").value		= row.icon_url;
+		$("user_name").value	= row.user_name;
+		$("content").value		= row.content;
+		$("memo").value			= row.memo;
+		$("created_at").value	= row.created_at;
+	}
+	</script>
+</head>
+<body onload="init()">
+        <p><%=@contents %></p>
+	
+	<input type="button" value="write" onclick="readTwitter()"/>
+	
+	<div id="twitter_list"></div>
+	
+	<form method="post" action="" id="send">
+		<input type="submit" value="send" />
+		<input type="text" value="" name="trans[icon_url]" id="icon_url"/>
+		<input type="text" value="" name="trans[user_name]" id="user_name"/>
+		<input type="text" value="" name="trans[content]" id="content"/>
+		<input type="text" value="" name="trans[memo]" id="memo"/>
+		<input type="text" value="" name="trans[created_at]" id="created_at"/>
+	</form>
+	
+</body>
+</html>

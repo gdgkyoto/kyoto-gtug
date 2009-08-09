@@ -15,7 +15,7 @@ end
 
 get '/' do
    @contents = 'Hello'
-   erb :index
+   erb :clientdb
 end
 
 get '/result' do
@@ -45,6 +45,11 @@ post '/' do
 #     ret.push elem.text
 #   }
 #   @xml = ret.join(',')
+   
+   contents = params['trans']['contents']
+   @trans['contents'] =
+
+
 
    @xml = REXML::XPath.first(doc, '//surface')
 
