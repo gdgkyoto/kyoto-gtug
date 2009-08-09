@@ -18,7 +18,8 @@ from ..models.message import Message
 from ..models.location import Location
 from ..models.user import User
 from ..models.user_location import UserLocation
-
+from ..models.user_location import UserLocation
+from twitter_oauth_handler import OAuthClient
 
 class MessagesController(base_controller.BaseController):
   
@@ -98,14 +99,17 @@ class MessagesController(base_controller.BaseController):
         place.update_location()
         place.put()
         logging.info("Message's locaiton=%s", str(place))
-      except Exception,e:
+      except Exception, e:
         logging.warn(e)
         place = None
     message = Message(user=user, text=text)
     if place:
       message.place = place
     message.put()
-    
+
+#    tweet_post = OAuthClient('twitter',self)
+#    print tweet_post.post('http')
+
     if user.twitter_account:
       logging.debug("Posting a new tweet!")
       taskqueue.add(url='/tweets',
@@ -132,7 +136,7 @@ class MessagesController(base_controller.BaseController):
       result = email_addrs
       logging.debug("EMAIL ADDR: %s", result)
       from google.appengine.api import mail
-      body="""\
+      body = """\
 TEST
 %s
 """
