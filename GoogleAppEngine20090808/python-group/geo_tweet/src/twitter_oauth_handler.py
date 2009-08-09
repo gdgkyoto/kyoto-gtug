@@ -49,9 +49,12 @@ from google.appengine.ext.webapp import RequestHandler, WSGIApplication
 OAUTH_APP_SETTINGS = {
 
     'twitter': {
-
+        #Shimokawa geo-tweet
         'consumer_key': 'q334T1W3B48wxhfkFOkA',
         'consumer_secret': 'DYhwnbaZuPeh2SHZaq8ZjEZYumXB3pZhVhdYMu4ao4',
+        #Hirai rockshox9
+        #'consumer_key': '9hLQ9tglOUGoUV4AmuscGA',
+        #'consumer_secret': 'y46IeNPqefufOUXYOGi9neR5v7ET5qEZCY7BFhBPw',
 
         'request_token_url': 'https://twitter.com/oauth/request_token',
         'access_token_url': 'https://twitter.com/oauth/access_token',
@@ -179,6 +182,7 @@ class OAuthClient(object):
 
         if self.token is None:
             self.token = OAuthAccessToken.get_by_key_name(self.get_cookie())
+            
 
         fetch = urlfetch(url=api_method, payload=self.get_signed_body(
             api_method, self.token, http_method, **extra_params
@@ -203,7 +207,7 @@ class OAuthClient(object):
         return self.get_request_token()
 
     def logout(self, return_to='/'):
-        #geotweet�̃g�[�N�����폜����
+        #geotweet 
         user = User.get_current_user()
         user.twitter_account = None
         user.put()
