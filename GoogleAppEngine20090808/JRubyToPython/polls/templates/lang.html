@@ -1,0 +1,45 @@
+<table>
+    <tr>
+        <td>日本語</td>
+        <td>{{ jp }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>英語</td>
+        <td>{{ jpToEn }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>韓国語</td>
+        <td>{{ enToKo }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>英語</td>
+        <td>{{ koToEn }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>日本語</td>
+        <td>{{ enToJp }}</td>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>変換前</td>
+        <td>変換後</td>
+    </tr>
+    <tr>
+        <td>
+            {% for orgWord in orgWords %}
+            <li>{{ orgWord }}</li>
+            {% endfor %}
+        </td>
+        <td>
+            {% for word in words %}
+            <li>{{ word }}</li>
+            {% endfor %}
+        </td>
+    </tr>
+</table>
