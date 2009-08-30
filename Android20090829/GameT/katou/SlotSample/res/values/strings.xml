@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ゆっくりすろっと</string>
+    <string name="title">ゆっくりしていってね！！！</string>
+    <string name="title_sub">たっちしていってね！！！</string>
+    <string name="start">はじめる</string>
+    <string name="start_sub">まわっています</string>
+    <string name="stop">とめる</string>
+    <string name="dialog_complete">もういっかい\nしていってね！！！</string>
+    <string name="dialog_ok">もういっかい</string>
+
+    <string name="camera_start">start</string>
+    <string name="camera_cancel">cancel</string>
+    <string name="camera_take">take</string>
+    <string name="camera_update">かえる</string>
+
+    <string name="menu_list">いちらん</string>
+    <string name="menu_reset">もどす</string>
+
+    <string name="n1">まりさ</string>
+    <string name="n2">れいむ</string>
+    <string name="n3">ようむ</string>
+    <string name="n4">さくや</string>
+    <string name="n5">れみぃ</string>
+    <string name="n6">ふらん</string>
+    <string name="n7">ゆかり</string>
+    <string name="n8">ゆゆこ</string>
+    <string name="n9">ありす</string>
+
+</resources>
