@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">顔droid Sample</string>
+    <string name="menu_camera">カメラ</string>
+    <string name="menu_clear">クリア</string>
+    <string name="button_regist">登録</string>
+    <string name="gallery_name">顔ギャラリー</string>
+</resources>
