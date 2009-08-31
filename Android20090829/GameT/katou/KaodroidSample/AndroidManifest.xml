@@ -21,6 +21,11 @@
 			android:screenOrientation="landscape">
 		</activity>
 
+		<activity android:name=".DownloadActivity"
+			android:label="@string/app_name"
+			android:screenOrientation="landscape">
+		</activity>
+
 		<activity android:name=".KaoRecognizeActivity"
 			android:label="@string/app_name"
 			android:screenOrientation="landscape">
@@ -36,5 +41,6 @@
 
 	</application>
 	<uses-sdk android:minSdkVersion="3" />
+	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.CAMERA" />
 </manifest>

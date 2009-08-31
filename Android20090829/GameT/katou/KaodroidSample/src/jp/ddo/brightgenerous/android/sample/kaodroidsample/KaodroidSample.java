@@ -187,7 +187,10 @@ public class KaodroidSample extends ListActivity {
 		super.onCreateOptionsMenu(inMenu);
 
 		inMenu.add(0, 0, Menu.NONE, R.string.menu_camera);
-		inMenu.add(0, 1, Menu.NONE, R.string.menu_clear);
+		inMenu.add(0, 1, Menu.NONE, R.string.menu_download);
+		if(0 < this.getListAdapter().getCount()) {
+			inMenu.add(0, 2, Menu.NONE, R.string.menu_clear);
+		}
 
 		return true;
 	}
@@ -202,16 +205,24 @@ public class KaodroidSample extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem inMenuItem) {
 
 		switch (inMenuItem.getItemId()) {
-			case 0:
+			case 0: {
 				Intent intent = new Intent(this.getApplicationContext(), CameraActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				this.startActivity(intent);
 				break;
-			case 1:
+			}
+			case 1: {
+				Intent intent = new Intent(this.getApplicationContext(), DownloadActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				this.startActivity(intent);
+				break;
+			}
+			case 2: {
 				this.getContentResolver().delete(KaodroidDbManager.Images.CONTENT_URI, null, null);
 				this.getContentResolver().delete(KaodroidDbManager.Groups.CONTENT_URI, null, null);
 				this.resetAdapter();
 				break;
+			}
 		}
 
 		return super.onOptionsItemSelected(inMenuItem);

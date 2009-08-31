@@ -7,23 +7,14 @@
  */
 package jp.ddo.brightgenerous.android.sample.kaodroidsample.view;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Calendar;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
+import jp.ddo.brightgenerous.android.sample.kaodroidsample.util.TempUtil;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.net.Uri;
-import android.provider.MediaStore.MediaColumns;
-import android.provider.MediaStore.Images.ImageColumns;
-import android.provider.MediaStore.Images.Media;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -61,7 +52,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, P
 		abstract public void onPictureSaved(CameraView inCameraView, String inDataPath);
 	}
 
-	static private ContentResolver contentResolver = null;
+	protected Context context = null;
 
 	/** カメラ */
 	private Camera camera = null;
@@ -108,8 +99,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, P
 	 * @param inAttrs
 	 */
 	private void initialProcess(Context inContext, AttributeSet inAttrs) {
-		contentResolver = inContext.getContentResolver();
 
+		this.context = inContext;
 		this.getHolder().addCallback(this);
 		this.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
@@ -191,9 +182,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, P
 	 */
 	public void onPictureTaken(byte[] inData, Camera inCamera) {
 		try {
-			String dataName = "photo_" + String.valueOf(Calendar.getInstance().getTimeInMillis()) + ".jpg";
+			String dataName = "kaodroid.photo.jpg";
 			// Uri dataUri = this.saveDataToURI(inData, dataName);
-			String dataPath = this.saveDataToSdCard(inData, dataName);
+			String dataPath = TempUtil.getInstance().saveDataToSdCard(inData, dataName);
 			if (this.callback != null) {
 				// this.callback.onPictureSaved(this, dataUri);
 				this.callback.onPictureSaved(this, dataPath);
@@ -202,58 +193,6 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, P
 			this.cameraRelease();
 			throw new RuntimeException(e);
 		}
-	}
-
-	/**
-	 * 画像データをSDCardに保存する
-	 * 
-	 * @param inData
-	 * @param inDataName
-	 * @return
-	 * @throws Exception
-	 */
-	protected String saveDataToSdCard(byte[] inData, String inDataName) throws Exception {
-		String path = "/sdcard/" + inDataName;
-		Bitmap bitmap = BitmapFactory.decodeByteArray(inData, 0, inData.length);
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(path);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
-		} catch (IOException e) {
-			this.cameraRelease();
-			throw e;
-		} finally {
-			if (fos != null) {
-				fos.close();
-			}
-		}
-		return path;
-	}
-
-	/**
-	 * 画像データをContentResolverを使用して保存する
-	 * 
-	 * @param inData
-	 * @param inDataName
-	 * @return
-	 * @throws Exception
-	 */
-	protected Uri saveDataToURI(byte[] inData, String inDataName) throws Exception {
-		Bitmap bitmap = BitmapFactory.decodeByteArray(inData, 0, inData.length);
-		ContentValues values = new ContentValues();
-		values.put(MediaColumns.DISPLAY_NAME, inDataName);
-		values.put(ImageColumns.DESCRIPTION, "taken with G1");
-		values.put(MediaColumns.MIME_TYPE, "image/jpeg");
-		Uri uri = contentResolver.insert(Media.EXTERNAL_CONTENT_URI, values);
-		try {
-			OutputStream os = contentResolver.openOutputStream(uri);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 90, os);
-			os.close();
-		} catch (IOException e) {
-			this.cameraRelease();
-			throw e;
-		}
-		return uri;
 	}
 
 	private void cameraRelease() {
