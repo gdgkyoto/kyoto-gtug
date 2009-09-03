@@ -11,6 +11,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+    	<!-- Google のライブラリを追加 -->
+    	<uses-library android:name="com.google.android.maps"></uses-library>
     </application>
+    <!-- インターネットへのアクセスパーミッションを追加 -->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+   <!-- GPSを使用するために必要なパーミッション -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
     <uses-sdk android:minSdkVersion="3" />
 </manifest> 
