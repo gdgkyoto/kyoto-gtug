@@ -186,12 +186,22 @@ public class Kaodroid extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu inMenu) {
 		super.onCreateOptionsMenu(inMenu);
 
-		inMenu.add(0, 0, Menu.NONE, R.string.menu_camera);
-		inMenu.add(0, 1, Menu.NONE, R.string.menu_download);
-		if (0 < this.getListAdapter().getCount()) {
-			inMenu.add(0, 2, Menu.NONE, R.string.menu_clear);
-		}
+		inMenu.add(Menu.CATEGORY_SYSTEM, 0, Menu.NONE, R.string.menu_camera);
+		inMenu.add(Menu.CATEGORY_SYSTEM, 1, Menu.NONE, R.string.menu_download);
+		return true;
+	}
 
+	/**
+	 * 
+	 * 
+	 * @param inMenu
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu inMenu) {
+		inMenu.removeGroup(Menu.CATEGORY_ALTERNATIVE);
+		if (0 < this.getListAdapter().getCount()) {
+			inMenu.add(Menu.CATEGORY_ALTERNATIVE, 2, Menu.NONE, R.string.menu_clear);
+		}
 		return true;
 	}
 
