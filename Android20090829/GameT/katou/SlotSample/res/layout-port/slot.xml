@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="2dip">
-      <jp.ddo.brightgenerous.android.sample.slot.view.SlotView android:id="@+id/viewSlot1"
+      <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.SlotView android:id="@+id/viewSlot1"
           android:layout_weight="1"
           android:layout_width="fill_parent"
           android:layout_height="100dip"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="2dip"
         android:layout_marginLeft="2dip">
-      <jp.ddo.brightgenerous.android.sample.slot.view.SlotView android:id="@+id/viewSlot2"
+      <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.SlotView android:id="@+id/viewSlot2"
           android:layout_weight="1"
           android:layout_width="fill_parent"
           android:layout_height="100dip"
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dip">
-      <jp.ddo.brightgenerous.android.sample.slot.view.SlotView android:id="@+id/viewSlot3"
+      <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.SlotView android:id="@+id/viewSlot3"
           android:layout_weight="1"
           android:layout_width="fill_parent"
           android:layout_height="100dip"
@@ -92,7 +92,7 @@
       android:layout_height="wrap_content"
       android:text="@string/start" />
 
-  <jp.ddo.brightgenerous.android.sample.slot.view.LogView android:id="@+id/logMessage"
+  <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.LogView android:id="@+id/logMessage"
       android:layout_weight="1"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent" />
