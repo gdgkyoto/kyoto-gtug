@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+	<TextView  
+	    android:id="@+id/app_title"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:padding="10dip"
+	    android:text="@string/app_title"
+	    />
+
+	<LinearLayout 
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    >
+		<Button
+		    android:id="@+id/map_button"
+		    android:layout_width="60dip" 
+		    android:layout_height="60dip" 
+		    android:text="@string/map_label"
+		    />
+		<Button
+		    android:id="@+id/test_button"
+		    android:layout_width="60dip" 
+		    android:layout_height="60dip" 
+		    android:text="@string/test_label"
+		    />
+		<Button
+		    android:id="@+id/exit_button"
+		    android:layout_width="60dip" 
+		    android:layout_height="60dip" 
+		    android:text="@string/exit_label"
+		    />
+    </LinearLayout>
+    
+</LinearLayout>

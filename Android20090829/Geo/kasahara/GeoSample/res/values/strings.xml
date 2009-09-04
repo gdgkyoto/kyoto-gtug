@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, GeoSample!</string>
+    <string name="app_name">GeoSample</string>
+    <string name="app_title">GeoLocation</string>
+    <string name="map_label">MAP</string>
+    <string name="test_label">TEST</string>
+    <string name="exit_label">Exit</string>
+    
+    <string name="map_text_title">テストタイトル</string>
+    <string name="map_text">testtesttesttesttest</string>
+</resources>
+
+
