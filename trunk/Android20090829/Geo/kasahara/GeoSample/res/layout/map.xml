@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+	<com.google.android.maps.MapView 
+		android:id="@+id/map_view" 
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent" 
+		android:layout_x="0dip"
+		android:layout_y="0dip"
+		android:enabled="true" 
+		android:clickable="true" 
+		android:apiKey="0sqxFJKQ8othQHgE_e8vdmZpgf-GYecNagm81Vg" 
+	/>
+	<TableLayout
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="100dip"
+	    android:background="#cc00AAAA"
+	    android:layout_x="0dip"
+	    android:layout_y="0dip"
+	>
+		<TableRow
+			android:padding="10dip"
+		>
+		    <ImageView
+		        android:id="@+id/map_samnail"
+		        android:background="#cc808080"
+		        android:padding="10dip"
+		        android:src="@drawable/icon_android"
+		    />
+			<TextView
+			    android:id="@+id/map_text"
+			    android:padding="10dip"
+			    android:text="test"
+		    />
+	    </TableRow>
+    </TableLayout>
+</AbsoluteLayout>
