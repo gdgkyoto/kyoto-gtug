@@ -71,7 +71,8 @@ public class DownloadActivity extends Activity {
 		this.imageView = (ImageView) this.findViewById(R.id.imageView);
 		this.editText = (AutoCompleteTextView) this.findViewById(R.id.editText);
 		{
-			String[] tags = { "http://taboonochou.files.wordpress.com/2009/07/new-smap.jpg", "http://www.geocities.co.jp/Outdoors-Mountain/6996/profile/images/tashiro.jpg" };
+			String[] tags = { "http://taboonochou.files.wordpress.com/2009/07/new-smap.jpg", "http://www.geocities.co.jp/Outdoors-Mountain/6996/profile/images/tashiro.jpg",
+					"http://av.watch.impress.co.jp/docs/20050331/maxm2.jpg", "http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/8470/84702924.jpg" };
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tags);
 			this.editText.setAdapter(adapter);
 		}
