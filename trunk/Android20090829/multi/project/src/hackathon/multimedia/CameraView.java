@@ -1,5 +1,7 @@
 package hackathon.multimedia;
 
+import hackathon.multimedia.LargeImage;
+
 import android.content.Context;
 import android.hardware.Camera;
 import android.view.MotionEvent;
@@ -77,6 +79,11 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
                     data2sd(getContext(),data,fn);
                     count++;
                     android.util.Log.v("",fn);
+                    
+                    // TEST -- taniguchi
+                    LargeImage largeImage = new LargeImage();
+                    largeImage.createImage(1280, 480);
+                    
                 } catch (Exception e) {
                     android.util.Log.e("",""+e.toString());
                 }
