@@ -11,7 +11,6 @@ public class PanoramaCamera extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(new CameraView(this));
     }
 }
