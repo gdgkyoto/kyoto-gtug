@@ -62,6 +62,9 @@ public class RotaryDial extends Activity {
 	/** ゆとりモードメニューアイテム */
 	public static final int MENU_ITEM_YUTORI = Menu.FIRST;
 	
+	private SensorManager sm;
+	private SenserListener senserListener;
+	
 	
 	private TelephonyManager telephonyManager;
 	private int telephonyState;
@@ -121,9 +124,10 @@ public class RotaryDial extends Activity {
         setContentView(dialView);
         
         
-        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor s = sm.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-        sm.registerListener(new SenserListener(),s,0);
+        senserListener = new SenserListener();
+        sm.registerListener(senserListener,s,0);
 
        
 	}
@@ -154,6 +158,8 @@ public class RotaryDial extends Activity {
 		}
 		return true;
 	}
+    
+   
     
     /**
      * コンタクトリスト画面へ遷移する。
@@ -194,6 +200,12 @@ public class RotaryDial extends Activity {
     	startActivity(callIntent);
     }   
     
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	Log.d("phone","onResume.");
+    }
+    
     /**
      * SubActityからの結果受け取り
      */
@@ -228,6 +240,10 @@ public class RotaryDial extends Activity {
     		intent.putExtra(PARAM_DIAL_PERSON_NAME, name);
     		intent.putExtra(PARAM_DIAL_PERSON_NUMBER, number);
 			startActivityForResult(intent, 0);
+    	}else{
+    		//加速度センサー登録し直し
+    		Sensor s = sm.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+    		sm.registerListener(senserListener,s,0);
     	}
     	
     	if( data.getIntExtra(PARAM_DIAL_CALL_FLG, 0) == 1 ){
@@ -272,6 +288,7 @@ public class RotaryDial extends Activity {
 			
 			if ((ctInvalid > 99) && (currentAccelerationValues[2] > TH_Z)) { 
 				Log.d("phone", "Z-Axis moved fast enough");
+				sm.unregisterListener(senserListener);
 				openDialActivity();
 			}
 		
