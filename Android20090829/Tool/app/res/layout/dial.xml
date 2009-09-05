@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" android:clickable="true" android:text="ダイヤル画面　CALL!!ボタンを押下するとメイン画面に遷移し発信処理を行います。"/>
+
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Back" android:id="@+id/dial_back_button"></Button>
+<Button android:text="CALL!!" android:id="@+id/dial_call_button" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Input Call Number"></TextView><EditText android:text="EditText01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/dial_number"></EditText>
+
+<TextView android:text="Memo:none" android:id="@+id/dial_mmeo" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+</LinearLayout>
