@@ -17,6 +17,26 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+
+/**
+ * 電話帳画面のActivity
+ * 
+ * 
+ * 引数:  
+ *   なし。
+ *
+ * 戻り値: 
+ *   以下の処理で戻り値を戻す。
+ *   Intent.putExtra(PARAM,value);
+ *   setResult(RESULT_OK, intent);
+ *   finish(); 
+ * RotaryDial.PARAM_DIAL_PERSON_NAME    String 電話をかける相手の名前
+ * RotaryDial.PARAM_DIAL_PERSON_NUMBER  String 電話をかける相手の番号
+ * RotaryDial.PARAM_MOVE_TO_DIAL_MODE   int    ダイヤル画面に遷移するか 0=遷移する 1=遷移しない
+ * 
+ * @author KENJI
+ *
+ */
 public class ContactListActivity extends Activity {
 	
 	private Button backButton;

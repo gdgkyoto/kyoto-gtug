@@ -9,6 +9,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * ダイヤル画面
+ * 
+ * 引数:  
+ *   getIntent().getStringExtra(PARAM)で受け取る。
+ * RotaryDial.PARAM_DIAL_PERSON_NAME    String メモに表示する名前
+ * RotaryDial.PARAM_DIAL_PERSON_NUMBER  String メモに表示する電話番号
+ *
+ * 戻り値: 
+ *   以下の処理で戻り値を戻す。
+ *   Intent.putExtra(PARAM,value);
+ *   setResult(RESULT_OK, intent);
+ *   finish(); 
+ * RotaryDial.PARAM_DIAL_PERSON_NUMBER  String 電話をかける番号 
+ * RotaryDial.PARAM_DIAL_CALL_FLG       int    メイン画面で実際に発信するかどうかのフラグ 0=発信しない 1=発信しない
+ * 
+ * @author KENJI
+ *
+ */
 public class DialActivity extends Activity {
 	
 	private Button backButton;
@@ -65,7 +84,6 @@ public class DialActivity extends Activity {
 	    if( number != null ){
 	    	TextView textView = (TextView) findViewById(R.id.dial_mmeo);
 	    	textView.setText("memo: name="+name+" number="+number);
-	    	
 	    }
 	    
 	}
