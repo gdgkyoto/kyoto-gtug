@@ -78,7 +78,7 @@ public class ContactListActivity extends Activity {
 			Log.d("phone", cur.getString(numberColumn));
 			list.add(name + ":" + cur.getString(numberColumn));
 		}
-		for(int i=0; i<30; i++){
+		for(int i=0; i<15; i++){
 			list.add("");
 		}
 		
