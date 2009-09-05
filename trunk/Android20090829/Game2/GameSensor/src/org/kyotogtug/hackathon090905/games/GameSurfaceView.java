@@ -8,6 +8,7 @@ import java.util.Random;
 import org.kyotogtug.hackathon090905.games.R;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -45,6 +46,12 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	  private float lowY;
 	  //ハイパスフィルタされた値
 	  private float highY;
+	  //画面からスクロールした値
+	  private int angle=0;
+	  // オフスクリーン用
+	  private Bitmap offBitmap = null;
+	  // オフスクリーンキャンバス
+	  private Canvas offCanvas = null;
 
 	  public GameSurfaceView(Context context) {
 	    super(context);
@@ -110,16 +117,27 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	  public void run() {
 	    Canvas canvas = null;
+		
+	    if(offBitmap == null){
+	    	offBitmap = Bitmap.createBitmap(getWidth(), getHeight()*2, Bitmap.Config.RGB_565);
+	    }
+
+	    if(offCanvas == null){
+		    offCanvas = new Canvas(offBitmap);	    	
+	    }
+	    
 	    Paint p = new Paint();
 	    p.setColor(Color.WHITE);
 	    while (thread != null) {
 	      try {
 	        canvas = holder.lockCanvas();
-	        canvas.drawRect(0, 0, getWidth(), getHeight(), p);
+	        
+	        offCanvas.drawColor(Color.WHITE);
+	        
 	        synchronized (blocks) {
 	          // 描画
 	          for (Block block : blocks) {
-	        	  block.draw(canvas);
+	        	  block.draw(offCanvas);
 	          }
 		      // playerと壁の衝突
 		      for (Block block : blocks) {
@@ -133,9 +151,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	          canvas.drawText("Roll:"+ (int)highY*-1,10,20,paint);
 
 	          player.move((int) roll/10*-1, (int) highY*-1);
-	          player.draw(canvas);
-
+	          player.draw(offCanvas);
 	        }
+	        scrollAngle(player);
+	        canvas.drawBitmap(offBitmap, 0, angle, null);
 	      } finally {
 	        if (canvas != null)
 	          holder.unlockCanvasAndPost(canvas);
@@ -147,6 +166,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 		// TODO 自動生成されたメソッド・スタブ
 
 	}
+	
 private float x=0;
 private float z=0;
 	public void onSensorChanged(SensorEvent event) {
@@ -169,6 +189,21 @@ private float z=0;
 	      }
 	    }
 	}
-
-
+	
+	// 画面をスクロールさせる
+	private void scrollAngle(Player player){
+		int y = player.rect.centerY();
+		int height = getHeight();
+		if(-angle + height * 0.25 > y){	// 画面上部にあるとき
+			angle+=10;
+			if(angle > 0){
+				angle=0;
+			}
+		}else if (-angle + height * 0.75 < y) {		// 画面下部にあるとき
+			angle-=10;
+			if (angle < -height) {
+				angle = -height;
+			}
+		}
+	}
 }
