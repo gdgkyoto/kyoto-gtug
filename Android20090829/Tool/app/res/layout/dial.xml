@@ -102,15 +102,13 @@
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
 				>
-				<!--
 				<Button
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Back"
 					android:id="@+id/dial_back_button">
 				</Button>
-			  	-->
-				<Button
+			  	<Button
 					android:text="CALL!!"
 					android:id="@+id/dial_call_button"
 					android:layout_width="wrap_content"
