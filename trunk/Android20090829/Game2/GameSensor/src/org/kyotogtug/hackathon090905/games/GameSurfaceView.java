@@ -30,7 +30,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	  private SurfaceHolder holder;
 	  private static final int MAX_COUNT = 130;
 	  private List<Block> blocks = Collections.synchronizedList(new ArrayList<Block>(MAX_COUNT));
-	  private Drawable drawable;
+	  private Drawable drawableBlock;
+	  private Drawable drawablePlayer;
 	  //ScheduledExecutorService executor;
 	  private Thread thread;
 	  //Player
@@ -53,6 +54,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	  // オフスクリーンキャンバス
 	  private Canvas offCanvas = null;
 
+
+
 	  public GameSurfaceView(Context context) {
 	    super(context);
 	    initialize(context);
@@ -72,7 +75,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    holder = getHolder();
 	    holder.addCallback(this);
 	    holder.setFixedSize(getWidth(), getHeight());
-	    drawable = context.getResources().getDrawable(R.drawable.ball);
+	    drawableBlock = context.getResources().getDrawable(R.drawable.block);
+	    drawablePlayer = context.getResources().getDrawable(R.drawable.player);
 	  }
 
 	  public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -92,11 +96,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread = new Thread(this);
 	    thread.start();
 
-	    player = new Player(drawable, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-	            10, 400);
-	    for (int i=0; i<20; i++) {
-		    blocks.add(new Block(drawable, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-		            80 + 4*i, 380));
+	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+	            10, 480);
+	    for (int i=0; i<9; i++) {
+		    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+		            32*i, 340));
 	    }
 	  }
 
@@ -117,7 +121,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	  public void run() {
 	    Canvas canvas = null;
-		
+
 	    if(offBitmap == null){
 	    	offBitmap = Bitmap.createBitmap(getWidth(), getHeight()*2, Bitmap.Config.RGB_565);
 	    }
@@ -125,15 +129,15 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    if(offCanvas == null){
 		    offCanvas = new Canvas(offBitmap);
 	    }
-	    
+
 	    Paint p = new Paint();
 	    p.setColor(Color.WHITE);
 	    while (thread != null) {
 	      try {
 	        canvas = holder.lockCanvas();
-	        
+
 	        offCanvas.drawColor(Color.WHITE);
-	        
+
 	        synchronized (blocks) {
 	          // 描画
 	          for (Block block : blocks) {
@@ -166,7 +170,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 		// TODO 自動生成されたメソッド・スタブ
 
 	}
-	
+
 private float x=0;
 private float z=0;
 	public void onSensorChanged(SensorEvent event) {
@@ -189,12 +193,12 @@ private float z=0;
 	      }
 	    }
 	}
-	
+
 	// 画面をスクロールさせる
 	private void scrollAngle(Player player){
 		int y = player.rect.centerY();
 		final int scrollPoint = 10;
-		
+
 		int height = getHeight();
 		if(-angle + height * 0.25 > y){	// 画面上部にあるとき
 			angle+=scrollPoint;
