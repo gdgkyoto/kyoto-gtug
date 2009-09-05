@@ -10,10 +10,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 /*
  * Flickrアクセスクラス簡易版
- * 2009/09 Ver.0.02 M.H 
+ * 2009/09 Ver.0.03 M.H 
  */
 public class MyLightFlickr {
 	// for Flickr API Access
@@ -37,6 +36,7 @@ public class MyLightFlickr {
     private JSONArray mRetPhotos;		// 取得写真データ
     private double mLat;
     private double mLng;
+    private double mSearchAreaSize;		// 緯度・経度の検索範囲
     
     // For Debug
     private static final double SEARCH_AREA_SIZE = 0.5; // 指定された緯度・経度を中心にどれくらいの範囲を検索するか ※ToDo※パラメータ化
@@ -46,6 +46,9 @@ public class MyLightFlickr {
 
         // Webアクセス用クライアント
         mHttpClient = new MyHttpClient();
+        
+        // 初期値設定
+        mSearchAreaSize = SEARCH_AREA_SIZE;
     }
 
     // 現在地を設定
@@ -67,13 +70,15 @@ public class MyLightFlickr {
         // 検索条件文字列作成
         String search_prm = ""; 
         if ( mCurrentGPoint != null ) { // 現在地が設置されていれば緯度・経度の検索BOXを設定
-            double search_lat_min = mLat - SEARCH_AREA_SIZE;
-            double search_lot_min = mLng - SEARCH_AREA_SIZE;
-            double search_lat_max = mLat + SEARCH_AREA_SIZE;
-            double search_lot_max = mLng + SEARCH_AREA_SIZE;	
+            double search_lat_min = mLat - mSearchAreaSize;
+            double search_lot_min = mLng - mSearchAreaSize;
+            double search_lat_max = mLat + mSearchAreaSize;
+            double search_lot_max = mLng + mSearchAreaSize;	
             //String bbox_str = "135.60,34.68,135.99,34.99"; // 平等院付近 for test
             String bbox_str = search_lot_min + "," + search_lat_min + "," + search_lot_max + "," + search_lat_max;
-            search_prm += "&bbox=" + bbox_str;
+            search_prm += "&bbox=" + bbox_str; // 2009/09/05 11:00 位置検索がうまくかからなくなった（検索結果の写真が０枚）ので一端コメントアウト＝＞ 13:00 取れるようになっていたので戻した
+            //search_prm += "&tags=japan"; // 位置で検索出来ない場合にかわりにタグで検索
+
         }
         	
         //String access_uri = API_URI + "method=" + "flickr.photos.search" + "&api_key=" + API_KEY + "&format=" + PRM_FORMAT + "&tags=" + "japan"; // Simple Test
@@ -104,11 +109,13 @@ public class MyLightFlickr {
         	JSONObject photos_json = this.mRetJson.getJSONObject(PHOTOS_TAG); 
         	this.mRetPhotos = photos_json.getJSONArray(PHOTO_TAG);
         	Log.i(LOG_TAG, "GetPhotos / mRetPhotos Value = " + mRetPhotos.toString());
+
         	// Get Lat Lon Test
 	        for (int i = 0; i < mRetPhotos.length(); i++) {
 	            JSONObject tmpJsonObj = mRetPhotos.getJSONObject(i);
-	            Log.i(LOG_TAG, "GetPhotos / Photos / lat = " + tmpJsonObj.getDouble("latitude") + " lon = " + tmpJsonObj.getDouble("longitude"));
+	            //Log.i(LOG_TAG, "GetPhotos / Photos / lat = " + tmpJsonObj.getDouble("latitude") + " lon = " + tmpJsonObj.getDouble("longitude"));
 	        }
+
         } catch (JSONException e) {
             e.printStackTrace();
             return;
@@ -141,5 +148,17 @@ public class MyLightFlickr {
         }
         return new GeoPoint(tmp_lat, tmp_lon);
     }
+    
+    //取得したPhotoのJSONArrayを返す
+    public JSONArray getPhotoJsonArray()
+    {
+    	if ( mRetPhotos != null ) {
+    		return mRetPhotos;
+    	} else {
+    		return null;
+    	}
+    }
+    
+    
 
 }
