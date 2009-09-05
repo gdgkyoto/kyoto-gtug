@@ -25,18 +25,25 @@ public class Player {
   }
 
   public void move(int x, int y) {
+	final int gravity = 1;	// 重力
+	
 	//横方向
 	direction.dx = x;
 	//縦方向
-	if (rect.bottom < viewRect.bottom) {
-		direction.dy = direction.dy+1;
+	//重力
+	if (rect.bottom > viewRect.bottom) {
+		direction.dy = direction.dy - gravity;
 	}
+	//ジャンプ
 	if (direction.dy == 0) {
+		if(y > 10){
+			direction.dy = 10 * 2;
+		}else
 		if (y>3) {
-			direction.dy = direction.dy - y*2;
+			direction.dy = direction.dy + y*2;
 		}
 	}
-
+	
 	rect.offset(direction.dx, direction.dy);
     if (rect.left < 0) {
     	direction.dx = 0;
@@ -44,7 +51,7 @@ public class Player {
     	rect.right = rect.left + width;
     } else if (rect.top < 0) {
     	//ここには画面スクロールの処理が必要か？
-    	direction.dy = -direction.dy;
+    	direction.dy = 0;
     	rect.top = 0;
     	rect.bottom = rect.top + height;
     } else if (rect.bottom > viewRect.bottom) {
@@ -59,8 +66,8 @@ public class Player {
   }
 
   public void draw(Canvas canvas) {
-	//drawable.setBounds(rect.left, rect.top, rect.right, rect.bottom);
-    drawable.setBounds(rect);
+	drawable.setBounds(rect.left, rect.top, rect.right, rect.bottom);	// 反転表示
+    //drawable.setBounds(rect);
     drawable.draw(canvas);
   }
 
