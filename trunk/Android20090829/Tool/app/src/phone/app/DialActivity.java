@@ -93,8 +93,10 @@ public class DialActivity extends Activity {
 	    String name = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME);
 
 	    if( number != null ){
+	    	/*
 	    	TextView textView = (TextView) findViewById(R.id.dial_mmeo);
 	    	textView.setText("memo: name="+name+" number="+number);
+	    	*/
 	    	TextView textDialNumber = (TextView) findViewById(R.id.DialNumber);
 	    	textDialNumber.setText("Number: "+number);
 	    	TextView textDialMemo   = (TextView) findViewById(R.id.DialMemo);
