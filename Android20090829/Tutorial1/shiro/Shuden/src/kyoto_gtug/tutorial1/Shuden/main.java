@@ -1,4 +1,6 @@
 package kyoto_gtug.tutorial1.Shuden;
+
+import kyoto_gtug.tutorial1.Shuden.R;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
@@ -6,6 +8,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebView;
+
+import java.io.UnsupportedEncodingException;
+import java.net.*;
 
 public class main extends Activity {
     /** Called when the activity is first created. */
@@ -39,7 +45,8 @@ public class main extends Activity {
         
         // Print location data(latitude and longitude)
         Log.d("LOG_TAG", String.valueOf(loc.getLatitude()) + ":" + String.valueOf(loc.getLongitude()));
-        
+
+        // get station list
         StationDataList stationDataList = new StationDataList();
         try {
 			stationDataList.updateStationDataList(loc.getLatitude(), loc.getLongitude());
@@ -47,5 +54,33 @@ public class main extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// make URL to request to Google Transit
+		String URL = "http://www.google.co.jp/transit?";
+		URL += "ie=UTF8" + "&";
+		try {
+			URL += "saddr=" + URLEncoder.encode(stationDataList.getStationData()[0].Name, "UTF-8") + "&";
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			URL += "daddr=" + URLEncoder.encode(stationDataList.getStationData()[1].Name, "UTF-8") + "&";
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		URL += "ttype=" + "last" + "&";
+		URL += "output=" + "mobile" + "&";
+		URL += "dirmode=" + "transit";
+		
+		// print URL
+		Log.d("LOG_TAG", URL);
+		
+		WebView webview;
+		webview = (WebView) findViewById(R.id.webview);
+		webview.getSettings().setJavaScriptEnabled(true);
+		webview.loadUrl(URL);
+
     }
 }
