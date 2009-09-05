@@ -6,11 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.Editable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -52,6 +54,7 @@ public class DialActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.dial);
+        initNum();
 
 	    if( getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME) != null ){
 	    	name = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME);
@@ -134,6 +137,7 @@ public class DialActivity extends Activity {
 
         // set the Drawable on the ImageView
         imageView.setImageDrawable(bmd);
+
 	}
 
 
@@ -152,10 +156,18 @@ public class DialActivity extends Activity {
                 Log.v("phone","ActionDown");
                 IsResetPosition = false;
                 onDetachedFromWindow();
+                //startPoint(x,y);
+
+                int num = checkNum(x,y);
+                if( num >= 0){
+                	Editable str = editText.getText();
+                	editText.setText(str.toString() + String.valueOf(num));
+                }
 
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.v("phone","ActionMove");
+                Log.d("phone",String.valueOf(x) + "," +String.valueOf(y));
                 IsResetPosition = false;
                 onDetachedFromWindow();
                 movePoint(x,y);
@@ -169,16 +181,60 @@ public class DialActivity extends Activity {
         return true;
     }
 
+    private void startPoint(float x, float y){
+    	Log.d("phone", String.valueOf(x) + "," + String.valueOf(y));
+    	start_degree = (float) (Math.atan2(y - 280, x - 160 ) * 180 / Math.PI);
+    	Log.d("phone","start_degree:" + String.valueOf(degree));
+    	return;
+    }
+
+
+
     private void movePoint(float x, float y){
     	Log.d("phone", String.valueOf(x) + "," + String.valueOf(y));
-    	degree = (float) (Math.atan2(y - 240, x - 160 ) * 180 / Math.PI);
-    	Log.v("phone",String.valueOf(degree));
+    	degree = (float) (Math.atan2(y - 280, x - 160 ) * 180 / Math.PI);
+    	Log.d("phone","degree:" + String.valueOf(degree));
+
+    	//degree = start_degree - degree;
     	rotateDial(degree);
     	return;
     }
 
+    //Numbers
+    private Rect[] teleNum = new Rect[10];
+    private void initNum(){
+
+    	teleNum[0] = new Rect(150, 390, 170, 410);
+    	teleNum[9] = new Rect(100, 380, 120, 400);
+    	teleNum[8] = new Rect( 65, 340,  85, 360);
+    	teleNum[7] = new Rect( 30, 310,  40, 330);
+    	teleNum[6] = new Rect( 40, 300,  60, 320);
+    	teleNum[5] = new Rect( 50, 260,  70, 280);
+    	teleNum[4] = new Rect( 90, 200, 110, 220);
+    	teleNum[3] = new Rect(135, 180, 155, 200);
+    	teleNum[2] = new Rect(180, 200, 200, 220);
+    	teleNum[1] = new Rect(230, 220, 250, 240);
+
+    }
+
+    private int checkNum(float x,float y){
+
+    	for(int i=0; i<10;i++){
+
+    		if ( teleNum[i].left <= x && teleNum[i].right >= x){
+    			if( teleNum[i].top <= y && teleNum[i].bottom >= y){
+    				Log.v("phone", "Num:" + String.valueOf(i));
+    				return i;
+    			}
+    		}
+    	}
+
+    	return -1;
+    }
+
     //ダイアルを初期位置に変更
     private float degree;
+    private float start_degree;
     private boolean IsResetPosition = false;
     private void resetDialPosition(){
 
