@@ -19,11 +19,7 @@ import android.widget.TextView;
  *
  */
 public class RotaryDial extends Activity {
-	
-	private Button toDialButton ;
-	private Button toContactListButton;
-	private TextView textView;
-	private TextView debugTextView;
+
 	private RotaryDialView dialView;
 	
 	public static final String PARAM_DIAL_PERSON_NUMBER = "DIAL_PERSON_NUMBER";
@@ -59,31 +55,6 @@ public class RotaryDial extends Activity {
         	}
         });
         setContentView(dialView);
-        
-//        
-//        setContentView(R.layout.main);
-//        
-//        toDialButton = (Button)findViewById(R.id.Button02);
-//        toContactListButton = (Button)findViewById(R.id.Button01);
-//        textView = (TextView)findViewById(R.id.label);
-//        debugTextView = (TextView)findViewById(R.id.main_debug);
-//        toDialButton.setOnClickListener(new View.OnClickListener(){
-//
-//			@Override
-//			public void onClick(View v) {
-//				Intent intent = new Intent(RotaryDial.this,DialActivity.class);
-//				startActivityForResult(intent, 0);
-//			}
-//        	
-//        });
-//        toContactListButton.setOnClickListener(new View.OnClickListener(){
-//
-//			@Override
-//			public void onClick(View v) {
-//				Intent intent = new Intent(RotaryDial.this,ContactListActivity.class);
-//				startActivityForResult(intent, 0);
-//			}
-//        });
     }
 
     /**
@@ -131,23 +102,19 @@ public class RotaryDial extends Activity {
     		return ;
     	}
 		
-    	String name;
+    	// ìdòbî‘çÜÇÃéÊìæ
     	String number;
-    	
-    	Log.d("phone","onActivityResult.Result Action="+data.getAction());
     	number = data.getStringExtra(PARAM_DIAL_PERSON_NUMBER);
     	Log.d("phone","onActivityResult.NUMBER="+number);
-    	StringBuilder sb = new StringBuilder();
-    	sb.append("onActivityResult.NUMBER="+number);
+    	
+    	// Ç©ÇØÇÈëäéËÇÃñºëOéÊìæ
+    	String name;
     	name = data.getStringExtra(PARAM_DIAL_PERSON_NAME);
+    	
     	if( name != null ){
         	Log.d("phone","NAME="+name);
-        	sb.append(" NAME="+name );
     	}
-    	textView.setText(sb.toString());
-    	
-    	
-    	
+
     	if( data.getIntExtra(PARAM_MOVE_TO_DIAL_MODE, 0) == 1 ){
     		Intent intent = new Intent(RotaryDial.this,DialActivity.class);
     		intent.putExtra(PARAM_DIAL_PERSON_NAME, name);
@@ -156,11 +123,11 @@ public class RotaryDial extends Activity {
     	}
     	
     	if( data.getIntExtra(PARAM_DIAL_CALL_FLG, 0) == 1 ){
-    		debugTextView.setText("Debug : CALL!! number=" + number);
-    		//
+
+    		Log.d("phone", "Debug : CALL!! number=" + number);
     		onAcutalCall(number);
     	}else{
-    		debugTextView.setText("Debug : ");
+    		Log.d("phone", "Debug : nothing ");
     	}
     }
 }
