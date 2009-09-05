@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import java.util.Random;
+import java.math.*;
 
 import android.util.Log;
 
@@ -243,11 +244,15 @@ public class ScreenSaver extends Activity {
     		fDegree = ((int)(mLastTime / 2 / (x * y % 5 + 1) + 360) % 360);
     		fSize = (mTableW + mTableH) / 4;
     		
+    		//タッチした座標から表示座標に追加する値を取得
+    		int addTouchX = (int)Math.floor(touchX / 7);
+    		int addTouchY = (int)Math.floor(touchY / 7);
+    		
     		//タッチされたらライフの表示位置を変更する
     		//座標の取り方がおかしいよねこれ。。わかってるよ。。。
     		if(touchX != 0 && touchY != 0){
-           		fX = x * mTableW + mTableW / 4 + touchX;
-        		fY = y * mTableH + mTableH / 4 + touchY;
+           		fX = x * mTableW + mTableW / 4;
+        		fY = y * mTableH + mTableH / 4;
     		}else{
     			fX = x * mTableW + mTableW / 4 + mRnd.nextInt(mTableW / 4);
         		fY = y * mTableH + mTableH / 4 + mRnd.nextInt(mTableH / 4);
@@ -257,8 +262,10 @@ public class ScreenSaver extends Activity {
     		canvas.save();
     		canvas.rotate(fDegree, fX, fY);
     		mLifeDrawable.setBounds(
-    				(int)(fX - fSize), (int)(fX - fSize),
-    				(int)(fY - fSize), (int)(fY - fSize)
+    				//(int)(fX - fSize), (int)(fX - fSize),
+    				//(int)(fY - fSize), (int)(fY - fSize)
+    				(int)addTouchX,(int)addTouchX,
+    				(int)addTouchY,(int)addTouchY
     		);
     		mLifeDrawable.draw(canvas);
     		canvas.restore();
