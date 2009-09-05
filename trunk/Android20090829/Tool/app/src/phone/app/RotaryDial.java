@@ -204,6 +204,10 @@ public class RotaryDial extends Activity {
     protected void onResume() {
     	super.onResume();
     	Log.d("phone","onResume.");
+    	
+    	//加速度センサー登録し直し
+		Sensor s = sm.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+		sm.registerListener(senserListener,s,0);
     }
     
     /**
@@ -240,10 +244,6 @@ public class RotaryDial extends Activity {
     		intent.putExtra(PARAM_DIAL_PERSON_NAME, name);
     		intent.putExtra(PARAM_DIAL_PERSON_NUMBER, number);
 			startActivityForResult(intent, 0);
-    	}else{
-    		//加速度センサー登録し直し
-    		Sensor s = sm.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-    		sm.registerListener(senserListener,s,0);
     	}
     	
     	if( data.getIntExtra(PARAM_DIAL_CALL_FLG, 0) == 1 ){
