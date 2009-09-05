@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="320px"
+        android:layout_height="480px"
         android:layout_weight="1"
         >
 
 <ImageView android:id="@+id/DialImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/rotary_base"></ImageView>
-<ImageView android:id="@+id/DialImageView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/rotary_dial" ></ImageView>
+<ImageView android:id="@+id/DialImageView02" android:layout_width="320px" android:layout_height="480px" android:scaleType="center"></ImageView>
 <ImageView android:id="@+id/DialImageView03" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/rotary_steel"></ImageView>
 
 
@@ -38,4 +38,5 @@
 <TextView android:text="Memo:none" android:id="@+id/dial_mmeo" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 
 </LinearLayout>
+<ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content"></ImageView>
 </FrameLayout>

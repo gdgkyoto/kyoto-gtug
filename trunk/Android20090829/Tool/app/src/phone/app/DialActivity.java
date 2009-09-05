@@ -8,8 +8,12 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -100,6 +104,9 @@ public class DialActivity extends Activity {
 	    //回転用イメージ読み込み
         analogDial = BitmapFactory.decodeResource(getResources(),
                 R.drawable.rotary_dial);
+        ImageView imageView = (ImageView)findViewById(R.id.DialImageView02);
+		bmd = new BitmapDrawable(analogDial);
+		imageView.setImageDrawable(bmd);
 	}
 
 
@@ -108,18 +115,18 @@ public class DialActivity extends Activity {
 	private void rotateDial(float degrees){
 
         int width = analogDial.getWidth();
-        int height = analogDial.getHeight(); 
-        
+        int height = analogDial.getHeight();
+
 		// createa matrix for the manipulation
 		Matrix matrix = new Matrix();
-        matrix.postScale(1.0f, 1.0f);
 		// rotate the Bitmap
+		matrix.postScale(1.0f, 1.0f);
         matrix.postRotate(degrees);
 
         rotateDial = Bitmap.createBitmap(analogDial, 0, 0,
         		width, height, matrix, true);
 
-		BitmapDrawable bmd = new BitmapDrawable(rotateDial);
+		bmd = new BitmapDrawable(rotateDial);
 
         ImageView imageView = (ImageView)findViewById(R.id.DialImageView02);
 
@@ -141,30 +148,92 @@ public class DialActivity extends Activity {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.v("phone","ActionDown");
-                //setSerPoint(x,y);
+                IsResetPosition = false;
+                onDetachedFromWindow();
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.v("phone","ActionMove");
+                IsResetPosition = false;
+                onDetachedFromWindow();
                 movePoint(x,y);
                 break;
             case MotionEvent.ACTION_UP:
-                Log.v("phone","ActionMove");
-
+                Log.v("phone","ActionUp");
+                IsResetPosition = true;
+                onAttachedToWindow();
                 break;
         }
         return true;
     }
 
-
-    private void setSerPoint(float x, float y){
-
-    	return;
-    }
-
     private void movePoint(float x, float y){
-    	float degree = (float) (Math.atan2(y - 240, x - 160 ) * 180 / Math.PI);
+    	Log.d("phone", String.valueOf(x) + "," + String.valueOf(y));
+    	degree = (float) (Math.atan2(y - 240, x - 160 ) * 180 / Math.PI);
     	Log.v("phone",String.valueOf(degree));
     	rotateDial(degree);
     	return;
     }
+
+    //ダイアルを初期位置に変更
+    private float degree;
+    private boolean IsResetPosition = false;
+    private void resetDialPosition(){
+
+    	if(IsResetPosition){
+
+    		if(degree < -10){
+    			degree = degree + 10;
+    		}
+    		else if(degree > 10){
+    			degree = degree - 10;
+    		}
+    		else{
+    			IsResetPosition = false;
+    			degree = 0;
+    		}
+
+			rotateDial(degree);
+    	}
+    }
+    private static final int INVALIDATE = 1;
+    /**
+     * タイマーハンドラー
+     */
+    private final Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (mAnimate && msg.what == INVALIDATE) {
+            	resetDialPosition();
+            	Log.v("phone","timer in");
+
+                msg = obtainMessage(INVALIDATE);
+                long current = SystemClock.uptimeMillis();
+                if (mNextTime < current) {
+                    // 100ms周期でタイマーイベントが発生
+                    mNextTime = current + 200;
+                }
+                sendMessageAtTime(msg, mNextTime);
+                // 100ms周期でタイマーイベントが発生
+                mNextTime += 200;
+            }
+        }
+    };
+    /**
+     * WindowにAttachされた時の処理
+     */
+    protected void onAttachedToWindow(){
+        mAnimate = true;
+        Message msg = mHandler.obtainMessage(INVALIDATE);
+        mNextTime = SystemClock.uptimeMillis();
+        mHandler.sendMessageAtTime(msg, mNextTime);
+    }
+
+    /**
+     * WindowからDetachされた時の処理
+     */
+    protected void onDetachedFromWindow() {
+         mAnimate = false;
+    }
+    private boolean         mAnimate;
+    private long            mNextTime;
 }
