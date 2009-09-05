@@ -59,6 +59,7 @@ public class MapTest extends MapActivity {
     
     public void clickedGpsButton()
     {
+    	// It makes arguments GPS information. 
     	setPosInMap( 34.0d + 59.0d / 60 + 42.0d / 3600,
    		     		 135.0d + 44.0d / 60 + 19.0d / 3600 );
     }
