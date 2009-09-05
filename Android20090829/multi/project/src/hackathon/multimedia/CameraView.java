@@ -16,7 +16,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     private Camera        camera;//カメラ
     private int           count;
     private SensorData    sensorData;
-    
+    private LargeImage    largeImage;
+
     //コンストラクタ
     public CameraView(Context context) {
         super(context);
@@ -39,6 +40,10 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
             camera.setPreviewDisplay(holder);
     	} catch (Exception e) {
     	}
+    	
+        largeImage = new LargeImage();
+        largeImage.createImage(2048*2, 1536);
+
     }
 
     //サーフェイス変更イベントの処理
@@ -79,10 +84,10 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
                     data2sd(getContext(),data,fn);
                     count++;
                     android.util.Log.v("",fn);
-                    
-                    // TEST -- taniguchi
-                    LargeImage largeImage = new LargeImage();
-                    largeImage.createImage(1280, 480);
+                    if( count == 2 )
+                    {
+                    	largeImage.catImage();
+                    }
                     
                 } catch (Exception e) {
                     android.util.Log.e("",""+e.toString());
