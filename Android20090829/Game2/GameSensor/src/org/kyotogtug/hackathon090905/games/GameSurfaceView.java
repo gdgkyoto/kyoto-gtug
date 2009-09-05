@@ -55,8 +55,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	  private Bitmap offBitmap = null;
 	  // オフスクリーンキャンバス
 	  private Canvas offCanvas = null;
-	  
-	  private Context context2;
+	  private Drawable drawableGirl;	  
+	  private Context context;
 
 
 
@@ -79,10 +79,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    holder = getHolder();
 	    holder.addCallback(this);
 	    holder.setFixedSize(getWidth(), getHeight());
-	    context2 = context;
+	    this.context = context;
 	    drawableBlock = context.getResources().getDrawable(R.drawable.block);
-	    drawableIceBlock = context.getResources().getDrawable(R.drawable.ball);
+	    drawableIceBlock = context.getResources().getDrawable(R.drawable.block02);
 	    drawablePlayer = context.getResources().getDrawable(R.drawable.player);
+	    drawableGirl = context.getResources().getDrawable(R.drawable.player_pink);
 	  }
 
 	  public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -103,7 +104,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread.start();
 
 	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-	            10, getHeight()*2-64, context2);
+	            10, getHeight()*2-64, this.context);
+	    blocks.add(new Block(drawableGirl, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
+	            280, 32));
 	    angle = -getHeight();
 	    this.showInstance();
 	  }
@@ -225,18 +228,19 @@ private float z=0;
 		    for (int i=0; i<10; i++) {
 		    	if (arrange[i]==1) {
 				    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-				            32*i, 32*4*row));
+				            32*i, getHeight()*2-32-32*3*row));
 		    	} else if (arrange[i]==2) {
 				    blocks.add(new Block(drawableIceBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-				            32*i, 32*4*row));
+				            32*i, getHeight()*2-32-32*3*row));
 		    	}
 		    }
-		    
+
 	    }
 	    for (int i=0; i<10; i++) {
 			    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 			            32*i, getHeight()*2-32));
 	    }
 	}
+
 
 }

@@ -55,7 +55,7 @@ public class Player {
 	//縦方向
 	//重力
 	if (rect.bottom < viewRect.bottom) {
-		direction.dy = direction.dy + gravity;
+		if(direction.dy < 6) direction.dy = direction.dy + gravity;
 	}
 	//ジャンプ
 	if (direction.dy == 0) {
