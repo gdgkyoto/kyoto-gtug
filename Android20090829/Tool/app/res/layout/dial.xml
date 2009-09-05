@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        >
+<ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/rotary_base"></ImageView>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
+<TextView
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content" android:clickable="true" android:text="ダイヤル画面　CALL!!ボタンを押下するとメイン画面に遷移し発信処理を行います。"/>
 
 <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Back" android:id="@+id/dial_back_button"></Button>
@@ -14,3 +23,4 @@
 <TextView android:text="Memo:none" android:id="@+id/dial_mmeo" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 
 </LinearLayout>
+</FrameLayout>
