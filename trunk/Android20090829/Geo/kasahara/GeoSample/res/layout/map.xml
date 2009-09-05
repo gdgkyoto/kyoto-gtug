@@ -27,15 +27,16 @@
 			android:padding="10dip"
 		>
 		    <ImageView
-		        android:id="@+id/map_samnail"
-		        android:background="#cc808080"
+		        android:id="@+id/map_thumbnail"
+		        android:background="@color/map_thumbnail_color"
 		        android:padding="10dip"
 		        android:src="@drawable/icon_android"
 		    />
 			<TextView
 			    android:id="@+id/map_text"
+			    android:textColor="@color/map_text_color"
 			    android:padding="10dip"
-			    android:text="test"
+			    android:text="@string/map_text"
 		    />
 	    </TableRow>
     </TableLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="map_text_color">#ffffffff</color>
+    <color name="map_thumbnail_color">#cc808080</color>
+    
+    <color name="map_dialog_text_color">#AA000000</color>
+</resources>

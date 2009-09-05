@@ -7,8 +7,10 @@
     <string name="test_label">TEST</string>
     <string name="exit_label">Exit</string>
     
-    <string name="map_text_title">テストタイトル</string>
-    <string name="map_text">testtesttesttesttest</string>
+    <string name="map_text">コメントコメントコメント\nコメントコメントコメント\nコメントコメントコメント</string>
+    
+    <string name="map_dialog_title">テストタイトル</string>
+    <string name="map_dialog_text">testtesttesttesttest</string>
 </resources>
 
 

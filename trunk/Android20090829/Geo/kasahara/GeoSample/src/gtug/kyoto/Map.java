@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.util.Log;
 
 
 import com.google.android.maps.ItemizedOverlay;
@@ -19,7 +20,7 @@ import android.location.LocationManager;
 import android.location.LocationListener;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
+//import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 
@@ -29,19 +30,25 @@ public class Map extends MapActivity implements LocationListener {
 	MapView map_view;
 	GeoPoint point;
 	
+	String LOG_TAG = "Map";
+	
 	/** Called when the activity is first created. */ 
 	@Override 
 	public void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.map); 
+		
+		Log.v(LOG_TAG, "aaaa");
+		
 		map_view = (MapView)findViewById(R.id.map_view); 
+		//map_view.getOverlays().clear();
 		map_view.setClickable(true);
 		map_view.setBuiltInZoomControls(true);
 
 		LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
 		
-		Location loc = lm.getLastKnownLocation("gps");
+		Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		GeoPoint point = new GeoPoint((int)(loc.getLatitude()*1E6),
                  (int)(loc.getLongitude()*1E6));
 
@@ -53,8 +60,9 @@ public class Map extends MapActivity implements LocationListener {
 	}
 	
 	public void createMapIcon(GeoPoint geo_point, int icon_resource) {
-		Drawable pin = getResources().getDrawable(icon_resource);
-		MapIconOverlay iconOverlay = new MapIconOverlay(pin);
+		Drawable icon = getResources().getDrawable(icon_resource);
+		MapIconOverlay iconOverlay = new MapIconOverlay(icon);
+		
         map_view.getOverlays().add(iconOverlay);
         iconOverlay.addPoint(geo_point);
 	}
@@ -93,7 +101,6 @@ public class Map extends MapActivity implements LocationListener {
 		private List<GeoPoint> points = new ArrayList<GeoPoint>();
 		
 		public MapIconOverlay(Drawable defaultMarker) {
-			//super(defaultMarker);
 			// TODO Auto-generated constructor stub
 			super( boundCenterBottom(defaultMarker) );
 		}
@@ -127,10 +134,10 @@ public class Map extends MapActivity implements LocationListener {
 		protected boolean onTap(int index) {
 			map_ctrl.animateTo(this.getItem(index).getPoint());
 			
-			Dialog map_text_dialog = new Dialog(Map.this);
-			map_text_dialog.setTitle(R.string.map_text_title);
-			map_text_dialog.setContentView(R.layout.map_text);
-			map_text_dialog.show();
+			Dialog map_dialog = new Dialog(Map.this);
+			map_dialog.setTitle(R.string.map_dialog_title);
+			map_dialog.setContentView(R.layout.map_text);
+			map_dialog.show();
 			return true;
 		}
 
