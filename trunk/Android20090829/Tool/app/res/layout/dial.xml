@@ -44,8 +44,8 @@
 			>
 		<TableRow
 			android:id="@+id/row1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
 			>
 			<LinearLayout
 				android:orientation="vertical"
@@ -63,8 +63,8 @@
 		</TableRow>
 		<TableRow
 			android:id="@+id/row2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
 			>
 			<LinearLayout
 				android:orientation="vertical"
@@ -74,40 +74,42 @@
 				>
 				<TextView
 					android:id="@+id/DialNumber"
-					android:layout_width="wrap_content"
+					android:layout_width="fill_parent"
 					android:layout_height="wrap_content"
 					android:text="Call Number"
 					android:textSize="28px"
 					android:textStyle="bold"
-					android:gravity="center">
+					android:gravity="center_horizontal">
 				</TextView>
 				<TextView
 					android:text="Memo:none"
 					android:id="@+id/DialMemo"
-					android:layout_width="wrap_content"
+					android:layout_width="fill_parent"
 					android:layout_height="wrap_content"
 					android:textSize="16px"
 					android:textStyle="bold"
-					android:gravity="center">
+					android:gravity="center_horizontal">
 				</TextView>
 			</LinearLayout>
 		</TableRow>
 		<TableRow
 			android:id="@+id/row3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
 			>
 			<LinearLayout
 				android:orientation="vertical"
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
 				>
+				<!--
 				<Button
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Back"
 					android:id="@+id/dial_back_button">
 				</Button>
+			  	-->
 				<Button
 					android:text="CALL!!"
 					android:id="@+id/dial_call_button"
@@ -126,12 +128,14 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/dial_number">
 				</EditText>
+				<!--
 				<TextView
 					android:text="Memo:none"
 					android:id="@+id/dial_mmeo"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content">
 				</TextView>
+				-->
 			</LinearLayout>
 		</TableRow>
 	</TableLayout>
