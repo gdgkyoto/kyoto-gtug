@@ -209,10 +209,31 @@ public class RotaryDial extends Activity {
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 
+		private float[] currentOrientationValues = {0.0f, 0.0f, 0.0f};
+		private float[] currentAccelerationValues = {0.0f, 0.0f, 0.0f};				
+		private final float TH_Z = 2.0f;
+
+		int ctInvalid = 0;
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			Log.d("phone", "1="+event.values[0] + " 2="+event.values[1]+" 3="+event.values[2]);
+			//Log.d("phone", "1="+event.values[0] + " 2="+event.values[1]+" 3="+event.values[2]);
+
+			if(ctInvalid < 100) ctInvalid ++;
+			
+			// 加速度（ローカット）
+			currentAccelerationValues[0] = event.values[0] - currentOrientationValues[0];
+			currentAccelerationValues[1] = event.values[1] - currentOrientationValues[1];
+			currentAccelerationValues[2] = event.values[2] - currentOrientationValues[2];
+			
+			for(int ct=0;ct<3;ct++) {
+				currentOrientationValues[ct] = event.values[ct];
+			}
+			
+			if ((ctInvalid > 99) && (currentAccelerationValues[2] > TH_Z)) { 
+				Log.d("phone", "Z-Axis moved fast enough");
+				openDialActivity();
+			}
+		
 		}
-    	
     }
 }
