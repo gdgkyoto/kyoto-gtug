@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+
+	<AutoCompleteTextView
+			android:id="@+id/editText"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+
+		<ImageView android:id="@+id/imageView"
+				android:layout_width="260dip"
+				android:layout_height="260dip" />
+
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent">
+
+			<Button android:id="@+id/searchButton"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/button_search"
+					android:textSize="12dip" />
+
+			<Button android:id="@+id/submitButton"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/button_submit"
+					android:textSize="12dip" />
+
+		</LinearLayout>
+	</LinearLayout>
+
+</LinearLayout>

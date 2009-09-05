@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">顔droid コラ</string>
+    <string name="menu_camera">カメラ</string>
+    <string name="menu_download">ダウンロード</string>
+    <string name="menu_clear">クリア</string>
+    <string name="button_regist">送信</string>
+    <string name="gallery_name">顔ギャラリー</string>
+
+    <string name="button_search">download</string>
+    <string name="button_submit">OK</string>
+</resources>
