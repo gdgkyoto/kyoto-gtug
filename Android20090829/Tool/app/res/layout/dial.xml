@@ -27,74 +27,112 @@
 		android:id="@+id/DialImageView03"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:background="@drawable/tagmemo">
+		android:background="@drawable/tag_memo">
 	</ImageView>
 	<ImageView
 		android:id="@+id/ImageView01"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
 	</ImageView>
-	<LinearLayout
+
+	<TableLayout
 			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/table"
 			android:orientation="vertical"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:gravity="right"
 			>
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:clickable="true"
-			android:text="ダイヤル画面　CALL!!ボタンを押下するとメイン画面に遷移し発信処理を行います。"
-			/>
-		<TextView
-			android:id="@+id/DialNumber"
+		<TableRow
+			android:id="@+id/row1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Call Number"
-			android:textSize="24px"
-			android:textStyle="bold"
-			android:gravity="right">
-		</TextView>
-		<TextView
-			android:text="Memo:none"
-			android:id="@+id/DialMemo"
+			>
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				>
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:clickable="true"
+					android:text=""
+					>
+				</TextView>
+			</LinearLayout>
+		</TableRow>
+		<TableRow
+			android:id="@+id/row2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textSize="16px"
-			android:textStyle="bold"
-			android:gravity="right">
-		</TextView>
-
-		<Button
+			>
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:gravity="center_horizontal"
+				>
+				<TextView
+					android:id="@+id/DialNumber"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Call Number"
+					android:textSize="28px"
+					android:textStyle="bold"
+					android:gravity="center">
+				</TextView>
+				<TextView
+					android:text="Memo:none"
+					android:id="@+id/DialMemo"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="16px"
+					android:textStyle="bold"
+					android:gravity="center">
+				</TextView>
+			</LinearLayout>
+		</TableRow>
+		<TableRow
+			android:id="@+id/row3"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Back"
-			android:id="@+id/dial_back_button">
-		</Button>
-		<Button
-			android:text="CALL!!"
-			android:id="@+id/dial_call_button"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
-		</Button>
-		<TextView
-			android:id="@+id/TextView01"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Input Call Number">
-		</TextView>
-		<EditText
-			android:text="EditText01"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/dial_number">
-		</EditText>
-		<TextView
-			android:text="Memo:none"
-			android:id="@+id/dial_mmeo"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
-		</TextView>
-	</LinearLayout>
+			>
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				>
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Back"
+					android:id="@+id/dial_back_button">
+				</Button>
+				<Button
+					android:text="CALL!!"
+					android:id="@+id/dial_call_button"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				</Button>
+				<TextView
+					android:id="@+id/TextView01"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Input Call Number">
+				</TextView>
+				<EditText
+					android:text="EditText01"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/dial_number">
+				</EditText>
+				<TextView
+					android:text="Memo:none"
+					android:id="@+id/dial_mmeo"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				</TextView>
+			</LinearLayout>
+		</TableRow>
+	</TableLayout>
 </FrameLayout>
