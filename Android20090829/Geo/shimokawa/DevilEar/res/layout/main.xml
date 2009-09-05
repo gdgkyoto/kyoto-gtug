@@ -4,14 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
-
-<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/radar_background"></ImageView>
-
+    
 <view class="org.gtug.kyoto.android.devilear.RadarDrawableView"
       android:layout_width="320px"
       android:layout_height="320px">
