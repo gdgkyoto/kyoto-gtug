@@ -3,6 +3,7 @@ package org.gtug.kyoto.android.devilear;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +13,7 @@ import android.location.Location;
 
 public class Item {
     
-    private static ItemsDbAdapter mDbAdapter;
+    protected static ItemsDbAdapter mDbAdapter;
     protected static Context mContext;
     
     public static void openDb(Context context) {
@@ -39,6 +40,12 @@ public class Item {
         }
 
         return itemList;
+    }
+    
+    public static Item findById(Activity activity, long itemId) {
+        Cursor cursor = mDbAdapter.fetchItem(itemId);
+        activity.startManagingCursor(cursor);
+        return Item.cursorToItem(cursor);
     }
     
     private static Item cursorToItem(Cursor cursor) {
@@ -71,6 +78,27 @@ public class Item {
     private Long date;
     private double latitude;
     private double longitude;
+    
+    public Item() {
+        
+    }
+    
+    public Item(Properties prop) {
+        id = new Long(prop.getProperty("id"));
+        if (prop.getProperty("iconId") != null) {
+            iconId = new Long(prop.getProperty("iconId"));
+        }
+        name = prop.getProperty("name");
+        description = prop.getProperty("description");
+        type = prop.getProperty("type");
+        if (prop.getProperty("date") != null) {
+            date = new Long(prop.getProperty("date"));
+        } else {
+            date = System.currentTimeMillis() / 1000;
+        }
+        latitude = new Double(prop.getProperty("latitude"));
+        longitude = new Double(prop.getProperty("longitude"));
+    }
     
         
     /**
@@ -196,6 +224,14 @@ public class Item {
                 throw new IOException("Failed to save");
             }
             id = newId;
+        } else {
+            Cursor c = mDbAdapter.fetchItem(id);
+            if (c.moveToNext() == false) {
+                long newId = mDbAdapter.createItem(this);
+                if (newId < -1) {
+                    throw new IOException("Failed to save");
+                }                
+            }
         }
     }
 

@@ -97,6 +97,9 @@ public class ItemsDbAdapter {
     
     public long createItem(Item item) {
         ContentValues initialValues = new ContentValues();
+        if (item.getId() != null) {
+            initialValues.put(KEY_ROWID, item.getId());
+        }
         initialValues.put(KEY_TYPE, item.getType());
         initialValues.put(KEY_ICON_ID, item.getIconId());
         initialValues.put(KEY_DESCRIPTION, item.getDescription());

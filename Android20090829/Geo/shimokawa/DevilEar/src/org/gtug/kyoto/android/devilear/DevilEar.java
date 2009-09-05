@@ -1,16 +1,20 @@
 package org.gtug.kyoto.android.devilear;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import org.gtug.kyoto.android.devilear.item.SoundItem;
 import org.gtug.kyoto.android.devilear.item.TextItem;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Color;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,14 +27,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class DevilEar extends Activity {
     
-    //private ItemsDbAdapter mDbHelper;
-    private List<ImageView> mItemMarks;
+    private static final int ACTIVITY_BROWSE_TEXT=0;
+    private static final int ACTIVITY_BROWSE_SOUND=1;
+    
+    private static final String LOGTAG = "DevilEar";
+    
     private Context mContext;
     private RadarDrawableView mRadarDrawableView;
     private TextView mLocationInfoView;
@@ -42,6 +50,9 @@ public class DevilEar extends Activity {
     private LocationListener mLocationListener;
     private Location mLocation;
     
+    private Button mSecretButton;
+    
+    private List<Item> mItems;
     
     /** Called when the activity is first created. */
     @Override
@@ -49,11 +60,12 @@ public class DevilEar extends Activity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.main);
         
-        Item.openDb(this);
-                
         mRadarDrawableView = new RadarDrawableView(this);
         mLocationInfoView = new TextView(this);
-        mLocationInfoView.setText("Location");        
+        mLocationInfoView.setText("Location");
+        mSecretButton = new Button(this);
+        mSecretButton.setText("Danger!");
+
 
         
         LinearLayout layout = new LinearLayout(this);
@@ -61,7 +73,8 @@ public class DevilEar extends Activity {
         
         layout.addView(mRadarDrawableView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         layout.addView(mLocationInfoView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-       
+        layout.addView(mSecretButton, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        
         setContentView(layout);
         //setContentView(R.layout.main);
         mContext = getApplicationContext();
@@ -125,6 +138,32 @@ public class DevilEar extends Activity {
                 mLocationInfoView.setText("(" + location.getLatitude() + ", " + location.getLongitude() + ")");
             }
         };
+        
+        mSecretButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Find nearest item
+                if (mItems != null) {
+                    double distance = 40000000;
+                    double[] curPos = currentLocation();
+                    float[] vals = new float[]{0F};
+                    Item nearest = null;
+                    for (Item item : mItems) {
+                        Location.distanceBetween(curPos[0], curPos[1],
+                                item.getLatitude(), item.getLongitude(),
+                                vals);
+                        if (vals[0] < distance) {
+                            distance = vals[0];
+                            nearest = item;
+                        }
+                    }
+                    if (nearest != null) {
+                        // Item Found!
+                        itemFound(nearest);
+                    }
+                }
+            }
+        });
     }
     
     
@@ -148,6 +187,8 @@ public class DevilEar extends Activity {
         // TODO Auto-generated method stub
         super.onStart();
         
+        Item.openDb(this);
+
         reloadData();
     }
 
@@ -196,6 +237,16 @@ public class DevilEar extends Activity {
         super.onSaveInstanceState(outState);
     }
     
+    
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
     private void reloadData() {
         List<Item> itemList = Item.getAll(this);
 
@@ -210,10 +261,12 @@ public class DevilEar extends Activity {
         }
         
         if (itemList.size() == 0) {
-            addDummyItems(35.0, 135.0);
+            //addDummyItems(35.0, 135.0);
+            loadTestData();
             itemList = Item.getAll(this);
         }
 
+        mItems = itemList;
         mRadarDrawableView.setItems(itemList);
     }
      
@@ -295,6 +348,65 @@ public class DevilEar extends Activity {
         super.onPrepareDialog(id, dialog);
     }
     
+    private void itemFound(Item item) {
+        // Show Dialog Box
+        Log.d(LOGTAG, "Item " + item.getId());
+        ItemFoundDialog dialog = new ItemFoundDialog(this);
+        dialog.configure(item);
+        dialog.show();
+    }
     
+    private double[] currentLocation() {
+        if (mLocation == null) {
+            return new double[] {35.0, 135.0};
+        } else {
+            return new double[] {mLocation.getLatitude(), mLocation.getLongitude()};
+        }
+    }
+    
+    public void startItemViewActivity(Item item) {
+        Log.d("DevilEar", "ENTER startItemViewActivity");
+        
+        if (item.getType().equals("text")) {
+            Intent i = new Intent(this, TextBrowser.class);
+            i.putExtra(ItemsDbAdapter.KEY_ROWID, item.getId());
+            startActivityForResult(i, ACTIVITY_BROWSE_TEXT);
+        } else if (item.getType().equals("sound")) {
+            Intent i = new Intent(this, SoundBrowser.class);
+            i.putExtra(ItemsDbAdapter.KEY_ROWID, item.getId());
+            startActivityForResult(i, ACTIVITY_BROWSE_SOUND);            
+        } else {
+            Log.e(LOGTAG, "Unsupported content type");
+        }
+    }
+    
+    private void loadTestData() {
+        try {
+            for (int i = 1; i <= 2; i++) {
+                File file = new File("/sdcard/items/item_" + i + ".properties");
+                if (file.exists()) {
+                    Item item = null;
+                    Properties prop = new Properties();
+                    prop.load(new FileInputStream(file));
+                    String type = prop.getProperty("type", "");
+                    if (type.equals("text")) {
+                        item = new TextItem(prop);
+                    } else if (type.equals("sound")) {
+                        item = new SoundItem(prop);
+                    }
+                    if (item != null) {
+                        item.save();
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     
 }
