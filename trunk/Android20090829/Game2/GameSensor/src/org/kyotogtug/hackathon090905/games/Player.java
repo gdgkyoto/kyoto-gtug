@@ -16,8 +16,8 @@ public class Player {
 
   public Player(Drawable drawable, Rect viewRect, int x, int y) {
     this.drawable = drawable;
-    this.width = drawable.getIntrinsicWidth() / 2;
-    this.height = drawable.getIntrinsicHeight() / 2;
+    this.width = drawable.getIntrinsicWidth();
+    this.height = drawable.getIntrinsicHeight();
     this.rect = new Rect(0, 0, width, height);
     this.viewRect = viewRect;
     rect.offset(x, y);
@@ -26,8 +26,7 @@ public class Player {
 
   public void move(int x, int y) {
 	//横方向
-	direction.dx = direction.dx + x - preRoll;
-    preRoll = x;
+	direction.dx = x;
 	//縦方向
 	if (rect.bottom < viewRect.bottom) {
 		direction.dy = direction.dy+1;
@@ -60,6 +59,7 @@ public class Player {
   }
 
   public void draw(Canvas canvas) {
+	//drawable.setBounds(rect.left, rect.top, rect.right, rect.bottom);
     drawable.setBounds(rect);
     drawable.draw(canvas);
   }
