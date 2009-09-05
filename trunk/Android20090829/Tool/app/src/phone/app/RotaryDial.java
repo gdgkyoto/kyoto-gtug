@@ -3,10 +3,17 @@ package phone.app;
 
 import android.app.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -40,12 +47,49 @@ public class RotaryDial extends Activity {
 	public static final String PARAM_YUTORI_MODE_FLG = "YUTORI_MODE_FLG";
 	
 	private MediaPlayer callingPlayer;
+	private MediaPlayer ringtonePlayer;
+	
+	
+	private TelephonyManager telephonyManager;
+	private int telephonyState;
+	private String incommingNumber;
+	private int STATE_RINGING = 0;
+	private int STATE_OFFHOOK = 1;
+	private int STATE_NORMAL = 2;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        PhoneStateListener mListener = new PhoneStateListener() {
+			public void onCallStateChanged(int state, String number) {
+				Log.d("phone","onCallStateChanged");
+				switch (state) {
+				case TelephonyManager.CALL_STATE_RINGING:
+					telephonyState = STATE_RINGING;
+					incommingNumber = number;
+					Log.d("phone", "phone ringing");
+					break;
+
+				case TelephonyManager.CALL_STATE_OFFHOOK:
+					telephonyState = STATE_OFFHOOK;
+					Log.d("phone", "phone offhook");
+					break;
+
+				case TelephonyManager.CALL_STATE_IDLE:
+					telephonyState = STATE_NORMAL;
+					Log.d("phone", "phone idle");
+					break;
+
+				}
+				;
+			}
+
+		};
+		telephonyManager.listen(mListener, PhoneStateListener.LISTEN_CALL_STATE);
+		
     	callingPlayer    = MediaPlayer.create(this, R.raw.dial1);       	
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -62,7 +106,14 @@ public class RotaryDial extends Activity {
         	}
         });
         setContentView(dialView);
-    }
+        
+        
+        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor s = sm.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+        sm.registerListener(new SenserListener(),s,0);
+
+       
+	}
 
     /**
      * コンタクトリスト画面へ遷移する。
@@ -145,5 +196,23 @@ public class RotaryDial extends Activity {
     	}else{
     		Log.d("phone", "Debug : nothing ");
     	}
+    }
+
+    /**
+     * 加速度センサー受信部
+     * @author KENJI
+     *
+     */
+    private class SenserListener implements SensorEventListener{
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		}
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			Log.d("A", "1="+event.values[0] + " 2="+event.values[1]+" 3="+event.values[2]);
+		}
+    	
     }
 }
