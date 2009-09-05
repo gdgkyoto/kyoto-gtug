@@ -211,7 +211,7 @@ public class RotaryDial extends Activity {
 
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			Log.d("A", "1="+event.values[0] + " 2="+event.values[1]+" 3="+event.values[2]);
+			Log.d("phone", "1="+event.values[0] + " 2="+event.values[1]+" 3="+event.values[2]);
 		}
     	
     }
