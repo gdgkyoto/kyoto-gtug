@@ -3,17 +3,21 @@ package kyoto_gtug.tutorial1.Shuden;
 import kyoto_gtug.tutorial1.Shuden.R;
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.location.*;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 
+
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 
-public class main extends Activity {
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+
+public class main extends MapActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,13 +80,26 @@ public class main extends Activity {
 				webview.getSettings().setJavaScriptEnabled(true);
 				webview.loadUrl(URL);
 
-				// Display Map
+				// make MapView
+				MapView mapView = (MapView)findViewById(R.id.mapview);
+				mapView.setBuiltInZoomControls(true);
+				MapController mapCtrl = mapView.getController();
+				mapCtrl.setZoom(16);
 				
+				//
+				GeoPoint point = new GeoPoint((int)(loc.getLatitude()*1e6), (int)(loc.getLongitude()*1e6));
+				
+				mapCtrl.animateTo(point);
 			}
         };
         
         // Update location information
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
 
+    }
+    
+    @Override
+    protected boolean isRouteDisplayed(){
+    	return false;
     }
 }
