@@ -115,9 +115,11 @@ public class DialActivity extends Activity {
 	    	textView.setText("memo: name="+name+" number="+number);
 	    	*/
 	    	TextView textDialNumber = (TextView) findViewById(R.id.DialNumber);
-	    	textDialNumber.setText("Number: "+number);
+	    	/* textDialNumber.setText("Number: "+number); */
+	    	textDialNumber.setText(number); /* 2009.09.06 H.Murai ダイヤル番号のみに修正 */
 	    	TextView textDialMemo   = (TextView) findViewById(R.id.DialMemo);
-	    	textDialMemo.setText("Memo: "+name);
+	    	/* textDialMemo.setText("Memo: "+name); */
+	    	textDialMemo.setText(name); /* 2009.09.06 H.Murai メモ（呼出先）のみに修正 */
 	    }
 
 	    //回転用イメージ読み込み
