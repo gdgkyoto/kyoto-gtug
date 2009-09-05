@@ -30,7 +30,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	  private SurfaceHolder holder;
 	  private static final int MAX_COUNT = 130;
 	  private List<Block> blocks = Collections.synchronizedList(new ArrayList<Block>(MAX_COUNT));
+	  private List<Block> iceBlocks = Collections.synchronizedList(new ArrayList<Block>(MAX_COUNT));
 	  private Drawable drawableBlock;
+	  private Drawable drawableIceBlock;
 	  private Drawable drawablePlayer;
 	  //ScheduledExecutorService executor;
 	  private Thread thread;
@@ -76,6 +78,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    holder.addCallback(this);
 	    holder.setFixedSize(getWidth(), getHeight());
 	    drawableBlock = context.getResources().getDrawable(R.drawable.block);
+	    drawableIceBlock = context.getResources().getDrawable(R.drawable.ball);
 	    drawablePlayer = context.getResources().getDrawable(R.drawable.player);
 	  }
 
@@ -98,10 +101,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()),
 	            10, 480);
-	    for (int i=0; i<9; i++) {
-		    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()),
-		            32*i, 340));
-	    }
+
+	    this.showInstance();
 	  }
 
 	  public void surfaceDestroyed(SurfaceHolder holder) {
@@ -212,4 +213,21 @@ private float z=0;
 			}
 		}
 	}
+	//画面を初期表示する
+	private void showInstance() {
+	    Arrangement arranges = new Arrangement();
+	    for (int row=0; row<10; row++) {
+	    	int[] arrange = arranges.getArrangement();
+		    for (int i=0; i<10; i++) {
+		    	if (arrange[i]==1) {
+				    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+				            32*i, 32*4*row));
+		    	} else if (arrange[i]==2) {
+				    blocks.add(new Block(drawableIceBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+				            32*i, 32*4*row));
+		    	}
+		    }
+	    }
+	}
+
 }
