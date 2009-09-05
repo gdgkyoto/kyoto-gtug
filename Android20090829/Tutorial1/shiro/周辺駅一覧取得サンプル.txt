@@ -1,59 +1,59 @@
-// ˆÜ“xŒo“x‚©‚çü•Ó‚Ì‰wƒŠƒXƒg‚ğæ‚Á‚Ä‚«‚Ü‚·D
-// updateStationDataList(double ˆÜ“x, double Œo“x) ‚ÅCStationData[] StationDataList‚Éü•Ó‚Ì‰w‚Ìî•ñ‚ª“ü‚è‚Ü‚·D
+// ç·¯åº¦çµŒåº¦ã‹ã‚‰å‘¨è¾ºã®é§…ãƒªã‚¹ãƒˆã‚’å–ã£ã¦ãã¾ã™ï¼
+// updateStationDataList(double ç·¯åº¦, double çµŒåº¦) ã§ï¼ŒStationData[] StationDataListã«å‘¨è¾ºã®é§…ã®æƒ…å ±ãŒå…¥ã‚Šã¾ã™ï¼
 
 public class Shuden {
 
 	public StationData[] StationDataList;
 	
-	/// GeoPointAPI‚ğg‚Á‚ÄCˆÜ“x‚ÆŒo“x‚©‚çC‚»‚ÌˆÊ’uü•Ó‚Ì‰wˆê——‚ğæ‚è‚És‚­D
+	/// GeoPointAPIã‚’ä½¿ã£ã¦ï¼Œç·¯åº¦ã¨çµŒåº¦ã‹ã‚‰ï¼Œãã®ä½ç½®å‘¨è¾ºã®é§…ä¸€è¦§ã‚’å–ã‚Šã«è¡Œãï¼
 	public void updateStationDataList(double latitude, double longitude) throws Exception{
 		
-		// GeoPointAPI‚ÌƒŠƒNƒGƒXƒgURI
+		// GeoPointAPIã®ãƒªã‚¯ã‚¨ã‚¹ãƒˆURI
 		URI geoPointAPIRequestURI;
 		{
-			// Šî’êURI
+			// åŸºåº•URI
 			String base = "http://api.cirius.co.jp/v1/geopoint/";
-			// •K{ƒpƒ‰ƒ[ƒ^
+			// å¿…é ˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 			String format = "xml";
 			String area = String.valueOf(latitude) + "," + String.valueOf(longitude);
 			String api_key = "e4cb8f9fd1891ec90379302432d68d7e18cfcbd82da8139b252813748db7d60d";
-			// ƒIƒvƒVƒ‡ƒ“ƒpƒ‰ƒ[ƒ^
+			// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 			String category = "2";
 			
-			// GeoPointAPI‚ÌƒŠƒNƒGƒXƒgURI‚ğ¶¬‚·‚é
+			// GeoPointAPIã®ãƒªã‚¯ã‚¨ã‚¹ãƒˆURIã‚’ç”Ÿæˆã™ã‚‹
 			geoPointAPIRequestURI = new URI(base + format + "?area=" + area + "&api_key=" + api_key + "&category=" + category);
 			
 		}
 		
-		// URI‚ğ³‹K‰»
+		// URIã‚’æ­£è¦åŒ–
 		geoPointAPIRequestURI = geoPointAPIRequestURI.normalize();
 		
-		// URL‚ÉÚ‘±‚µ‚ÄXMLƒtƒ@ƒCƒ‹‚ğæ“¾‚·‚éD
+		// URLã«æ¥ç¶šã—ã¦XMLãƒ•ã‚¡ã‚¤ãƒ«ã‚’å–å¾—ã™ã‚‹ï¼
 		HttpURLConnection connection = (HttpURLConnection)geoPointAPIRequestURI.toURL().openConnection();
 		connection.setRequestMethod("GET");
 		
-		// ƒT[ƒo[‚ÉÚ‘±
+		// ã‚µãƒ¼ãƒãƒ¼ã«æ¥ç¶š
 		connection.connect();
 
-	    // ƒp[ƒX‚ğÀs‚µ‚ÄDOM‚ğæ“¾
+	    // ãƒ‘ãƒ¼ã‚¹ã‚’å®Ÿè¡Œã—ã¦DOMã‚’å–å¾—
 		Document StationListXML = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(connection.getInputStream());
 		Element root = StationListXML.getDocumentElement();
 
-		// ‰w‚Ì”‚ğæ“¾
+		// é§…ã®æ•°ã‚’å–å¾—
 		int count = Integer.valueOf(root.getElementsByTagName("count").item(0).getFirstChild().getNodeValue());
 
-		// ‰wƒf[ƒ^‚Ì”z—ñ‚ğì‚é
+		// é§…ãƒ‡ãƒ¼ã‚¿ã®é…åˆ—ã‚’ä½œã‚‹
 		StationDataList = new StationData[count];
 
-		// XMLƒtƒ@ƒCƒ‹‚©‚ç‰w‚Ì–¼‘OEˆÜ“xEŒo“x‚ğæ“¾‚·‚é
+		// XMLãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰é§…ã®åå‰ãƒ»ç·¯åº¦ãƒ»çµŒåº¦ã‚’å–å¾—ã™ã‚‹
 		for(int i = 0; i <= count-1; i++){
-			// ‰w–¼
+			// é§…å
 			String display = root.getElementsByTagName("display").item(i).getFirstChild().getNodeValue();
 			Log.d("DEBUG", display);
-			// ˆÜ“x
+			// ç·¯åº¦
 			Double lat = Double.valueOf(root.getElementsByTagName("lat").item(i).getFirstChild().getNodeValue());
 			Log.d("DEBUG", String.valueOf(lat));
-			// Œo“x
+			// çµŒåº¦
 			Double lon = Double.valueOf(root.getElementsByTagName("lon").item(i).getFirstChild().getNodeValue());
 			Log.d("DEBUG", String.valueOf(lon));
 
