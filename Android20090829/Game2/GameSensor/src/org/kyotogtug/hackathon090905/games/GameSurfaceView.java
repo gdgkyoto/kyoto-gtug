@@ -92,10 +92,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread = new Thread(this);
 	    thread.start();
 
-	    player = new Player(drawable, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+	    player = new Player(drawable, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 	            10, 400);
 	    for (int i=0; i<20; i++) {
-		    blocks.add(new Block(drawable, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+		    blocks.add(new Block(drawable, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 		            80 + 4*i, 380));
 	    }
 	  }
@@ -123,7 +123,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    }
 
 	    if(offCanvas == null){
-		    offCanvas = new Canvas(offBitmap);	    	
+		    offCanvas = new Canvas(offBitmap);
 	    }
 	    
 	    Paint p = new Paint();
@@ -193,14 +193,16 @@ private float z=0;
 	// 画面をスクロールさせる
 	private void scrollAngle(Player player){
 		int y = player.rect.centerY();
+		final int scrollPoint = 10;
+		
 		int height = getHeight();
 		if(-angle + height * 0.25 > y){	// 画面上部にあるとき
-			angle+=10;
+			angle+=scrollPoint;
 			if(angle > 0){
 				angle=0;
 			}
 		}else if (-angle + height * 0.75 < y) {		// 画面下部にあるとき
-			angle-=10;
+			angle-=scrollPoint;
 			if (angle < -height) {
 				angle = -height;
 			}
