@@ -2,10 +2,13 @@ package phone.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ public class RotaryDial extends Activity {
 	private Button toContactListButton;
 	private TextView textView;
 	private TextView debugTextView;
+	private RotaryDialView dialView;
 	
 	public static final String PARAM_DIAL_PERSON_NUMBER = "DIAL_PERSON_NUMBER";
 	public static final String PARAM_DIAL_PERSON_NAME = "DIAL_PERSON_NAME";
@@ -40,29 +44,64 @@ public class RotaryDial extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
         
-        toDialButton = (Button)findViewById(R.id.Button02);
-        toContactListButton = (Button)findViewById(R.id.Button01);
-        textView = (TextView)findViewById(R.id.label);
-        debugTextView = (TextView)findViewById(R.id.main_debug);
-        toDialButton.setOnClickListener(new View.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(RotaryDial.this,DialActivity.class);
-				startActivityForResult(intent, 0);
-			}
-        	
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        dialView = new RotaryDialView(this);
+        dialView.setDialEventListener(new DialEventListener(){
+        	@Override
+        	public void openContactListView() {
+        		openContactListActivity();
+        	}
+        	@Override
+        	public void openDialView() {
+        		openDialActivity();
+        	}
         });
-        toContactListButton.setOnClickListener(new View.OnClickListener(){
+        setContentView(dialView);
+        
+//        
+//        setContentView(R.layout.main);
+//        
+//        toDialButton = (Button)findViewById(R.id.Button02);
+//        toContactListButton = (Button)findViewById(R.id.Button01);
+//        textView = (TextView)findViewById(R.id.label);
+//        debugTextView = (TextView)findViewById(R.id.main_debug);
+//        toDialButton.setOnClickListener(new View.OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				Intent intent = new Intent(RotaryDial.this,DialActivity.class);
+//				startActivityForResult(intent, 0);
+//			}
+//        	
+//        });
+//        toContactListButton.setOnClickListener(new View.OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				Intent intent = new Intent(RotaryDial.this,ContactListActivity.class);
+//				startActivityForResult(intent, 0);
+//			}
+//        });
+    }
 
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(RotaryDial.this,ContactListActivity.class);
-				startActivityForResult(intent, 0);
-			}
-        });
+    /**
+     * コンタクトリスト画面へ遷移する。
+     * コンタクトリストActivityを起動
+     */
+    private void openContactListActivity(){
+    	Intent intent = new Intent(RotaryDial.this,ContactListActivity.class);
+		startActivityForResult(intent, 0);
+    }
+    
+    /**
+     * ダイヤル画面へ遷移する。
+     * ダイヤル画面Activityを起動
+     */
+    private void openDialActivity(){
+    	Intent intent = new Intent(RotaryDial.this,DialActivity.class);
+		startActivityForResult(intent, 0);
     }
 
     // 実際に電話をコールする
