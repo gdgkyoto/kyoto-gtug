@@ -16,20 +16,29 @@ public class LargeImage {
 	
 	public void createImage( int width, int height )
 	{
-		largeImage = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565 );
-		canvas = new Canvas( largeImage );		
 	}
 
 	public void catImage()
 	{
-		canvas.drawBitmap(BitmapFactory.decodeFile("test0.jpg"), 0.0f, 0.0f, null);
-		canvas.drawBitmap(BitmapFactory.decodeFile("test1.jpg"), 2048.0f, 0.0f, null);
-
+		try {
+			Paint paint = new Paint();
+			largeImage = Bitmap.createBitmap(2048, 1536/2, Bitmap.Config.RGB_565 );
+			canvas = new Canvas( largeImage );	
+		Rect srcRect = new Rect(0, 0, 2047, 1535);
+		Rect destRect = new Rect(0, 0, 2048 / 2, 1536 / 2);
+		Bitmap bmp0 = BitmapFactory.decodeFile("test0.jpg");
+		canvas.drawBitmap(bmp0, srcRect, destRect, paint);
+//		destRect.left = 2048 / 2;
+//		canvas.drawBitmap(BitmapFactory.decodeFile("test1.jpg"), srcRect, destRect, paint);
+		} catch (Exception e) {
+            android.util.Log.e("taniguchi00000",""+e.toString());
+        }
+		
 		byte[] w=bmp2data(largeImage, Bitmap.CompressFormat.JPEG, 80);
         try {
         	data2sd( w, "cat.jpg");
         } catch (Exception e) {
-            android.util.Log.e("taniguchi",""+e.toString());
+            android.util.Log.e("taniguchi0001",""+e.toString());
         }	
 	}
 	

@@ -41,8 +41,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     	} catch (Exception e) {
     	}
     	
-        largeImage = new LargeImage();
-        largeImage.createImage(2048*2, 1536);
+//        largeImage = new LargeImage();
+//        largeImage.createImage(2048*2, 1536);
 
     }
 
@@ -83,10 +83,14 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
                 	String fn = "test"+String.valueOf(count)+".jpg";
                     data2sd(getContext(),data,fn);
                     count++;
-                    android.util.Log.v("",fn);
-                    if( count == 2 )
+                    android.util.Log.v("---------------",fn);
+                    if( count == 1 )
                     {
+                        largeImage = new LargeImage();
+                        largeImage.createImage(2048, 1536/2);
                     	largeImage.catImage();
+                    	android.util.Log.v("=================","wrote cat.jpg");
+                    
                     }
                     
                 } catch (Exception e) {
