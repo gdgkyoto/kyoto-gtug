@@ -39,26 +39,12 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class ContactListActivity extends Activity {
 	
-	private Button backButton;
 	private ListView listView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contactlist);
-
-		backButton = (Button) findViewById(R.id.contactlist_back_button);
-		backButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-	    	public void onClick(View v) {
-	    		Intent intent = new Intent();
-	    		intent.putExtra(RotaryDial.PARAM_DIAL_PERSON_NAME, "");
-	    		intent.putExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER, "");
-	    		intent.putExtra(RotaryDial.PARAM_DIAL_CALL_FLG, 1);
-	    		setResult(RESULT_OK, intent);
-	            finish();
-	    	}
-		});
 
 		listView = (ListView) findViewById(R.id.ListView01);
 
@@ -92,17 +78,22 @@ public class ContactListActivity extends Activity {
 			Log.d("phone", cur.getString(numberColumn));
 			list.add(name + ":" + cur.getString(numberColumn));
 		}
+		for(int i=0; i<30; i++){
+			list.add("");
+		}
+		
 		ListAdapter adapter = new ArrayAdapter<String>(this, R.layout.row,list);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				String text = list.get(arg2);
-				String[] split = text.split(":");
-				String name = split[0];
-				String number = split[1];
-				selectNumber(name, number);
+				if(text != null && !text.equals("")){
+					String[] split = text.split(":");
+					String name = split[0];
+					String number = split[1];
+					selectNumber(name, number);
+				}
 			}
 		});
 	}
