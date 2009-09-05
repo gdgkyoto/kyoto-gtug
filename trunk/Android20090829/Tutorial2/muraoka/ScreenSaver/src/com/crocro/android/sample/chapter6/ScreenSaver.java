@@ -12,7 +12,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import java.util.Random;
+
 import java.math.*;
 
 import android.util.Log;
@@ -25,6 +27,7 @@ public class ScreenSaver extends Activity {
 	// グローバル変数
 	SurfaceHolder mSurfaceHolder;
 	SaverThread mSaverThread;
+	Context mContext;
 	
 	int mMode;
 	public static final int STATE_PAUSE = 1;
@@ -53,7 +56,12 @@ public class ScreenSaver extends Activity {
 
 	//タッチパッド用変数
 	float touchX,touchY = 0;
+	final int TOUCH_MODIFY = 7;
 	
+	//サウンド用変数
+	private MediaPlayer mBgmPlayer;
+	private MediaPlayer[] mSePlayer;
+	private final int SE_MAX = 4;
 	
     //Activity 作成
     @Override
@@ -76,6 +84,8 @@ public class ScreenSaver extends Activity {
     protected void onPause(){
     	super.onPause();
     	mSaverThread.pause();
+    	stopBgm();
+    	Log.e("@@@", "onPause");
     }
     
     //「SaverView」クラス
@@ -86,6 +96,8 @@ public class ScreenSaver extends Activity {
     		
     		mSurfaceHolder = getHolder();
     		mSurfaceHolder.addCallback(this);
+    		
+    		mContext = context;
     		
     		setFocusable(true);
     	}
@@ -113,6 +125,8 @@ public class ScreenSaver extends Activity {
     		mSaverThread.unpause();
     		mSaverThread.setRunning(true);
     		mSaverThread.start();
+    		initSound();
+    		playBgm();
     	}
     
     	//画面の破棄（スレッド終了）
@@ -139,11 +153,65 @@ public class ScreenSaver extends Activity {
     		synchronized (mSurfaceHolder){
     			touchX = event.getX();
                 touchY = event.getY();
+                playSe();
     		}
     		return true;
     	}
-    	
     }
+    
+	//サウンドの初期化
+	public void initSound(){
+		//BGMの作成
+		try{
+			mBgmPlayer = MediaPlayer.create(mContext, R.raw.bgm);
+			mBgmPlayer.setLooping(true);
+		}catch(Exception e){
+		}
+		//SEの作成
+		try{
+			mSePlayer = new MediaPlayer[SE_MAX];
+			for(int i = 0; i < SE_MAX; i ++){
+				mSePlayer[i] = MediaPlayer.create(mContext, R.raw.se);
+				mSePlayer[i].setLooping(false);
+			}
+		}catch(Exception e){
+		}	
+	}
+	
+	//BGMの再生
+	public void playBgm(){
+		if(mBgmPlayer == null) return;
+		try{
+			if(mBgmPlayer.isPlaying()) return;
+			mBgmPlayer.start();
+		}catch(Exception e){
+		}
+	}
+	
+	//BGMの停止
+	public void stopBgm(){
+		if(mBgmPlayer == null) return;
+		try{
+			if(!mBgmPlayer.isPlaying()) return;
+			mBgmPlayer.pause();
+		}catch(Exception e){
+		}
+	}
+	
+	//SEの再生
+	public void playSe(){
+		if(mSePlayer == null) return;
+		try{
+			for (int i = 0; i < SE_MAX; i ++){
+				if(mSePlayer[i] == null) continue;
+				if(mSePlayer[i].isPlaying()) continue;
+				mSePlayer[i].seekTo(0);
+				mSePlayer[i].start();
+				break;
+			}
+		}catch(Exception e){
+		}
+	}
     
     //「SaverThread」クラス
     class SaverThread extends Thread{
@@ -245,8 +313,8 @@ public class ScreenSaver extends Activity {
     		fSize = (mTableW + mTableH) / 4;
     		
     		//タッチした座標から表示座標に追加する値を取得
-    		int addTouchX = (int)Math.floor(touchX / 7);
-    		int addTouchY = (int)Math.floor(touchY / 7);
+    		int addTouchX = (int)Math.floor(touchX / TOUCH_MODIFY);
+    		int addTouchY = (int)Math.floor(touchY / TOUCH_MODIFY);
     		
     		//タッチされたらライフの表示位置を変更する
     		//座標の取り方がおかしいよねこれ。。わかってるよ。。。
@@ -328,6 +396,8 @@ public class ScreenSaver extends Activity {
     			}
     		}
     	}
+    	    	
+    	
     }
     
 }
