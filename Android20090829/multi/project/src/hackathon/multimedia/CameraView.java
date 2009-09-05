@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder holder;//ホルダー
     private Camera        camera;//カメラ
+    private int           count;
 
     //コンストラクタ
     public CameraView(Context context) {
@@ -66,12 +67,16 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         camera.takePicture(null,null,new Camera.PictureCallback() {
             public void onPictureTaken(byte[] data,Camera camera) {
                 try {
-                    data2sd(getContext(),data,"test.jpg");
+                	String fn = "test"+String.valueOf(count)+".jpg";
+                    data2sd(getContext(),data,fn);
+                    count++;
+                    android.util.Log.v("",fn);
                 } catch (Exception e) {
                     android.util.Log.e("",""+e.toString());
                 }
             }
         }); 
+        
     }
 
     //バイトデータ→SDカード
@@ -89,3 +94,4 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 }
+
