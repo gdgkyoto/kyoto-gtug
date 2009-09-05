@@ -1,139 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="320px"
-        android:layout_height="480px"
+        android:layout_width="320px" android:layout_height="480px"
         android:layout_weight="1"
         >
-	<ImageView
-		android:id="@+id/DialImageView01"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+	<ImageView android:id="@+id/DialImageView01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:background="@drawable/rotary_base">
 	</ImageView>
-	<ImageView
-		android:id="@+id/DialImageView04"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+	<ImageView android:id="@+id/DialImageView04"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:background="@drawable/rotary_steel">
 	</ImageView>
-	<ImageView
-		android:id="@+id/DialImageView02"
-		android:layout_width="320px"
-		android:layout_height="480px"
+	<ImageView android:id="@+id/DialImageView02"
+		android:layout_width="320px" android:layout_height="480px"
 		android:scaleType="center">
 	</ImageView>
-	<ImageView
-		android:id="@+id/DialImageView03"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+	<ImageView android:id="@+id/DialImageView03"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:background="@drawable/tag_memo">
 	</ImageView>
-	<ImageView
-		android:id="@+id/ImageView01"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+	<ImageView android:id="@+id/ImageView01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content">
 	</ImageView>
 
-	<TableLayout
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:id="@+id/table"
-			android:orientation="vertical"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			>
-		<TableRow
-			android:id="@+id/row1"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			>
+	<TableLayout android:id="@+id/table"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<TableRow android:id="@+id/row1"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="center_horizontal" >
 			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				>
+				android:orientation ="vertical"
+				android:layout_width="fill_parent" android:layout_height="fill_parent">
 				<TextView
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
 					android:clickable="true"
-					android:text=""
-					>
+					android:textSize="18px" 
+					android:text="">
 				</TextView>
 			</LinearLayout>
 		</TableRow>
-		<TableRow
-			android:id="@+id/row2"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			>
+		<TableRow android:id="@+id/row2"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="center_horizontal" >
 			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:gravity="center_horizontal"
-				>
-				<TextView
-					android:id="@+id/DialNumber"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:text="Call Number"
-					android:textSize="28px"
-					android:textStyle="bold"
-					android:gravity="center_horizontal">
+				android:orientation ="vertical"
+				android:layout_width="wrap_content" android:layout_height="fill_parent" >
+ 				<TextView android:id="@+id/DialNumber"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:textSize="28px" android:textStyle="bold" android:textColor="#555555"
+					android:text="Call Number" >
 				</TextView>
-				<TextView
-					android:text="Memo:none"
-					android:id="@+id/DialMemo"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:textSize="16px"
-					android:textStyle="bold"
-					android:gravity="center_horizontal">
+				<TextView android:id="@+id/DialMemo"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:textSize="16px" android:textStyle="bold"  android:textColor="#555555"
+					android:text="Memo:none" >
 				</TextView>
 			</LinearLayout>
 		</TableRow>
-		<TableRow
-			android:id="@+id/row3"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			>
+		<TableRow android:id="@+id/row3"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="center_horizontal" >
 			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				>
-				<Button
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="Back"
-					android:id="@+id/dial_back_button">
-				</Button>
-			  	<Button
-					android:text="CALL!!"
-					android:id="@+id/dial_call_button"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
-				</Button>
+				android:orientation ="vertical"
+				android:layout_width="fill_parent" android:layout_height="fill_parent">
 				<TextView
-					android:id="@+id/TextView01"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="Input Call Number">
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:clickable="true"
+					android:textSize="90px" 
+					android:text="">
 				</TextView>
-				<EditText
-					android:text="EditText01"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/dial_number">
+			</LinearLayout>
+		</TableRow>
+		<TableRow android:id="@+id/row4"
+			android:layout_width="wrap_content" android:layout_height="fill_parent"
+			android:gravity="center_horizontal" >
+			<LinearLayout
+				android:orientation ="vertical"
+				android:layout_width="wrap_content" android:layout_height="fill_parent" >
+				<TextView android:id="@+id/TextView01"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Input Call Number" >
+				</TextView>
+				<EditText android:id="@+id/dial_number"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="EditText01" >
 				</EditText>
 				<!--
-				<TextView
-					android:text="Memo:none"
-					android:id="@+id/dial_mmeo"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
+				<TextView android:id="@+id/dial_mmeo"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Memo:none" >
 				</TextView>
 				-->
+			</LinearLayout>
+		</TableRow>
+		<TableRow android:id="@+id/row5"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="center_horizontal" >
+			<LinearLayout
+				android:orientation ="vertical"
+				android:layout_width="fill_parent" android:layout_height="fill_parent">
+				<TextView
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:clickable="true"
+					android:textSize="80px" 
+					android:text="">
+				</TextView>
+			</LinearLayout>
+		</TableRow>
+		<TableRow android:id="@+id/row6"
+			android:layout_width="wrap_content" android:layout_height="fill_parent"
+			android:gravity="left" >
+			<LinearLayout
+				android:layout_width="fill_parent" android:layout_height="fill_parent" >
+				<Button android:id="@+id/dial_back_button"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="Back" >
+				</Button>
+			  	<Button android:id="@+id/dial_call_button"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="CALL!!" >
+				</Button>
 			</LinearLayout>
 		</TableRow>
 	</TableLayout>
