@@ -2,6 +2,7 @@ package phone.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,6 +64,17 @@ public class RotaryDial extends Activity {
 			}
         });
     }
+
+    // 実際に電話をコールする
+    private void onAcutalCall(String phoneNumber) {
+    	
+    	Intent callIntent = new 
+    	Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber));
+
+    	callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	startActivity(callIntent);
+    	
+    }   
     
     /**
      * SubActityからの結果受け取り
@@ -106,6 +118,8 @@ public class RotaryDial extends Activity {
     	
     	if( data.getIntExtra(PARAM_DIAL_CALL_FLG, 0) == 1 ){
     		debugTextView.setText("Debug : CALL!! number=" + number);
+    		//
+    		onAcutalCall(number);
     	}else{
     		debugTextView.setText("Debug : ");
     	}
