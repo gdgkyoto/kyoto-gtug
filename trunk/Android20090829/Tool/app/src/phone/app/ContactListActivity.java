@@ -40,8 +40,6 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ContactListActivity extends Activity {
 	
 	private Button backButton;
-	private EditText numberEditText;
-	private EditText nameEditText;
 	private ListView listView;
 	
 	@Override
@@ -49,15 +47,17 @@ public class ContactListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contactlist);
 
-		numberEditText = (EditText) findViewById(R.id.contactlist_number);
-		nameEditText = (EditText) findViewById(R.id.contactlist_name);
-
 		backButton = (Button) findViewById(R.id.contactlist_back_button);
 		backButton.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				selectNumber(nameEditText.getText().toString(), numberEditText.getText().toString());
-			}
+	    	public void onClick(View v) {
+	    		Intent intent = new Intent();
+	    		intent.putExtra(RotaryDial.PARAM_DIAL_PERSON_NAME, "");
+	    		intent.putExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER, "");
+	    		intent.putExtra(RotaryDial.PARAM_DIAL_CALL_FLG, 1);
+	    		setResult(RESULT_OK, intent);
+	            finish();
+	    	}
 		});
 
 		listView = (ListView) findViewById(R.id.ListView01);

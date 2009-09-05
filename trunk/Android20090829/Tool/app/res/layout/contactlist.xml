@@ -4,14 +4,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
+<!-- TextView  
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" android:text="ContactList画面  コンタクトリストを選択するか、デバッグ入力してsubmitボタンを押下すると、その情報がメモとして張られたダイヤル画面に遷移します。"/>
+    android:layout_height="wrap_content" android:text="ContactList画面  コンタクトリストを選択するか、デバッグ入力してsubmitボタンを押下すると、その情報がメモとして張られたダイヤル画面に遷移します。"/ -->
 
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/contactlist_back_button" android:text="Submit"></Button>
-<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Name"></TextView>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/contactlist_back_button" android:text="戻る"></Button>
+<!-- TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Name"></TextView>
 <EditText android:text="EditText01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/contactlist_name"></EditText>
 <TextView android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Input call number."></TextView>
-<EditText android:text="EditText01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/contactlist_number"></EditText>
+<EditText android:text="EditText01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/contactlist_number"></EditText -->
 <ListView android:id="@+id/ListView01" android:layout_width="wrap_content" android:layout_height="wrap_content"></ListView>
 </LinearLayout>
