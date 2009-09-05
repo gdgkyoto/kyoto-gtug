@@ -246,6 +246,7 @@ public class RotaryDial extends Activity {
     		Intent intent = new Intent(RotaryDial.this,DialActivity.class);
     		intent.putExtra(PARAM_DIAL_PERSON_NAME, name);
     		intent.putExtra(PARAM_DIAL_PERSON_NUMBER, number);
+    		intent.putExtra(PARAM_YUTORI_MODE_FLG, yutoriMode);
 			startActivityForResult(intent, 0);
     	}
     	
