@@ -17,11 +17,13 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -60,6 +62,10 @@ public class GeoSampleMHActivity extends MapActivity {
     	setContentView(mapView);
     	Log.i(LOG_TAG, "create MapView");
     	
+    	// ズーム用のレイアウト配置
+    	//LinerLayout zoomLayout = (LinerLayout) 
+
+    	
     	// MapController の作成
     	mapCtrl = mapView.getController();
     	mapCtrl.setCenter( new GeoPoint( (int)(34.889291 * 1E6), (int)(135.807612 * 1E6) ) ); // 初期Point平等院近辺
@@ -75,18 +81,15 @@ public class GeoSampleMHActivity extends MapActivity {
     	// MapView上に表示したいビットマップ情報を、リソースから取得
     	Drawable human = getResources().getDrawable(R.drawable.human);
     	human.setBounds(0, 0, human.getMinimumWidth(), human.getMinimumHeight());
-
     	// ピンを表示するためのオーバーレイを生成
     	photosPinOverray = new PhotosPinOverray(human);
-    	
     	// MapViewからOverlayリストを取得
     	List<Overlay> overlays = mapView.getOverlays();
-
     	// Overlayリストに追加する
     	overlays.add( photosPinOverray );
-    	
-    	// テスト用にピンを追加
-    	photosPinOverray.addPhotoPin(new GeoPoint( (int)(34.889291 * 1E6), (int)(135.807612 * 1E6)), "Now Point", "Now Location");
+    	// 自分の位置にピンを追加
+    	//photosPinOverray.addPhotoPin(new GeoPoint( (int)(34.889291 * 1E6), (int)(135.807612 * 1E6)), "http://www.miosys.co.jp/", "Now Current Point");
+    	photosPinOverray.addPhotoPin(new GeoPoint( (int)(34.889291 * 1E6), (int)(135.807612 * 1E6)), "google.streetview:cbll=34.892402,135.8055", "Now Current Point");
 	}
 
 	public void onDestroy() {
@@ -143,7 +146,9 @@ public class GeoSampleMHActivity extends MapActivity {
 					JSONObject tmpJsonObj = tempPhotoJsonArray.getJSONObject(i);
 					Log.i(LOG_TAG, "onLocationChanged / Photos / lat = " + tmpJsonObj.getDouble("latitude") + " lon = " + tmpJsonObj.getDouble("longitude"));
 			    	// 写真の場所にピンを追加
-			    	tmpPhotosPinOverray.addPhotoPin(new GeoPoint( (int)(tmpJsonObj.getDouble("latitude") * 1E6), (int)(tmpJsonObj.getDouble("longitude") * 1E6)), "Now Point", "Now Location");
+					String photo_uri = "http://www.flickr.com/photos/" + tmpJsonObj.getString("owner") + "/" + tmpJsonObj.getString("id") + "/";
+					Log.i(LOG_TAG, "onLocationChanged / Photos / photo_uri = " + photo_uri);
+			    	tmpPhotosPinOverray.addPhotoPin(new GeoPoint( (int)(tmpJsonObj.getDouble("latitude") * 1E6), (int)(tmpJsonObj.getDouble("longitude") * 1E6)), photo_uri, "photo data");
 			    	//tmpPhotosPinOverray.addPhotoPin(new GeoPoint( (int)((34.889291 + i) * 1E6), (int)(135.807612 * 1E6)), "Now Point", "Now Location");
 		    	}
 		    	// MapViewからOverlayリストを取得
@@ -212,8 +217,14 @@ public class GeoSampleMHActivity extends MapActivity {
 		}
 		
 	    protected boolean onTap(int index) {
-	        //OverlayItem photo =  createItem(index);
-	        //setFocus(photo);   //前面に表示する
+	    	OverlayItem photo_pin =  createItem(index);
+	        setFocus(photo_pin);   //前面に表示する
+	        String uri = photo_pin.getTitle();
+	        Log.i(LOG_TAG, "PhotosPinOverray onTap / uri = " + uri);
+	        //Intent intent = new Intent( "android.intent.action.VIEW", Uri.parse("http://www.miosys.co.jp/"));
+        	Intent intent = new Intent( "android.intent.action.VIEW", Uri.parse(uri));
+        	startActivity(intent);
+
 	        //invalidate();
 	        //String msg = photo.getTitle(); 
 	        //Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
