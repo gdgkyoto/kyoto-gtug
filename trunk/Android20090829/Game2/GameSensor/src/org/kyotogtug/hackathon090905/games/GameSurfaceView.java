@@ -56,7 +56,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	  // オフスクリーンキャンバス
 	  private Canvas offCanvas = null;
 	  private Drawable drawableGirl;	  
-	  private Context context;
+	  private Context context2;
 
 
 
@@ -79,7 +79,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    holder = getHolder();
 	    holder.addCallback(this);
 	    holder.setFixedSize(getWidth(), getHeight());
-	    this.context = context;
+	    this.context2 = context;
 	    drawableBlock = context.getResources().getDrawable(R.drawable.block);
 	    drawableIceBlock = context.getResources().getDrawable(R.drawable.block02);
 	    drawablePlayer = context.getResources().getDrawable(R.drawable.player);
@@ -104,7 +104,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread.start();
 
 	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-	            10, getHeight()*2-64, this.context);
+	            10, getHeight()*2-64, this.context2);
 	    blocks.add(new Block(drawableGirl, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 	            280, 32));
 	    angle = -getHeight();
