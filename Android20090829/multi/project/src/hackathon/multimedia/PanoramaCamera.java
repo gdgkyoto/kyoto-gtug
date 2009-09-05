@@ -86,7 +86,12 @@ public class PanoramaCamera extends Activity
         //方向の取得
         if (sensorData.getFlag() && event.sensor==orientation) {
             sensorData.setOrientation(event.values);
-        } 
+        }
+
+        if( sensorData.getFlag() ) {
+        	sensorData.setFlag(false);
+        }
+    
     }
 
     //精度変更イベントの処理
