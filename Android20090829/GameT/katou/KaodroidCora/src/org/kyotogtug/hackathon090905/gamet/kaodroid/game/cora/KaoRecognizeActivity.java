@@ -17,6 +17,7 @@ import org.kyotogtug.hackathon090905.gamet.kaodroid.game.cora.util.KaodroidGameU
 import org.kyotogtug.hackathon090905.gamet.kaodroid.game.cora.util.KaodroidGameUtil.Group;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -126,6 +127,11 @@ public class KaoRecognizeActivity extends Activity {
 
 	protected boolean doClickButton() {
 
+		AlertDialog LDialog = new AlertDialog.Builder(this)
+    .setMessage("Comming soon...")
+    .setPositiveButton(android.R.string.ok, null).create();
+    LDialog.show(); 
+ 
 		return true;
 	}
 
