@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.PointF;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -93,10 +98,73 @@ public class DialActivity extends Activity {
 	    }
 
 	    //回転用イメージ読み込み
-        Bitmap analogDial = BitmapFactory.decodeResource(getResources(),
+        analogDial = BitmapFactory.decodeResource(getResources(),
                 R.drawable.rotary_dial);
-
 	}
+
+
+
+	//画像を回転させるロジック
+	private void rotateDial(float degrees){
+
+        int width = analogDial.getWidth();
+        int height = analogDial.getHeight(); 
+        
+		// createa matrix for the manipulation
+		Matrix matrix = new Matrix();
+        matrix.postScale(1.0f, 1.0f);
+		// rotate the Bitmap
+        matrix.postRotate(degrees);
+
+        rotateDial = Bitmap.createBitmap(analogDial, 0, 0,
+        		width, height, matrix, true);
+
+		BitmapDrawable bmd = new BitmapDrawable(rotateDial);
+
+        ImageView imageView = (ImageView)findViewById(R.id.DialImageView02);
+
+        // set the Drawable on the ImageView
+        imageView.setImageDrawable(bmd);
+	}
+
+
 	//bitmap保存
 	private Bitmap analogDial;
+	private Bitmap rotateDial;
+	private BitmapDrawable bmd;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Log.v("phone","ActionDown");
+                //setSerPoint(x,y);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.v("phone","ActionMove");
+                movePoint(x,y);
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.v("phone","ActionMove");
+
+                break;
+        }
+        return true;
+    }
+
+
+    private void setSerPoint(float x, float y){
+
+    	return;
+    }
+
+    private void movePoint(float x, float y){
+    	float degree = (float) (Math.atan2(y - 240, x - 160 ) * 180 / Math.PI);
+    	Log.v("phone",String.valueOf(degree));
+    	rotateDial(degree);
+    	return;
+    }
 }
