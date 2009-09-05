@@ -32,15 +32,15 @@ public class Player {
 	//縦方向
 	//重力
 	if (rect.bottom > viewRect.bottom) {
-		direction.dy = direction.dy - gravity;
+		direction.dy = direction.dy + gravity;
 	}
 	//ジャンプ
 	if (direction.dy == 0) {
 		if(y > 10){
-			direction.dy = 10 * 2;
+			direction.dy = -10 * 2;
 		}else
 		if (y>3) {
-			direction.dy = direction.dy + y*2;
+			direction.dy = -y*2;
 		}
 	}
 	
