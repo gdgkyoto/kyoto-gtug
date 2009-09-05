@@ -1,6 +1,8 @@
 package phone.app;
 
+
 import android.app.Activity;
+
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.media.MediaPlayer;
 
 
 /**
@@ -36,10 +39,14 @@ public class RotaryDial extends Activity {
 	/** int 0=normal 1=yutori */
 	public static final String PARAM_YUTORI_MODE_FLG = "YUTORI_MODE_FLG";
 	
+	private MediaPlayer callingPlayer;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    	callingPlayer    = MediaPlayer.create(this, R.raw.dial1);       	
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -77,13 +84,22 @@ public class RotaryDial extends Activity {
 
     // 実際に電話をコールする
     private void onAcutalCall(String phoneNumber) {
-    	
+
+    	callingPlayer.setLooping(true);
+   		callingPlayer.seekTo(0);
+   		callingPlayer.start();
+	    try{
+	    	   Thread.sleep(1000);
+	    	}catch(InterruptedException e){ }
+   		callingPlayer.pause();
+
+   		
+   		
     	Intent callIntent = new 
     	Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber));
 
     	callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     	startActivity(callIntent);
-    	
     }   
     
     /**
