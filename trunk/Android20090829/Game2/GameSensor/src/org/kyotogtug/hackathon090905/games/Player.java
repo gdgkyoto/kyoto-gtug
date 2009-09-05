@@ -47,27 +47,25 @@ public class Player {
 	rect.offset(direction.dx, direction.dy);
     if (rect.left < 0) {
     	direction.dx = 0;
-    	rect.left = 0;
-    	rect.right = rect.left + width;
-    } else if (rect.top < 0) {
+        rect.offsetTo(viewRect.left, rect.top);
+    }
+    if (rect.top < 0) {
     	//ここには画面スクロールの処理が必要か？
     	direction.dy = 0;
-    	rect.top = 0;
-    	rect.bottom = rect.top + height;
-    } else if (rect.bottom > viewRect.bottom) {
+        rect.offsetTo(rect.left, viewRect.top);
+    }
+    if (rect.bottom > viewRect.bottom) {
       direction.dy = 0;
-      rect.bottom = viewRect.bottom;
-      rect.top = rect.bottom - height;
-    } else if (rect.right > viewRect.right) {
+      rect.offsetTo(rect.left, viewRect.bottom-height);
+    }
+    if (rect.right > viewRect.right) {
       direction.dx = 0;
-      rect.right = viewRect.right;
-      rect.left = rect.right - width;
+      rect.offsetTo(viewRect.right-width, rect.top);
     }
   }
 
   public void draw(Canvas canvas) {
-	drawable.setBounds(rect.left, rect.top, rect.right, rect.bottom);	// 反転表示
-    //drawable.setBounds(rect);
+	drawable.setBounds(rect);
     drawable.draw(canvas);
   }
 
