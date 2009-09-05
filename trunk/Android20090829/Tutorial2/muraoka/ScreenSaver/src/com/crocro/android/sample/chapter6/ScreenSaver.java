@@ -45,6 +45,7 @@ public class ScreenSaver extends Activity {
 	RectF mRectF = new RectF();
 	Drawable mLifeDrawable;
 	int mLifeW, mLifeH;
+	RectF mDrawRect;
 	
 	//ライフ用変数
 	Random mRnd = new Random();
@@ -98,7 +99,9 @@ public class ScreenSaver extends Activity {
     		mSurfaceHolder.addCallback(this);
     		
     		mContext = context;
-    		
+    		mDrawRect = new RectF();
+    	    mDrawRect.set(0,0, getMeasuredWidth(), getMeasuredHeight());
+   		
     		setFocusable(true);
     	}
     
@@ -190,6 +193,7 @@ public class ScreenSaver extends Activity {
 	
 	//BGMの停止
 	public void stopBgm(){
+		Log.e("@@@@","stopBgm");
 		if(mBgmPlayer == null) return;
 		try{
 			if(!mBgmPlayer.isPlaying()) return;
@@ -218,8 +222,10 @@ public class ScreenSaver extends Activity {
     	//コンストラクター
     	public SaverThread(){
     		//描画関係のオブジェクトの初期化
-    		mBgBitmap = Bitmap.createBitmap(1,1,Bitmap.Config.RGB_565);
+    		int[] colors = {(255 << 24) | (255 << 16) | (255 << 8) | 255};
+    		mBgBitmap = Bitmap.createBitmap(colors,1,1,Bitmap.Config.RGB_565);
     		mPaint.setAntiAlias(true);
+    		mPaint.setARGB(255, 255, 255, 255);
     		
     		//ライフの読み込み
     		mLifeDrawable = ScreenSaver.this.getResources()
@@ -292,6 +298,7 @@ public class ScreenSaver extends Activity {
     	private void doDraw(Canvas canvas){
     		//背景更新
     		canvas.drawBitmap(mBgBitmap, 0, 0, null);
+//    		canvas.drawRect(mDrawRect, mPaint);
     		
     		//マス描画
     		for (int x = 0; x < mTableX; x ++){
