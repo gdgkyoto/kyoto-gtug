@@ -166,6 +166,7 @@ public class RotaryDial extends Activity {
      * コンタクトリストActivityを起動
      */
     private void openContactListActivity(){
+    	sm.unregisterListener(senserListener);
     	Intent intent = new Intent(RotaryDial.this,ContactListActivity.class);
 		startActivityForResult(intent, 0);
     }
@@ -177,6 +178,8 @@ public class RotaryDial extends Activity {
     private void openDialActivity(){
     	Intent intent = new Intent(RotaryDial.this,DialActivity.class);
     	intent.putExtra(PARAM_DIAL_YUTORI_MODE, yutoriMode);
+		sm.unregisterListener(senserListener);
+
 		startActivityForResult(intent, 0);
     }
 
@@ -288,7 +291,6 @@ public class RotaryDial extends Activity {
 			
 			if ((ctInvalid > 99) && (currentAccelerationValues[2] > TH_Z)) { 
 				Log.d("phone", "Z-Axis moved fast enough");
-				sm.unregisterListener(senserListener);
 				openDialActivity();
 			}
 		
