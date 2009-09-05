@@ -51,6 +51,8 @@ public class RotaryDialView extends View {
 	/** 受話器移動フラグ
 	 *  受話器をドラッグしているときにtrueになる */
 	private boolean isReceiverMove;
+	
+	private RotaryDial rotaryDial;
 
 	/**
 	 * コンストラクタ
@@ -58,6 +60,7 @@ public class RotaryDialView extends View {
 	 */
 	public RotaryDialView(Context context) {
 		super(context);
+		rotaryDial = (RotaryDial)context;
 		Log.d("phone","RotaryDialView constructor.");
 		
 		//画像の読み込み
@@ -102,7 +105,7 @@ public class RotaryDialView extends View {
 			p.setColor(Color.WHITE);
 			p.setStrokeCap(Paint.Cap.SQUARE);
 			p.setStrokeWidth(2);
-			canvas.drawText("受話器が上げられた!!", 0, 0, p);
+			canvas.drawText("受話器が上げられた!!", 0, 40, p);
 		}
 
 		if( isReceiverMove ){
@@ -110,6 +113,20 @@ public class RotaryDialView extends View {
 			canvas.drawBitmap(phoneReceiverImage, receiverX - phoneReceiverImage.getWidth() /2 , receiverY - phoneReceiverImage.getHeight() / 2, null);
 		}else{
 			canvas.drawBitmap(phoneBodyWithReceiverImage, phoneBodyX, phoneBodyY, null);
+		}
+		Paint p = new android.graphics.Paint();
+		p.setColor(Color.WHITE);
+		p.setStrokeCap(Paint.Cap.SQUARE);
+		p.setStrokeWidth(2);
+		p.setTextSize(20);
+		
+		if( rotaryDial.getYutoriMode() == RotaryDial.MODE_YUTORI ){
+			p.setColor(Color.BLACK);
+			canvas.drawText("ゆとりモード (・∀・)ノ", 1, 22, p);
+			canvas.drawText("ゆとりモード (・∀・)ノ", 2, 20, p);
+			
+			p.setColor(Color.WHITE);
+			canvas.drawText("ゆとりモード (・∀・)ノ", 0, 20, p);
 		}
     }
     
