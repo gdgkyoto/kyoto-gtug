@@ -13,6 +13,7 @@ public class ItemsDbAdapter {
     public static final String KEY_ROWID = "_id";
     public static final String KEY_TYPE = "type";
     public static final String KEY_ICON_ID = "icon_id";
+    public static final String KEY_NAME = "name";
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_DATE = "date";
     public static final String KEY_LATITUDE = "latitude";
@@ -32,13 +33,14 @@ public class ItemsDbAdapter {
     private static final String DATABASE_CREATE = "create table items (_id integer primary key autoincrement, "
             + "type TEXT NOT NULL, "
             + "icon_id INTEGER, "
+            + "name TEXT, "
             + "description TEXT, "
             + "date INTEGER, "
             + "latitude REAL NOT NULL, " + "longitude REAL NOT NULL);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "items";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private final Context mCtx;
 
@@ -80,17 +82,29 @@ public class ItemsDbAdapter {
         mDbHelper.close();
     }
 
-    public long createItem(String type, Long iconId, String descriptioin,
-            Long date, double latitude, double longitude) {
+//    public long createItem(String type, Long iconId, String descriptioin,
+//            Long date, double latitude, double longitude) {
+//        ContentValues initialValues = new ContentValues();
+//        initialValues.put(KEY_TYPE, type);
+//        initialValues.put(KEY_ICON_ID, iconId);
+//        initialValues.put(KEY_DESCRIPTION, descriptioin);
+//        initialValues.put(KEY_LATITUDE, latitude);
+//        initialValues.put(KEY_LONGITUDE, longitude);
+//        initialValues.put(KEY_DATE, date);
+//
+//        return mDb.insert(DATABASE_TABLE, null, initialValues);
+//    }
+    
+    public long createItem(Item item) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_TYPE, type);
-        initialValues.put(KEY_ICON_ID, iconId);
-        initialValues.put(KEY_DESCRIPTION, descriptioin);
-        initialValues.put(KEY_LATITUDE, latitude);
-        initialValues.put(KEY_LONGITUDE, longitude);
-        initialValues.put(KEY_DATE, date);
+        initialValues.put(KEY_TYPE, item.getType());
+        initialValues.put(KEY_ICON_ID, item.getIconId());
+        initialValues.put(KEY_DESCRIPTION, item.getDescription());
+        initialValues.put(KEY_LATITUDE, item.getLatitude());
+        initialValues.put(KEY_LONGITUDE, item.getLongitude());
+        initialValues.put(KEY_DATE, item.getDate());
 
-        return mDb.insert(DATABASE_TABLE, null, initialValues);
+        return mDb.insert(DATABASE_TABLE, null, initialValues);        
     }
 
     /**
