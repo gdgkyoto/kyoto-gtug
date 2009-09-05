@@ -287,7 +287,7 @@ public class ScreenSaver extends Activity {
     			mTableX = mCanvasW / mTableW + 1;
     			mTableY = mCanvasH / mTableH + 1;
     			mTableArray = new int[mTableX][mTableY];
-    			for (int i = 0; i < mTableX * mTableY / 4; i ++){
+    			for (int i = 0; i < mTableX * mTableY / 6; i ++){
     				mTableArray[mRnd.nextInt(mTableX)][mRnd.nextInt(mTableY)]
     				    += LIFE_DEFAULT;
     			}
@@ -339,8 +339,8 @@ public class ScreenSaver extends Activity {
     		mLifeDrawable.setBounds(
     				//(int)(fX - fSize), (int)(fX - fSize),
     				//(int)(fY - fSize), (int)(fY - fSize)
-    				(int)addTouchX,(int)addTouchX,
-    				(int)addTouchY,(int)addTouchY
+    				(int)addTouchX+10,(int)addTouchX+10,
+    				(int)addTouchY+10,(int)addTouchY+10
     		);
     		mLifeDrawable.draw(canvas);
     		canvas.restore();
