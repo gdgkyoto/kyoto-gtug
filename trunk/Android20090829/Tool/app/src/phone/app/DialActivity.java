@@ -49,6 +49,7 @@ public class DialActivity extends Activity {
 
 	private String number;
 	private String name;
+	private int yutori;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,19 @@ public class DialActivity extends Activity {
 
 	    if( getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER) != null ){
 	    	number = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER);
+	    }
+
+	    if( getIntent().getIntExtra(RotaryDial.PARAM_YUTORI_MODE_FLG,0) != 0 ){
+	    	yutori = getIntent().getIntExtra(RotaryDial.PARAM_YUTORI_MODE_FLG,0);
+	    }
+
+	    if(yutori != 0 ){
+    		Intent intent = new Intent();
+    		intent.putExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER, number);
+    		intent.putExtra(RotaryDial.PARAM_DIAL_CALL_FLG, 1);
+    		setResult(RESULT_OK, intent);
+            finish();
+
 	    }
 
 	    callButton = (Button)findViewById(R.id.dial_call_button);
@@ -214,6 +228,13 @@ public class DialActivity extends Activity {
     	teleNum[3] = new Rect(135, 180, 155, 200);
     	teleNum[2] = new Rect(180, 200, 200, 220);
     	teleNum[1] = new Rect(230, 220, 250, 240);
+
+    	for(int i=0;i<10;i++){
+    		teleNum[i].left   -=5;
+    		teleNum[i].right  +=5;
+    		teleNum[i].top    -=5;
+    		teleNum[i].bottom +=5;
+    	}
 
     }
 
