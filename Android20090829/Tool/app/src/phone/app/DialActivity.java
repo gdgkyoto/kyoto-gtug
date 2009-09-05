@@ -86,6 +86,10 @@ public class DialActivity extends Activity {
 	    if( number != null ){
 	    	TextView textView = (TextView) findViewById(R.id.dial_mmeo);
 	    	textView.setText("memo: name="+name+" number="+number);
+	    	TextView textDialNumber = (TextView) findViewById(R.id.DialNumber);
+	    	textDialNumber.setText("Number: "+number);
+	    	TextView textDialMemo   = (TextView) findViewById(R.id.DialMemo);
+	    	textDialMemo.setText("Memo: "+name);
 	    }
 
 	    //回転用イメージ読み込み
