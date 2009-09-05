@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/back">
+
+  <TextView android:id="@+id/textMessage"
+      android:layout_width="fill_parent"
+      android:layout_height="60dip"
+      android:layout_marginTop="5dip"
+      android:layout_marginRight="5dip"
+      android:layout_marginBottom="5dip"
+      android:layout_marginLeft="5dip"
+      android:gravity="center"
+      android:textColor="#000000"
+      android:text="@string/title"
+      android:textSize="15dip"
+      android:background="@drawable/title" />
+
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dip">
+      <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.SlotView android:id="@+id/viewSlot1"
+          android:layout_weight="1"
+          android:layout_width="fill_parent"
+          android:layout_height="100dip"
+          android:focusable="true"
+          android:focusableInTouchMode="true"
+          android:layout_marginBottom="3dip" />
+      <Button android:id="@+id/buttonSlot1"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/stop"
+          android:textSize="12dip" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dip"
+        android:layout_marginLeft="2dip">
+      <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.SlotView android:id="@+id/viewSlot2"
+          android:layout_weight="1"
+          android:layout_width="fill_parent"
+          android:layout_height="100dip"
+          android:focusable="true"
+          android:focusableInTouchMode="true"
+          android:layout_marginBottom="3dip" />
+      <Button android:id="@+id/buttonSlot2"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/stop"
+          android:textSize="12dip" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dip">
+      <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.SlotView android:id="@+id/viewSlot3"
+          android:layout_weight="1"
+          android:layout_width="fill_parent"
+          android:layout_height="100dip"
+          android:focusable="true"
+          android:focusableInTouchMode="true"
+          android:layout_marginBottom="3dip" />
+      <Button android:id="@+id/buttonSlot3"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/stop"
+          android:textSize="12dip" />
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <Button android:id="@+id/buttonStart"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/start" />
+
+  <org.kyotogtug.hackathon090905.gamet.kaodroid.game.slot.view.LogView android:id="@+id/logMessage"
+      android:layout_weight="1"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent" />
+
+</LinearLayout>
