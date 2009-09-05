@@ -23,6 +23,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         
         //プッシュバッッファの指定
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        
+        //初期化
+        count = 0;
     }
     //サーフェイス生成イベントの処理
     public void surfaceCreated(SurfaceHolder holder) {
