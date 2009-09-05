@@ -64,10 +64,11 @@ public class RotaryDial extends Activity {
         });
     }
     
+    /**
+     * SubActity‚©‚ç‚ÌŒ‹‰ÊŽó‚¯Žæ‚è
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	//super.onActivityResult(requestCode, resultCode, data);
-    	
     	Log.d("phone", "onActivityResult");
     	if( resultCode == RESULT_OK ){
         	Log.d("phone", "RESULT_OK!");
@@ -82,11 +83,11 @@ public class RotaryDial extends Activity {
     	String name;
     	String number;
     	
-    	Log.d("phone","Result Action="+data.getAction());
+    	Log.d("phone","onActivityResult.Result Action="+data.getAction());
     	number = data.getStringExtra(PARAM_DIAL_PERSON_NUMBER);
-    	Log.d("phone","NUMBER="+number);
+    	Log.d("phone","onActivityResult.NUMBER="+number);
     	StringBuilder sb = new StringBuilder();
-    	sb.append("NUMBER="+number);
+    	sb.append("onActivityResult.NUMBER="+number);
     	name = data.getStringExtra(PARAM_DIAL_PERSON_NAME);
     	if( name != null ){
         	Log.d("phone","NAME="+name);

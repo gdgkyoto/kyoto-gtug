@@ -88,6 +88,7 @@ public class ContactListActivity extends Activity {
 	}
 	
 	private void selectNumber( String name , String number ){
+		Log.d("phone","selectNumber name="+name+" number="+number);
 		Intent intent = new Intent();
 		intent.putExtra(RotaryDial.PARAM_DIAL_PERSON_NAME, name);
 		intent.putExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER,number);

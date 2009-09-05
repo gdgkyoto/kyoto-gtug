@@ -15,10 +15,21 @@ public class DialActivity extends Activity {
 	private Button callButton;
 	private EditText editText;
 	
+	private String number;
+	private String name;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.dial);
+	    
+	    if( getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME) != null ){
+	    	name = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME);
+	    }
+	    
+	    if( getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER) != null ){
+	    	number = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER);
+	    }
 	    
 	    callButton = (Button)findViewById(R.id.dial_call_button);
 	    callButton.setOnClickListener(new View.OnClickListener(){
@@ -45,11 +56,11 @@ public class DialActivity extends Activity {
 	    	}
 	    });
 	    editText = (EditText)findViewById(R.id.dial_number);
-	    editText.setText("000-123-1234");
+	    editText.setText(number);
 	    
 	    
 	    String number = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER);
-	    String name = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER);
+	    String name = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME);
 	    
 	    if( number != null ){
 	    	TextView textView = (TextView) findViewById(R.id.dial_mmeo);
