@@ -29,7 +29,10 @@ public class main extends Activity {
 			public void onProviderEnabled(String provider) {}
 			public void onProviderDisabled(String provider) {}			
 			public void onLocationChanged(Location location) {
-		        
+	
+				// Stop update location information
+				mLocationManager.removeUpdates(this);
+				
 				// get location infomation
 				Location loc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		        
@@ -72,10 +75,9 @@ public class main extends Activity {
 				webview = (WebView) findViewById(R.id.webview);
 				webview.getSettings().setJavaScriptEnabled(true);
 				webview.loadUrl(URL);
-				
-				// Stop update location information
-				mLocationManager.removeUpdates(this);
 
+				// Display Map
+				
 			}
         };
         
