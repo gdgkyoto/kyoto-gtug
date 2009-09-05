@@ -55,6 +55,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	  private Bitmap offBitmap = null;
 	  // オフスクリーンキャンバス
 	  private Canvas offCanvas = null;
+	  
+	  private Context context2;
 
 
 
@@ -77,6 +79,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    holder = getHolder();
 	    holder.addCallback(this);
 	    holder.setFixedSize(getWidth(), getHeight());
+	    context2 = context;
 	    drawableBlock = context.getResources().getDrawable(R.drawable.block);
 	    drawableIceBlock = context.getResources().getDrawable(R.drawable.ball);
 	    drawablePlayer = context.getResources().getDrawable(R.drawable.player);
@@ -100,7 +103,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread.start();
 
 	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-	            10, getHeight()*2-64);
+	            10, getHeight()*2-64, context2);
 	    angle = -getHeight();
 	    this.showInstance();
 	  }
@@ -141,6 +144,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	        synchronized (blocks) {
 	          // 描画
+	        	player.move((int) roll/10*-1, (int) highY*-1);
 	          for (Block block : blocks) {
 	        	  block.draw(offCanvas);
 	          }
@@ -155,7 +159,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	          canvas.drawText("Roll:"+ (int)roll/10*-1,10,10,paint);
 	          canvas.drawText("Roll:"+ (int)highY*-1,10,20,paint);
 
-	          player.move((int) roll/10*-1, (int) highY*-1);
+	          
 	          player.draw(offCanvas);
 	        }
 	        scrollAngle(player);
