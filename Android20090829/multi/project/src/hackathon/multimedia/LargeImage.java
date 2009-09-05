@@ -20,16 +20,19 @@ public class LargeImage {
 
 	public void catImage()
 	{
-		try {
+		
 			Paint paint = new Paint();
 			largeImage = Bitmap.createBitmap(2048, 1536/2, Bitmap.Config.RGB_565 );
 			canvas = new Canvas( largeImage );	
 		Rect srcRect = new Rect(0, 0, 2047, 1535);
 		Rect destRect = new Rect(0, 0, 2048 / 2, 1536 / 2);
-		Bitmap bmp0 = BitmapFactory.decodeFile("test0.jpg");
-		canvas.drawBitmap(bmp0, srcRect, destRect, paint);
-//		destRect.left = 2048 / 2;
-//		canvas.drawBitmap(BitmapFactory.decodeFile("test1.jpg"), srcRect, destRect, paint);
+		try {
+			Bitmap bmp0 = BitmapFactory.decodeFile("/sdcard/test0.jpg");
+			if(bmp0==null){android.util.Log.v("taniguchi00000","‚Ê‚é‚Û");}
+			canvas.drawBitmap(bmp0, srcRect, destRect, paint);
+			destRect.left = 2048 / 2;
+			Bitmap bmp1 = BitmapFactory.decodeFile("/sdcard/test1.jpg");
+			canvas.drawBitmap(bmp1, srcRect, destRect, paint);
 		} catch (Exception e) {
             android.util.Log.e("taniguchi00000",""+e.toString());
         }
