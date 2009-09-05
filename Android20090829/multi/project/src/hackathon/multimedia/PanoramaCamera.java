@@ -10,6 +10,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 public class PanoramaCamera extends Activity 
@@ -18,7 +19,10 @@ public class PanoramaCamera extends Activity
     private Sensor        accelerometer;//加速度せンサー
     private Sensor        orientation; //回転せンサー
     private SensorData	  sensorData;
+    private float[]       acceleration_value;
+    private float[]       orientation_value;
 
+    
     //アプリの初期化
     @Override
     public void onCreate(Bundle icicle) {
@@ -28,7 +32,9 @@ public class PanoramaCamera extends Activity
         CameraView cameraView = new CameraView(this);
         sensorData = new SensorData();
         cameraView.setSensorData(sensorData);
-
+        acceleration_value = new float[3];
+        orientation_value = new float[3];
+        
         setContentView(cameraView);
         
         //センサーマネージャの取得
@@ -79,16 +85,33 @@ public class PanoramaCamera extends Activity
         }
         
         //加速度の取得
-        if (sensorData.getFlag() && event.sensor==accelerometer) {
-        	sensorData.setAcceleration(event.values);
+        if (event.sensor==accelerometer) {
+        	acceleration_value = event.values;
+//        	acceleration_value[0] = event.values[0];
+//        	acceleration_value[1] = event.values[1];
+//        	acceleration_value[2] = event.values[2];
         }
 
         //方向の取得
-        if (sensorData.getFlag() && event.sensor==orientation) {
-            sensorData.setOrientation(event.values);
+        if (event.sensor==orientation) {
+        	orientation_value= event.values;
+//        	orientation_value[0]= event.values[0];
+//        	orientation_value[1] = event.values[1];
+//        	orientation_value[2] = event.values[2];
         }
 
         if( sensorData.getFlag() ) {
+            Log.e("acceleration",
+                    this.acceleration_value[0] + ", " +
+                    this.acceleration_value[1] + ", " +
+                    this.acceleration_value[2]);
+            Log.e("orientation",
+                    this.orientation_value[0] + ", " +
+                    this.orientation_value[1] + ", " +
+                    this.orientation_value[2]);
+
+            sensorData.setAcceleration(acceleration_value);
+            sensorData.setOrientation(orientation_value);
         	sensorData.setFlag(false);
         }
     
