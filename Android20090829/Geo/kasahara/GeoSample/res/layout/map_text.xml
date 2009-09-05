@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="#AAFFFFFF"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="10dip"
     >
@@ -10,7 +10,7 @@
     android:id="@+id/map_text_content"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textColor="#AA000000"
-    android:text="@string/map_text"
+    android:textColor="@color/map_dialog_text_color"
+    android:text="@string/map_dialog_text"
     />
 </LinearLayout>
