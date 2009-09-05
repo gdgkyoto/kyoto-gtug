@@ -15,10 +15,13 @@ import android.os.Bundle;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.media.MediaPlayer;
 
@@ -34,6 +37,7 @@ public class RotaryDial extends Activity {
 	
 	public static final String PARAM_DIAL_PERSON_NUMBER = "DIAL_PERSON_NUMBER";
 	public static final String PARAM_DIAL_PERSON_NAME = "DIAL_PERSON_NAME";
+	public static final String PARAM_DIAL_YUTORI_MODE = "DIAL_YUTORI_MODE";
 	
 	/** 発信実行フラグ 0=発信を実行しない  1=DIAL_PERSON_NUMBERの値で発信を行う */
 	public static final String PARAM_DIAL_CALL_FLG = "DIAL_CALL_FLG";
@@ -48,6 +52,15 @@ public class RotaryDial extends Activity {
 	
 	private MediaPlayer callingPlayer;
 	private MediaPlayer ringtonePlayer;
+	
+	/** ゆとりモード */
+	private int yutoriMode = MODE_YUTORI;
+	
+	public static final int MODE_NORMAL = 0;
+	public static final int MODE_YUTORI = 1;
+	
+	/** ゆとりモードメニューアイテム */
+	public static final int MENU_ITEM_YUTORI = Menu.FIRST;
 	
 	
 	private TelephonyManager telephonyManager;
@@ -114,7 +127,34 @@ public class RotaryDial extends Activity {
 
        
 	}
-
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		
+		menu.add(0,MENU_ITEM_YUTORI,0,"Yutori").setIcon(android.R.drawable.ic_dialog_alert);
+		
+		return true;
+	}
+    @Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		super.onMenuItemSelected(featureId, item);
+		
+		switch( item.getItemId() ){
+			case MENU_ITEM_YUTORI:
+				if( yutoriMode == MODE_NORMAL ){
+					yutoriMode = MODE_YUTORI;
+					Log.d("phone","set yutori mode!!");
+				}else{
+					yutoriMode = MODE_NORMAL;
+					Log.d("phone","set normal mode!!");
+				}
+				dialView.invalidate();
+			break;
+		}
+		return true;
+	}
+    
     /**
      * コンタクトリスト画面へ遷移する。
      * コンタクトリストActivityを起動
@@ -130,6 +170,7 @@ public class RotaryDial extends Activity {
      */
     private void openDialActivity(){
     	Intent intent = new Intent(RotaryDial.this,DialActivity.class);
+    	intent.putExtra(PARAM_DIAL_YUTORI_MODE, yutoriMode);
 		startActivityForResult(intent, 0);
     }
 
@@ -236,4 +277,12 @@ public class RotaryDial extends Activity {
 		
 		}
     }
+    
+	public int getYutoriMode() {
+		return yutoriMode;
+	}
+
+	public void setYutoriMode(int yutoriMode) {
+		this.yutoriMode = yutoriMode;
+	}
 }
