@@ -100,8 +100,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread.start();
 
 	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-	            10, 480);
-
+	            10, getHeight()*2-64);
+	    angle = -getHeight();
 	    this.showInstance();
 	  }
 
@@ -227,6 +227,11 @@ private float z=0;
 				            32*i, 32*4*row));
 		    	}
 		    }
+		    
+	    }
+	    for (int i=0; i<10; i++) {
+			    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
+			            32*i, getHeight()*2-32));
 	    }
 	}
 
