@@ -16,8 +16,8 @@ public class Block {
 
 	  public Block(Drawable drawable, Rect viewRect, int x, int y) {
 	    this.drawable = drawable;
-	    this.width = drawable.getIntrinsicWidth() / 2;
-	    this.height = drawable.getIntrinsicHeight() / 2;
+	    this.width = drawable.getIntrinsicWidth();
+	    this.height = drawable.getIntrinsicHeight();
 	    this.rect = new Rect(0, 0, width, height);
 	    this.viewRect = viewRect;
 	    rect.offset(x, y);
