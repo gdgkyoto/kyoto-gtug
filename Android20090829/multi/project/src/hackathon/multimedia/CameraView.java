@@ -6,13 +6,15 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.io.FileOutputStream;
+import hackathon.multimedia.SensorData;
 
 //カメラの制御
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder holder;//ホルダー
     private Camera        camera;//カメラ
     private int           count;
-
+    private SensorData    sensorData;
+    
     //コンストラクタ
     public CameraView(Context context) {
         super(context);
@@ -59,6 +61,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction()==MotionEvent.ACTION_DOWN) {
             takePicture();
+            sensorData.setFlag(true);
             camera.startPreview();
         }
         return true;
@@ -96,5 +99,14 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
             throw e;
         }
     }
+
+    public void setSensorData(SensorData sensorData) {
+    	this.sensorData = sensorData;
+    }
+
+    public SensorData getSensorData() {
+    	return this.sensorData;
+    }
+
 }
 
