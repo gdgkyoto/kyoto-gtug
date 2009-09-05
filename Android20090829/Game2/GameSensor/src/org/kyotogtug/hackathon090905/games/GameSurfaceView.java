@@ -99,7 +99,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread = new Thread(this);
 	    thread.start();
 
-	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 	            10, 480);
 
 	    this.showInstance();
@@ -220,10 +220,10 @@ private float z=0;
 	    	int[] arrange = arranges.getArrangement();
 		    for (int i=0; i<10; i++) {
 		    	if (arrange[i]==1) {
-				    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+				    blocks.add(new Block(drawableBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 				            32*i, 32*4*row));
 		    	} else if (arrange[i]==2) {
-				    blocks.add(new Block(drawableIceBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()),
+				    blocks.add(new Block(drawableIceBlock, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 				            32*i, 32*4*row));
 		    	}
 		    }
