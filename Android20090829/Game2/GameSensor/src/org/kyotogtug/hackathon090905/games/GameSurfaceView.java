@@ -104,7 +104,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    thread.start();
 
 	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
-	            10, getHeight()*2-64, context2);
+	            10, getHeight()*2-96, context2);
 	    blocks.add(new Block(drawableGirl, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 	            280, 32));
 	    angle = -getHeight();
@@ -118,11 +118,15 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	  @Override
 	  public boolean onTouchEvent(MotionEvent event) {
-
-	    //TODO エミュレータのテスト用に仮に
+		  
+		  //TODO エミュレータのテスト用に仮に
 		  Random random = new Random();
-		  player.direction.setDx(random.nextInt(6)-3);
 		  player.direction.setDy(random.nextInt(20)-20);
+		  if(player.rect.centerX() < (int)event.getX()){
+			  roll = -20;
+		  }else{
+			  roll = 20;
+		  }
 	    return true;
 	  }
 
@@ -145,9 +149,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	        offCanvas.drawColor(Color.WHITE);
 
-	        synchronized (blocks) {
+	        synchronized (player) {
+		        synchronized (blocks) {
 	          // 描画
-	        	player.move((int) roll/10*-1, (int) highY*-1);
+	          player.move((int) roll/10*-1, (int) highY*-1);
 	          for (Block block : blocks) {
 	        	  block.draw(offCanvas);
 	          }
@@ -164,12 +169,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	          
 	          player.draw(offCanvas);
+		      }
 	        }
 	        scrollAngle(player);
 	        canvas.drawBitmap(offBitmap, 0, angle, null);
 	      } finally {
-	        if (canvas != null)
+	        if (canvas != null){
 	          holder.unlockCanvasAndPost(canvas);
+	        }
 	      }
 	    }
 	  }

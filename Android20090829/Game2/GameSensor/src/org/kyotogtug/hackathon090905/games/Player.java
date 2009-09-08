@@ -10,7 +10,7 @@ import java.lang.Math;
 
 import org.kyotogtug.hackathon090905.games.R;
 
-public class Player {
+public class Player{
   protected int width;
   protected int height;
   private Rect viewRect;
@@ -49,7 +49,7 @@ public class Player {
 
   public void move(int x, int y) {
 	final int gravity = 1;	// 重力
-	this.oldRect = this.rect;
+	this.oldRect = new Rect(rect);
 	//横方向
 	direction.dx = x;
 	//縦方向
