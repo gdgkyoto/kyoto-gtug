@@ -125,17 +125,190 @@ public class DialActivity extends Activity {
 	    //回転用イメージ読み込み
         analogDial = BitmapFactory.decodeResource(getResources(),
                 R.drawable.rotary_dial);
-        ImageView imageView = (ImageView)findViewById(R.id.DialImageView02);
+        imageView = (ImageView)findViewById(R.id.DialImageView02);
 		bmd = new BitmapDrawable(analogDial);
 		imageView.setImageDrawable(bmd);
+		onAttachedToWindow();
 	}
 
 
+	@Override
+	protected void onPause() {
+		super.onPause();
 
-	//画像を回転させるロジック
+		onDetachedFromWindow();
+	};
+
+    //ダイアルを初期位置に変更
+    private double startDeg;
+    private double nowDeg;
+    private double oldDeg;
+    private double endDeg;
+
+    //押下開始電話番号
+    private int startPhoneNumber;
+
+    //ダイヤルを元の位置に戻すフラグ
+    private boolean IsResetPosition = false;
+
+    //文字盤の数字位置
+    private double[] phoneNumber = new double[10];
+    private  static final double STD_DEG = 25.714285714285714285714285714286;
+
+
+    /**
+     * onTouchEvent
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+
+            	//押下ポイントの計算
+            	Log.v("phone","ActionDown");
+
+            	IsResetPosition  = false;
+            	rotateDeg		 = 0;
+                startDeg		 = calcDegree(x, y);
+                startPhoneNumber = getInputNumber(startDeg);
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+
+                IsResetPosition = false;
+                nowDeg = calcDegree(x,y);
+                rotateDeg = (startDeg - nowDeg);
+
+            	//ダイアルを回転する
+            	rotateDial( (float)rotateDeg );
+                break;
+
+            case MotionEvent.ACTION_UP:
+
+            	//離したポイントの計算、入力文字列の確定
+                Log.v("phone","ActionUp");
+
+                IsResetPosition = true;
+                endDeg  = calcDegree(x, y);
+                rotateDeg = startDeg - endDeg;
+
+                if(IsDial(endDeg) && startPhoneNumber >=0 ){
+               		Editable str = editText.getText();
+               		editText.setText(str.toString() + String.valueOf(startPhoneNumber));
+                }
+                break;
+        }
+        return true;
+    }
+
+    /**
+     * 回転角の計算
+     * @param x
+     * @param y
+     * @return
+     */
+    private double calcDegree(float x, float y){
+
+    	double deg;
+    	deg = (float) (Math.atan2(y - 280, x - 160 ) * 180 / Math.PI);
+
+
+    	if( 0 >= deg && deg > -180){
+    		deg *= -1;
+    	}
+    	else if( 0 < deg && deg <= 180 ){
+    		deg *= -1;
+    		deg += 360;
+    	}
+
+    	Log.d("phone", "calcDegree: "+ String.valueOf((int)deg)
+    			+ "(x,y): " + String.valueOf((int)x) + "," + String.valueOf((int)y));
+    	return deg;
+    }
+
+    /**
+     * 入力用文字盤が数字を[1,2,…,9,0]と、14等分している
+     */
+    private void initNum(){
+    	for(int i = 1;i<phoneNumber.length;i++){
+    		phoneNumber[i] = STD_DEG*(i) + STD_DEG/2;
+    	}
+    	phoneNumber[0] = STD_DEG*10;
+    }
+
+    /**
+     * 入力角度のチェックロジック
+     * @param degree
+     * @return
+     */
+    private int getInputNumber(double degree){
+    	for(int i = 1;i<phoneNumber.length;i++){
+    		if (phoneNumber[i] <= degree  && degree < (phoneNumber[i]+STD_DEG) ){
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
+
+    /**
+     * 入力完了判定
+     * @param degree
+     * @return
+     */
+    private boolean IsDial(double degree){
+
+    	double min = STD_DEG*11 + STD_DEG/2;
+    	double max = STD_DEG*13 + STD_DEG/2;
+
+    	if(min <= degree && degree < max){
+    		return true;
+    	}
+    	return false;
+    }
+
+
+    /**
+     * 文字盤の表示位置を元に戻す
+     */
+    private double rotateDeg;
+    private void resetDialPosition(){
+
+    	if(IsResetPosition){
+
+    		Log.i("phone","rotate:" + String.valueOf((int)rotateDeg) +
+    				",start:" + String.valueOf((int)startDeg) +
+    				",end:" + String.valueOf((int)endDeg) );
+
+    		/* 元の位置に戻った場合 */
+    		if(rotateDeg < 0 ){
+    			rotateDeg = 0;
+    			IsResetPosition = false;
+    		}else{
+    			rotateDeg -= 10;
+    		}
+
+    		rotateDial( (float)rotateDeg );
+     	}
+    }
+
+
+
+	//bitmap保存
+	private Bitmap analogDial;
+	private Bitmap rotateDial;
+	private BitmapDrawable bmd;
+	private ImageView imageView;
+
+	/**
+	 * 画像を回転させるロジック
+	 * @param degrees
+	 */
 	private void rotateDial(float degrees){
 
-        int width = analogDial.getWidth();
+		int width = analogDial.getWidth();
         int height = analogDial.getHeight();
 
 		// createa matrix for the manipulation
@@ -149,134 +322,11 @@ public class DialActivity extends Activity {
 
 		bmd = new BitmapDrawable(rotateDial);
 
-        ImageView imageView = (ImageView)findViewById(R.id.DialImageView02);
-
         // set the Drawable on the ImageView
         imageView.setImageDrawable(bmd);
 
 	}
 
-
-	//bitmap保存
-	private Bitmap analogDial;
-	private Bitmap rotateDial;
-	private BitmapDrawable bmd;
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                Log.v("phone","ActionDown");
-                IsResetPosition = false;
-                onDetachedFromWindow();
-                //startPoint(x,y);
-
-                int num = checkNum(x,y);
-                if( num >= 0){
-                	Editable str = editText.getText();
-                	editText.setText(str.toString() + String.valueOf(num));
-                }
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.v("phone","ActionMove");
-                Log.d("phone",String.valueOf(x) + "," +String.valueOf(y));
-                IsResetPosition = false;
-                onDetachedFromWindow();
-                movePoint(x,y);
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.v("phone","ActionUp");
-                IsResetPosition = true;
-                onAttachedToWindow();
-                break;
-        }
-        return true;
-    }
-
-    private void startPoint(float x, float y){
-    	Log.d("phone", String.valueOf(x) + "," + String.valueOf(y));
-    	start_degree = (float) (Math.atan2(y - 280, x - 160 ) * 180 / Math.PI);
-    	Log.d("phone","start_degree:" + String.valueOf(degree));
-    	return;
-    }
-
-
-
-    private void movePoint(float x, float y){
-    	Log.d("phone", String.valueOf(x) + "," + String.valueOf(y));
-    	degree = (float) (Math.atan2(y - 280, x - 160 ) * 180 / Math.PI);
-    	Log.d("phone","degree:" + String.valueOf(degree));
-
-    	//degree = start_degree - degree;
-    	rotateDial(degree);
-    	return;
-    }
-
-    //Numbers
-    private Rect[] teleNum = new Rect[10];
-    private void initNum(){
-
-    	teleNum[0] = new Rect(150, 390, 170, 410);
-    	teleNum[9] = new Rect(100, 380, 120, 400);
-    	teleNum[8] = new Rect( 65, 340,  85, 360);
-    	teleNum[7] = new Rect( 30, 310,  40, 330);
-    	teleNum[6] = new Rect( 40, 300,  60, 320);
-    	teleNum[5] = new Rect( 50, 260,  70, 280);
-    	teleNum[4] = new Rect( 90, 200, 110, 220);
-    	teleNum[3] = new Rect(135, 180, 155, 200);
-    	teleNum[2] = new Rect(180, 200, 200, 220);
-    	teleNum[1] = new Rect(230, 220, 250, 240);
-
-    	for(int i=0;i<10;i++){
-    		teleNum[i].left   -=5;
-    		teleNum[i].right  +=5;
-    		teleNum[i].top    -=5;
-    		teleNum[i].bottom +=5;
-    	}
-
-    }
-
-    private int checkNum(float x,float y){
-
-    	for(int i=0; i<10;i++){
-
-    		if ( teleNum[i].left <= x && teleNum[i].right >= x){
-    			if( teleNum[i].top <= y && teleNum[i].bottom >= y){
-    				Log.v("phone", "Num:" + String.valueOf(i));
-    				return i;
-    			}
-    		}
-    	}
-
-    	return -1;
-    }
-
-    //ダイアルを初期位置に変更
-    private float degree;
-    private float start_degree;
-    private boolean IsResetPosition = false;
-    private void resetDialPosition(){
-
-    	if(IsResetPosition){
-
-    		if(degree < -10){
-    			degree = degree + 10;
-    		}
-    		else if(degree > 10){
-    			degree = degree - 10;
-    		}
-    		else{
-    			IsResetPosition = false;
-    			degree = 0;
-    		}
-
-			rotateDial(degree);
-    	}
-    }
     private static final int INVALIDATE = 1;
     /**
      * タイマーハンドラー
@@ -285,7 +335,6 @@ public class DialActivity extends Activity {
         public void handleMessage(Message msg) {
             if (mAnimate && msg.what == INVALIDATE) {
             	resetDialPosition();
-            	Log.v("phone","timer in");
 
                 msg = obtainMessage(INVALIDATE);
                 long current = SystemClock.uptimeMillis();
