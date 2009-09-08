@@ -52,30 +52,30 @@ public class Block {
 	  }
 
 	  public void changeDirectionIfEncountered(Player player) {
-	    int center_1_x = width / 2 + rect.left;
-	    int center_1_y = width / 2 + rect.top;
-	    int center_2_x = player.width / 2 + player.rect.left;
-	    int center_2_y = player.width / 2 + player.rect.top;
+	    int center_1_x = rect.centerX();
+	    int center_1_y = rect.centerY();
+	    int center_2_x = player.rect.centerX();
+	    int center_2_y = player.rect.centerY();
 	    int diff_x = Math.abs(center_1_x - center_2_x);
 	    int diff_y = Math.abs(center_1_y - center_2_y);
-	    double diff = diff_x + diff_y;
-	    if (diff <= width) {
-	      if (diff_x > diff_y) {
-	        if ((direction.dx > 0 && rect.left < player.rect.left)
-	            || (direction.dx < 0 && rect.left > player.rect.left))
-	          direction.dx = -1 * direction.dx;
-	        if ((player.direction.getDx() > 0 && player.rect.left < rect.left)
-	            || (player.direction.getDx() < 0 && player.rect.left > rect.left))
-	        	player.direction.setDx(-1 * player.direction.getDx());
-	      } else if (diff_x <= diff_y) {
-	        if ((direction.dy > 0 && rect.top < player.rect.top)
-	            || (direction.dy < 0 && rect.top > player.rect.top))
-	          direction.dy = -1 * direction.dy;
-	        if ((player.direction.getDy() > 0 && player.rect.top < rect.top)
-	            || (player.direction.getDx() < 0 && player.rect.top > rect.top))
-	        	player.direction.setDy(-1 * player.direction.getDy());
-	      }
+	    
+	    if (diff_x <= (width + player.width)/2 && diff_y <= (height + player.height)/2) {
+			  if(player.oldRect.bottom < rect.top ){
+				  player.rect.offsetTo(player.rect.left, rect.top-player.height-1);
+				  player.direction.setDy(0);
+			  }
+			  else if(player.oldRect.top > rect.bottom){
+				  player.rect.offsetTo(player.rect.left, rect.bottom+1);
+				  player.direction.setDy(0);
+			  }
+			  else if(player.oldRect.left > rect.right){
+				  player.rect.offsetTo(rect.right+1, player.rect.top);
+			  }
+			  else if(player.oldRect.right < rect.left){
+				  player.rect.offsetTo(rect.left-player.width-1, player.rect.top);
+			  }
 	    }
+		  
 	  }
 
 	  class Direction {
