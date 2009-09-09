@@ -99,16 +99,16 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
 	            SensorManager.SENSOR_DELAY_NORMAL);
 
-	    //別スレッド
-	    thread = new Thread(this);
-	    thread.start();
-
 	    player = new Player(drawablePlayer, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 	            10, getHeight()*2-96, context2);
 	    blocks.add(new Block(drawableGirl, new Rect(getLeft(), getTop(), getRight(), getBottom()*2),
 	            280, 32));
 	    angle = -getHeight();
 	    this.showInstance();
+	    
+	    //別スレッド
+	    thread = new Thread(this);
+	    thread.start();    
 	  }
 
 	  public void surfaceDestroyed(SurfaceHolder holder) {
