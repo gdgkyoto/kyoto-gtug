@@ -4,24 +4,9 @@
         android:layout_width="320px" android:layout_height="480px"
         android:layout_weight="1"
         >
-	<ImageView android:id="@+id/DialImageView01"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:background="@drawable/rotary_base">
-	</ImageView>
-	<ImageView android:id="@+id/DialImageView04"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:background="@drawable/rotary_steel">
-	</ImageView>
-	<ImageView android:id="@+id/DialImageView02"
-		android:layout_width="320px" android:layout_height="480px"
-		android:scaleType="center">
-	</ImageView>
 	<ImageView android:id="@+id/DialImageView03"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:background="@drawable/tag_memo">
-	</ImageView>
-	<ImageView android:id="@+id/ImageView01"
-		android:layout_width="wrap_content" android:layout_height="wrap_content">
 	</ImageView>
 
 	<TableLayout android:id="@+id/table"
@@ -35,7 +20,7 @@
 				<TextView
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
 					android:clickable="true"
-					android:textSize="18px" 
+					android:textSize="18px"
 					android:text="">
 				</TextView>
 			</LinearLayout>
@@ -67,7 +52,7 @@
 				<TextView
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
 					android:clickable="true"
-					android:textSize="90px" 
+					android:textSize="90px"
 					android:text="">
 				</TextView>
 			</LinearLayout>
@@ -80,7 +65,7 @@
 				android:layout_width="wrap_content" android:layout_height="fill_parent" >
 				<TextView android:id="@+id/TextView01"
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:gravity="center" 
+					android:gravity="center"
 					android:textSize="14px" android:textColor="#555555"
 					android:text="Call Number" >
 				</TextView>
@@ -105,7 +90,7 @@
 				<TextView
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
 					android:clickable="true"
-					android:textSize="80px" 
+					android:textSize="80px"
 					android:text="">
 				</TextView>
 			</LinearLayout>
