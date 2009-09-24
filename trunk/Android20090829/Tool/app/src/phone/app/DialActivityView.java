@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.text.Editable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -23,14 +24,13 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
 
     private Bitmap analogDial;	//ダイアル画像
     private Bitmap base;		//背景画像
-    private Bitmap steel;		//ダイアルのツメ部分
     private long   mNextTime;
 
     private float degrees;
     private Canvas canvas;
     private final Paint paint = new Paint();
 
-	public DialActivityView( Context context){
+	public DialActivityView(Context context){
 
 		super(context);
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -49,12 +49,37 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
                 R.drawable.rotary_base);
         analogDial = BitmapFactory.decodeResource(getResources(),
                 R.drawable.rotary_dial);
-        steel	   = BitmapFactory.decodeResource(getResources(),
-                R.drawable.rotary_steel);
 
         //回転ロジックの初期化
         initNum();
 
+	}
+    /**
+     * XMLより呼び出す際のコンストラクタ
+     * @param context, attrs
+     */
+    public DialActivityView(Context context, AttributeSet attrs){
+
+    	super(context, attrs);
+		// TODO 自動生成されたコンストラクター・スタブ
+
+    	//サーフェイスホルダーの生成
+        holder=getHolder();
+        holder.addCallback(this);
+        holder.setFixedSize(getWidth(),getHeight());
+        holder.setType(SurfaceHolder.SURFACE_TYPE_NORMAL);
+
+        //アクティビティの保存
+        parent = (DialActivity) context;
+
+		//画像ファイルの読み込み
+        base	   = BitmapFactory.decodeResource(getResources(),
+                R.drawable.rotary_base);
+        analogDial = BitmapFactory.decodeResource(getResources(),
+                R.drawable.rotary_dial);
+
+        //回転ロジックの初期化
+        initNum();
 	}
 
 
@@ -94,7 +119,6 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
                 resetDialPosition();
             }
 
-
             canvas=holder.lockCanvas();
 
             //ダイアラの位置を補正
@@ -104,9 +128,9 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
             matrix.postTranslate(160 - (analogDial.getWidth()/2)  , 240 - (analogDial.getWidth()/2));
 
             canvas.drawBitmap(base, 0, 0, paint);
-            //canvas.drawARGB(0, 0, 0, 0);
             canvas.drawBitmap(analogDial, matrix, paint);
-            canvas.drawBitmap(steel, 0, 0, paint);
+
+            //Log.d("phone", "deg:" + String.valueOf(degrees));
 
             //アンロック
             holder.unlockCanvasAndPost(canvas);
@@ -147,12 +171,12 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
             case MotionEvent.ACTION_DOWN:
 
             	//押下ポイントの計算
-            	Log.v("phone","ActionDown");
-
             	IsResetPosition  = false;
             	rotateDeg		 = 0;
                 startDeg		 = calcDegree(x, y);
                 startPhoneNumber = getInputNumber(startDeg);
+
+            	Log.i("phone","ActionDown, startDeg:" + String.valueOf(startDeg));
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -168,11 +192,11 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
             case MotionEvent.ACTION_UP:
 
             	//離したポイントの計算、入力文字列の確定
-                Log.v("phone","ActionUp");
-
                 IsResetPosition = true;
                 endDeg  = calcDegree(x, y);
                 rotateDeg = startDeg - endDeg;
+            	Log.i("phone","ActionUp, endDeg:" + String.valueOf(endDeg) + ", rotateDeg:" + String.valueOf(rotateDeg));
+
 
                 if(IsDial(endDeg) && startPhoneNumber >=0 ){
                		Editable str = parent.editText.getText();
@@ -203,7 +227,7 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
     		deg += 360;
     	}
 
-    	Log.d("phone", "calcDegree: "+ String.valueOf((int)deg)
+    	Log.v("phone", "calcDegree: "+ String.valueOf((int)deg)
     			+ "(x,y): " + String.valueOf((int)x) + "," + String.valueOf((int)y));
     	return deg;
     }
@@ -215,7 +239,7 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
     	for(int i = 1;i<phoneNumber.length;i++){
     		phoneNumber[i] = STD_DEG*(i) + STD_DEG/2;
     	}
-    	phoneNumber[0] = STD_DEG*10;
+    	phoneNumber[0] = STD_DEG*10 + STD_DEG/2;
     }
 
     /**
@@ -224,8 +248,8 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
      * @return
      */
     private int getInputNumber(double degree){
-    	for(int i = 1;i<phoneNumber.length;i++){
-    		if (phoneNumber[i] <= degree  && degree < (phoneNumber[i]+STD_DEG) ){
+    	for(int i = 0;i<phoneNumber.length;i++){
+    		if (phoneNumber[i]-STD_DEG/2 <= degree  && degree < (phoneNumber[i]+STD_DEG/2) ){
     			return i;
     		}
     	}
@@ -257,7 +281,7 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
 
     	if(IsResetPosition){
 
-    		Log.i("phone","rotate:" + String.valueOf((int)rotateDeg) +
+    		Log.d("phone","rotate:" + String.valueOf((int)rotateDeg) +
     				",start:" + String.valueOf((int)startDeg) +
     				",end:" + String.valueOf((int)endDeg) );
 
@@ -266,7 +290,7 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
     			rotateDeg = 0;
     			IsResetPosition = false;
     		}else{
-    			rotateDeg -= 10;
+    			rotateDeg -= 15;
     		}
 
     		rotateDial( (float)rotateDeg );
