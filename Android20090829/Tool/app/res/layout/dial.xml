@@ -9,6 +9,7 @@
 		android:layout_width="wrap_content" android:layout_height="wrap_content">
 	</phone.app.DialActivityView>
 
+
 	<ImageView android:id="@+id/DialImageView03"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:background="@drawable/tag_memo">
@@ -41,13 +42,14 @@
 		<TextView android:id="@+id/TextView01"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:gravity="center"
-			android:textSize="16dp" android:textColor="#555555"
-			android:text="Call Number" >
+			android:textSize="28dp" android:textColor="#555555"
+			android:text="Dial" >
 		</TextView>
-		<EditText android:id="@+id/dial_number"
+		<TextView android:id="@+id/dial_number"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="EditText01" >
-		</EditText>
+			android:textSize="50dp" android:textColor="#555555"
+			android:text="-" >
+		</TextView>
 	</LinearLayout>
 
 
@@ -56,14 +58,14 @@
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:paddingBottom="60dp" android:gravity="bottom|left">
 
-		<Button android:id="@+id/dial_back_button"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="Back" >
-		</Button>
 	  	<Button android:id="@+id/dial_call_button"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="CALL!!" >
 		</Button>
+		<EditText android:id="@+id/CallNumber"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="call number" >
+		</EditText>
 	</LinearLayout>
 
 </FrameLayout>
