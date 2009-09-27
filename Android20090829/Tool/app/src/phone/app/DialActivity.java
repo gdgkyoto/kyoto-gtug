@@ -2,26 +2,12 @@ package phone.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
-import android.text.Editable;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
 
 /**
  * ダイヤル画面
@@ -44,17 +30,14 @@ import android.widget.FrameLayout.LayoutParams;
  */
 public class DialActivity extends Activity {
 
-	private Button backButton;
 	private Button callButton;
 	public EditText editText;
+	public TextView dialNumber;
 
 	private String number;
 	private String name;
 	private int yutori;
 
-	//bitmap保存
-	private DialActivityView surfaceView;
-	private ViewGroup frameLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +45,6 @@ public class DialActivity extends Activity {
 		getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
 		setContentView(R.layout.dial);
-
-		frameLayout = (ViewGroup) findViewById(R.id.dial_info);
-	    surfaceView = new DialActivityView(this);
-
-	    //addContentView(surfaceView, new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-
 
 	    if( getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME) != null ){
 	    	name = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME);
@@ -103,6 +80,7 @@ public class DialActivity extends Activity {
 	    	}
 	    });
 
+/* Backボタン廃止に伴い、コメント化
 	    backButton = (Button) findViewById(R.id.dial_back_button);
 	    backButton.setOnClickListener(new View.OnClickListener(){
 	    	@Override
@@ -114,8 +92,16 @@ public class DialActivity extends Activity {
 	            finish();
 	    	}
 	    });
-	    editText = (EditText)findViewById(R.id.dial_number);
+*/
+
+	    //ダイアル番号
+	    editText = (EditText)findViewById(R.id.CallNumber);
 	    editText.setText(number);
+
+	    //現在入力中の番号
+	    dialNumber = (TextView)findViewById(R.id.dial_number);
+	    dialNumber.setText("-");
+
 
 	    String number = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NUMBER);
 	    String name = getIntent().getStringExtra(RotaryDial.PARAM_DIAL_PERSON_NAME);

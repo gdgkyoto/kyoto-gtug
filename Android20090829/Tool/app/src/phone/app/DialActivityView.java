@@ -6,8 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.util.AttributeSet;
@@ -176,6 +174,11 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
                 startDeg		 = calcDegree(x, y);
                 startPhoneNumber = getInputNumber(startDeg);
 
+                //現在の入力番号を表示
+                if(startPhoneNumber >=0 ){
+               		parent.dialNumber.setText(String.valueOf(startPhoneNumber));
+                }
+
             	Log.i("phone","ActionDown, startDeg:" + String.valueOf(startDeg));
                 break;
 
@@ -197,11 +200,15 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
                 rotateDeg = startDeg - endDeg;
             	Log.i("phone","ActionUp, endDeg:" + String.valueOf(endDeg) + ", rotateDeg:" + String.valueOf(rotateDeg));
 
-
+            	//もし、入力が成功していれば、Callする番号に追加
                 if(IsDial(endDeg) && startPhoneNumber >=0 ){
                		Editable str = parent.editText.getText();
                		parent.editText.setText(str.toString() + String.valueOf(startPhoneNumber));
                 }
+
+                //入力中の文字を元に戻す
+                parent.dialNumber.setText("-");
+
                 break;
         }
         return true;
@@ -277,6 +284,8 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
      * 文字盤の表示位置を元に戻す
      */
     private double rotateDeg;
+    private static int STOP_MOTION = 0;
+
     private void resetDialPosition(){
 
     	if(IsResetPosition){
@@ -285,9 +294,15 @@ public class DialActivityView extends SurfaceView implements SurfaceHolder.Callb
     				",start:" + String.valueOf((int)startDeg) +
     				",end:" + String.valueOf((int)endDeg) );
 
+    		//開始位置と終了位置の不整合チェック(左回転であれば、モーションを停止する)
+    		if ( getInputNumber(startDeg)!=0 && (getInputNumber(startDeg)<= getInputNumber(endDeg) ) ){
+    			rotateDeg = STOP_MOTION;
+    			IsResetPosition = false;
+    		}else
+
     		/* 元の位置に戻った場合 */
     		if(rotateDeg < -360 || ( rotateDeg < 0 && (startDeg - endDeg > 0)) ){
-    			rotateDeg = 0;
+    			rotateDeg = STOP_MOTION;
     			IsResetPosition = false;
     		}else{
     			rotateDeg -= 15;
