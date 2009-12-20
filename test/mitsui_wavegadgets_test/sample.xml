@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="hello world example">
+  <ModulePrefs title="hello world example" width="600" height="600">
     <Require feature="wave" />
   </ModulePrefs>
   <Content type="html"><![CDATA[
@@ -26,6 +26,7 @@ window.onload = function() {
   <div>
    <canvas width="400" height="400"></canvas>
   </div>
+ <h1>end</h1>
  </body>
 
 
