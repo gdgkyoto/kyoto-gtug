@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="processing example">
+  <ModulePrefs title="hello world example">
     <Require feature="wave" />
   </ModulePrefs>
   <Content type="html"><![CDATA[
@@ -9,7 +9,7 @@
   <script type="text/javascript" src="processing.js"></script>
   <script type="text/javascript">
 // ロードされた時に実行
-window.onload = function() {
+onload = function() {
   // canvas 要素
   var canvas = document.getElementsByTagName('canvas')[0];
   // Processing のソースコード
@@ -23,7 +23,7 @@ window.onload = function() {
  <body>
   <h1>Processing Sample</h1>
   <div>
-   <canvas width="400" height="400"></canvas>
+   <canvas id="canvas" width="400" height="400"></canvas>
   </div>
  </body>
 <html>
