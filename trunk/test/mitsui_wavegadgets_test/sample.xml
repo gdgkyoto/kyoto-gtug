@@ -6,7 +6,7 @@
   <Content type="html"><![CDATA[
  <head>
   <title>Processing Sample</title>
-  <script type="text/javascript" src="processing.js"></script>
+  <script type="text/javascript" src="processing.js">
 // ロードされた時に実行
 onload = function() {
   // canvas 要素
