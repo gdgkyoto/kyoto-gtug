@@ -1,3 +1,15 @@
+function init() {
+    if (wave && wave.isInWaveContainer()) {
+	wave.setStateCallback(stateUpdated);
+	wave.setParticipantCallback(partInfo);
+	var c = document.getElementById("can");
+	c.addEventListener("mousedown", function () {
+		alert(wave.getState().get("speed", '50'));
+		}, false);
+	setTimeout("draw()", 100);
+    }
+}
+gadgets.util.registerOnLoadHandler(init);
 function partInfo()
 {
     var part = wave.getParticipants();
