@@ -10,8 +10,6 @@ function init() {
     }
 }
 
-gadgets.util.registerOnLoadHandler(init);
-
 function partInfo()
 {
     var part = wave.getParticipants();
