@@ -6,7 +6,7 @@
   </ModulePrefs>
 <Content type="html"><![CDATA[
   <head>
-  <script type="text/javascript" src="cycling.js"/>
+  <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/test/tkuro_wavegadget_test/cycling.js"/>
   <style type='text/css'>
    body { border: solid; }
   </style>
