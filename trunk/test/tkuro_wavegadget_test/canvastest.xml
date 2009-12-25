@@ -10,6 +10,9 @@
   <style type='text/css'>
    body { border: solid; }
   </style>
+  <script type="text/javascript">
+   gadgets.util.registerOnLoadHandler(init);
+  </script>
   </head>
 <body>
   <h1>Canvas Test</h1>
