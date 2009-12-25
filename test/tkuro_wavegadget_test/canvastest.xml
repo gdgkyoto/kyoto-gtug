@@ -1,69 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Module>
-<ModulePrefs title="canvas test" width="600" height="250">
-  <Require feature="wave" />
-</ModulePrefs> 
+  <ModulePrefs title="canvas test" width="600" height="450">
+    <Require feature="wave" />
+  </ModulePrefs>
 <Content type="html"><![CDATA[
   <head>
-    <script type="text/javascript">
-    window.onload = function () {
-      var c = document.getElementById("can");
-      c.addEventListener("mousedown", function () {alert(wave.getState().get("speed", '50')); return true;}, false);
-      setTimeout("draw()", 100);
-      wave.setStateCallback(stateUpdated);
-    }
-    function change_value(diff) { 
-      var speed = parseInt(wave.getState().get("speed", '50'));
-      speed += diff;
-      wave.getState().submitDelta({'speed': speed });
-    }
-    inc = function() {change_value(1);}
-    dec = function() {change_value(-1);}
-    var r = 0;
-    function inc() {
-      var value = parseInt(wave.getState().get('speed', '50')) + 1;
-      wave.getState().submitDelta({'speed': value });
-    }
-    function stateUpdated()
-    {
-       var value1 = parseInt(wave.getState().get("speed", '50'));
-       speed = value1;
-       _gel("speed").innerHTML = value1+1;
-    }
-    
-    function draw() {
-      var c = document.getElementById("can");
-      var ctx = c.getContext("2d");
-      ctx.globalAlpha = 0.5;
-      ctx.clearRect(0, 0, 150, 150);
-
-      ctx.beginPath();
-      ctx.fillStyle='rgb(228, 100, 162)';
-      ctx.arc(60, 60, 40, r+1.0, 3.14+r, false);
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.fillStyle='rgb(128, 250, 162)';
-      ctx.arc(40, 60, 40, r*1.1+2.0, 4.14+r*1.1, false);
-      ctx.fill();
-      
-      ctx.beginPath();
-      ctx.fillStyle='rgb(38, 100, 162)';
-      ctx.arc(50, 40, 40, r*1.3+3.0, 5.14+r*1.3, false);
-      ctx.fill();
-      
-      r += 0.1;
-      setTimeout("draw()", speed);
-    }
-  </script>    
+  <script type="text/javascript" src="cycling.js">
+  <style type='text/css'>
+   body { border: solid; }
+  </style>
 
   </head>
 <body>
   <h1>Canvas Test</h1>
   <h2>cycling arcs</h2>
   <span onclick="dec()">&lt;  </span><span onclick="inc()" id="speed">50</span><span onclick="inc()">&gt;  </span>
-  <div> <canvas width="150" height="150" id="can"></canvas> </div>
+  <canvas width="150" height="150" id="can"></canvas>
+  <div id='who'> </div>
 </body>
       
 ]]></Content>
