@@ -6,11 +6,10 @@
   </ModulePrefs>
 <Content type="html"><![CDATA[
   <head>
-  <script type="text/javascript" src="cycling.js">
+  <script type="text/javascript" src="cycling.js"/>
   <style type='text/css'>
    body { border: solid; }
   </style>
-
   </head>
 <body>
   <h1>Canvas Test</h1>
