@@ -5,9 +5,11 @@ import org.cobogw.gwt.waveapi.gadget.client.StateUpdateEventHandler;
 import org.cobogw.gwt.waveapi.gadget.client.WaveGadget;
 import org.kyotogtug.client.data.Node;
 import org.kyotogtug.client.data.NodeParser;
+import org.mortbay.log.Log;
 
 import gwt.canvas.client.Canvas;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.gadgets.client.Gadget;
