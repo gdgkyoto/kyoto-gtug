@@ -1,5 +1,5 @@
-var width = 10;
-var height = 10;
+var width = 4;
+var height = 4;
 var _default;
 
 function   idx(x, y)
