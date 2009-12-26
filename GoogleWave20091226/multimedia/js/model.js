@@ -304,6 +304,7 @@ function createUI(song) {
         }
         song.patterns[0].instruments[img.attr("numOfInst")].steps[img
             .attr("numOfStep")].velocity = img.attr("value");
+        alert("song" + JSON.stringify(song));
         wave.getState().submitDelta( {
           'song' : JSON.stringify(song)
         });
