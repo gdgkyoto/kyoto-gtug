@@ -205,8 +205,8 @@ function stateUpdated(){
 // $("#value").text(wave.getState().get("count",0));
 }
 
+
 function init(){
-  
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
@@ -249,7 +249,7 @@ function init(){
     player.stop();
   });
   createUI(song);
-});
+}
 
 function createUI(song) {
   var instruments = song.patterns[0].instruments;
