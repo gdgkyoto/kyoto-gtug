@@ -248,6 +248,10 @@ function init() {
     player.stop();
   });
   createUI(song);
+
+  var canvas = document.getElementsByTagName('tempcanvas')[0];
+  var p = Processing(canvas);
+  p.rect(10,10,70,70);
 }
 
 function createUI(song) {
