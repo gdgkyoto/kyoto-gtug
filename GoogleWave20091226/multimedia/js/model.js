@@ -250,13 +250,13 @@ function createUI(song) {
       img.attr("numOfInst", i);
       img.attr("numOfStep", j);
       if (step.value == 30) {
-        img.attr("src", "./image/sound-weak.png");
+        img.attr("src", SERVER_PATH + "image/sound-weak.png");
       } else if (step.value == 60) {
-        img.attr("src", "./image/sound-normal.png");
+        img.attr("src", SERVER_PATH + "image/sound-normal.png");
       } else if (step.value == 90) {
-        img.attr("src", "./image/sound-strong.png");
+        img.attr("src", SERVER_PATH + "image/sound-strong.png");
       } else {
-        img.attr("src", "./image/sound-none.png");
+        img.attr("src", SERVER_PATH + "image/sound-none.png");
       }
       img.addClass("sample" + j);
       img.attr("step", j);
@@ -264,16 +264,16 @@ function createUI(song) {
         var img = $(this);
         if (img.attr("value") == 30) {
           img.attr("value", 60);
-          img.attr("src", "./image/sound-normal.png");
+          img.attr("src", SERVER_PATH + "image/sound-normal.png");
         } else if (img.attr("value") == 60) {
           img.attr("value", 90);
-          img.attr("src", "./image/sound-strong.png");
+          img.attr("src", SERVER_PATH + "image/sound-strong.png");
         } else if (img.attr("value") == 90) {
           img.attr("value", 0);
-          img.attr("src", "./image/sound-none.png");
+          img.attr("src", SERVER_PATH + "image/sound-none.png");
         } else {
           img.attr("value", 30);
-          img.attr("src", "./image/sound-weak.png");
+          img.attr("src", SERVER_PATH + "image/sound-weak.png");
         }
         song.patterns[0].instruments[img.attr("numOfInst")].steps[img
             .attr("numOfStep")].velocity = img.attr("value");
