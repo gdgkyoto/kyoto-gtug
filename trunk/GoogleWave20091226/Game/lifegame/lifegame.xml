@@ -18,7 +18,7 @@ td { border: 1px blue solid; width:4px; height:8px }
 <body>
 <h1>LifeGame!</h1>
 <table id="main"></table> <button onclick="parse()">PARSE</button>
-<span id="cellstate" ></span>
+<span id="cellstate" >00000</span>
 </body>
 ]]>
 </Content>
