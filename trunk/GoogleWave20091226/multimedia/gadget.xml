@@ -20,9 +20,7 @@
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/processing.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/model.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
         gadgets.util.registerOnLoadHandler(init);
-      });
     </script>
     
     <canvas id="tempcanvas" width="140" height="140"></canvas>
