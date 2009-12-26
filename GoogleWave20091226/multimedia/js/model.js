@@ -228,24 +228,24 @@ var visualProcessor = {
     rect(ctx, 8, 20, 52, 155);
     ctx.fill();
 
-    if (steps.name === 'P-2') {
+    if (step.name === 'P-2') {
       ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
       rect(ctx, 72, 20, 52, 155);
       ctx.fill();
     }
 
 
-    if (steps.name === 'P-3') {
+    if (step.name === 'P-3') {
     }
-    if (steps.name === 'P-4') {
+    if (step.name === 'P-4') {
     }
-    if (steps.name === 'P-5') {
+    if (step.name === 'P-5') {
     }
-    if (steps.name === 'P-6') {
+    if (step.name === 'P-6') {
     }
-    if (steps.name === 'P-7') {
+    if (step.name === 'P-7') {
     }
-    if (steps.name === 'P-8') {
+    if (step.name === 'P-8') {
     }
   }
   }
