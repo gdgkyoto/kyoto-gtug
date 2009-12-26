@@ -22,7 +22,7 @@ public class SubmitClickHandler implements ClickHandler {
             int nodeId = Integer.parseInt(gadget.getNodeIdTextBox().getText());
             Window.alert(nodeId + ":" + gadget.getNodeTitleTextBox().getText());
             Node root = gadget.getRootNode();
-            Node target = findNode(root, nodeId);
+            Node target = gadget.findNode(nodeId);
             if (target == null) {
                 Window.alert("target is null");
             } else {
