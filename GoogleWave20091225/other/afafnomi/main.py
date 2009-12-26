@@ -28,6 +28,12 @@ def OnBlipSubmitted(properties, context):
     if len(keyphrases) > 0:
         #キーフレーズに該当する商品を検索
         items = getItemsByRakutenAPI(keyphrases)
+
+        #テスト用配列
+        items = [('Yahooサイト','http://www.yahoo.co.jp','http://k.yimg.jp/images/top/sp/logo.gif'),
+                 ('Googleサイト','http://www.google.co.jp','http://www.google.co.jp/images/nav_logo7.png'),
+                 ('Microsoftサイト','http://www.microsoft.com','http://i.microsoft.com/global/en/publishingimages/sitebrand/microsoft.gif')]
+
         if len(items) > 0:
             #新しいBlipを生成
             root_wavelet = context.GetRootWavelet()
@@ -48,15 +54,15 @@ def getKeyPhrase(text):
 
     #URL Fetch
     enc_text = urllib.quote(text.encode('utf-8'))
-    logging.debug(enc_text)
+#    logging.debug(enc_text)
 
     url_query = {'appid': app_id, 'sentence': text.encode('utf-8')}
     url = api_url + urllib.urlencode(url_query)
-    logging.debug(url)
+#    logging.debug(url)
 
     result = urlfetch.fetch(url=url)
 
-    logging.debug(result.status_code)
+#    logging.debug(result.status_code)
     keyphrase = []
     if result.status_code == 200:
         logging.debug(result.content)
@@ -66,6 +72,7 @@ def getKeyPhrase(text):
         for e in dom.findall('{%s}Result' % xmlns):
             keyphrase.append(e.find('{%s}Keyphrase' % xmlns).text.encode('utf-8'))
 
+    logging.debug(keyphrase)
     return keyphrase
 
 
@@ -84,23 +91,16 @@ def getItemsByAmazonAPI(words):
 
 #広告Blipを生成
 def createAdBlip(blip, items):
-    #キーフレーズをblipに表示
-#    root_wavelet.CreateBlip().GetDocument().SetText(keyphrases)
-    #実験 - 画像をblipに表示
-    cUrl1 = 'http://images.google.co.jp/intl/ja_ALL/images/logos/images_logo_lg.gif'
-    cImg1 = document.Image(cUrl1)
-    cUrl2 = 'https://wave.google.com/wave/static/images/logo_preview.png'
-    cImg2 = document.Image(url=cUrl2,caption='Google Wave')
-    cUrl3 = 'http://calendar.google.com/googlecalendar/images/calendar_logo_sm_ja.gif'
-    cImg3 = document.Image(url=cUrl3,caption='Google カレンダー')
-    logging.debug(cImg1)
-    logging.debug(cImg2)
 
-    blip.AppendElement(cImg1)
-    blip.AppendElement(cImg2)
-    blip.AppendText('Google Waveのロゴ')
-    blip.AppendElement(cImg3)
-    blip.AppendText('Google カレンダーのロゴ')
+    logging.debug('createAdBlip Items='+str(len(items)))
+
+    if len(items) > 0:
+        for x in items:
+            #blipに表示
+            blip.AppendElement(document.Image(x[2]))
+            blip.AppendText('\n' + x[0] + '\n')
+            blip.AppendText(x[1] + '\n\n')
+            
 
 
 
