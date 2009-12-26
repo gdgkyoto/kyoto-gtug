@@ -31,7 +31,7 @@ function plot_point(e) {
 	ary = e.target.id.slice(5).split(',');
 
 	cells[idx(ary[0], ary[1])] = "1";
-	alert(idx(ary[0], ary[1]));
+	alert(ary[0]+":::"+ ary[1]);
 
 	state.submitDelta({'cellstate': cells});
 }
@@ -40,7 +40,7 @@ function stateUpdated() {
 	var state = wave.getState();
 	var cells = state.get('cellstate', _default);
 	var list= document.getElementsByTagName('td');
-	for (var i = 0; i< list.length; i++) {
+	for (var i = 0; i< cells.length; i++) {
 		switch (cells[i]) {
 		case "0":
 			list[i].style.backGroundColor = "white";
@@ -49,7 +49,7 @@ function stateUpdated() {
 			list[i].style.backGroundColor = "green";
 			break;
 		default:
-			alert("something wrong");
+			alert(cells[i]);
 		}
 	}
 	_gel('cellstate').innerHTML = cells;
