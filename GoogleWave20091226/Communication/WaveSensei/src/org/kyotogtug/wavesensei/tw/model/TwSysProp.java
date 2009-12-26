@@ -5,12 +5,16 @@ import java.io.Serializable;
 import com.google.appengine.api.datastore.Key;
 
 import org.slim3.datastore.Attribute;
+import org.slim3.datastore.Datastore;
 import org.slim3.datastore.Model;
 
 @Model
 public class TwSysProp implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    private static final String keyName = "TwSysProp";
+    
 
     @Attribute(primaryKey = true)
     private Key key;
@@ -20,7 +24,12 @@ public class TwSysProp implements Serializable {
 
     private Integer schemaVersion = 1;
     
-    private String maxCheckStatusId;
+    private Long sinceId;
+    
+    public static Key createKey(){
+      return Datastore.createKey(TwSysProp.class, keyName);
+    }
+    
 
     /**
      * Returns the key.
@@ -109,11 +118,14 @@ public class TwSysProp implements Serializable {
         return true;
     }
 
-    public String getMaxCheckStatusId() {
-      return maxCheckStatusId;
+
+    public Long getSinceId() {
+      return sinceId;
     }
 
-    public void setMaxCheckStatusId(String maxCheckStatusId) {
-      this.maxCheckStatusId = maxCheckStatusId;
+
+    public void setSinceId(Long sinceId) {
+      this.sinceId = sinceId;
     }
+
 }
