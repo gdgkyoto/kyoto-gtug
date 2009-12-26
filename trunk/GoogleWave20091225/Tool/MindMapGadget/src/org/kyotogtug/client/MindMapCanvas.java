@@ -169,8 +169,8 @@ public class MindMapCanvas extends GWTCanvas {
         //rect(20,20,20,20);
         fillRect(x, y, width, height);
         setFillStyle(Color.BLACK);
-        canvasSetFont(this, "bold 22px 'Monotype Corsiva'");
-        canvasFillText(this ,text , x , y + 20 );
+        canvasSetFont(this, "bold 14px 'Monotype Corsiva'");
+        canvasFillText(this ,text , x + 5 , y + 20 );
 
         //this.setGlobalAlpha(1.0);
         //this.setFillStyle("rgb(255,255,255)");
