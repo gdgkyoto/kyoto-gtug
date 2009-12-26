@@ -29,7 +29,7 @@ public class TutorialSensei {
 			}
 			Boolean isFirstQuestion = status.getIsFirstQuestion();
 			if (isFirstQuestion == null) {
-				isFirstQuestion = false;
+				isFirstQuestion = true;
 			}
 
 			Blip blip = e.getBlip().createChild();
@@ -39,6 +39,8 @@ public class TutorialSensei {
 			case 1:
 				if (isFirstQuestion) {
 					message = "Blipを追加してみましょう。";
+					status.setIsFirstQuestion(false);
+					Datastore.put(status);
 				} else if (e.getType() == EventType.BLIP_SUBMITTED) {
 					message = "よく出来ました！";
 					status.setLevel(2);
@@ -47,8 +49,26 @@ public class TutorialSensei {
 				}
 				break;
 			case 2:
+				if (isFirstQuestion) {
+					message = "Blipを削除してみましょう。";
+					status.setIsFirstQuestion(false);
+				} else if(e.getType() == EventType.BLIP_DELETED) {
+					message = "よく出来ました！";
+					status.setLevel(3);
+					status.setIsFirstQuestion(true);
+					Datastore.put(status);
+				}
 				break;
 			case 3:
+				if (isFirstQuestion) {
+					message = "Blipを削除してみましょう。";
+					status.setIsFirstQuestion(false);
+				} else if(e.getType() == EventType.DOCUMENT_CHANGED) {
+					message = "よく出来ました！";
+					status.setLevel(4);
+					status.setIsFirstQuestion(true);
+					Datastore.put(status);
+				}
 				break;
 			}
 			textView.append(message);
