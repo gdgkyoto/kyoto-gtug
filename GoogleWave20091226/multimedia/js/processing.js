@@ -286,7 +286,7 @@
 
   // Attach Processing functions to 'p' 
   function buildProcessing( curElement ){
-              
+    document.write("function buildProcessing()");
     // Create the 'p' object
     var p = {};
     
