@@ -204,11 +204,9 @@ var visualProcessor = {
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'; // 赤
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
   rect(ctx, 0, 0, 320, 175);
   ctx.fill();
-  //ctx.clearRect(0, 0, 320, 175);
-      
 
   for ( var i = 0; i < steps.length; i++) {
     var step = steps[i];
@@ -266,7 +264,8 @@ var visualProcessor = {
       ctx.fillStyle = 'rgba(0, 0, 140, 0.7)'; 
       rect(ctx,242+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
-    }*/
+    }
+    */
 
     }
 
