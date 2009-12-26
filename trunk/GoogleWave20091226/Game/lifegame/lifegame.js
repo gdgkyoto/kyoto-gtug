@@ -42,7 +42,7 @@ function stateUpdated() {
 	var cells = state.get('cellstate', _default);
 	var list= document.getElementsByTagName('td');
 	alert(cells);
-	for (var i = 0; i< cells.length; i++) {
+	for (var i = 0; i< list.length; i++) {
 		switch (cells[i]) {
 		case "0":
 			list[i].style.backGroundColor = "white";
