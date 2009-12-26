@@ -156,6 +156,8 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         for (Node tmpNode : nodeList) {
             log(tmpNode.getText());
         }
+        log("-----------------------");
+        log("nextId="+NodeUtility.nextNodeId(rootNode));
     }
 
     /**
@@ -178,7 +180,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     public TextBox getNodeTitleTextBox() {
         return nodeTitleTextBox;
     }
-
+    
     /**
      * デバッグ用テキストエリアにログを表示する
      * @param text
