@@ -2,18 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package MindMapGadget.src.org.kyotogtug.client;
+package org.kyotogtug.client;
+
+import gwt.canvas.client.Canvas;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.kyotogtug.client.data.Edge;
+import org.kyotogtug.client.data.Node;
 
 import com.google.gwt.core.client.JavaScriptObject;
-//import com.google.gwt.user.client.ui.Mouse
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.canvas.client.Canvas;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-//import com.google.gwt.user.client.Window;
 
 /**
  *
@@ -27,7 +29,8 @@ public class MMCanvas extends Canvas implements MouseListener {
     JavaScriptObject context;
     RootPanel root;
     int height = 10;
-  private Node rootNode;
+    private Node rootNode;
+
     /**
      * 　コンストラクタ
      * 　ここも本番は修正が必要（RootPanelをここで取ってくる必要はないか）
@@ -35,65 +38,63 @@ public class MMCanvas extends Canvas implements MouseListener {
      */
     public MMCanvas(RootPanel rp, int width, int height) {
 
-        super(width,height);
+        super(width, height);
 
         this.addMouseListener(this);
 
+        //        Node node1 = new Node();
+        //
+        //        node1.setText("root");
+        //        node1.setX(200);
+        //        node1.setY(200);
+        //        node1.setWidth(100);
+        //        node1.setHeight(10);
+        //
+        //        Node node2 = new Node();
+        //        node2.setText("child1");
+        //        node2.setX(300);
+        //        node2.setY(300);
+        //        node2.setWidth(100);
+        //        node2.setHeight(10);
+        //
+        //
+        //        Node node3 = new Node();
+        //        node3.setText("child2");
+        //        node3.setX(20);
+        //        node3.setY(100);
+        //        node3.setWidth(100);
+        //        node3.setHeight(10);
+        //
+        //        Node node4 = new Node();
+        //        node4.setText("child3");
+        //        node4.setX(20);
+        //        node4.setY(300);
+        //        node4.setWidth(100);
+        //        node4.setHeight(10);
+        //
+        //
+        //
+        //
+        //
+        //        Edge edge1 = new Edge();
+        //        edge1.setFromNode(node1);
+        //        edge1.setToNode(node2);
+        //
+        //        Edge edge2 = new Edge();
+        //        edge2.setFromNode(node1);
+        //        edge2.setToNode(node3);
+        //
+        //        Edge edge3 = new Edge();
+        //        edge3.setFromNode(node2);
+        //        edge3.setToNode(node4);
+        //
+        //        List edgeList = new ArrayList();
+        //        edgeList.add(edge1);
+        //        edgeList.add(edge2);
+        //
+        //        node1.setChildren(edgeList);
 
-//        Node node1 = new Node();
-//
-//        node1.setText("root");
-//        node1.setX(200);
-//        node1.setY(200);
-//        node1.setWidth(100);
-//        node1.setHeight(10);
-//
-//        Node node2 = new Node();
-//        node2.setText("child1");
-//        node2.setX(300);
-//        node2.setY(300);
-//        node2.setWidth(100);
-//        node2.setHeight(10);
-//
-//
-//        Node node3 = new Node();
-//        node3.setText("child2");
-//        node3.setX(20);
-//        node3.setY(100);
-//        node3.setWidth(100);
-//        node3.setHeight(10);
-//
-//        Node node4 = new Node();
-//        node4.setText("child3");
-//        node4.setX(20);
-//        node4.setY(300);
-//        node4.setWidth(100);
-//        node4.setHeight(10);
-//
-//
-//
-//
-//
-//        Edge edge1 = new Edge();
-//        edge1.setFromNode(node1);
-//        edge1.setToNode(node2);
-//
-//        Edge edge2 = new Edge();
-//        edge2.setFromNode(node1);
-//        edge2.setToNode(node3);
-//
-//        Edge edge3 = new Edge();
-//        edge3.setFromNode(node2);
-//        edge3.setToNode(node4);
-//
-//        List edgeList = new ArrayList();
-//        edgeList.add(edge1);
-//        edgeList.add(edge2);
-//
-//        node1.setChildren(edgeList);
-
-
-     rootNode = new Node();
+        rootNode = new Node();
         Node node1 = new Node();
         Node node2 = new Node();
         Node node1_1 = new Node();
@@ -145,8 +146,6 @@ public class MMCanvas extends Canvas implements MouseListener {
         node1.addChildNode(node1_1);
         node1.addChildNode(node1_2);
 
-
-
         this.root = rp;
         //super(width, height);
         root.add(this);
@@ -154,15 +153,14 @@ public class MMCanvas extends Canvas implements MouseListener {
         //fillText("テすとー", 20, 20);
 
         //this.drawNode("あいうえお", 50, 50);
-//        this.drawNode(node1);
-//        this.drawNode(node2);
-//        this.drawNode(node3);
-//
-//        this.drowEdge(edge1);
-//         this.drowEdge(edge2);
+        //        this.drawNode(node1);
+        //        this.drawNode(node2);
+        //        this.drawNode(node3);
+        //
+        //        this.drowEdge(edge1);
+        //         this.drowEdge(edge2);
 
-    this.drowMap(rootNode);
-
+        this.drowMap(rootNode);
 
     }
 
@@ -173,40 +171,33 @@ public class MMCanvas extends Canvas implements MouseListener {
         int fromX, fromY;
         int toX, toY;
 
-
-
-
         //TODO 右側描画する場合
         if ((fromNode.getX() - toNode.getX()) < 0) {
             //fromNodeについて
-            fromX = fromNode.getX()+fromNode.getWidth();
-            fromY = fromNode.getY()- fromNode.getHeight() / 2;
+            fromX = fromNode.getX() + fromNode.getWidth();
+            fromY = fromNode.getY() - fromNode.getHeight() / 2;
             //toNodeについて
             toX = toNode.getX();
-            toY= toNode.getY()-toNode.getHeight();
-
+            toY = toNode.getY() - toNode.getHeight();
 
             this.beginPath();
             //初期値移動
 
             this.moveTo(fromX, fromY);
             this.lineTo(toX, toY);
-              this.stroke();
-
-
-
+            this.stroke();
 
         } else {// TODO 左側にある場合
 
             fromX = fromNode.getX();
-            fromY = fromNode.getY()- fromNode.getHeight() / 2;
+            fromY = fromNode.getY() - fromNode.getHeight() / 2;
             toX = toNode.getX() + toNode.getWidth();
             toY = toNode.getY() - fromNode.getHeight() / 2;
 
             this.beginPath();
             this.moveTo(fromX, fromY);
             this.lineTo(toX, toY);
-              this.stroke();
+            this.stroke();
         }
 
     }
@@ -218,11 +209,11 @@ public class MMCanvas extends Canvas implements MouseListener {
      */
     public void drowMap(Node rootNode) {
         this.drawNode(rootNode);
-        List elist =rootNode.getChildren();
+        List elist = rootNode.getChildren();
         Iterator it = elist.iterator();
-        while(it.hasNext()){
-            Edge edge =(Edge)it.next();
-            Node node =edge.getToNode();
+        while (it.hasNext()) {
+            Edge edge = (Edge) it.next();
+            Node node = edge.getToNode();
             this.drawNode(node);
             this.drowEdge(edge);
             drowMap(node);
@@ -231,11 +222,11 @@ public class MMCanvas extends Canvas implements MouseListener {
 
     int findNode(String lbl) {
         //TODO ノード検索処理
-//        for (int i = 0; i < nnodes; i++) {
-//            if (nodes[i].lbl.equals(lbl)) {
-//                return i;
-//            }
-//        }
+        //        for (int i = 0; i < nnodes; i++) {
+        //            if (nodes[i].lbl.equals(lbl)) {
+        //                return i;
+        //            }
+        //        }
         return 0;
     }
 
@@ -247,13 +238,12 @@ public class MMCanvas extends Canvas implements MouseListener {
 
     }
 
-       public int drawNode(Node node){
+    public int drawNode(Node node) {
 
-        drawNode(node.getText(),node.getX(),node.getY());
+        drawNode(node.getText(), node.getX(), node.getY());
 
         return 0;
     }
-
 
     private int drawNode(String text, int x, int y) {
 
@@ -273,33 +263,29 @@ public class MMCanvas extends Canvas implements MouseListener {
         //gcanvas.setFillStyle(Color.RED);
         //this.fillRect(x - w, y - w - height, width + 2 * w, 2 * w + height);
 
-
         //this.setGlobalAlpha(1.0);
         //this.setFillStyle("rgb(255,255,255)");
         this.fillText(text, x, y);
 
-
-
-
-//        //線を引く（時計の反対回り）
-//        this.beginPath();
-//       //初期値移動
-//        xx=xx-w;
-//        yy =yy+w;
-//        this.moveTo(xx, yy);
-//        //下線（右へ）
-//        xx=xx+width+2*w;
-//        this.lineTo(xx, yy);
-//        //縦線（右）
-//        yy=yy-(2*w+height);
-//        this.lineTo(xx, yy);
-//        //上線（左へ）
-//        xx=x-w;
-//        this.lineTo(xx, yy);
-//        //縦線
-//        yy=y+w;
-//        this.lineTo(xx, yy);
-//        this.stroke();
+        //        //線を引く（時計の反対回り）
+        //        this.beginPath();
+        //       //初期値移動
+        //        xx=xx-w;
+        //        yy =yy+w;
+        //        this.moveTo(xx, yy);
+        //        //下線（右へ）
+        //        xx=xx+width+2*w;
+        //        this.lineTo(xx, yy);
+        //        //縦線（右）
+        //        yy=yy-(2*w+height);
+        //        this.lineTo(xx, yy);
+        //        //上線（左へ）
+        //        xx=x-w;
+        //        this.lineTo(xx, yy);
+        //        //縦線
+        //        yy=y+w;
+        //        this.lineTo(xx, yy);
+        //        this.stroke();
 
         //        Node node = new Node();
 
@@ -307,9 +293,9 @@ public class MMCanvas extends Canvas implements MouseListener {
         //      node.x = 10 + 380*Math.random();
         //node.y = 10 + 380*Math.random();
         //TODO 未実装
-//        node.lbl = lbl;
-//	nodes[nnodes] = n;
-//	return nnodes++;
+        //        node.lbl = lbl;
+        //	nodes[nnodes] = n;
+        //	return nnodes++;
         return 0;
     }
 
@@ -319,15 +305,14 @@ public class MMCanvas extends Canvas implements MouseListener {
      * ここがうまくいかないと、JSNIが全く使えない
      */
     protected native JavaScriptObject getCanvasContext() /*-{
-    var canvas= $doc.getElementsByTagName('canvas');
-    $wnd.ctx= canvas[0].getContext('2d');
-    return $wnd.ctx;
+        var canvas= $doc.getElementsByTagName('canvas');
+        $wnd.ctx= canvas[0].getContext('2d');
+        return $wnd.ctx;
     }-*/;
 
     //JSNIでfillTextを呼び出している
-    protected native void dString(JavaScriptObject ctx,
-            String str, int x, int y) /*-{
-    ctx.fillText(str, x, y);
+    protected native void dString(JavaScriptObject ctx, String str, int x, int y) /*-{
+        ctx.fillText(str, x, y);
     }-*/;
 
     public int getTextWidth(String text) {
@@ -340,10 +325,10 @@ public class MMCanvas extends Canvas implements MouseListener {
      *
      */
     protected native String textWidth(JavaScriptObject ctx, String str) /*-{
-    var tm2=ctx.measureText(str);
-    ctx.fillText(tm2.width, 130, 70);
-    var i = tm2.width;
-    return i;
+        var tm2=ctx.measureText(str);
+        ctx.fillText(tm2.width, 130, 70);
+        var i = tm2.width;
+        return i;
     }-*/;
 
     /**
@@ -359,24 +344,22 @@ public class MMCanvas extends Canvas implements MouseListener {
 
         this.drawNode("click", x, y);
         //this.eraseNode(x, y);
-//
-//     String i;
-//    fillText("あああ",x,y);
-//    i=mText(context,"あああああ");
-//    Window.alert(i);
-//
+        //
+        //     String i;
+        //    fillText("あああ",x,y);
+        //    i=mText(context,"あああああ");
+        //    Window.alert(i);
+        //
 
         //TODO クリック位置を探っていく（未実装）
-//        for (int i = 0 ; i < nnodes ; i++) {
-//	    Node n = nodes[i];
-//	    double dist = (n.x - x) * (n.x - x) + (n.y - y) * (n.y - y);
-//	    if (dist < bestdist) {
-//		pick = n;
-//		bestdist = dist;
-//	    }
-//	}
-
-
+        //        for (int i = 0 ; i < nnodes ; i++) {
+        //	    Node n = nodes[i];
+        //	    double dist = (n.x - x) * (n.x - x) + (n.y - y) * (n.y - y);
+        //	    if (dist < bestdist) {
+        //		pick = n;
+        //		bestdist = dist;
+        //	    }
+        //	}
 
     }
 
