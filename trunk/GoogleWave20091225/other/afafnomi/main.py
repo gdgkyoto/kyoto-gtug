@@ -10,6 +10,7 @@ from google.appengine.api import urlfetch
 
 import xml.etree.ElementTree as etree
 import urllib
+import json
 import logging
 
 
@@ -29,17 +30,12 @@ def OnBlipSubmitted(properties, context):
         #キーフレーズに該当する商品を検索
         items = getItemsByRakutenAPI(keyphrases)
 
-        #テスト用配列
-        items = [('Yahooサイト','http://www.yahoo.co.jp','http://k.yimg.jp/images/top/sp/logo.gif'),
-                 ('Googleサイト','http://www.google.co.jp','http://www.google.co.jp/images/nav_logo7.png'),
-                 ('Microsoftサイト','http://www.microsoft.com','http://i.microsoft.com/global/en/publishingimages/sitebrand/microsoft.gif')]
-
         if len(items) > 0:
             #新しいBlipを生成
             root_wavelet = context.GetRootWavelet()
             new_blip_doc = root_wavelet.CreateBlip().GetDocument()
             #Blipに広告を表示
-            createAdBlip(new_blip_doc, items)
+            createAdBlip(new_blip_doc, items, keyphrases)
 
 #キーフレーズを取得
 def getKeyPhrase(text):
@@ -65,7 +61,7 @@ def getKeyPhrase(text):
 #    logging.debug(result.status_code)
     keyphrase = []
     if result.status_code == 200:
-        logging.debug(result.content)
+#        logging.debug(result.content)
         #APIからXMLを取得してパース
         dom = etree.fromstring(result.content)
         #XMLパスを検索キーフレーズを抽出
@@ -78,9 +74,40 @@ def getKeyPhrase(text):
 
 #楽天から商品を検索して取得
 def getItemsByRakutenAPI(words):
-    items = []
-
     # items[(商品名,商品AffiriateURL,サムネイルURL)....]
+    items = []
+    #楽天dev_id
+    dev_id = 'c3dd0b79379197c559cba23be9b9be22'
+    #楽天アフィリエイトID
+    aff_id = '0b60c903.224a3a10.0b60c904.ee197b06'
+
+    #キーワードをクオート
+    keyword = ' '.join(words)
+    quoted_keyword = urllib.quote(keyword)
+
+    logging.debug('Before Quote: ' + keyword)
+    logging.debug('After Quoete: ' + quoted_keyword)
+
+    #APIを構成
+    url='http://api.rakuten.co.jp/rws/2.0/json?developerId=' + dev_id + '&affiliateId=' + aff_id + '&operation=ItemSearch&version=2009-04-15&keyword=' + quoted_keyword + '&sort=%2BitemPrice&orFlag=1&hits=5'
+
+    #JSONを取得
+    result = urlfetch.fetch(url=url)
+
+#    logging.debug(result.status_code)
+#    logging.debug(result.content)
+
+    if result.status_code == 200:
+        j = json.read(result.content)
+        body = j['Body']
+        ItemSearch = body['ItemSearch']
+        Items = ItemSearch['Items']
+        Item = Items['Item']
+        for x in Item:
+            items.append( (x['itemName'],x['affiliateUrl'],x['mediumImageUrl']) )
+
+    logging.debug(items)
+
     return items
 
 #Amazonから商品を検索して取得
@@ -90,25 +117,102 @@ def getItemsByAmazonAPI(words):
     return items
 
 #広告Blipを生成
-def createAdBlip(blip, items):
+def createAdBlip(blip, items, keyphrases):
 
-    logging.debug('createAdBlip Items='+str(len(items)))
-
+    logging.debug(blip)
     if len(items) > 0:
+        logging.debug('OK!')
+        #メッセージ用のキーワードを抽出
+        words = []
+        for y in keyphrases:
+            words.append(y)
+        #メッセージをBlipに表示
+        blip.AppendText('　'.join(words) + ' に関連する広告はこちら\n\n')
+        logging.debug('　'.join(words) + ' に関連する広告はこちら\n\n')
+        #広告を表示
         for x in items:
+#        for x in items[:3]:
             #blipに表示
+            logging.debug(x[0])
+            logging.debug(get_short_url(x[1], None))
             blip.AppendElement(document.Image(x[2]))
             blip.AppendText('\n' + x[0] + '\n')
-            blip.AppendText(x[1] + '\n\n')
-            
+            blip.AppendText(x[1] + ' [' + get_short_url(x[1], None) + ']\n\n')
+
+
+#goo.gl short URL Hack
+def _c(vals):
+    l = 0
+    for val in vals:
+        l += val & 4294967295
+    return l
+def _d(l):
+    if l <=  0:
+        l += 4294967296
+    m = str(l) 
+    o = 0
+    n = False
+    for char in m[::-1]:
+        q = int(char)
+        if n:
+            q *= 2
+            o += q / 10 + q % 10  #
+        else:
+            o += q
+        n = not(n)
+    m = o % 10
+    o = 0
+    if m != 0:
+        o = 10 - m
+        if len(str(l)) % 2 == 1:
+            if o % 2 == 1:
+                o += 9
+            o /= 2
+    return str(o) + str(l)
+def _e(uri):
+    m = 5381
+    for char in uri:
+        # m = _c([m << 5, m, struct.unpack("B", char)[0]])
+        m = _c([m << 5, m, ord(char)])
+    return m
+def _f(uri):
+    m = 0
+    for char in uri:
+        # m = _c([struct.unpack("B", char)[0], m << 6, m << 16, -1 * m])
+        m = _c([ord(char), m << 6, m << 16, -1 * m])
+    return m
+def _make_auth_token(uri):
+    i = _e(uri)
+    i = i >> 2 & 1073741823
+    i = i >> 4 & 67108800 | i & 63
+    i = i >> 4 & 4193280 | i & 1023
+    i = i >> 4 & 245760 | i & 16383
+    h = _f(uri)
+    k = (i >> 2 & 15) << 4 | h & 15
+    k |= (i >> 6 & 15) << 12 | (h >> 8 & 15) << 8
+    k |= (i >> 10 & 15) << 20 | (h >> 16 & 15) << 16
+    k |= (i >> 14 & 15) << 28 | (h >> 24 & 15) << 24
+    j = "7" + _d(k)
+    return j
+def get_short_url(uri, user):
+    if user is None:
+        user = 'toolbar@google.com'
+    token = _make_auth_token(uri)
+    opt = 'user='+user+'&'+urllib.urlencode({'url':uri})+'&auth_token='+token
+    # print opt
+    ggl_url = 'http://goo.gl/api/url'
+    res = urllib.urlopen(ggl_url, opt)
+    # print res.read()
+    short_url =  json.read(res.read())['short_url']
+    return short_url
 
 
 
 if __name__ == '__main__':
     logging.getLogger().setLevel(logging.DEBUG)
-    myRobot = robot.Robot('BTF_Smiles',
+    myRobot = robot.Robot('afafnomi',
                           image_url='http://btf-test.appspot.com/assets/icon.png',
-                          version='3',
+                          version='4',
                           profile_url='http://btf-test.appspot.com/')
     myRobot.RegisterHandler(events.BLIP_SUBMITTED, OnBlipSubmitted)
     myRobot.RegisterHandler(events.WAVELET_SELF_ADDED, OnRobotAdded)
