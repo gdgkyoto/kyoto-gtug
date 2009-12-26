@@ -29,5 +29,25 @@ public class NodeUtility {
 			appendList(list, child);
 		}
 	}
+	
+	/**
+	 * 新しいノードIDを生成する。
+	 * すべてのノードの中で最大のノードIDに+1した値を返す。
+	 * 
+	 * @param rootNode ルートノード
+	 * @return
+	 */
+	public static int nextNodeId( Node rootNode ){
+		int INIT_ID = -99999;
+		List<Node> nodeList = getAllNodeList(rootNode);
+		int maxId = INIT_ID;
+		for( Node node : nodeList ){
+			if( node.getNodeId() > maxId ){
+				maxId = node.getNodeId();
+			}
+		}
+		// 新しいノードIDの生成
+		return maxId + 1;
+	}
 
 }
