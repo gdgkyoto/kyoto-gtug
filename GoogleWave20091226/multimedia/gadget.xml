@@ -45,7 +45,7 @@
 };
 function draw() {
   /* canvas要素のノードオブジェクト */
-  var canvas = document.getElementById('canvas');
+  var canvas = document.getElementById('tempcanvas');
   /* canvas要素の存在チェックとCanvas未対応ブラウザの対処 */
   if ( ! canvas || ! canvas.getContext ) {
     return false;
