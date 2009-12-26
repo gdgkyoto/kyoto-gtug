@@ -288,7 +288,7 @@ function init() {
 
   createUI(song);
 
-  canvas = document.getElementsByTagName('tempcanvas')[0];
+  canvas = document.getElementById('tempcanvas');
 }
 
 function createUI(song) {
