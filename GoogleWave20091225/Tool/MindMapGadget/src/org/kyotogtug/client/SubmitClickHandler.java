@@ -18,24 +18,18 @@ public class SubmitClickHandler implements ClickHandler {
 
     @Override
     public void onClick(ClickEvent event) {
-        try {
-           // int nodeId = Integer.parseInt(gadget.getNodeIdTextBox().getText());
-            Window.alert(gadget.getNodeTitleTextBox().getText());
-            Node root = gadget.getRootNode();
-            Node target = gadget.getSelectionNode();
-            if (target == null) {
-               // Window.alert("target not found:" + nodeId);
-            } else {
-                Window.alert("add To:" + target.getNodeId() + ":"
-                        + target.getText());
-                Node newNode = new Node();
-                newNode.setNodeId(NodeUtility.nextNodeId(root));
-                newNode.setText(gadget.getNodeTitleTextBox().getText());
-                target.addChildNode(newNode);
-                gadget.saveToSharedState();
-            }
-            
-            gadget.draw();
-        } catch (NumberFormatException e) {}
+        Node root = gadget.getRootNode();
+        Node target = gadget.getSelectionNode();
+        if (target == null) {
+            // Window.alert("target not found:" + nodeId);
+        } else {
+            Window.alert("add To:" + target.getNodeId() + ":"
+                    + target.getText());
+            Node newNode = new Node();
+            newNode.setNodeId(NodeUtility.nextNodeId(root));
+            newNode.setText(gadget.getNodeTitleTextBox().getText());
+            target.addChildNode(newNode);
+            gadget.saveToSharedState();
+        }
     }
 }

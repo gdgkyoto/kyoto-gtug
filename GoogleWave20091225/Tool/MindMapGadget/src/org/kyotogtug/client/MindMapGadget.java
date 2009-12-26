@@ -26,7 +26,7 @@ import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** このガジェットのタイトル */
-    private static final String TITLE = "Mind Map version 0.6";
+    private static final String TITLE = "Mind Map version 0.7";
 
     /** ルートノード */
     private Node rootNode;
@@ -44,9 +44,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
 	/** マインドマップを描画するCanvas */
     private MindMapCanvas gwtCanvas;
-
-    /** ノードのIDを入力するためのテキストボックス */
-    private TextBox nodeIdTextBox = new TextBox();
 
     /** 新しいノードのタイトルを入力するためのテキストボックス */
     private TextBox nodeTitleTextBox = new TextBox();
@@ -96,7 +93,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         vpanel.add(gwtCanvas);
         vpanel.add(hvpanel);
         vpanel.add(textArea);
-        hvpanel.add(nodeIdTextBox);
         hvpanel.add(nodeTitleTextBox);
         hvpanel.add(submitButton);
         hvpanel.add(deleteButton);
@@ -307,13 +303,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
             }
         }
         return null;
-    }
-
-    /**
-     * @return the nodeIdTextBox
-     */
-    public TextBox getNodeIdTextBox() {
-        return nodeIdTextBox;
     }
 
     /**
