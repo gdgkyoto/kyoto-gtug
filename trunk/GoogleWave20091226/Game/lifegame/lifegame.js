@@ -4,7 +4,7 @@ var _default = "";
 
 function   idx(x, y)
 {
-	x = parseInt(x);
+	x = parseInt(x); 
 	y = parseInt(y);
 	if (x < 0) {x = width + (x % width);}
 	else if (x >= width) { x %= width; }
@@ -34,27 +34,25 @@ function around_cell(cells, x, y)
 	sum +=	((cells[idx(x+1, y+1)] != "0")? 1: 0);
 	return sum;
 }
-//	wave.getViewer()
 
 function succ(cells)
 {
-	outcells = cells;
 	for (var y = 0; y< height; y++) {
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
 			var around_h = around_cell(cells, x,y);
 			if (center == "0") {
 				if (around_h == 3) {
-					outcells = push(outcells, "1", x, y);
+					cells = push(cells, "1", x, y);
 				}
 			} else {
 				if (!(around_h == 2 || around_h == 3)) {
-					outcells = push(outcells, "0", x, y);
+					cells = push(cells, "0", x, y);
 				}
 			}
 		}
 	}
-	return outcells;
+	return cells;
 }
 
 function  parse()
@@ -71,15 +69,6 @@ function  parse()
 	state.submitDelta({'cellstate': cells});
 }
 
-function reset()
-{
-	var state = wave.getState();
-	var cells = state.get("cellstate", _default);
-	cells = _default;
-	state.submitDelta({'cellstate': cells});
-}
-
-var color = {};
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
@@ -89,10 +78,9 @@ function plot_point(e) {
 
 	ary = e.target.id.slice(5).split(',');
 
-	var atpoint = cells[idx(ary[0], ary[1])];
-	if (atpoint == "0"){
-		cells = push(cells, color[wave.getViewer().getDisplayName()], ary[0], ary[1]);
-	} else if ({
+	if (cells[idx(ary[0], ary[1])] == "0"){
+		cells = push(cells, "1", ary[0], ary[1]);
+	} else {
 		cells = push(cells, "0", ary[0], ary[1]);
 	}
 
@@ -106,10 +94,6 @@ function drawscene(cells) {
 			list[i].style.backgroundColor = "white";
 		} else if (cells[i] == "1") {
 			list[i].style.backgroundColor = "green";
-		} else if (cells[i] == "2") {
-			list[i].style.backgroundColor = "yellow";
-		} else if (cells[i] == "3") {
-			list[i].style.backgroundColor = "red";
 		} else {
 			alert(cells[i]);
 			break;
@@ -129,7 +113,6 @@ function partUpdated() {
     if (part.length==0) return;
     var all ='';
     for (var i = 0; i< part.length; i++) {
-		color[part[i].getDisplayName()] = String(i+1);
 	all +=  '<img src="' + part[i].getThumbnailUrl() + 
 		'" width="50" height="50"/>' + part[i].getDisplayName() + "";
     }
