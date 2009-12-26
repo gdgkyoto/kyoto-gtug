@@ -189,6 +189,16 @@ var soundProcessor = {
  * 画面エフェクトを処理するためのProcessor
  */
 var canvas = null;
+function rect(c,x,y,w,h){
+  c.beginPath();
+  curContext.rect(
+    Math.round( x ),
+    Math.round( y ),
+    Math.round( w ),
+    Math.round( h )
+  );
+  c.closePath();
+}
 var visualProcessor = {
   process : function(steps) {
     // ここが三井さんに担当してもらう個所。
@@ -204,6 +214,10 @@ var visualProcessor = {
     ctx.lineTo(120, 120);
     ctx.lineTo(20, 120);
     ctx.closePath();
+    ctx.stroke();
+
+     /* 四角を描く */
+    rect(ctx,10,10,100,100);
     ctx.stroke();
   }
 };
