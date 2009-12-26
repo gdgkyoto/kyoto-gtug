@@ -219,6 +219,7 @@ var visualProcessor = {
     /* 四角を描く */
     ctx.fillStyle = 'rgb(192, 80, 77)'; // 赤
     rect(ctx,10,10,100,100);
+    ctx.fill();
     ctx.stroke();
   }
 };
