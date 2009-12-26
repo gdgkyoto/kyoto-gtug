@@ -43,6 +43,9 @@
     <script type="text/javascript">
       onload = function() {
   draw();
+  var canvas = document.getElementsById('tempcanvas');
+  var p = Processing(canvas);
+  p.rect(10,10,70,70);
 };
 function draw() {
   /* canvas要素のノードオブジェクト */
