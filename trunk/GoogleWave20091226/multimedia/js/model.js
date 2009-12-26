@@ -237,6 +237,7 @@ player.processors.push(soundProcessor);
 player.processors.push(visualProcessor);
 
 var song = null;
+var selectPtn = 0;
 
 function stateUpdated() {
   song = JSON.parse(wave.getState().get("song",
@@ -252,6 +253,17 @@ function init() {
   song = JSON.parse(wave.getState().get("song",
       JSON.stringify(initSong(SAMPLES))));
 
+  for ( var i = 0; i < song.patterns.length; i++) {
+    var ptn = $("<span>");
+    ptn.text("Pattern" + i + "|");
+    ptn.attr("patternNo", i);
+    ptn.click(function() {
+      selectPtn = $(this).attr("patternNo");
+      createUI(song);
+    });
+    $("#patterns").append(ptn);
+  }
+  
   $("#tempo").slider( {
     min : 60,
     max : 300,

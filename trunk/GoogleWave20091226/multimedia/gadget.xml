@@ -22,16 +22,15 @@
         gadgets.util.registerOnLoadHandler(init);
     </script>
 
-
     <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
 
+    <div id="patterns"></div>
     <input id="play" type="button" value="Play"/>
     <input id="playSong" type="button" value="PlaySong"/>
     <input id="stop" type="button" value="Stop"/>
     <input id="init" type="button" value="Init"/>
     <div style="clear:both;"></div>
-    <div id="seq"></div>
     <image id="p-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/piano.png" alt="ピアノ"></image>
     <image id="g-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/guitar.png" alt="ギター"></image>
     <image id="b-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/bass.png" alt="ベース"></image>
