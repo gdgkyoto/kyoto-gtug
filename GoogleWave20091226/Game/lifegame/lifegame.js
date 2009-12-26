@@ -22,14 +22,14 @@ function push(cells, c, x, y)
 function around(cells, x, y)
 {
 	return 
-		cells[idx(x-1, y-1)] != "0"? 1: 0 +
-		cells[idx(x  , y-1)] != "0"? 1: 0 +
-		cells[idx(x+1, y-1)] != "0"? 1: 0 +
-		cells[idx(x-1, y  )] != "0"? 1: 0 +
-		cells[idx(x+1, y  )] != "0"? 1: 0 +
-		cells[idx(x-1, y+1)] != "0"? 1: 0 +
-		cells[idx(x  , y+1)] != "0"? 1: 0 +
-		cells[idx(x+1, y+1)] != "0"? 1: 0;
+		(cells[idx(x-1, y-1)] != "0"? 1: 0) +
+		(cells[idx(x  , y-1)] != "0"? 1: 0) +
+		(cells[idx(x+1, y-1)] != "0"? 1: 0) +
+		(cells[idx(x-1, y  )] != "0"? 1: 0) +
+		(cells[idx(x+1, y  )] != "0"? 1: 0) +
+		(cells[idx(x-1, y+1)] != "0"? 1: 0) +
+		(cells[idx(x  , y+1)] != "0"? 1: 0) +
+		(cells[idx(x+1, y+1)] != "0"? 1: 0);
 }
 
 function succ(cells)
