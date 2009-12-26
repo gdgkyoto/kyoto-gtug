@@ -23,14 +23,11 @@ function  parse()
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
-	alert(state);
 
 	var cells = state.get("cellstate");
 	var ary;
 
-	alert(cells);
 	ary = e.target.id.slice(5).split(',');
-	alert(ary);
 
 	//cells[idx(ary[0], ary[1])] = "1";
 
@@ -68,7 +65,7 @@ function init()
 		var ht = d.createElement('tr');
 		for (var j = 0; j< width; j++) {
 			var td = d.createElement("td");
-			td.id = "point"+i+","+j;
+			td.id = "point"+j+","+i;
 			td.style.backgroundColor = "white";
 			ht.appendChild(td);
 			td.addEventListener("click", plot_point, false );
