@@ -5,14 +5,49 @@ import java.util.List;
 
 import org.kyotogtug.client.data.Edge;
 import org.kyotogtug.client.data.Node;
+import org.kyotogtug.client.data.NodeUtility;
 
+import com.google.gwt.user.client.Event;
 import com.google.gwt.widgetideas.graphics.client.Color;
 import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 
 public class MindMapCanvas extends GWTCanvas {
 	
-	public MindMapCanvas(){
-
+	private MindMapGadget mindMapGadget;
+	
+	public MindMapCanvas( MindMapGadget mindMapGadget ){
+		this.mindMapGadget = mindMapGadget;
+		sinkEvents(Event.ONCLICK);
+		sinkEvents(Event.ONMOUSEDOWN);
+		sinkEvents(Event.ONMOUSEMOVE);
+		sinkEvents(Event.ONMOUSEUP);
+	}
+	
+	@Override
+	public void onBrowserEvent(Event event) {
+		//mindMapGadget.log("onBrowserEvent");
+		super.onBrowserEvent(event);
+        int x = event.getClientX() - getAbsoluteLeft();
+        int y = event.getClientY() - getAbsoluteTop();
+        switch (event.getTypeInt()) {
+            case Event.ONMOUSEDOWN:
+            	mindMapGadget.log("ONMOUSEDOWN X="+x +" Y="+y);
+            	Node node = NodeUtility.getNodeByPotision(mindMapGadget.getRootNode(), x, y);
+            	if( node != null ){
+            		mindMapGadget.log("クリックされたノードは "+node.getText()+" です");
+            	}
+                break;
+            case Event.ONMOUSEMOVE:
+            	//mindMapGadget.log("ONMOUSEMOVE X="+x +" Y="+y);
+                break;
+            case Event.ONMOUSEUP:
+            	mindMapGadget.log("ONMOUSEUP X="+x +" Y="+y);
+                break;
+            case Event.ONCLICK:
+            	mindMapGadget.log("CLICK X="+x +" Y="+y);
+            break;		
+        }                           
+        
 	}
 	
 	/**
