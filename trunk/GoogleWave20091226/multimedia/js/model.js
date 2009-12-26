@@ -271,10 +271,6 @@ function createUI(song) {
     var gLine = $("<div>");
     var bLine = $("<div>");
     var dLine = $("<div>");
-    pLine.empty();
-    gLine.empty();
-    bLine.empty();
-    dLine.empty();
     for ( var j = 0; j < inst.steps.length; j++) {
       var step = inst.steps[j];
       var img = $("<image>");
@@ -324,6 +320,11 @@ function createUI(song) {
         dLine.append(img);
       }
     }
+    $("#piano").empty();
+    $("#guitar").empty();
+    $("#bass").empty();
+    $("#drum").empty();
+
     $("#piano").append(pLine);
     $("#guitar").append(gLine);
     $("#bass").append(bLine);
