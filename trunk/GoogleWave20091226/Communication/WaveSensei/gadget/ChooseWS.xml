@@ -1,0 +1,137 @@
+<Module>
+<ModulePrefs title="Choose Wave 'SENSEI'." height="30px">
+  <Require feature="wave" />
+</ModulePrefs>
+<Content type="html"><![CDATA[
+  <script type="text/javascript">
+   
+    // 先生の識別Index
+    var WSTutorial = 0;
+    var WSTwitter = 1;
+    
+    // 先生の画像
+    var Thumbnails = new Array(2);
+    Thumbnails[WSTutorial] = 'http://t0.gstatic.com/images?q=tbn:fVUQI4Mfa-WEjM:http://kyoiku.info/sinrai.jpg';
+    Thumbnails[WSTwitter] = 'http://t0.gstatic.com/images?q=tbn:ADEoqDi1IKcxiM:http://www5a.biglobe.ne.jp/~ooommm/ochyanomizu.JPG';
+    
+    // 先生の説明
+    var Descriptions = new Array(2);
+    Descriptions[WSTutorial] = 'waveの使い方を教えてくれます。';
+    Descriptions[WSTwitter] = 'いろんな質問に答えてくれます。返事をもらうのに時間がかかるかもしれません。';
+    
+    // 先生の名前
+    var Names = new Array(2);
+    Names[WSTutorial] = 'チュートリアル先生';
+    Names[WSTwitter] = 'ものしり先生';
+    
+    // ついったー先生の再読み込み間隔(秒)
+    var TimerID = null;
+    var Interval = 30000;
+    
+    // メッセージ切り替え用
+    var BuffMessage = '';
+    
+    // 先生のきりかえ
+    function Choose(activeIndex) {
+      //_gel('Thumbnail').src = Thumbnails[activeIndex];
+      //_gel('RobotName').innerHTML = Names[activeIndex];
+    
+      wave.getState().submitDelta({'SenseiType': activeIndex,
+                                   'ChangedBy': wave.getViewer().getDisplayName(),
+                                   'At': new Date()});
+      Refresh();
+      
+      // リンクをキャンセル
+      return false;
+    }
+    
+    function Refresh() {
+      var activeIndex = wave.getState().get('SenseiType', -1);
+      if(activeIndex != -1) {
+        _gel('Thumbnail').src = Thumbnails[activeIndex];
+        _gel('RobotName').innerHTML = Names[activeIndex];
+        _gel('Message').innerHTML = wave.getState().get('ChangedBy') + 'さんがお呼びです。';
+        
+        // ついった先生であればsetTimeoutをしかける
+        if(activeIndex == WSTwitter) {
+          TimerID = window.setTimeout(RefreshTwitter, Interval);
+        } else if (TimerID != null) {
+          window.clearTimeout(TimerID);
+          TimerID = null;
+        }
+      }
+    }
+    
+    // ついったー先生であれば一定期間ごとにSharedStateを書き換える
+    function RefreshTwitter() {
+      // 定期的に実行
+      wave.getState().submitValue('Reload', new Date());
+    }
+    
+    // ステータスメッセージの更新
+    function SetMessage(msg) {
+      if (msg.toString() != BuffMessage.toString()) {
+        BuffMessage = _gel('Message').innerHTML;
+      }
+      _gel('Message').innerHTML = msg;
+    }
+    
+    function OnEnter(newIndex) {
+      SetMessage(Descriptions[newIndex]);
+    }
+    
+    function OnLeave() {
+      _gel('Message').innerHTML = BuffMessage;
+    }
+    
+    // ステート変更時に実行される関数
+    function stateUpdated() {
+      // メインの処理
+      Refresh();
+    }
+    
+    // 参加者追加時に実行される関数
+    function participantAdded() {
+    }
+
+    // ガジェットのロード時に実行される関数
+    function init() {
+      if(wave && wave.isInWaveContainer()) {
+       
+        // ステート変更時のコールバック関数を登録
+        wave.setStateCallback(stateUpdated);
+        //wave.setParticipantCallback(participantAdded);
+
+      _gel('AnchorTutorial').innerHTML = Names[0];
+      _gel('AnchorTwitter').innerHTML = Names[1];
+      }
+    }
+
+    // ガジェットロード時のコールバック関数を登録
+    gadgets.util.registerOnLoadHandler(init);
+  </script>
+  <style type="text/css">
+    img.Thumbnail{
+      width: 60px;
+      height: 60px;
+      border: 3px double orange;
+      float: left;
+    }
+    #RobotName {
+      font-size: x-large;
+      font-weight: bold;
+    }
+    #Message {
+      font-size: smaller;
+    }
+  </style>
+  <div id="Panel">
+    <img id="Thumbnail" src="http://code.google.com/intl/ja/apis/wave/images/wavelogo.png" class="Thumbnail" />
+    <span id="RobotName">うぇ～ぶ先生</span><br />
+    <a id="AnchorTutorial" href="http://www.google.com" onClick="return Choose(WSTutorial);" onMouseOver="OnEnter(WSTutorial);" onMouseOut="OnLeave();" >bar</a>&nbsp
+    <a id="AnchorTwitter" href="http://www.google.com" onClick="return Choose(WSTwitter);" onMouseOver="OnEnter(WSTwitter);" onMouseOut="OnLeave();" >foo</a><br>
+    <span id="Message">先生をえらんでね。</span>
+  </div>
+
+]]></Content>
+</Module>
