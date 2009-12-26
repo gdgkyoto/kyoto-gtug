@@ -19,6 +19,8 @@ public class CommonStatus {
     private String waveId;
     
     private String teacherType;
+
+    private String reload;
     
     public Key getKey() {
         return key;
@@ -50,6 +52,14 @@ public class CommonStatus {
 
     public void setTeacherType(String teacherType) {
         this.teacherType = teacherType;
+    }
+
+    public String getReload() {
+      return reload;
+    }
+
+    public void setReload(String reload) {
+      this.reload = reload;
     }
     
 }

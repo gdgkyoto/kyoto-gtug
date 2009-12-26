@@ -11,21 +11,34 @@ import org.slim3.datastore.Datastore;
 import com.google.wave.api.AbstractRobotServlet;
 import com.google.wave.api.Blip;
 import com.google.wave.api.Event;
+import com.google.wave.api.EventType;
 import com.google.wave.api.Gadget;
 import com.google.wave.api.RobotMessageBundle;
+import com.google.wave.api.TextView;
+import com.google.wave.api.Wavelet;
 
+@SuppressWarnings("serial")
 public class WaveSenseiRobot extends AbstractRobotServlet {
 
     private Logger log = Logger.getLogger(this.getClass().getName());
     public static final String DEFAULT_SENSEI_TYPE = "-1";
     public static final String SENSEI_GADGET_URL = "http://hosting.gmodules.com/ig/gadgets/file/100410660575232591215/ChooseWS.xml";
+    private static final String GADGET_RELOAD_FIELD = "Reload";
 
     @Override
     public void processEvents(RobotMessageBundle bundle) {
+        addGadget(bundle);
+      
         String gSensei = sensei(bundle);
         log.warning("SenseiType: " + gSensei);
         if (gSensei.equals("1")) {
             // ついった先生
+            boolean timerEvent = isTimerEvent(bundle);
+            if(timerEvent){
+              
+            }else{
+              
+            }
         } else if (gSensei.equals("0")) {
             // ちゅーと先生
             new TutorialSensei().execute(bundle);
@@ -83,6 +96,59 @@ public class WaveSenseiRobot extends AbstractRobotServlet {
         }
         return gSenseiType;
     }
-    
+      
+    /**
+     * ロボットが追加された場合、ルートブリップにガジェットを追加します。
+     * @param robotMessageBundle
+     */
+    public void addGadget(RobotMessageBundle robotMessageBundle) {
+      Wavelet wavelet = robotMessageBundle.getWavelet();
+      Blip rootBlip = wavelet.getRootBlip();
+      TextView textView = rootBlip.getDocument();
 
+      if (robotMessageBundle.wasSelfAdded()) {
+        rootBlip.getDocument().setAuthor("ウェーブ先生より");
+        wavelet.setTitle("ウェーブ先生");
+        if (textView.getGadgetView().getGadget(SENSEI_GADGET_URL) == null) {
+          Gadget gadget = new Gadget(SENSEI_GADGET_URL);
+          textView.getGadgetView().append(gadget);
+          gadget.setField("id", wavelet.getWaveId());
+        }
+      }
+    }
+    
+    /**
+     * ガジェットのタイマーイベントかどうかを判別します。
+     * @param robotMessageBundle
+     * @return
+     */
+    public boolean isTimerEvent(RobotMessageBundle robotMessageBundle){
+      Wavelet wavelet = robotMessageBundle.getWavelet();
+      boolean toCheck = false;
+      for (Event e : robotMessageBundle.getEvents()) {
+        if(e.getType() == EventType.BLIP_SUBMITTED){
+          toCheck = true;
+          break;
+        }
+      }
+      if(!toCheck){
+        return false;
+      }
+      
+      Gadget gadget =WaveUtil.getGadget(wavelet.getRootBlip(), SENSEI_GADGET_URL);
+      String gadgetReloadProp = gadget.getField(GADGET_RELOAD_FIELD);
+      if(gadgetReloadProp == null){
+        return false;
+      }
+      
+      CommonStatus status = getStatus(robotMessageBundle);
+      if(status.getReload() == null ||  !status.equals(gadgetReloadProp)){
+        status.setReload(gadgetReloadProp);
+        Datastore.put(status);
+        return true;
+      }
+      
+      return false;
+    }
+    
 }
