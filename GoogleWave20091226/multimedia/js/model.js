@@ -231,22 +231,22 @@ var visualProcessor = {
     }
     if (step.sample == 'P-2') {
       ctx.fillStyle = 'rgba(180, 20, 0, 0.7)'; 
-      rect(ctx, 72+ratio, 20-ratio, 52-ratio, 155-ratio);
+      rect(ctx, 72+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
     if (step.sample == 'P-3') {
       ctx.fillStyle = 'rgba(160, 40, 0, 0.7)'; 
-      rect(ctx,136-ratio, 20+ratio, 52-ratio, 155-ratio);
+      rect(ctx,136+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
     if (step.sample == 'P-4') {
       ctx.fillStyle = 'rgba(140, 60, 0, 0.7)'; 
-      rect(ctx,200+ratio, 20+ratio, 52+ratio, 155-ratio);
+      rect(ctx,200+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
     if (step.sample == 'P-5') {
       ctx.fillStyle = 'rgba(120, 80, 0, 0.7)'; 
-      rect(ctx,42-ratio, 20-ratio, 52+ratio, 155+ratio);
+      rect(ctx,42+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
     /*
