@@ -107,18 +107,18 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         rootNode.setNodeId(1);
         rootNode.setText("ROOT");
         rootNode.setBlipId("BLIP1");
-        rootNode.setX(1);
-        rootNode.setY(2);
-        rootNode.setWidth(3);
-        rootNode.setHeight(4);
+        rootNode.setX(50);
+        rootNode.setY(50);
+        rootNode.setWidth(50);
+        rootNode.setHeight(50);
 
         node1.setNodeId(2);
         node1.setText("NODE1");
         node1.setBlipId("BLIP2");
-        node1.setX(1);
-        node1.setY(2);
-        node1.setWidth(3);
-        node1.setHeight(4);
+        node1.setX(100);
+        node1.setY(50);
+        node1.setWidth(50);
+        node1.setHeight(50);
 
         node2.setNodeId(3);
         node2.setText("NODE2");
@@ -161,8 +161,38 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         for (Node tmpNode : nodeList) {
             log(tmpNode.getText());
         }
+        
+        // 次のID生成のテスト
         log("-----------------------");
         log("nextId="+NodeUtility.nextNodeId(rootNode));
+        
+        // クリック位置のノード取得のテスト
+        int clickX = 55;
+        int clickY = 55;
+        Node resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
+        if( resultNode == null ){
+        	log(clickX+" , "+clickY+" のノードはROOTだけど取得できなかった");
+        }else{
+        	log(clickX+" , "+clickY+" = "+resultNode.getText() );
+        }
+        
+        clickX = 105;
+        clickY = 55;
+        resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
+        if( resultNode == null ){
+        	log(clickX+" , "+clickY+" のノードはNODE1だけど取得できなかった");
+        }else{
+        	log(clickX+" , "+clickY+"= "+resultNode.getText() );
+        }
+        
+        clickX = 155;
+        clickY = 55;
+        resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
+        if( resultNode == null ){
+        	log(clickX+" , "+clickY+"のノードは無いので取得できなくてOK");
+        }else{
+        	log(clickX+" , "+clickY+"のノードが間違って取得している！ ERROR= "+resultNode.getText() );
+        }
     }
 
     /**

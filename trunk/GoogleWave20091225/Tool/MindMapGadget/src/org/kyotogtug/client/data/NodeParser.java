@@ -21,7 +21,7 @@ public class NodeParser {
 	
 	/**
 	 * SharedStateにマインドマップのデータを保存する。
-	 * 本来はここに実装すべきではないけれど、作業分担を考慮して
+	 * 本来はここに実装すべきではないけれど、作業分担を考慮してここに配置。
 	 * @param state
 	 */
 	public void saveToSharedState( State state , Node rootNode ){
