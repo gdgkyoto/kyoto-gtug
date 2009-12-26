@@ -78,6 +78,7 @@ function reset()
 	state.submitDelta({'cellstate': cells});
 }
 
+var color = {};
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
@@ -87,6 +88,7 @@ function plot_point(e) {
 
 	ary = e.target.id.slice(5).split(',');
 
+	alert(color[wave.getViewer()]);
 	if (cells[idx(ary[0], ary[1])] == "0"){
 		cells = push(cells, "1", ary[0], ary[1]);
 	} else {
@@ -103,6 +105,10 @@ function drawscene(cells) {
 			list[i].style.backgroundColor = "white";
 		} else if (cells[i] == "1") {
 			list[i].style.backgroundColor = "green";
+		} else if (cells[i] == "2") {
+			list[i].style.backgroundColor = "yellow";
+		} else if (cells[i] == "3") {
+			list[i].style.backgroundColor = "red";
 		} else {
 			alert(cells[i]);
 			break;
@@ -122,6 +128,7 @@ function partUpdated() {
     if (part.length==0) return;
     var all ='';
     for (var i = 0; i< part.length; i++) {
+		color[part[i]] = String(i+1);
 	all +=  '<img src="' + part[i].getThumbnailUrl() + 
 		'" width="50" height="50"/>' + part[i].getDisplayName() + "";
     }
