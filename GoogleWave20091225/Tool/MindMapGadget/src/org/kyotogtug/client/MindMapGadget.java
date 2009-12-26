@@ -92,7 +92,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
         vpanel.add(new Label(TITLE));
         ScrollPanel scroll = new ScrollPanel(gwtCanvas);
-        scroll.setSize("500", "300");
+        scroll.setSize("800", "300");
         vpanel.add(scroll);
         vpanel.add(hvpanel);
         vpanel.add(textArea);
