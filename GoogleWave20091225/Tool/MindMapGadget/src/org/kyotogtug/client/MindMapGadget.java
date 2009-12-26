@@ -10,8 +10,9 @@ import org.kyotogtug.client.data.NodeParser;
 import org.kyotogtug.client.data.NodeUtility;
 
 import com.google.gwt.core.client.JavaScriptException;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.gadgets.client.UserPreferences;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -25,7 +26,7 @@ import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** このガジェットのタイトル */
-    private static final String TITLE = "Mind Map version 0.4";
+    private static final String TITLE = "Mind Map version 0.6";
 
     /** ルートノード */
     private Node rootNode;
@@ -56,6 +57,9 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     /** ノードの削除ボタン */
     private Button deleteButton = new Button();
 
+    /** リセットボタン */
+    private Button resetButton = new Button();
+
     /** Debugテキストエリア */
     private TextArea textArea;
 
@@ -73,6 +77,16 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         deleteButton.setText("Delete");
         deleteButton.addClickHandler(new DeleteClickHandler(this));
 
+        resetButton.setText("Reset");
+        resetButton.addClickHandler(new ClickHandler() {
+            @SuppressWarnings("synthetic-access")
+            @Override
+            public void onClick(ClickEvent event) {
+                initRootNode();
+                saveToSharedState();
+            }
+        });
+
         textArea = new TextArea();
         textArea.setCharacterWidth(40);
         textArea.setVisibleLines(10);
@@ -86,6 +100,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         hvpanel.add(nodeTitleTextBox);
         hvpanel.add(submitButton);
         hvpanel.add(deleteButton);
+        hvpanel.add(resetButton);
 
         RootPanel.get().add(vpanel);
         //debug();
@@ -95,17 +110,11 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
             public void onUpdate(StateUpdateEvent event) {
                 rootNode = new NodeParser().getRootNodeFromSharedState(getWave().getState());
                 if (rootNode == null) {
-                    log("rootNode is null");
-                    rootNode = new Node();
-                    rootNode.setNodeId(0);
-                    rootNode.setText("ルート");
+                    initRootNode();
                 }
                 draw();
             }
         });
-        
-        
-        //canvasFillText(gwtCanvas, "ほげほげ", 50, 50);
     }
     
 	private static native void canvasFillText(GWTCanvas c, String str,
@@ -120,14 +129,14 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
      */
     public void draw() {
     	gwtCanvas.clear();
-    	try{
-    		LineUpNodes lineUpNodes = new LineUpNodes();
-    		lineUpNodes.measureNodeSizes(rootNode);
-    		lineUpNodes.lineUp(rootNode, this);
-    		gwtCanvas.drawMap(rootNode);
-    	}catch( JavaScriptException e){
-    		log("draw時に例外 "+e.getMessage());
-    	}
+        try {
+            LineUpNodes lineUpNodes = new LineUpNodes();
+            lineUpNodes.measureNodeSizes(rootNode);
+            lineUpNodes.lineUp(rootNode, this);
+            gwtCanvas.drawMap(rootNode);
+        } catch (JavaScriptException e) {
+            log("draw時に例外 " + e.getMessage());
+        }
         log("\n----------------\n");
         List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);
         for (Node tmpNode : nodeList) {
@@ -136,9 +145,20 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     }
 
     /**
+     * RootNodeの初期化
+     */
+    private void initRootNode() {
+        log("initRootNode()");
+        rootNode = new Node();
+        rootNode.setNodeId(0);
+        rootNode.setText("ルート");
+    }
+
+    /**
      * 現状の状態をSharedStateに保存
      */
     public void saveToSharedState() {
+        log("saveToSharedState()");
         new NodeParser().saveToSharedState(getWave().getState(), rootNode);
     }
 
