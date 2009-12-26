@@ -38,22 +38,23 @@ function around_cell(cells, x, y)
 
 function succ(cells)
 {
+	outcells = cells;
 	for (var y = 0; y< height; y++) {
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
 			var around_h = around_cell(cells, x,y);
 			if (center == "0") {
 				if (around_h == 3) {
-					cells = push(cells, "1", x, y);
+					outcells = push(outcells, "1", x, y);
 				}
 			} else {
 				if (!(around_h == 2 || around_h == 3)) {
-					cells = push(cells, "0", x, y);
+					outcells = push(outcells, "0", x, y);
 				}
 			}
 		}
 	}
-	return cells;
+	return outcells;
 }
 
 function  parse()
