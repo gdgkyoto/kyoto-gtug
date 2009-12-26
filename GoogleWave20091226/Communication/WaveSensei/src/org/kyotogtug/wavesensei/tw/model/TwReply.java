@@ -1,6 +1,7 @@
 package org.kyotogtug.wavesensei.tw.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -33,6 +34,10 @@ public class TwReply implements Serializable {
     private String postBlipId;
     
     private String replyBlipId;
+    
+    private String text;
+    
+    private Date created;
 
     /**
      * Returns the key.
@@ -175,5 +180,21 @@ public class TwReply implements Serializable {
 
     public void setReplyBlipId(String replyBlipId) {
       this.replyBlipId = replyBlipId;
+    }
+
+    public String getText() {
+      return text;
+    }
+
+    public void setText(String text) {
+      this.text = text;
+    }
+
+    public Date getCreated() {
+      return created;
+    }
+
+    public void setCreated(Date created) {
+      this.created = created;
     }
 }
