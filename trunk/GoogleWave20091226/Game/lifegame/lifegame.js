@@ -46,6 +46,8 @@ function stateUpdated() {
 		case "1":
 			list[i].style.backGroundColor = "green";
 			break;
+		default:
+			alert("something wrong");
 		}
 	}
 }
