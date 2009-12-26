@@ -204,6 +204,7 @@ var song = null;
 function stateUpdated() {
   song = JSON.parse(wave.getState().get("song",
       JSON.stringify(initSong(SAMPLES))));
+  alert("song:" + JSON.stringify(song));
 }
 
 function init() {
@@ -304,7 +305,6 @@ function createUI(song) {
         }
         song.patterns[0].instruments[img.attr("numOfInst")].steps[img
             .attr("numOfStep")].velocity = img.attr("value");
-        alert("song" + JSON.stringify(song));
         wave.getState().submitDelta( {
           'song' : JSON.stringify(song)
         });
