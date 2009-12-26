@@ -4,11 +4,12 @@ var _default;
 
 function   idx(x, y)
 {
+	x = parseInt(x);
+	y = parseInt(y);
 	if (x < 0) {x = width + (x % width);}
 	else if (x >= width) { x %= width; }
 	if (y < 0) {y = height + (y % height);}
 	else if (y >= height) { y %= height; }
-	alert(x+":::"+y);
 	return x + y * width;
 }
 
@@ -32,7 +33,6 @@ function plot_point(e) {
 	ary = e.target.id.slice(5).split(',');
 
 	cells[idx(ary[0], ary[1])] = "1";
-	alert(ary[0]+":::"+ ary[1] + "==" + idx(ary[0], ary[1]));
 
 	state.submitDelta({'cellstate': cells});
 }
@@ -41,6 +41,7 @@ function stateUpdated() {
 	var state = wave.getState();
 	var cells = state.get('cellstate', _default);
 	var list= document.getElementsByTagName('td');
+	alert(cells);
 	for (var i = 0; i< cells.length; i++) {
 		switch (cells[i]) {
 		case "0":
