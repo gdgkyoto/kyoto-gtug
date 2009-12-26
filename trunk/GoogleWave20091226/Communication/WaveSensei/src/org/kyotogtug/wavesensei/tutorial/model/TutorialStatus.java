@@ -20,7 +20,17 @@ public class TutorialStatus {
     
     private Integer level;
     
-    public Key getKey() {
+    private Boolean isFirstQuestion;
+    
+    public Boolean getIsFirstQuestion() {
+		return isFirstQuestion;
+	}
+
+	public void setIsFirstQuestion(Boolean isFirstQuestion) {
+		this.isFirstQuestion = isFirstQuestion;
+	}
+
+	public Key getKey() {
         return key;
     }
 
