@@ -62,7 +62,7 @@ function plot_point(e) {
 
 	ary = e.target.id.slice(5).split(',');
 
-	push(cells, "1", ary[0], ary[1]);
+	cells = push(cells, "1", ary[0], ary[1]);
 
 	state.submitDelta({'cellstate': cells});
 }
