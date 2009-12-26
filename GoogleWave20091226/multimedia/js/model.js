@@ -225,7 +225,7 @@ var visualProcessor = {
 	if(step.velocity == 90){
 	    ratio = 15;
 	}
-      alert(JSON.stringify(step));
+//      alert(JSON.stringify(step));
     if ((step.sample == 'P-1') && (step.velocity > 0)) {
       ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
       rect(ctx, 8+ratio, 20+ratio, 52-ratio, 155-ratio);
