@@ -229,14 +229,14 @@ var visualProcessor = {
     ctx.fill();
 
 //      alert(JSON.stringify(step));
-    if (step.sample == 'P-2') {
+    if ((step.sample == 'P-2') && (step.velocity > 0)) {
       ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
       rect(ctx, 72, 20, 52, 155);
       ctx.fill();
     }
 
 
-    if (step.sample === 'P-3.mp3') {
+    if (step.sample === 'P-3') {
       ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
       rect(ctx, 136, 20, 52, 155);
       ctx.fill();
