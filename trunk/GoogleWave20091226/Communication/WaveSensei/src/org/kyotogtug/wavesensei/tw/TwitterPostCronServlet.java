@@ -77,6 +77,7 @@ public class TwitterPostCronServlet extends HttpServlet {
 
         logger.info("After TwPost:" + twPost.toString());
       } catch (TwitterException e) {
+        Datastore.delete(twPost.getKey());
         logger.warning("PostToTwitter Failed: " + e.getMessage());
       } catch (RuntimeException e2) {
         logger.warning(e2.getMessage());

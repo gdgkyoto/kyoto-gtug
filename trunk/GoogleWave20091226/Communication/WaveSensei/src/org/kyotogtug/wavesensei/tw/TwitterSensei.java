@@ -2,13 +2,14 @@ package org.kyotogtug.wavesensei.tw;
 
 import hello.HelloLogger;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 import org.kyotogtug.wavesensei.tw.meta.TwReplyMeta;
 import org.kyotogtug.wavesensei.tw.model.TwPost;
 import org.kyotogtug.wavesensei.tw.model.TwReply;
+import org.kyotogtug.wavesensei.util.XMPPHandler;
 import org.slim3.datastore.Datastore;
 
 import com.google.wave.api.Blip;
@@ -21,6 +22,13 @@ public class TwitterSensei {
 	private static Logger logger = Logger.getLogger(TwitterSensei.class
 			.getSimpleName());
 
+	private static final String LOG_NOTIFY_TO = "bufferings@gmail.com";
+
+	static {
+	  logger.addHandler(new XMPPHandler(LOG_NOTIFY_TO));
+  }
+
+
 	/**
 	 * ユーザーが投稿したBlipの内容をストアするメソッド
 	 * 
@@ -30,11 +38,13 @@ public class TwitterSensei {
 		for (Event e : bundle.getEvents()) {
 			// イベントタイプがBlip投稿だった場合
 			if (e.getType() == EventType.BLIP_SUBMITTED) {
-				// logger.warning("find new Blip Submitted.");
+				logger.warning("find new Blip Submitted.");
 				// 投稿されたメッセージを取得
 				String submittedText = e.getBlip().getDocument().getText();
 				// メッセージが140文字以上だったとき
-				if (submittedText.length() > 140) {
+				if(submittedText.length() == 0){
+				  return;
+				}else if (submittedText.length() > 140) {
 					makeWarningBlip(e);
 				} else { // データをストア
 					TwPost twpost = new TwPost();
@@ -47,6 +57,7 @@ public class TwitterSensei {
 					twpost.setCreated(now);
 					// データをGoogleAppに保存
 					Datastore.put(twpost);
+	        logger.warning("put 成功.");
 				}
 			}
 		}
@@ -80,8 +91,9 @@ public class TwitterSensei {
 		textView.append(message);
 	}
 
-	public String makePostBlip(Event e, String message) {
-		Blip blip = e.getBlip().createChild();
+	public String makePostBlip(Blip parent, Event e, String message) {
+	  
+		Blip blip = parent.createChild();
 		TextView textView = blip.getDocument();
 		// メッセージを投稿
 		textView.append(message);
@@ -106,9 +118,29 @@ public class TwitterSensei {
 	      return;
 	    }
 	    for (TwReply tr : twReplys) {
-			String blipID = makePostBlip(e, tr.getText());
+	      
+	      Blip blip = find(tr.getPostBlipId(), bundle.getWavelet().getRootBlip());
+	      String blipID = "-1";
+	      if(blip != null){
+	        blipID = makePostBlip(blip, e, tr.getText());
+	      }
 			tr.setReplyBlipId(blipID);
 			Datastore.put(tr);
 	    }
+	    
+	}
+	
+	public Blip find(String id, Blip parent){
+	  List<Blip> blips = parent.getChildren();
+	  for(Blip blip: blips){
+	    if(blip.getBlipId().equals(id)){
+	      return blip;
+	    }
+	    Blip ret = find(id, blip);
+	    if(ret != null){
+	      return ret;
+	    }
+	  }
+	  return null;
 	}
 }

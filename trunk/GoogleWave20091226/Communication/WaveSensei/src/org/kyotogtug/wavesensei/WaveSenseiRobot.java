@@ -5,7 +5,9 @@ import java.util.logging.Logger;
 import org.kyotogtug.wavesensei.meta.CommonStatusMeta;
 import org.kyotogtug.wavesensei.model.CommonStatus;
 import org.kyotogtug.wavesensei.tutorial.TutorialSensei;
+import org.kyotogtug.wavesensei.tw.TwitterSensei;
 import org.kyotogtug.wavesensei.util.WaveUtil;
+import org.kyotogtug.wavesensei.util.XMPPHandler;
 import org.slim3.datastore.Datastore;
 
 import com.google.wave.api.AbstractRobotServlet;
@@ -20,25 +22,30 @@ import com.google.wave.api.Wavelet;
 @SuppressWarnings("serial")
 public class WaveSenseiRobot extends AbstractRobotServlet {
 
-    private Logger log = Logger.getLogger(this.getClass().getName());
+    private static Logger log = Logger.getLogger(WaveSenseiRobot.class.getName());
     public static final String DEFAULT_SENSEI_TYPE = "-1";
     public static final String SENSEI_GADGET_URL = "http://hosting.gmodules.com/ig/gadgets/file/100410660575232591215/ChooseWS.xml";
     private static final String GADGET_RELOAD_FIELD = "Reload";
+    private static final String LOG_NOTIFY_TO = "bufferings@gmail.com";
+
+    static {
+      log.addHandler(new XMPPHandler(LOG_NOTIFY_TO));
+    }
 
     @Override
     public void processEvents(RobotMessageBundle bundle) {
         addGadget(bundle);
       
         String gSensei = sensei(bundle);
-        log.warning("SenseiType: " + gSensei);
+//        log.warning("SenseiType: " + gSensei);
         if (gSensei.equals("1")) {
             // ついった先生
             boolean timerEvent = isTimerEvent(bundle);
             if(timerEvent){
-              
-            }else{
-              
+              log.warning("タイマーイベントです");
+              new TwitterSensei().getTwPeplyData(bundle);
             }
+            new TwitterSensei().processEvents(bundle);
         } else if (gSensei.equals("0")) {
             // ちゅーと先生
             new TutorialSensei().execute(bundle);
@@ -108,7 +115,6 @@ public class WaveSenseiRobot extends AbstractRobotServlet {
 
       if (robotMessageBundle.wasSelfAdded()) {
         rootBlip.getDocument().setAuthor("ウェーブ先生より");
-        wavelet.setTitle("ウェーブ先生");
         if (textView.getGadgetView().getGadget(SENSEI_GADGET_URL) == null) {
           Gadget gadget = new Gadget(SENSEI_GADGET_URL);
           textView.getGadgetView().append(gadget);
