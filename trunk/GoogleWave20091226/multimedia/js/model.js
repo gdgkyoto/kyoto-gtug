@@ -246,7 +246,7 @@ var visualProcessor = {
     }
     if (step.sample == 'P-5') {
       ctx.fillStyle = 'rgba(120, 80, 0, 0.7)'; 
-      rect(ctx,42+ratio, 20+ratio, 52-ratio, 155-ratio);
+      rect(ctx,242+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
     /*
