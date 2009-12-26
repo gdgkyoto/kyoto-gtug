@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** このガジェットのタイトル */
-    private static final String TITLE = "Mind Map version 0.1";
+    private static final String TITLE = "Mind Map version 0.2";
 
     /** ルートノード */
     private Node rootNode;
@@ -61,7 +61,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         deleteButton.addClickHandler(new DeleteClickHandler(this));
 
         textArea = new TextArea();
-        textArea.setCharacterWidth(80);
+        textArea.setCharacterWidth(40);
         textArea.setVisibleLines(10);
         textArea.setText("ほがほが\nほがふ");
 
@@ -218,6 +218,17 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
      */
     public Node getRootNode() {
         return rootNode;
+    }
+
+    public Node findNode(int nodeId) {
+        if (rootNode != null) {
+            for (Node aNode : NodeUtility.getAllNodeList(rootNode)) {
+                if (aNode.getNodeId() == nodeId) {
+                    return aNode;
+                }
+            }
+        }
+        return null;
     }
 
     /**
