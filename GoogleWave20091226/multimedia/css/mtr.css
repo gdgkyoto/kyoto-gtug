@@ -1,0 +1,17 @@
+body{
+    margin : 20px;
+}
+.slider{
+    width  :300px;
+}
+.slider_disp{
+    width  :300px;
+    text-align:right;
+}
+.sample{
+    font-size:22px;
+    font-family:monospace;
+}
+.inner{
+    display:none;
+}
