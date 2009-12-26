@@ -286,8 +286,7 @@
 
   // Attach Processing functions to 'p' 
   function buildProcessing( curElement ){
-      alert("processing");// どうやらロードのタイミングがおかしいのでアドホックに
-      debug.trace("starting...");
+              
     // Create the 'p' object
     var p = {};
     
