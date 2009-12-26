@@ -1,6 +1,6 @@
 /* SoundManager2の設定用のコード */
 var soundManager = new SoundManager(null, 'sm2');
-soundManager.url = SERVER_PATH + "/swf/soundmanager2_flash9_xdomain.swf";
+soundManager.url = SERVER_PATH + "swf/soundmanager2_flash9_xdomain.swf";
 soundManager.flashVersion = (window.location.toString().match(/#flash8/i) ? 8
     : 9);
 if (soundManager.flashVersion != 8) {
