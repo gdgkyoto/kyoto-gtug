@@ -69,6 +69,13 @@ function  parse()
 	state.submitDelta({'cellstate': cells});
 }
 
+function reset()
+{
+	var state = wave.getState();
+	var cells = _default;
+	state.submitDelta({'cellstate': cells});
+}
+
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
