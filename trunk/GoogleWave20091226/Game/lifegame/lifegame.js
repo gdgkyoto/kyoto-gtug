@@ -41,17 +41,14 @@ function stateUpdated() {
 	var state = wave.getState();
 	var cells = state.get('cellstate', _default);
 	var list= document.getElementsByTagName('td');
-	alert(cells);
 	for (var i = 0; i< list.length; i++) {
-		switch (cells[i]) {
-		case "0":
+		if (cells[i] == "0") {
 			list[i].style.backGroundColor = "white";
-			break;
-		case "1":
+		} else if (cells[i] == "1") {
 			list[i].style.backGroundColor = "green";
-			break;
-		default:
+		} else {
 			alert(cells[i]);
+			break;
 		}
 	}
 	_gel('cellstate').innerHTML = cells;
