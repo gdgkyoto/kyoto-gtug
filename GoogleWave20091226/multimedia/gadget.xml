@@ -22,9 +22,6 @@
         gadgets.util.registerOnLoadHandler(init);
     </script>
 
-    <div class="icon" id="effect">
-    <canvas id="tempcanvas" width="320" height="175"></canvas>
-    </div>
 
     <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
@@ -40,10 +37,14 @@
     <image id="b-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/bass.png"></image>
     <image id="d-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/drum.png"></image>
     <image id="e-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/effect.png"></image>
-    <div class="icon" id="piano"></div>
+    <div class="icon" id="piano" style="display:none"></div>
     <div class="icon" id="guitar" style="display:none"></div>
     <div class="icon" id="bass" style="display:none"></div>
     <div class="icon" id="drum" style="display:none"></div>
+    <div class="icon" id="effect">
+    <canvas id="tempcanvas" width="320" height="175"></canvas>
+    </div>
+    
     ]]>
 	</Content>
 </Module>
