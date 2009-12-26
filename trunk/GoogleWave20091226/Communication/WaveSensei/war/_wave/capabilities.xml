@@ -7,5 +7,13 @@
       name="BLIP_SUBMITTED"
       content="true"
       context="parent" />
+    <w:capability
+      name="BLIP_DELETED"
+      content="true"
+      context="parent" />
+    <w:capability
+      name="DOCUMENT_CHANGED"
+      content="true"
+      context="parent" />
   </w:capabilities>
 </w:robot>
