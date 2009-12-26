@@ -16,8 +16,8 @@ public class SubmitClickHandler implements ClickHandler {
 
     @Override
     public void onClick(ClickEvent event) {
-        Window.alert(gadget.getNodeIdTextBox() + ":"
-                + gadget.getNodeTitleTextBox());
+        Window.alert(gadget.getNodeIdTextBox().getText() + ":"
+                + gadget.getNodeTitleTextBox().getText());
     }
 
 }

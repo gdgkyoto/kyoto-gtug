@@ -63,6 +63,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         submitButton.addClickHandler(new SubmitClickHandler(this));
 
         deleteButton.setText("Delete");
+        deleteButton.addClickHandler(new DeleteClickHandler(this));
 
         textArea = new TextArea();
         textArea.setCharacterWidth(80);
