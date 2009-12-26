@@ -1,15 +1,17 @@
 package org.kyotogtug.client;
 
+import java.util.List;
+
 import org.cobogw.gwt.waveapi.gadget.client.StateUpdateEvent;
 import org.cobogw.gwt.waveapi.gadget.client.StateUpdateEventHandler;
 import org.cobogw.gwt.waveapi.gadget.client.WaveGadget;
 import org.kyotogtug.client.data.Node;
 import org.kyotogtug.client.data.NodeParser;
+import org.kyotogtug.client.data.NodeUtility;
 import org.mortbay.log.Log;
 
 import gwt.canvas.client.Canvas;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.gadgets.client.Gadget;
@@ -155,12 +157,14 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         NodeParser parser = new NodeParser();
         String xml;
         xml = parser.toString(rootNode);
-        textArea.setText(xml);
+        log(xml);
 
         Node resultRootNode = parser.parseNode(xml);
-        textArea.setText(xml + "\n----------------\n"
-                + parser.toString(resultRootNode));
-
+        log("\n----------------\n" + parser.toString(resultRootNode));
+        List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);
+        for( Node tmpNode : nodeList ){
+        	log(tmpNode.getText());
+        }
     }
 
     /**
@@ -175,6 +179,16 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
      */
     public TextBox getNodeTitleTextBox() {
         return nodeTitleTextBox;
+    }
+    
+    /**
+     * デバッグ用テキストエリアにログを表示する
+     * @param text
+     */
+    public void log( String text ){
+    	String log = textArea.getText();
+    	log = log + text + "\n";
+    	textArea.setText(log);
     }
 
 }
