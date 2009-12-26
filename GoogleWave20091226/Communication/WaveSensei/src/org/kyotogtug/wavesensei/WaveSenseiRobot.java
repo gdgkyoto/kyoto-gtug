@@ -10,7 +10,6 @@ import org.slim3.datastore.Datastore;
 import com.google.wave.api.AbstractRobotServlet;
 import com.google.wave.api.Blip;
 import com.google.wave.api.Event;
-import com.google.wave.api.EventType;
 import com.google.wave.api.Gadget;
 import com.google.wave.api.RobotMessageBundle;
 
@@ -26,9 +25,11 @@ public class WaveSenseiRobot extends AbstractRobotServlet {
         log.warning("SenseiType: " + gSensei);
         if (gSensei.equals("1")) {
             // ついった先生
-        } else {
+        } else if (gSensei.equals("0")) {
             // ちゅーと先生
             new TutorialSensei().execute(bundle);
+        } else {
+            // なにもしない
         }
     }
 
@@ -89,6 +90,9 @@ public class WaveSenseiRobot extends AbstractRobotServlet {
      * @return
      */
     private Gadget getSenseiGadget(Blip blip) {
+        if(blip.getDocument() == null) return null;
+        if(blip.getDocument().getGadgetView() == null) return null;
+        if(blip.getDocument().getGadgetView().getGadgets() == null) return null;
         for(Gadget g : blip.getDocument().getGadgetView().getGadgets()) {
             if(g.getUrl().equals(SENSEI_GADGET_URL)) {
                 return g;
