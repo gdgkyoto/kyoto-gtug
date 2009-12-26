@@ -13,7 +13,7 @@ soundManager.consoleOnly = false;
 /* ここにサンプルを追加していってください。 */
 var SAMPLES = [ "P-1", "P-2", "P-3", "P-4", "P-5", "P-6", "P-7", "P-8", "G-1",
     "G-2", "G-3", "G-4", "G-5", "G-6", "G-7", "G-8", "B-1", "B-2", "B-3",
-    "B-4", "B-5", "B-6", "B-7", "B-8", "clash", "hh-o", "hh-c", "snare", "kick" ];
+    "B-4", "B-5", "B-6", "B-7", "B-8", "D-1", "D-2", "D-3", "D-4", "D-5" ];
 
 soundManager.onload = function() {
 
