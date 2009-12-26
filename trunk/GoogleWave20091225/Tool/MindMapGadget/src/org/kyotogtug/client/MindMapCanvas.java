@@ -16,6 +16,8 @@ public class MindMapCanvas extends GWTCanvas {
 	private MindMapGadget mindMapGadget;
 	
 	public MindMapCanvas( MindMapGadget mindMapGadget ){
+		super(500, 500);
+		
 		this.mindMapGadget = mindMapGadget;
 		sinkEvents(Event.ONCLICK);
 		sinkEvents(Event.ONMOUSEDOWN);
