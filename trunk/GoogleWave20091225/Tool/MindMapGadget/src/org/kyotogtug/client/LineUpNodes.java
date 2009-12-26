@@ -16,7 +16,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class LineUpNodes {
 	
-	private int NODE_HORIZONTAL_MARGIN = 10;
+	private int NODE_HORIZONTAL_MARGIN = 25;
 	private int NODE_VERTICAL_MARGIN = 10;
 	private int RIGHT_BRUNCH = 1;
 	private int LEFT_BRUNCH = -1;
@@ -149,7 +149,10 @@ public class LineUpNodes {
 	public void measureNodeSizes(Node root){
 		if(root.getWidth() == -1){
 			/*幅を計算して設定*/
-			root.setWidth(50);
+			int nodeWidth = root.getText().length() * 8;
+			if(nodeWidth < 10) nodeWidth = 10;
+			
+			root.setWidth(nodeWidth);
 		}
 		if(root.getHeight() == -1){
 			/*高さを計算して設定*/

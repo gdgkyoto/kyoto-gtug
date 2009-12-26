@@ -88,13 +88,14 @@ public class MindMapCanvas extends GWTCanvas {
             toX = toNode.getX();
             toY = toNode.getY() + (toNode.getHeight() /2);
 
-            this.beginPath();
             //初期値移動
             mindMapGadget.log("EDGE - FROM(" + fromX + "," + fromY + ")");
             mindMapGadget.log("EDGE - TO(" + toX + "," + toY + ")");
-            this.moveTo(fromX, fromY);
-            this.lineTo(toX, toY);
-            this.stroke();
+            drawArrow(fromX, fromY, toX, toY);
+            //this.beginPath();
+            //this.moveTo(fromX, fromY);
+            //this.lineTo(toX, toY);
+            //this.stroke();
 
         } else {// TODO 左側にある場合
 
@@ -111,6 +112,22 @@ public class MindMapCanvas extends GWTCanvas {
             this.stroke();
         }
 
+    }
+    
+    /**
+     * fromからtoへ矢印を引く
+     * @param fromX
+     * @param fromY
+     * @param toX
+     * @param toY
+     */
+    private void drawArrow(int fromX , int fromY , int toX , int toY){
+    	for(int i = -7; i < 7; i++){
+            this.beginPath();
+            this.moveTo(fromX, fromY + i);
+            this.lineTo(toX, toY);
+            this.stroke();
+    	}
     }
     
     public int drawNode(Node node) {
@@ -152,7 +169,7 @@ public class MindMapCanvas extends GWTCanvas {
         //rect(20,20,20,20);
         fillRect(x, y, width, height);
         setFillStyle(Color.BLACK);
-        canvasSetFont(this, "italic bold 18px 'ＭＳ Ｐゴシック','Monotype Corsiva'");
+        canvasSetFont(this, "bold 22px 'Monotype Corsiva'");
         canvasFillText(this ,text , x , y + 20 );
 
         //this.setGlobalAlpha(1.0);
