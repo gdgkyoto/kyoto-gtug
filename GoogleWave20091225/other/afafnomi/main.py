@@ -55,7 +55,7 @@ def getKeyPhrase(text):
     logging.debug(url)
 
     result = urlfetch.fetch(url=url)
-    
+
     logging.debug(result.status_code)
     keyphrase = []
     if result.status_code == 200:
@@ -76,13 +76,18 @@ def getItemsByRakutenAPI(words):
     # items[(商品名,商品AffiriateURL,サムネイルURL)....]
     return items
 
+#Amazonから商品を検索して取得
+def getItemsByAmazonAPI(words):
+    items = []
+
+    return items
 
 #広告Blipを生成
 def createAdBlip(blip, items):
     #キーフレーズをblipに表示
 #    root_wavelet.CreateBlip().GetDocument().SetText(keyphrases)
     #実験 - 画像をblipに表示
-    cUrl1 = 'http://images.google.co.jp/intl/ja_ALL/images/logos/images_logo_lg.gif'  
+    cUrl1 = 'http://images.google.co.jp/intl/ja_ALL/images/logos/images_logo_lg.gif'
     cImg1 = document.Image(cUrl1)
     cUrl2 = 'https://wave.google.com/wave/static/images/logo_preview.png'
     cImg2 = document.Image(url=cUrl2,caption='Google Wave')
