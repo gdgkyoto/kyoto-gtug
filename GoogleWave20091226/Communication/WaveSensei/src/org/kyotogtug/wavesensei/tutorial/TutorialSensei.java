@@ -24,9 +24,12 @@ public class TutorialSensei {
 
     public void execute(RobotMessageBundle bundle) {
         for (Event e : bundle.getEvents()) {
-            if (e.getBlip().getCreator().endsWith("@appspot.com")) {
-                continue;
-            }
+            try {
+                if (e.getBlip() != null && e.getBlip().getCreator() != null
+                        && e.getBlip().getCreator().endsWith("@appspot.com")) {
+                    continue;
+                }
+            } catch (Exception ex) {}
             String waveId = e.getWavelet().getWaveId();
             TutorialStatusMeta meta = TutorialStatusMeta.get();
             TutorialStatus status = Datastore.query(meta)
@@ -62,8 +65,8 @@ public class TutorialSensei {
                             message = "よく出来ました！追加できましたね。\n次は Blip を削除してみましょう。";
                             appendChildBlip(e.getBlip(), message);
                             status.setLevel(2);
-//                            message = "次は Blip を削除してみましょう。";
-//                            appendChildBlip(e.getBlip(), message);
+                            //                            message = "次は Blip を削除してみましょう。";
+                            //                            appendChildBlip(e.getBlip(), message);
                             //status.setIsFirstQuestion(true);
                         }
                     }
@@ -85,7 +88,7 @@ public class TutorialSensei {
                         message = "Blipを編集してみましょう。";
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
-                    } else if (e.getType() == EventType.DOCUMENT_CHANGED) {                        
+                    } else if (e.getType() == EventType.DOCUMENT_CHANGED) {
                         message = "よく出来ました！";
                         appendChildBlip(e.getBlip(), message);
                         status.setLevel(4);
@@ -94,20 +97,20 @@ public class TutorialSensei {
                     break;
             }
             Datastore.put(status);
-            if (message != null) {
-            }
+            if (message != null) {}
         }
 
     }
-    
+
     private void appendChildBlip(Blip blip, String message) {
         Blip newBlip = blip.createChild();
         TextView textView = newBlip.getDocument();
-        textView.append(message);        
+        textView.append(message);
     }
+
     private void appendChildBlip(Wavelet wavelet, String message) {
         Blip newBlip = wavelet.appendBlip();
         TextView textView = newBlip.getDocument();
-        textView.append(message);        
+        textView.append(message);
     }
 }
