@@ -204,10 +204,10 @@ var visualProcessor = {
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
 
-  /*ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'; // 赤
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; // 赤
   rect(ctx, 0, 0, 320, 175);
-  ctx.fill();*/
-  ctx.clearRect(0, 0, 320, 175);
+  ctx.fill();
+  //ctx.clearRect(0, 0, 320, 175);
       
 
   for ( var i = 0; i < steps.length; i++) {
@@ -222,22 +222,22 @@ var visualProcessor = {
       ctx.fill();
     }
     if ((step.sample == 'P-2') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      ctx.fillStyle = 'rgba(180, 20, 0, 0.7)'; 
       rect(ctx, 72, 20, 52, 155);
       ctx.fill();
     }
     if ((step.sample == 'P-3') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      ctx.fillStyle = 'rgba(160, 40, 0, 0.7)'; 
       rect(ctx,136, 20, 52, 155);
       ctx.fill();
     }
     if ((step.sample == 'P-4') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      ctx.fillStyle = 'rgba(140, 60, 0, 0.7)'; 
       rect(ctx,200, 20, 52, 155);
       ctx.fill();
     }
     if ((step.sample == 'P-5') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      ctx.fillStyle = 'rgba(120, 80, 0, 0.7)'; 
       rect(ctx,264, 20, 52, 155);
       ctx.fill();
     }
@@ -256,7 +256,7 @@ var visualProcessor = {
       ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
       rect(ctx, 72, 20, 52, 155);
       ctx.fill();
-    }*/
+    }*/	
 
 
 
