@@ -202,12 +202,12 @@ player.processors.push(visualProcessor);
 var song = null;
 
 function stateUpdated() {
-  song = wave.getState().get("song",initSong(SAMPLES));
+  song = wave.getState().get("song", initSong(SAMPLES));
   alert(song);
 }
 
 function init() {
-  alert("wait");//どうやらロードのタイミングがおかしいのでアドホックに
+  alert("wait");// どうやらロードのタイミングがおかしいのでアドホックに
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
@@ -248,6 +248,12 @@ function init() {
   $("#stop").click(function() {
     player.stop();
   });
+  $("#init").click(function() {
+    wave.getState().submitDelta( {
+      "test" : "testValue"
+    });
+  });
+
   createUI(song);
 
   var canvas = document.getElementsByTagName('tempcanvas')[0];
