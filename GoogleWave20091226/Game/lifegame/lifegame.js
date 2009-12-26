@@ -19,7 +19,7 @@ function push(cells, c, x, y)
 	return cells.substr(0, ix) + c + cells.slice(ix+1);
 }
 
-function around(cells, x, y)
+function around_cell(cells, x, y)
 {
 	return 
 		((cells[idx(x-1, y-1)] != "0")? 1: 0) +
@@ -37,7 +37,7 @@ function succ(cells)
 	for (var y = 0; y< height; y++) {
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
-			var around_h = around(cells, x,y);
+			var around_h = around_cell(cells, x,y);
 			if (center == "0") {
 				if (around_h == 3) {
 					cells = push(cells, "1", x, y);
@@ -57,7 +57,7 @@ function  parse()
 	var state = wave.getState();
 	var cells = state.get("cellstate", _default);
 
-	alert(around(cells, 1, 1));
+	alert(around_cell(cells, 1, 1));
 
 	for (var i = 0; i< 1; i++)
 	{
