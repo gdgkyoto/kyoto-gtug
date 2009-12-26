@@ -23,11 +23,12 @@ function  parse()
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
+	alert(state);
 
 	var cells = state.get("cellstate");
 	var ary;
 
-	alert(e.target.id);
+	alert(cells);
 	ary = e.target.id.slice(5).split(',');
 	alert(ary);
 
