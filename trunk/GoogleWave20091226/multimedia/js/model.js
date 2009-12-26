@@ -204,7 +204,7 @@ var song = null;
 function stateUpdated() {
   song = JSON.parse(wave.getState().get("song",
       JSON.stringify(initSong(SAMPLES))));
-  alert("song:" + JSON.stringify(song));
+  createUI(song);
 }
 
 function init() {
@@ -271,6 +271,10 @@ function createUI(song) {
     var gLine = $("<div>");
     var bLine = $("<div>");
     var dLine = $("<div>");
+    pLine.empty();
+    gLine.empty();
+    bLine.empty();
+    dLine.empty();
     for ( var j = 0; j < inst.steps.length; j++) {
       var step = inst.steps[j];
       var img = $("<image>");
