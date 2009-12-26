@@ -29,8 +29,19 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** ルートノード */
     private Node rootNode;
+    
+    /** 選択中のノード */
+    private Node selectionNode;
 
-    /** マインドマップを描画するCanvas */
+    public Node getSelectionNode() {
+		return selectionNode;
+	}
+
+	public void setSelectionNode(Node selectionNode) {
+		this.selectionNode = selectionNode;
+	}
+
+	/** マインドマップを描画するCanvas */
     private MindMapCanvas gwtCanvas;
 
     /** ノードのIDを入力するためのテキストボックス */
@@ -92,7 +103,8 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
                 draw();
             }
         });
-
+        
+        
         //canvasFillText(gwtCanvas, "ほげほげ", 50, 50);
     }
     
@@ -106,7 +118,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     /**
      * マインドマップを描画する
      */
-    private void draw() {
+    public void draw() {
     	try{
     		LineUpNodes lineUpNodes = new LineUpNodes();
     		lineUpNodes.measureNodeSizes(rootNode);
