@@ -13,14 +13,44 @@ function   idx(x, y)
 	return x + y * width;
 }
 
+function push(cells, c, x, y)
+{
+	var ix = idx(x,y);
+	return cells.substr(0, ix) + c + cells.slice(ix+1);
+}
+
+function succ(cells)
+{
+
+	for (var y = 0; y< height; y++) {
+		for (var x = 0; x< width; x++) {
+			var center = cells[idx(x, y)];
+			var around_h = around(cells, x,y);
+			if (center == "0") {
+				if (around_h == 3) {
+					cells = push(cells, "1", x, y);
+				}
+			} else {
+				if (!(around_h == 2 || around_h == 3)) {
+					cells = push(cells, "0", x, y);
+				}
+			}
+		}
+	}
+	return cells;
+}
+
 function  parse()
 {
-	var ret;
-	var elmts = document.getElementsByTagName('td');
-	for (var i = 0; i< elmts.length; i++) {
-		ret += "0";
+	var state = wave.getState();
+	var cells = state.get("cellstate", _default);
+
+	for (var i = 0; i< 100; i++)
+	{
+		cells = succ();
+		drawscene(cells);
 	}
-	_gel('state') = ret;
+	state.submitDelta({'cellstate': cells});
 }
 
 function plot_point(e) {
@@ -32,15 +62,12 @@ function plot_point(e) {
 
 	ary = e.target.id.slice(5).split(',');
 
-	var ix = idx(ary[0], ary[1]);
-	cells = cells.substr(0, ix) + "1" + cells.slice(ix+1);
+	push(cells, "1", ary[0], ary[1]);
 
 	state.submitDelta({'cellstate': cells});
 }
 
-function stateUpdated() {
-	var state = wave.getState();
-	var cells = state.get('cellstate', _default);
+function drawscene(cells) {
 	var list= document.getElementsByTagName('td');
 	for (var i = 0; i< cells.length; i++) {
 		if (cells[i] == "0") {
@@ -52,6 +79,12 @@ function stateUpdated() {
 			break;
 		}
 	}
+}
+
+function stateUpdated() {
+	var state = wave.getState();
+	var cells = state.get('cellstate', _default);
+	drawscene(cells);
 	_gel('cellstate').innerHTML = cells;
 }
 
