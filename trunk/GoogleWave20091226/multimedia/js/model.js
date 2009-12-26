@@ -294,14 +294,14 @@ function createUI(song) {
     for ( var j = 0; j < inst.steps.length; j++) {
       var step = inst.steps[j];
       var img = $("<image>");
-      img.attr("value", step.value);
+      img.attr("velocity", step.velocity);
       img.attr("numOfInst", i);
       img.attr("numOfStep", j);
-      if (step.value == 30) {
+      if (step.velocity == 30) {
         img.attr("src", SERVER_PATH + "image/sound-weak.png");
-      } else if (step.value == 60) {
+      } else if (step.velocity == 60) {
         img.attr("src", SERVER_PATH + "image/sound-normal.png");
-      } else if (step.value == 90) {
+      } else if (step.velocity == 90) {
         img.attr("src", SERVER_PATH + "image/sound-strong.png");
       } else {
         img.attr("src", SERVER_PATH + "image/sound-none.png");
@@ -310,23 +310,23 @@ function createUI(song) {
       img.attr("step", j);
       img.click(function() {
         var img = $(this);
-        if (img.attr("value") == 30) {
-          img.attr("value", 60);
+        if (img.attr("velocity") == 30) {
+          img.attr("velocity", 60);
           img.attr("src", SERVER_PATH + "image/sound-normal.png");
-        } else if (img.attr("value") == 60) {
-          img.attr("value", 90);
+        } else if (img.attr("velocity") == 60) {
+          img.attr("velocity", 90);
           img.attr("src", SERVER_PATH + "image/sound-strong.png");
-        } else if (img.attr("value") == 90) {
-          img.attr("value", 0);
+        } else if (img.attr("velocity") == 90) {
+          img.attr("velocity", 0);
           img.attr("src", SERVER_PATH + "image/sound-none.png");
         } else {
-          img.attr("value", 30);
+          img.attr("velocity", 30);
           img.attr("src", SERVER_PATH + "image/sound-weak.png");
         }
         song.patterns[0].instruments[img.attr("numOfInst")].steps[img
-            .attr("numOfStep")].velocity = img.attr("value");
+            .attr("numOfStep")].velocity = img.attr("velocity");
         wave.getState().submitDelta( {
-          'song' : JSON.stringify(song)
+          "song" : JSON.stringify(song)
         });
       });
 
