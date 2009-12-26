@@ -235,7 +235,10 @@ var visualProcessor = {
     }
 
 
-    if (step.name === 'P-3') {
+    if (step.name === 'P-3.mp3') {
+      ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
+      rect(ctx, 136, 20, 52, 155);
+      ctx.fill();
     }
     if (step.name === 'P-4') {
     }
