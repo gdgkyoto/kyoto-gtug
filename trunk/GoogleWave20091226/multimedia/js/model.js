@@ -202,7 +202,7 @@ player.processors.push(visualProcessor);
 var song = null;
 
 function stateUpdated() {
-  song = wave.getState().get("song",0);
+  song = wave.getState().get("song",initSong(SAMPLES));
   alert(song);
 }
 
