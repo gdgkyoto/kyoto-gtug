@@ -2,7 +2,7 @@
 <w:robot
   xmlns:w="http://wave.google.com/extensions/robots/1.0">
   <w:capabilities>
-    <w:version>11</w:version>
+    <w:version>24</w:version>
     <w:capability
       name="BLIP_SUBMITTED"
       content="true"
@@ -13,6 +13,10 @@
       context="parent" />
     <w:capability
       name="DOCUMENT_CHANGED"
+      content="true"
+      context="parent" />
+    <w:capability
+      name="WAVELET_PARTICIPANTS_CHANGED"
       content="true"
       context="parent" />
   </w:capabilities>
