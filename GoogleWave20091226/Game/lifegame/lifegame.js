@@ -24,7 +24,7 @@ function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
 
-	var cells = state.get('cellstate');
+	var cells = state.get("cellstate");
 	var ary;
 
 	ary = e.target.id.slice(5).split(',');
@@ -77,13 +77,13 @@ function init()
     wave.setParticipantCallback(partUpdated);
 
 	var state = wave.getState();
-	if (state && !state.get('cellstate')) {
+	//if (state && !state.get('cellstate')) {
 		var s;
 		for (var i = 0; i< width* height; i++) {
 			s += "0";
 		}
 		wave.getState().submitDelta({'cellstate': s});
-	}
+	//}
 
 	var list= document.getElementsByTagName('td');
     list[width+1].style.backgroundColor = "red";
