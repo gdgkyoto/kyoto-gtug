@@ -189,19 +189,8 @@ var soundProcessor = {
  * 画面エフェクトを処理するためのProcessor
  */
 var canvas = null;
-var p1r = 0,
-  p1rb = 0,
-  p1g = 0,
-  p1gb = 0,
-  p1b = 0,
-  p1bb = 0,
-  p2r = 0,
-  p2rb = 0,
-  p2g = 0,
-  p2gb = 0,
-  p2b = 0,
-  p2bb = 0;
-function rect(c,x,y,w,h){
+var p1r = 0, p1rb = 0, p1g = 0, p1gb = 0, p1b = 0, p1bb = 0, p2r = 0, p2rb = 0, p2g = 0, p2gb = 0, p2b = 0, p2bb = 0;
+function rect(c, x, y, w, h) {
   c.beginPath();
   c.rect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
   c.closePath();
@@ -216,35 +205,34 @@ var visualProcessor = {
     var ctx = canvas.getContext('2d');
 
     /* 四角を描く */
-    if(steps.name === 'P-1'){
-	p1r = 100;
-	p1g = 0;
-	p1b = 0;
+    if (steps.name === 'P-1') {
+      p1r = 100;
+      p1g = 0;
+      p1b = 0;
 
     }
 
-    ctx.fillStyle = 'rgba('+p1r+','+p1g+','+p1b+', 0.5)';
+    ctx.fillStyle = 'rgba(' + p1r + ',' + p1g + ',' + p1b + ', 0.5)';
     rect(ctx, 8, 20, 52, 155);
     ctx.fill();
 
-
-    if(steps.name === 'P-2'){
+    if (steps.name === 'P-2') {
     }
     ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; // 赤
     rect(ctx, 72, 20, 52, 155);
     ctx.fill();
 
-    if(steps.name === 'P-3'){
+    if (steps.name === 'P-3') {
     }
-    if(steps.name === 'P-4'){
+    if (steps.name === 'P-4') {
     }
-    if(steps.name === 'P-5'){
+    if (steps.name === 'P-5') {
     }
-    if(steps.name === 'P-6'){
+    if (steps.name === 'P-6') {
     }
-    if(steps.name === 'P-7'){
+    if (steps.name === 'P-7') {
     }
-    if(steps.name === 'P-8'){
+    if (steps.name === 'P-8') {
     }
 
   }
@@ -272,6 +260,7 @@ function init() {
 
   for ( var i = 0; i < song.patterns.length; i++) {
     var ptn = $("<div>");
+    ptn.css("float", "left");
     ptn.text("Pattern" + i);
     ptn.attr("patternNo", i);
     ptn.click(function() {
