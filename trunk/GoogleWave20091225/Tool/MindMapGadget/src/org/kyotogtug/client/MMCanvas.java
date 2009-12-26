@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
  *
  * @author ochi
  */
-public class MMCanvas extends Canvas  {
+public class MMCanvas extends Canvas {
 
     JavaScriptObject context;
     RootPanel root;
@@ -145,7 +145,7 @@ public class MMCanvas extends Canvas  {
         node1.addChildNode(node1_1);
         node1.addChildNode(node1_2);
 
-//        context = getCanvasContext();
+        //        context = getCanvasContext();
         //fillText("テすとー", 20, 20);
 
         //this.drawNode("あいうえお", 50, 50);
@@ -205,6 +205,7 @@ public class MMCanvas extends Canvas  {
      */
     public void drowMap(Node rootNode) {
         this.drawNode(rootNode);
+        /**
         List elist = rootNode.getChildren();
         Iterator it = elist.iterator();
         while (it.hasNext()) {
@@ -214,6 +215,7 @@ public class MMCanvas extends Canvas  {
             this.drowEdge(edge);
             drowMap(node);
         }
+        */
     }
 
     int findNode(String lbl) {
@@ -249,19 +251,20 @@ public class MMCanvas extends Canvas  {
         int width;
 
         //文字の長さを調べる
-        tWidth = textWidth(context, text);
+        //tWidth = textWidth(context, text);
 
-        width = Integer.parseInt(tWidth);
+        //width = Integer.parseInt(tWidth);
         height = 10;
+        width = 10;
         //this.setGlobalAlpha(0.5);
         //this.setFillStyle("rgba(192,80,77,0.5");
 
         //gcanvas.setFillStyle(Color.RED);
-        //this.fillRect(x - w, y - w - height, width + 2 * w, 2 * w + height);
+        this.fillRect(x - w, y - w - height, width + 2 * w, 2 * w + height);
 
         //this.setGlobalAlpha(1.0);
         //this.setFillStyle("rgb(255,255,255)");
-        this.fillText(text, x, y);
+        //this.fillText(text, x, y);
 
         //        //線を引く（時計の反対回り）
         //        this.beginPath();
