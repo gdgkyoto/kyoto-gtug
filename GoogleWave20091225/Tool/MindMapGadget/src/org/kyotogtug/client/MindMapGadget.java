@@ -26,17 +26,20 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     /** マインドマップを描画するCanvas */
     private Canvas canvas;
 
+    /** ノードのIDを入力するためのテキストボックス */
+    private TextBox nodeIdTextBox = new TextBox();
+
     /** 新しいノードのタイトルを入力するためのテキストボックス */
-    private TextBox nodeTitleTextBox;
+    private TextBox nodeTitleTextBox = new TextBox();
 
     /** デバッグボタン */
-    private Button debugButton;
+    private Button debugButton = new Button();
 
     /** 投稿ボタン */
-    private Button submitButton;
+    private Button submitButton = new Button();
 
     /** ノードの削除ボタン */
-    private Button deleteButton;
+    private Button deleteButton = new Button();
 
     /** Debugテキストエリア */
     private TextArea textArea;
@@ -47,10 +50,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         HorizontalPanel hvpanel = new HorizontalPanel();
 
         canvas = new Canvas();
-        nodeTitleTextBox = new TextBox();
-        debugButton = new Button();
-        submitButton = new Button();
-        deleteButton = new Button();
 
         debugButton.setText("Debug");
         submitButton.addClickHandler(new ClickHandler() {
@@ -61,12 +60,8 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         });
 
         submitButton.setText("Submit");
-        submitButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                Window.alert("submit");
-            }
-        });
+        submitButton.addClickHandler(new SubmitClickHandler(this));
+
         deleteButton.setText("Delete");
 
         textArea = new TextArea();
@@ -77,6 +72,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         vpanel.add(canvas);
         vpanel.add(hvpanel);
         vpanel.add(textArea);
+        hvpanel.add(nodeIdTextBox);
         hvpanel.add(nodeTitleTextBox);
         hvpanel.add(submitButton);
         hvpanel.add(deleteButton);
@@ -84,20 +80,20 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
         RootPanel.get().add(vpanel);
         debug();
-        
+
         getWave().addStateUpdateEventHandler(new StateUpdateEventHandler() {
-			@Override
-			public void onUpdate(StateUpdateEvent event) {
-				draw();
-			}
-		});
+            @Override
+            public void onUpdate(StateUpdateEvent event) {
+                draw();
+            }
+        });
     }
-    
+
     /**
      * マインドマップを描画する
      */
-    private void draw(){
-    	
+    private void draw() {
+
     }
 
     private void debug() {
@@ -162,6 +158,20 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         textArea.setText(xml + "\n----------------\n"
                 + parser.toString(resultRootNode));
 
+    }
+
+    /**
+     * @return the nodeIdTextBox
+     */
+    public TextBox getNodeIdTextBox() {
+        return nodeIdTextBox;
+    }
+
+    /**
+     * @return the nodeTitleTextBox
+     */
+    public TextBox getNodeTitleTextBox() {
+        return nodeTitleTextBox;
     }
 
 }
