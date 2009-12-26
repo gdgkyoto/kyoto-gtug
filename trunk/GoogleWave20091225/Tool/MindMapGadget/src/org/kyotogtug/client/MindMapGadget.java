@@ -119,6 +119,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
      * マインドマップを描画する
      */
     public void draw() {
+    	gwtCanvas.clear();
     	try{
     		LineUpNodes lineUpNodes = new LineUpNodes();
     		lineUpNodes.measureNodeSizes(rootNode);

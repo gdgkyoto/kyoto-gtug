@@ -57,8 +57,6 @@ public class MindMapCanvas extends GWTCanvas {
      * @param rootNode
      */
     public void drawMap(Node rootNode) {
-    	clear();
-    	
         this.drawNode(rootNode);
         List elist = rootNode.getChildren();
         Iterator it = elist.iterator();
