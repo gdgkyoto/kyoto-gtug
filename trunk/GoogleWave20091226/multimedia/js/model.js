@@ -217,7 +217,7 @@ var visualProcessor = {
     ctx.stroke();
 
     /* 四角を描く */
-    ctx.fillStyle = 'rgba(192, 80, 77, 100)'; // 赤
+    ctx.fillStyle = 'rgba(192, 80, 77, 0.7)'; // 赤
     rect(ctx,10,10,100,100);
     ctx.fill();
     ctx.stroke();
