@@ -8,6 +8,7 @@ function   idx(x, y)
 	else if (x >= width) { x %= width; }
 	if (y < 0) {y = height + (y % height);}
 	else if (y >= height) { y %= height; }
+	alert(x+":::"+y);
 	return x + y * width;
 }
 
