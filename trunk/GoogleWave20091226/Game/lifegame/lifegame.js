@@ -76,7 +76,7 @@ function init()
 	var state = wave.getState();
 	if (state && !state.get('cellstate'))
 		var s;
-		for (int i = 0; i< width* height; i++) {
+		for (var i = 0; i< width* height; i++) {
 			s += "0";
 		}
 		wave.getState().submitDelta({'cellstate', s});
