@@ -206,6 +206,7 @@ function stateUpdated() {
 }
 
 function init() {
+  alert("wait");
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
