@@ -18,8 +18,8 @@ td { border: 1px blue solid; width:4px; height:8px }
 
 <body>
 <h1>LifeGame!</h1>
-<span id="cellstate">00000</span>
 <div id="main"></div> <button onclick="parse()">PARSE</button>
+<span id="cellstate">0</span>
 </body>
 ]]>
 </Content>
