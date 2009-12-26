@@ -27,6 +27,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 @com.google.gwt.gadgets.client.Gadget.ModulePrefs(title = "SimpleGadget", author = "yournamehere", author_email = "yournamehere@gmail.com", height = 500)
 public class MindMapGadget extends WaveGadget<UserPreferences> {
 
+    /** ルートノード */
+    private Node rootNode;
+
     /** マインドマップを描画するCanvas */
     private Canvas canvas;
 
@@ -35,9 +38,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** 新しいノードのタイトルを入力するためのテキストボックス */
     private TextBox nodeTitleTextBox = new TextBox();
-
-    /** デバッグボタン */
-    private Button debugButton = new Button();
 
     /** 投稿ボタン */
     private Button submitButton = new Button();
@@ -54,14 +54,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         HorizontalPanel hvpanel = new HorizontalPanel();
 
         canvas = new Canvas();
-
-        debugButton.setText("Debug");
-        submitButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                debug();
-            }
-        });
 
         submitButton.setText("Submit");
         submitButton.addClickHandler(new SubmitClickHandler(this));
@@ -81,7 +73,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         hvpanel.add(nodeTitleTextBox);
         hvpanel.add(submitButton);
         hvpanel.add(deleteButton);
-        hvpanel.add(debugButton);
 
         RootPanel.get().add(vpanel);
         debug();
@@ -102,7 +93,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     }
 
     private void debug() {
-        Node rootNode = new Node();
+        rootNode = new Node();
         Node node1 = new Node();
         Node node2 = new Node();
         Node node1_1 = new Node();
@@ -162,9 +153,16 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         Node resultRootNode = parser.parseNode(xml);
         log("\n----------------\n" + parser.toString(resultRootNode));
         List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);
-        for( Node tmpNode : nodeList ){
-        	log(tmpNode.getText());
+        for (Node tmpNode : nodeList) {
+            log(tmpNode.getText());
         }
+    }
+
+    /**
+     * @return the rootNode
+     */
+    public Node getRootNode() {
+        return rootNode;
     }
 
     /**
@@ -180,15 +178,15 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     public TextBox getNodeTitleTextBox() {
         return nodeTitleTextBox;
     }
-    
+
     /**
      * デバッグ用テキストエリアにログを表示する
      * @param text
      */
-    public void log( String text ){
-    	String log = textArea.getText();
-    	log = log + text + "\n";
-    	textArea.setText(log);
+    public void log(String text) {
+        String log = textArea.getText();
+        log = log + text + "\n";
+        textArea.setText(log);
     }
 
 }
