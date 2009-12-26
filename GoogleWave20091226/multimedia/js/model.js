@@ -283,6 +283,10 @@ function init() {
     $(".icon").hide(300);
     $("#drum").show(300);
   });
+  $("#e-icon").click(function() {
+    $(".icon").hide(300);
+    $("#effect").show(300);
+  });
 
   createUI(song);
 
