@@ -30,10 +30,10 @@
     <image id="g-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/guitar.png"></image>
     <image id="b-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/bass.png"></image>
     <image id="d-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/drum.png"></image>
-    <div class="icon" id="piano"></div>
-    <div class="icon" id="guitar" style="display:none"></div>
-    <div class="icon" id="bass" style="display:none"></div>
-    <div class="icon" id="drum" style="display:none"></div>
+    <div class="icon" id="piano">TEST1</div>
+    <div class="icon" id="guitar" style="display:none">TEST2</div>
+    <div class="icon" id="bass" style="display:none">TEST3</div>
+    <div class="icon" id="drum" style="display:none">TEST4</div>
     ]]>
   </Content>
 </Module>
