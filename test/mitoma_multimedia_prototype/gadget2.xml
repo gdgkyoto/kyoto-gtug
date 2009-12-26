@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Hello Wave" height="300">
+    <Require feature="wave" />
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    <link type="text/css" href="http://mutetheradio.no-ip.org/mtr-wave/css/smoothness/jquery-ui.css" rel="stylesheet" /> 
+    <link type="text/css" href="http://mutetheradio.no-ip.org/mtr-wave/css/mtr.css" rel="stylesheet" /> 
+    <script type="text/javascript" src="http://mutetheradio.no-ip.org/mtr-wave/js/jquery.js"></script>
+    <script type="text/javascript" src="http://mutetheradio.no-ip.org/mtr-wave/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#inc").click(function(){
+          var count = wave.getState().get("count",0);
+          count++;
+          wave.getState().submitDelta({'count':count});
+        });
+        $("#dec").click(function(){
+          var count = wave.getState().get("count",0);
+          count--;
+          wave.getState().submitDelta({'count':count});
+        });
+        $("#value").text("hoge");
+      });
+      function init(){
+        if (wave && wave.isInWaveContainer()) {
+          wave.setStateCallback(stateUpdated);
+        }
+      };
+      function stateUpdated(){
+        $("#value").text(wave.getState().get("count",0));
+      }
+      gadgets.util.registerOnLoadHandler(init);
+    </script>
+    <div>テストですよ</div>
+    <div id="inc">Inc</div>
+    <div id="dec">Dec</div>
+    <div id="value"></div>
+    ]]>
+  </Content>
+</Module>
