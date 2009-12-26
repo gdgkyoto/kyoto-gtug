@@ -17,6 +17,7 @@
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/soundmanager2.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/json2.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/initSoundManager.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/processing.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/model.js"></script>
     <script type="text/javascript">
       gadgets.util.registerOnLoadHandler(init);
