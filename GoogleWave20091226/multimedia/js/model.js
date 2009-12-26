@@ -308,7 +308,7 @@ function init() {
   });
 
   $("#play").click(function() {
-    player.play(0);
+    player.play(selectPtn);
   });
   $("#playSong").click(function() {
     player.playSong();
@@ -352,7 +352,7 @@ function createUI(song) {
   $("#guitar").empty();
   $("#bass").empty();
   $("#drum").empty();
-  var instruments = song.patterns[0].instruments;
+  var instruments = song.patterns[selectPtn].instruments;
   for ( var i = 0; i < instruments.length; i++) {
     var inst = instruments[i];
     var pLine = $("<div>");
@@ -391,7 +391,7 @@ function createUI(song) {
           img.attr("velocity", 30);
           img.attr("src", SERVER_PATH + "image/sound-weak.png");
         }
-        song.patterns[0].instruments[img.attr("numOfInst")].steps[img
+        song.patterns[selectPtn].instruments[img.attr("numOfInst")].steps[img
             .attr("numOfStep")].velocity = img.attr("velocity");
         wave.getState().submitDelta( {
           "song" : JSON.stringify(song)
