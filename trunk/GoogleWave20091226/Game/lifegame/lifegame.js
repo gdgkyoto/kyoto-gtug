@@ -43,13 +43,11 @@ function stateUpdated() {
 	var state = wave.getState();
 	var cells = state.get('cellstate', _default);
 	var list= document.getElementsByTagName('td');
-	alert(list + "::" + cells.length);
 	for (var i = 0; i< cells.length; i++) {
-		list[i].style.backGroundColor = "red";
 		if (cells[i] == "0") {
-			list[i].style.backGroundColor = "white";
+			list[i].style.backgroundColor = "white";
 		} else if (cells[i] == "1") {
-			list[i].style.backGroundColor = "green";
+			list[i].style.backgroundColor = "green";
 		} else {
 			alert(cells[i]);
 			break;
