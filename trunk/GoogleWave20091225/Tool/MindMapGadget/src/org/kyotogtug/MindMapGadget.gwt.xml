@@ -12,7 +12,8 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
   
   <inherits name="com.google.gwt.gadgets.Gadgets" /> 
-  <inherits name='gwt.canvas.gwt-canvas'/> 
+  <inherits name='gwt.canvas.gwt-canvas'/>
+  <inherits name='org.cobogw.gwt.waveapi.gadget.WaveGadget' /> 
 
   <!-- Other module inherits                                      -->
 
