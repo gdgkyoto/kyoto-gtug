@@ -45,8 +45,7 @@ $(document).ready(function(){
   draw();
   var canvas = document.getElementsById('tempcanvas');
   var code = "size(140,140);fill(255,0,0,100);rect(10,10,70,70);"
-  var p = Processing(canvas,code);
-  p.rect(10,10,70,70);
+  Processing(canvas,code);
 });
 function draw() {
   /* canvas要素のノードオブジェクト */
