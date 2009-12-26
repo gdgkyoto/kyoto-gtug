@@ -77,10 +77,10 @@ public class TutorialSensei {
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
                     } else if (e.getType() == EventType.BLIP_DELETED) {
-                        message = "よく出来ました！削除できましたね。";
+                        message = "よく出来ました！削除できましたね。\n次はお友達を参加させましょう。";
                         appendChildBlip(e.getWavelet(), message);
                         status.setLevel(3);
-                        status.setIsFirstQuestion(true);
+//                        status.setIsFirstQuestion(true);
                     }
                     break;
                 case 3 :
@@ -88,8 +88,8 @@ public class TutorialSensei {
                         message = "Blipを編集してみましょう。";
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
-                    } else if (e.getType() == EventType.DOCUMENT_CHANGED) {
-                        message = "よく出来ました！";
+                    } else if (e.getType() == EventType.WAVELET_PARTICIPANTS_CHANGED && e.getAddedParticipants().size() > 0) {
+                        message = "よく出来ました！もうあなたに教えることはないわ。";
                         appendChildBlip(e.getBlip(), message);
                         status.setLevel(4);
                         status.setIsFirstQuestion(true);
