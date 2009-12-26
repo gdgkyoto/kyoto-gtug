@@ -49,6 +49,7 @@ function  parse()
 	{
 		cells = succ();
 		drawscene(cells);
+		alert("cells");
 	}
 	state.submitDelta({'cellstate': cells});
 }
