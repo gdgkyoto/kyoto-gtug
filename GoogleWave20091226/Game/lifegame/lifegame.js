@@ -38,7 +38,7 @@ function plot_point(e) {
 
 function stateUpdated() {
 	var state = wave.getState();
-	var cells = state.get('cellstate');
+	var cells = state.get('cellstate', _default);
 	var list= document.getElementsByTagName('td');
 	for (var i = 0; i< list.length; i++) {
 		switch (cells[i]) {
