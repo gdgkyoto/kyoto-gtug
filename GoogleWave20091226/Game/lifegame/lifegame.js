@@ -24,7 +24,7 @@ function around_cell(cells, x, y)
 	
 	var sum = 0;
 
-	sum += ((cells[idx(x-1, y-1)] != "0")? 1: 0);
+	sum +=  ((cells[idx(x-1, y-1)] != "0")? 1: 0);
 	sum +=	((cells[idx(x  , y-1)] != "0")? 1: 0) ;
 	sum +=	((cells[idx(x+1, y-1)] != "0")? 1: 0) ;
 	sum +=	((cells[idx(x-1, y  )] != "0")? 1: 0) ;
