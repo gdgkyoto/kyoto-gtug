@@ -21,7 +21,6 @@ function push(cells, c, x, y)
 
 function succ(cells)
 {
-
 	for (var y = 0; y< height; y++) {
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
@@ -47,9 +46,9 @@ function  parse()
 
 	for (var i = 0; i< 100; i++)
 	{
-		cells = succ();
+		cells = succ(cells);
 		drawscene(cells);
-		alert("cells");
+		alert(cells);
 	}
 	state.submitDelta({'cellstate': cells});
 }
