@@ -1,11 +1,11 @@
 var width = 50;
 var height = 50;
-function   idx(x, y)
+function   idx(x, y)  //0 - width, 0 - height  -- clamp
 {
-	if (x < 0) x = width - (-x);
-	if (x >= width) { x %= width; }
-	if (y < 0) y = width - (-y);
-	if (y >= width) { y %= width; }
+	if (x < 0) x = width + (x % width);
+	else if (x >= width) { x %= width; }
+	if (y < 0) y = height + (y % height);
+	else if (y >= height) { y %= height; }  // -1 >> 49,  -2 >> 48 ,  4 >> 4, -100 >> 0  width=50
 	return x + y * width;
 }
 
@@ -21,6 +21,35 @@ function  parse()
 
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
+	var state = wave.getState();
+
+	var cells = state.get('cellstate');
+	var ary;
+
+	ary = e.target.id.slice(5).split(',');
+
+	cells[idx(ary[0], ary[1])] = "1";
+
+	state.submitDelta({'cellstate': cells});
+}
+
+function stateUpdated() {
+	var state = wave.getState();
+	var cells = state.get('cellstate');
+	var list= document.getElementsByTagName('td');
+	for (var i = 0; i< list.length; i++) {
+		switch (cells[i]) {
+		case "0":
+			list[i].style.backGroundColor = "white";
+			break;
+		case "1":
+			list[i].style.backGroundColor = "green";
+			break;
+		}
+	}
+}
+
+function partUpdated() {
 }
 
 function init()
@@ -40,7 +69,20 @@ function init()
 		table.appendChild(ht);
 	}
 	tt.appendChild(table);
+
+    wave.setStateCallback(stateUpdated);
+    wave.setParticipantCallback(partUpdated);
+
+	var state = wave.getState();
+	if (state && !state.get('cellstate'))
+		var s;
+		for (int i = 0; i< width* height; i++) {
+			s += "0";
+		}
+		wave.getState().submitDelta({'cellstate', s});
+	}
+
 	var list= document.getElementsByTagName('td');
-    _gel('point1,1').style.backgroundColor = "red";
+    list[width+1].style.backgroundColor = "red";
 }
 gadgets.util.registerOnLoadHandler(init);
