@@ -1,11 +1,12 @@
 var width = 50;
 var height = 50;
-function   idx(x, y)  //0 - width, 0 - height  -- clamp
+
+function   idx(x, y)
 {
-	if (x < 0) x = width + (x % width);
+	if (x < 0) {x = width + (x % width);}
 	else if (x >= width) { x %= width; }
-	if (y < 0) y = height + (y % height);
-	else if (y >= height) { y %= height; }  // -1 >> 49,  -2 >> 48 ,  4 >> 4, -100 >> 0  width=50
+	if (y < 0) {y = height + (y % height);}
+	else if (y >= height) { y %= height; }
 	return x + y * width;
 }
 
@@ -54,8 +55,8 @@ function partUpdated() {
 
 function init()
 {
-	var tt = _gel("main");
 	var d= document;
+	var tt = _gel("main");
 	var table = d.createElement('table');
 	for (var i = 0; i< height; i++) {
 		var ht = d.createElement('tr');
@@ -74,7 +75,7 @@ function init()
     wave.setParticipantCallback(partUpdated);
 
 	var state = wave.getState();
-	if (state && !state.get('cellstate'))
+	if (state && !state.get('cellstate')) {
 		var s;
 		for (var i = 0; i< width* height; i++) {
 			s += "0";
