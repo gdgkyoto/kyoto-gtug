@@ -82,6 +82,7 @@ function init()
 
 	var state = wave.getState();
 	//if (state && !state.get('cellstate')) {
+	alert("test");
 	for (var i = 0; i< width* height; i++) {
 		_default += "0";
 	}
