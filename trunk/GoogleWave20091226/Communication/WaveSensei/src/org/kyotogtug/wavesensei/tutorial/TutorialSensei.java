@@ -56,7 +56,7 @@ public class TutorialSensei {
             switch (level) {
                 case 1 :
                     if (isFirstQuestion) {
-                        message = "はじめまして。ひとりで遊びにきたの。\nまずは Blipを追加してみましょうか。";
+                        message = "はじめまして。ひとりで遊びにきたの？\nまずは Blipを追加してみましょうか。";
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
                     } else if (e.getType() == EventType.BLIP_SUBMITTED) {
@@ -77,7 +77,7 @@ public class TutorialSensei {
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
                     } else if (e.getType() == EventType.BLIP_DELETED) {
-                        message = "よく出来ました！削除できましたね。\n次はお友達を参加させましょう。";
+                        message = "よく出来ました！削除できましたね。\nそろそろお友達を誘ってみたらどうかしら。";
                         appendChildBlip(e.getWavelet(), message);
                         status.setLevel(3);
 //                        status.setIsFirstQuestion(true);
