@@ -1,5 +1,9 @@
 package org.kyotogtug.wavesensei.tutorial;
 
+import hello.HelloLogger;
+
+import java.util.logging.Logger;
+
 import org.kyotogtug.wavesensei.tutorial.meta.TutorialStatusMeta;
 import org.kyotogtug.wavesensei.tutorial.model.TutorialStatus;
 import org.slim3.datastore.Datastore;
@@ -11,6 +15,9 @@ import com.google.wave.api.RobotMessageBundle;
 import com.google.wave.api.TextView;
 
 public class TutorialSensei {
+	
+	private static Logger logger =
+	    Logger.getLogger(HelloLogger.class.getSimpleName());
 
 	public void execute(RobotMessageBundle bundle) {
 		for (Event e : bundle.getEvents()) {
