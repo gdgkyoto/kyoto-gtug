@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Hello Wave" width="640" height="480">
-    <Require feature="wave" />
-  </ModulePrefs>
-  <Content type="html">
+	<ModulePrefs title="Hello Wave" width="640" height="480">
+		<Require feature="wave" />
+	</ModulePrefs>
+	<Content type="html">
     <![CDATA[
     <link type="text/css" href="css/smoothness/jquery-ui.css" rel="stylesheet" /> 
     <link type="text/css" href="css/mtr.css" rel="stylesheet" />
@@ -20,7 +20,9 @@
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/processing.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/model.js"></script>
     <script type="text/javascript">
-      gadgets.util.registerOnLoadHandler(init);
+      $(document).ready(function(){
+        gadgets.util.registerOnLoadHandler(init);
+      });
     </script>
     
     <canvas id="tempcanvas" width="140" height="140"></canvas>
@@ -67,5 +69,5 @@ function draw() {
 }
     </script>
     ]]>
-  </Content>
+	</Content>
 </Module>
