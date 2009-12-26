@@ -236,7 +236,7 @@ function stateUpdated() {
 }
 
 function init() {
-  alert("wait");// どうやらロードのタイミングがおかしいのでアドホックに
+  alert("初期化時のやんごとなき理由により、人呼吸置きましてからダイアログを閉じてください。");// どうやらロードのタイミングがおかしいのでアドホックに
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
