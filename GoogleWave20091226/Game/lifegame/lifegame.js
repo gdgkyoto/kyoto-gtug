@@ -27,7 +27,9 @@ function plot_point(e) {
 	var cells = state.get("cellstate");
 	var ary;
 
+	alert(e.target.id);
 	ary = e.target.id.slice(5).split(',');
+	alert(ary);
 
 	//cells[idx(ary[0], ary[1])] = "1";
 
