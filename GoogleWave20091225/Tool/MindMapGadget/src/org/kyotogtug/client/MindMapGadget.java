@@ -154,7 +154,21 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         String xml;
         xml = parser.toString(rootNode);
         log(xml);
-
+        
+        /* 整列テスト */
+        LineUpNodes lineUpNodes = new LineUpNodes();
+        log("LineUpを実行中");
+        try{
+        	lineUpNodes.lineUp(rootNode , this);
+        }
+        catch(Exception e){
+        	log(e.getMessage());
+        }
+        log("LineUpの結果を表示中");
+        String xmlStr;
+        xmlStr = parser.toString(rootNode);
+        log(xmlStr);
+        
         Node resultRootNode = parser.parseNode(xml);
         log("\n----------------\n" + parser.toString(resultRootNode));
         List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);

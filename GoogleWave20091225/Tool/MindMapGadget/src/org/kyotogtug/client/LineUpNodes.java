@@ -25,8 +25,8 @@ public class LineUpNodes {
 	 * ノードを整列させる
 	 * @param root 整列させるルートノード
 	 */
-	public void lineUp(Node root){
-		lineUp(root , 0 , 0 , 0 , RIGHT_BRUNCH);
+	public void lineUp(Node root , MindMapGadget gadgetForDebug){
+		lineUp(root , 0 , 0 , 0 , LEFT_BRUNCH , gadgetForDebug);
 	}
 	
 	/**
@@ -34,8 +34,9 @@ public class LineUpNodes {
 	 * @param node 整列させるノード
 	 * @param level 現在のレベル
 	 */
-	public void lineUp(Node node , int nodeX, int nodeY,int level , int orientation){
+	public void lineUp(Node node , int nodeX, int nodeY,int level , int orientation , MindMapGadget gadgetForDebug){
 		/*Nodeのx座標とy座標をFixする*/
+		gadgetForDebug.log("整列中 : " + node.getText() + " " + nodeX + " " + nodeY);
 		node.setX(nodeX);
 		node.setY(nodeY + (getChildHeight(node) / 2));
 		
@@ -45,12 +46,14 @@ public class LineUpNodes {
 		int nextX = 0, nextY = nodeY;
 		if(children.size() > 0){
 			for(Node child : children){
+				if(level == 0) orientation = orientation * (-1);
+				
 				int nodeHeight = getChildHeight(child);
 				int alphaX = node.getWidth() + NODE_HORIZONTAL_MARGIN;
 				
 				nextX = nodeX + (alphaX * orientation);
 				
-				lineUp(node, nextX, nextY, level + 1, orientation);
+				lineUp(child, nextX, nextY, level+1, orientation , gadgetForDebug);
 				
 				nextY += nodeHeight;
 			}
