@@ -226,27 +226,27 @@ var visualProcessor = {
 	    ratio = 15;
 	}
 //      alert(JSON.stringify(step));
-    if ((step.sample == 'P-1') && (step.velocity > 0)) {
+    if (step.sample == 'P-1') {
       ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
       rect(ctx, 8+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
-    if ((step.sample == 'P-2') && (step.velocity > 0)) {
+    if (step.sample == 'P-2') {
       ctx.fillStyle = 'rgba(180, 20, 0, 0.7)'; 
       rect(ctx, 72+ratio, 20-ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
-    if ((step.sample == 'P-3') && (step.velocity > 0)) {
+    if (step.sample == 'P-3') {
       ctx.fillStyle = 'rgba(160, 40, 0, 0.7)'; 
       rect(ctx,136-ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
     }
-    if ((step.sample == 'P-4') && (step.velocity > 0)) {
+    if (step.sample == 'P-4') {
       ctx.fillStyle = 'rgba(140, 60, 0, 0.7)'; 
       rect(ctx,200+ratio, 20+ratio, 52+ratio, 155-ratio);
       ctx.fill();
     }
-    if ((step.sample == 'P-5') && (step.velocity > 0)) {
+    if (step.sample == 'P-5') {
       ctx.fillStyle = 'rgba(120, 80, 0, 0.7)'; 
       rect(ctx,264+ratio, 20+ratio, 52-ratio, 155+ratio);
       ctx.fill();
