@@ -89,9 +89,10 @@ function plot_point(e) {
 
 	ary = e.target.id.slice(5).split(',');
 
-	if (cells[idx(ary[0], ary[1])] == "0"){
-		cells = push(cells, "1", ary[0], ary[1]);
-	} else {
+	var atpoint = cells[idx(ary[0], ary[1])];
+	if (atpoint == "0"){
+		cells = push(cells, color[wave.getViewer().getDisplayName()], ary[0], ary[1]);
+	} else if ({
 		cells = push(cells, "0", ary[0], ary[1]);
 	}
 
@@ -128,7 +129,7 @@ function partUpdated() {
     if (part.length==0) return;
     var all ='';
     for (var i = 0; i< part.length; i++) {
-		color[part[i]] = String(i+1);
+		color[part[i].getDisplayName()] = String(i+1);
 	all +=  '<img src="' + part[i].getThumbnailUrl() + 
 		'" width="50" height="50"/>' + part[i].getDisplayName() + "";
     }
