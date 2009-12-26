@@ -32,11 +32,11 @@
     <input id="init" type="button" value="Init"/>
     <div style="clear:both;"></div>
     <div id="seq"></div>
-    <image id="p-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/piano.png"></image>
-    <image id="g-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/guitar.png"></image>
-    <image id="b-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/bass.png"></image>
-    <image id="d-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/drum.png"></image>
-    <image id="e-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/effect.png"></image>
+    <image id="p-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/piano.png" alt="ピアノ"></image>
+    <image id="g-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/guitar.png" alt="ギター"></image>
+    <image id="b-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/bass.png" alt="ベース"></image>
+    <image id="d-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/drum.png" alt="ドラム"></image>
+    <image id="e-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/effect.png" alt="ビジュアルエフェクト"></image>
     <div class="icon" id="piano" style="display:none"></div>
     <div class="icon" id="guitar" style="display:none"></div>
     <div class="icon" id="bass" style="display:none"></div>
