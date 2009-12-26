@@ -18,6 +18,11 @@ function  parse()
 	}
 	_gel('state') = ret;
 }
+
+function plot_point(e) {
+	//wave.getState().submitDelta({e.target}
+}
+
 function init()
 {
 
@@ -28,16 +33,15 @@ function init()
 		var ht = d.createElement('tr');
 		for (var j = 0; j< width; j++) {
 			var td = d.createElement("td");
+			td.id = "point"+i+","+j;
 			td.style.backgroundColor = "white";
 			ht.appendChild(td);
-			td.addEventListener("click", function(e) {e.target.style.backgroundColor="green"; }, false );
+			td.addEventListener("click", plot_point, false );
 		}
 		table.appendChild(ht);
 	}
 	tt.appendChild(table);
 	var list= document.getElementsByTagName('td');
-
-	list[0].style.backgroundColor="red";
-	list[6].style.backgroundColor="red";
+    _gel('point1,1').style.backgroundColor = "red";
 }
 gadgets.util.registerOnLoadHandler(init);
