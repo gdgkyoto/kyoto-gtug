@@ -206,6 +206,7 @@ function stateUpdated(){
 }
 
 function init(){
+  
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
@@ -330,5 +331,3 @@ function createUI(song) {
     $("#drum").show(300);
   });
 }
-
-gadgets.util.registerOnLoadHandler(init);
