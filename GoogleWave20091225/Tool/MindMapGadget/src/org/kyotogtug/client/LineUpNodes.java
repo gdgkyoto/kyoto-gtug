@@ -150,14 +150,17 @@ public class LineUpNodes {
 		List<Node> children = root.getChildrenNode();
 		if(children.size() != 0){
 			for(Node child : children){
-				if(child.getWidth() == -1){
-					/*幅を計算して設定*/
-					child.setWidth(50);
-				}
-				if(child.getHeight() == -1){
-					/*高さを計算して設定*/
-					child.setHeight(30);
-				}
+				measureNodeSizes(child);
+			}
+		}
+		else{
+			if(root.getWidth() == -1){
+				/*幅を計算して設定*/
+				root.setWidth(50);
+			}
+			if(root.getHeight() == -1){
+				/*高さを計算して設定*/
+				root.setHeight(30);
 			}
 		}
 	}

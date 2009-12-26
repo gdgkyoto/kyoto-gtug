@@ -57,6 +57,8 @@ public class MindMapCanvas extends GWTCanvas {
      * @param rootNode
      */
     public void drawMap(Node rootNode) {
+    	clear();
+    	
         this.drawNode(rootNode);
         List elist = rootNode.getChildren();
         Iterator it = elist.iterator();
@@ -135,8 +137,12 @@ public class MindMapCanvas extends GWTCanvas {
         //gcanvas.setFillStyle(Color.RED);
         //this.fillRect(x - w, y - w - height, width + 2 * w, 2 * w + height);
         setStrokeStyle(Color.RED);
-        rect(x - w, y - w - height, width + 2 * w, 2 * w + height);
-        canvasFillText(this ,text , x , y );
+        setFillStyle(Color.LIGHTGREY);
+        //rect(x - w, y - w - height, width + 2 * w, 2 * w + height);
+        //rect(20,20,20,20);
+        fillRect(x, y, width, height);
+        setFillStyle(Color.BLACK);
+        canvasFillText(this ,text , x , y + 20 );
 
         //this.setGlobalAlpha(1.0);
         //this.setFillStyle("rgb(255,255,255)");
