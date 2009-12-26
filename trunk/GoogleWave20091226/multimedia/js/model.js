@@ -229,10 +229,11 @@ var visualProcessor = {
     ctx.fill();
 
     if (steps.name === 'P-2') {
+      ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
+      rect(ctx, 72, 20, 52, 155);
+      ctx.fill();
     }
-    ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; // 赤
-    rect(ctx, 72, 20, 52, 155);
-    ctx.fill();
+
 
     if (steps.name === 'P-3') {
     }
