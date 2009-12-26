@@ -43,7 +43,8 @@
     <script type="text/javascript">
 $(document).ready(function(){
   //draw();
-  var canvas = document.getElementsById('tempcanvas2');
+  //var canvas = document.getElementsById('tempcanvas2');
+  var canvas = document.getElementsByTagName('tempcanvas2')[0];
   var code = "size(120,120);fill(255,0,0,100);rect(10,10,70,70);"
   Processing(canvas,code);
 });
