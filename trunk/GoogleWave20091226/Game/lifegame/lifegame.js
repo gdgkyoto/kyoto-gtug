@@ -50,6 +50,7 @@ function stateUpdated() {
 			alert("something wrong");
 		}
 	}
+	_gel('cellstate').innerHTML = cells;
 }
 
 function partUpdated() {
