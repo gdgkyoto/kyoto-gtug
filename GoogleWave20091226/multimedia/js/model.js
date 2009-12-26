@@ -209,9 +209,9 @@ var visualProcessor = {
   ctx.fill();
 
   for ( var i = 0; i < steps.length; i++) {
-
+    var step = steps[i];
     /* 四角を描く */
-    if (steps.name === 'P-1') {
+    if (step.name === 'P-1') {
       p1r += 100;
       p1g += 0;
       p1b += 0;
