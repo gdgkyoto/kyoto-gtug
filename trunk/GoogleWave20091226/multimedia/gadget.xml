@@ -46,9 +46,9 @@ $(document).ready(function(){
   //var canvas = document.getElementsById('tempcanvas2');
   var canvas = document.getElementsByTagName('tempcanvas2')[0];
   var code = "size(120,120);fill(255,0,0,100);rect(10,10,70,70);"
-      document.write("before function buildProcessing()");
+      debug.trace("starting...");
   Processing(canvas,code);
-      document.write("after function buildProcessing()");
+      debug.trace("starting...");
 });
 
     </script>
