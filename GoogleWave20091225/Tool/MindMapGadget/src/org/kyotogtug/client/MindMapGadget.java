@@ -1,5 +1,8 @@
 package org.kyotogtug.client;
 
+import org.cobogw.gwt.waveapi.gadget.client.StateUpdateEvent;
+import org.cobogw.gwt.waveapi.gadget.client.StateUpdateEventHandler;
+import org.cobogw.gwt.waveapi.gadget.client.WaveGadget;
 import org.kyotogtug.client.data.Node;
 import org.kyotogtug.client.data.NodeParser;
 
@@ -18,7 +21,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 @com.google.gwt.gadgets.client.Gadget.ModulePrefs(title = "SimpleGadget", author = "yournamehere", author_email = "yournamehere@gmail.com", height = 500)
-public class MindMapGadget extends Gadget<UserPreferences> {
+public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** マインドマップを描画するCanvas */
     private Canvas canvas;
@@ -81,6 +84,20 @@ public class MindMapGadget extends Gadget<UserPreferences> {
 
         RootPanel.get().add(vpanel);
         debug();
+        
+        getWave().addStateUpdateEventHandler(new StateUpdateEventHandler() {
+			@Override
+			public void onUpdate(StateUpdateEvent event) {
+				draw();
+			}
+		});
+    }
+    
+    /**
+     * マインドマップを描画する
+     */
+    private void draw(){
+    	
     }
 
     private void debug() {
