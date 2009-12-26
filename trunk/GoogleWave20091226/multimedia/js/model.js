@@ -280,6 +280,10 @@ function init() {
 }
 
 function createUI(song) {
+  $("#piano").empty();
+  $("#guitar").empty();
+  $("#bass").empty();
+  $("#drum").empty();
   var instruments = song.patterns[0].instruments;
   for ( var i = 0; i < instruments.length; i++) {
     var inst = instruments[i];
@@ -336,11 +340,6 @@ function createUI(song) {
         dLine.append(img);
       }
     }
-    $("#piano").empty();
-    $("#guitar").empty();
-    $("#bass").empty();
-    $("#drum").empty();
-
     $("#piano").append(pLine);
     $("#guitar").append(gLine);
     $("#bass").append(bLine);
