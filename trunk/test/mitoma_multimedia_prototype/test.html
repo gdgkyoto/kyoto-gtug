@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>MTR-WAVE</title>
+    <link type="text/css" href="css/smoothness/jquery-ui.css" rel="stylesheet" /> 
+    <link type="text/css" href="css/mtr.css" rel="stylesheet" />
+    <script type="text/javascript">
+      var SM2_DEFER = true;
+//      var SERVER_PATH="http://mutetheradio.no-ip.org/mtr-wave/sample/";
+      var SERVER_PATH="http://localhost/";
+    </script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/soundmanager2.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+    <script type="text/javascript" src="js/initSoundManager.js"></script>
+    <script type="text/javascript" src="js/model.js"></script>
+  </head>
+  <body>
+    <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
+    <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
+    <input id="play" type="button" value="Play"/>
+    <input id="playSong" type="button" value="PlaySong"/>
+    <input id="stop" type="button" value="Stop"/>
+    <input id="init" type="button" value="Init"/>
+    <div style="clear:both;"></div>
+    <div id="seq"></div>
+    <image id="p-icon" src="./image/piano.png"></image>
+    <div id="piano"></div>
+    <image id="g-icon" src="./image/guitar.png"></image>
+    <div id="guitar"></div>
+    <image id="b-icon" src="./image/bass.png"></image>
+    <div id="bass"></div>
+    <image id="d-icon" src="./image/drum.png"></image>
+    <div id="drum"></div>
+    <br/>
+    <div>Javascript Drum Machine.</div>
+  </body>
+</html>
