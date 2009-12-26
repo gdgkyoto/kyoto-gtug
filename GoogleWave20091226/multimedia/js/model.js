@@ -204,7 +204,7 @@ var visualProcessor = {
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; // 赤
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.4)'; // 赤
   rect(ctx, 0, 0, 320, 175);
   ctx.fill();
   //ctx.clearRect(0, 0, 320, 175);
@@ -216,16 +216,16 @@ var visualProcessor = {
 
     var ratio = 0;
     if(step.velocity > 0){
-	if(step.velocity === 30){
+	if(step.velocity == 30){
 	    ratio = 3;
 	}
-      	if(step.velocity === 60){
+      	if(step.velocity == 60){
 	    ratio = 7;
 	}
-	if(step.velocity === 90){
+	if(step.velocity == 90){
 	    ratio = 15;
 	}
-//      alert(JSON.stringify(step));
+      alert(JSON.stringify(step));
     if ((step.sample == 'P-1') && (step.velocity > 0)) {
       ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
       rect(ctx, 8+ratio, 20+ratio, 52-ratio, 155-ratio);
