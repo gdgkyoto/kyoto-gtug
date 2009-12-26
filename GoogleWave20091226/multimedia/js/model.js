@@ -204,7 +204,7 @@ var visualProcessor = {
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; // 赤
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'; // 赤
   rect(ctx, 0, 0, 320, 175);
   ctx.fill();
   //ctx.clearRect(0, 0, 320, 175);
@@ -251,7 +251,7 @@ var visualProcessor = {
       rect(ctx,42+ratio, 20+ratio, 52-ratio, 155+ratio);
       ctx.fill();
     }
-    
+    /*
     if (step.sample == 'P-6') {
       ctx.fillStyle = 'rgba(0, 40, 100, 0.7)'; 
       rect(ctx,42+ratio, 20+ratio, 52-ratio, 155+ratio);
@@ -266,7 +266,7 @@ var visualProcessor = {
       ctx.fillStyle = 'rgba(0, 0, 140, 0.7)'; 
       rect(ctx,242+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
-    }
+    }*/
 
     }
 
