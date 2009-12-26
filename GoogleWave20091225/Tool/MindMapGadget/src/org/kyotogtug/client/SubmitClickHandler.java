@@ -30,6 +30,7 @@ public class SubmitClickHandler implements ClickHandler {
             newNode.setText(gadget.getNodeTitleTextBox().getText());
             target.addChildNode(newNode);
             gadget.saveToSharedState();
+            gadget.getNodeTitleTextBox().setText("");
         }
     }
 }
