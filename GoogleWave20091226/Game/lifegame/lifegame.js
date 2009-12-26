@@ -1,6 +1,6 @@
-var width = 4;
-var height = 4;
-var _default;
+var width = 8;
+var height = 8;
+var _default = "";
 
 function   idx(x, y)
 {
@@ -81,7 +81,6 @@ function init()
     wave.setParticipantCallback(partUpdated);
 
 	var state = wave.getState();
-	_default = "";
 	//if (state && !state.get('cellstate')) {
 	for (var i = 0; i< width* height; i++) {
 		_default += "0";
