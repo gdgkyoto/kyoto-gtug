@@ -1,5 +1,5 @@
-var width = 8;
-var height = 8;
+var width = 20;
+var height = 20;
 var _default = "";
 
 function   idx(x, y)
@@ -25,8 +25,6 @@ function around_cell(cells, x, y)
 	var sum = 0;
 
 	sum += ((cells[idx(x-1, y-1)] != "0")? 1: 0);
-
-	alert(sum);
 	sum +=	((cells[idx(x  , y-1)] != "0")? 1: 0) ;
 	sum +=	((cells[idx(x+1, y-1)] != "0")? 1: 0) ;
 	sum +=	((cells[idx(x-1, y  )] != "0")? 1: 0) ;
@@ -62,7 +60,6 @@ function  parse()
 	var state = wave.getState();
 	var cells = state.get("cellstate", _default);
 
-	alert(around_cell(cells, 1, 1));
 
 	for (var i = 0; i< 1; i++)
 	{
