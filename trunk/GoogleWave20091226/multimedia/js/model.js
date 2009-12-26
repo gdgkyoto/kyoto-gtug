@@ -252,7 +252,7 @@ function init() {
   });
   $("#init").click(function() {
     wave.getState().submitDelta( {
-      "test" : "testValue"
+      "song" : JSON.stringify(initSong(SAMPLES))
     });
   });
   $("#p-icon").click(function() {
@@ -271,7 +271,7 @@ function init() {
     $(".icon").hide(300);
     $("#drum").show(300);
   });
-  
+
   createUI(song);
 
   var canvas = document.getElementsByTagName('tempcanvas')[0];
