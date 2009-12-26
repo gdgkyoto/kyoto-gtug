@@ -1,7 +1,5 @@
 package org.kyotogtug.client;
 
-import gwt.canvas.client.Canvas;
-
 import java.util.List;
 
 import org.cobogw.gwt.waveapi.gadget.client.StateUpdateEvent;
@@ -13,6 +11,7 @@ import org.kyotogtug.client.data.NodeUtility;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.gadgets.client.UserPreferences;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -26,14 +25,12 @@ import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** このガジェットのタイトル */
-    private static final String TITLE = "Mind Map version 0.3";
+    private static final String TITLE = "Mind Map version 0.4";
 
     /** ルートノード */
     private Node rootNode;
 
     /** マインドマップを描画するCanvas */
-    //private MMCanvas canvas;
-    
     private MindMapCanvas gwtCanvas;
 
     /** ノードのIDを入力するためのテキストボックス */
@@ -72,7 +69,6 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
         vpanel.add(new Label(TITLE));
         vpanel.add(gwtCanvas);
-        //vpanel.add(canvas);
         vpanel.add(hvpanel);
         vpanel.add(textArea);
         hvpanel.add(nodeIdTextBox);
@@ -81,18 +77,23 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         hvpanel.add(deleteButton);
 
         RootPanel.get().add(vpanel);
-        debug();
-
+        //debug();
         getWave().addStateUpdateEventHandler(new StateUpdateEventHandler() {
             @SuppressWarnings("synthetic-access")
             @Override
             public void onUpdate(StateUpdateEvent event) {
-                //rootNode = new NodeParser().getRootNodeFromSharedState(getWave().getState());
+                rootNode = new NodeParser().getRootNodeFromSharedState(getWave().getState());
+                if (rootNode == null) {
+                    log("rootNode is null");
+                    rootNode = new Node();
+                    rootNode.setNodeId(0);
+                    rootNode.setText("ルート");
+                }
                 draw();
             }
         });
-        
-        canvasFillText(gwtCanvas, "ほげほげ", 50, 50);
+
+        //canvasFillText(gwtCanvas, "ほげほげ", 50, 50);
     }
     
 	private static native void canvasFillText(GWTCanvas c, String str,
@@ -128,6 +129,9 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         new NodeParser().saveToSharedState(getWave().getState(), rootNode);
     }
 
+    /**
+     * デバッグ
+     */
     private void debug() {
         rootNode = new Node();
         Node node1 = new Node();
@@ -167,7 +171,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         node1_1.setWidth(3);
         node1_1.setHeight(4);
 
-        node1_2.setNodeId(4);
+        node1_2.setNodeId(5);
         node1_2.setText("NODE1-2");
         node1_2.setBlipId("BLIP5");
         node1_2.setX(1);
@@ -189,11 +193,10 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         /* 整列テスト */
         LineUpNodes lineUpNodes = new LineUpNodes();
         log("LineUpを実行中");
-        try{
-        	lineUpNodes.lineUp(rootNode , this);
-        }
-        catch(Exception e){
-        	log(e.getMessage());
+        try {
+            lineUpNodes.lineUp(rootNode, this);
+        } catch (Exception e) {
+            log(e.getMessage());
         }
         log("LineUpの結果を表示中");
         String xmlStr;
@@ -209,46 +212,45 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
         // 次のID生成のテスト
         log("-----------------------");
-        log("nextId="+NodeUtility.nextNodeId(rootNode));
-        
+        log("nextId=" + NodeUtility.nextNodeId(rootNode));
+
         // クリック位置のノード取得のテスト
         int clickX = 55;
         int clickY = 55;
-        Node resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
-        if( resultNode == null ){
-        	log(clickX+" , "+clickY+" のノードはROOTだけど取得できなかった");
-        }else{
-        	log(clickX+" , "+clickY+" = "+resultNode.getText() );
+        Node resultNode = NodeUtility.getNodeByPotision(rootNode,
+                                                        clickX,
+                                                        clickY);
+        if (resultNode == null) {
+            log(clickX + " , " + clickY + " のノードはROOTだけど取得できなかった");
+        } else {
+            log(clickX + " , " + clickY + " = " + resultNode.getText());
         }
 
         clickX = 105;
         clickY = 55;
-        resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
-        if( resultNode == null ){
-        	log(clickX+" , "+clickY+" のノードはNODE1だけど取得できなかった");
-        }else{
-        	log(clickX+" , "+clickY+"= "+resultNode.getText() );
+        resultNode = NodeUtility.getNodeByPotision(rootNode, clickX, clickY);
+        if (resultNode == null) {
+            log(clickX + " , " + clickY + " のノードはNODE1だけど取得できなかった");
+        } else {
+            log(clickX + " , " + clickY + "= " + resultNode.getText());
         }
 
         clickX = 155;
         clickY = 55;
-        resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
-        if( resultNode == null ){
-        	log(clickX+" , "+clickY+"のノードは無いので取得できなくてOK");
-        }else{
-        	log(clickX+" , "+clickY+"のノードが間違って取得している！ ERROR= "+resultNode.getText() );
+        resultNode = NodeUtility.getNodeByPotision(rootNode, clickX, clickY);
+        if (resultNode == null) {
+            log(clickX + " , " + clickY + "のノードは無いので取得できなくてOK");
+        } else {
+            log(clickX + " , " + clickY + "のノードが間違って取得している！ ERROR= "
+                    + resultNode.getText());
         }
-        
+
         // 描画テスト
         log("draw before");
-        try{
-        	//gwtCanvas.drowMap(rootNode);
-        	draw();
-        }catch( Exception e){
-        	log("drowMap時にエラー"+e.getMessage()+"\n\n"+e.toString());
-        }
+        new LineUpNodes().lineUp(rootNode, this);
+        //canvas.drowMap(rootNode);
         log("draw after");
-        
+
     }
 
     /**
