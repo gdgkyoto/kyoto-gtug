@@ -34,6 +34,7 @@ function around_cell(cells, x, y)
 	sum +=	((cells[idx(x+1, y+1)] != "0")? 1: 0);
 	return sum;
 }
+//	wave.getViewer()
 
 function succ(cells)
 {
@@ -66,6 +67,14 @@ function  parse()
 		cells = succ(cells);
 		drawscene(cells);
 	}
+	state.submitDelta({'cellstate': cells});
+}
+
+function reset()
+{
+	var state = wave.getState();
+	var cells = state.get("cellstate", _default);
+	cells = _default;
 	state.submitDelta({'cellstate': cells});
 }
 
