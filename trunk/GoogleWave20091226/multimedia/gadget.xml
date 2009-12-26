@@ -18,6 +18,10 @@
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/json2.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/initSoundManager.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/model.js"></script>
+    <script type="text/javascript">
+      gadgets.util.registerOnLoadHandler(init);
+    </script>
+
     <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
     <input id="play" type="button" value="Play"/>
