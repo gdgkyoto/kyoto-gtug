@@ -228,7 +228,7 @@ var visualProcessor = {
     rect(ctx, 8, 20, 52, 155);
     ctx.fill();
 
-      alert(JSON.stringify(step.name));
+      alert(JSON.stringify(step));
     if (step.name == 'P-2') {
       ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
       rect(ctx, 72, 20, 52, 155);
