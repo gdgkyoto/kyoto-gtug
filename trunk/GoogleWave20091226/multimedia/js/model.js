@@ -94,11 +94,11 @@ var player = {
         "#fff");
     var stepDelay = 1000 * 60 / song.tempo * (4 / pattern.stepLength);
     var end = new Date();
-    setTimeout((function(sng, ptn, stp) {
+    setTimeout((function(ptn, stp) {
       return function() {
-        player.play(sng, ptn, stp);
+        player.play(ptn, stp);
       };
-    })(song, patternNo, sc + 1), stepDelay - (end - start));
+    })(patternNo, sc + 1), stepDelay - (end - start));
   },
   /**
    * ソング全体の再生を行う。
@@ -152,11 +152,11 @@ var player = {
     }
     var stepDelay = 1000 * 60 / song.tempo * (4 / pattern.stepLength);
     var end = new Date();
-    setTimeout((function(sng, stp) {
+    setTimeout((function(stp) {
       return function() {
-        player.playSong(sng, stp);
+        player.playSong(stp);
       };
-    })(song, sc + 1), stepDelay - (end - start));
+    })(sc + 1), stepDelay - (end - start));
   },
   /**
    * 再生を停止する。(正しくは再生停止の通知を行う)
@@ -192,19 +192,19 @@ var canvas = null;
 var visualProcessor = {
   process : function(steps) {
     // ここが三井さんに担当してもらう個所。
-        if ( ! canvas || ! canvas.getContext ) {
-    return false;
-  }
-  /* 2Dコンテキスト */
-  var ctx = canvas.getContext('2d');
-  /* 四角を描く */
-  ctx.beginPath();
-  ctx.moveTo(20, 20);
-  ctx.lineTo(120, 20);
-  ctx.lineTo(120, 120);
-  ctx.lineTo(20, 120);
-  ctx.closePath();
-  ctx.stroke();
+    if (!canvas || !canvas.getContext) {
+      return false;
+    }
+    /* 2Dコンテキスト */
+    var ctx = canvas.getContext('2d');
+    /* 四角を描く */
+    ctx.beginPath();
+    ctx.moveTo(20, 20);
+    ctx.lineTo(120, 20);
+    ctx.lineTo(120, 120);
+    ctx.lineTo(20, 120);
+    ctx.closePath();
+    ctx.stroke();
   }
 };
 
