@@ -35,6 +35,7 @@ public class MindMapCanvas extends GWTCanvas {
             	Node node = NodeUtility.getNodeByPotision(mindMapGadget.getRootNode(), x, y);
             	if( node != null ){
             		mindMapGadget.log("クリックされたノードは "+node.getText()+" です");
+            		mindMapGadget.setSelectionNode(node);
             	}
                 break;
             case Event.ONMOUSEMOVE:
