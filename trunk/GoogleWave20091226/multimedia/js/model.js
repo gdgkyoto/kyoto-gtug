@@ -190,9 +190,23 @@ var soundProcessor = {
 /**
  * 画面エフェクトを処理するためのProcessor
  */
+var canvas = null;
 var visualProcessor = {
   process : function(steps) {
     // ここが三井さんに担当してもらう個所。
+        if ( ! canvas || ! canvas.getContext ) {
+    return false;
+  }
+  /* 2Dコンテキスト */
+  var ctx = canvas.getContext('2d');
+  /* 四角を描く */
+  ctx.beginPath();
+  ctx.moveTo(20, 20);
+  ctx.lineTo(120, 20);
+  ctx.lineTo(120, 120);
+  ctx.lineTo(20, 120);
+  ctx.closePath();
+  ctx.stroke();
   }
 };
 
@@ -274,9 +288,7 @@ function init() {
 
   createUI(song);
 
-  var canvas = document.getElementsByTagName('tempcanvas')[0];
-  var p = Processing(canvas);
-  p.rect(10, 10, 70, 70);
+  canvas = document.getElementsByTagName('tempcanvas')[0];
 }
 
 function createUI(song) {
