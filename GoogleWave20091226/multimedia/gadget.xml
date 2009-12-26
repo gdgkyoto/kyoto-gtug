@@ -5,29 +5,35 @@
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
-    <link type="text/css" href="http://mutetheradio.no-ip.org/mtr-wave/css/smoothness/jquery-ui.css" rel="stylesheet" /> 
-    <link type="text/css" href="http://mutetheradio.no-ip.org/mtr-wave/css/mtr.css" rel="stylesheet" /> 
+    <link type="text/css" href="css/smoothness/jquery-ui.css" rel="stylesheet" /> 
+    <link type="text/css" href="css/mtr.css" rel="stylesheet" />
     <script type="text/javascript">
       var SM2_DEFER = true;
+      var SERVER_PATH="http://localhost/";//ローカルで処理するときは以下の行をコメントアウト。
+      var SERVER_PATH="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/";
     </script>
-    <script type="text/javascript" src="http://mutetheradio.no-ip.org/mtr-wave/js/jquery.js"></script>
-    <script type="text/javascript" src="http://mutetheradio.no-ip.org/mtr-wave/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="http://mutetheradio.no-ip.org/mtr-wave/js/soundmanager2.js"></script>
-    <script type="text/javascript" src="http://mutetheradio.no-ip.org/mtr-wave/js/mtr3.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/jquery.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/soundmanager2.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/json2.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/initSoundManager.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/model.js"></script>
     <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
-    <div id="step-l">Step <span id="step_disp" class="slider_disp"></span></div>
-    <div id="step-i" class="inner"><br><div id="step" class="slider"></div><br></div>
-    <div id="bar-l">Bar <span id="bar_disp" class="slider_disp"></span></div>
-    <div id="bar-i" class="inner"><br><div id="bar" class="slider"></div><br></div>
     <input id="play" type="button" value="Play"/>
+    <input id="playSong" type="button" value="PlaySong"/>
     <input id="stop" type="button" value="Stop"/>
     <input id="init" type="button" value="Init"/>
     <div style="clear:both;"></div>
-    <div style="float:left;" class="sample">clash<br/>open-hh<br/>close-hh <br/>snare<br/>kick</div>
     <div id="seq"></div>
-    <br/>
-    <div>Javascript Drum Machine.</div>
+    <image id="p-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/piano.png"></image>
+    <div id="piano"></div>
+    <image id="g-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/guitar.png"></image>
+    <div id="guitar"></div>
+    <image id="b-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/bass.png"></image>
+    <div id="bass"></div>
+    <image id="d-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/drum.png"></image>
+    <div id="drum"></div>
     ]]>
   </Content>
 </Module>
