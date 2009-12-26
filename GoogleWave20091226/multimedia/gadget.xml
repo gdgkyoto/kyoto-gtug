@@ -5,8 +5,8 @@
 	</ModulePrefs>
 	<Content type="html">
     <![CDATA[
-    <link type="text/css" href="css/smoothness/jquery-ui.css" rel="stylesheet" /> 
-    <link type="text/css" href="css/mtr.css" rel="stylesheet" />
+    <link type="text/css" href="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/css/smoothness/jquery-ui.css" rel="stylesheet" /> 
+    <link type="text/css" href="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/css/mtr.css" rel="stylesheet" />
     <script type="text/javascript">
       var SM2_DEFER = true;
       var SERVER_PATH="http://localhost/";//ローカルで処理するときは以下の行をコメントアウト。
@@ -24,8 +24,10 @@
     </script>
     
     <canvas id="tempcanvas2" width="140" height="140"></canvas>
+
     <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
+
     <input id="play" type="button" value="Play"/>
     <input id="playSong" type="button" value="PlaySong"/>
     <input id="stop" type="button" value="Stop"/>
