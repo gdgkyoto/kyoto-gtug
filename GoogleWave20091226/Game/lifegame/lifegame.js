@@ -57,6 +57,8 @@ function  parse()
 	var state = wave.getState();
 	var cells = state.get("cellstate", _default);
 
+	alert(around(cells, 1, 1));
+
 	for (var i = 0; i< 1; i++)
 	{
 		cells = succ(cells);
