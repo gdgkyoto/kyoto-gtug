@@ -22,6 +22,7 @@ public class DeleteClickHandler implements ClickHandler {
         } else {
             target.getParentNode().deleteChildNode(target);
             gadget.saveToSharedState();
+            gadget.setSelectionNode(null);
         }
     }
 }
