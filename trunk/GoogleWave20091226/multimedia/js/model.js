@@ -202,11 +202,12 @@ player.processors.push(visualProcessor);
 var song = null;
 
 function stateUpdated() {
-  // $("#value").text(wave.getState().get("count",0));
+  song = wave.getState().get("song",0);
+  alert(song);
 }
 
 function init() {
-  alert("wait");
+  alert("wait");//どうやらロードのタイミングがおかしいのでアドホックに
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
