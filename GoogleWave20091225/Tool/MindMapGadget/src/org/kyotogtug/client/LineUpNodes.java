@@ -149,8 +149,8 @@ public class LineUpNodes {
 	public void measureNodeSizes(Node root){
 		if(true){
 			/*幅を計算して設定*/
-			int strLength = root.getText().length();
-			int nodeWidth = (strLength * 16) + 10;
+			int strLength = root.getText().getBytes().length;
+			int nodeWidth = (strLength * 8) + 10;
 			if(nodeWidth < 70) nodeWidth = 70;
 			
 			root.setWidth(nodeWidth);
