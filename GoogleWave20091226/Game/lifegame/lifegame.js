@@ -1,5 +1,5 @@
-var width = 20;
-var height = 20;
+var width = 60;
+var height = 60;
 var _default = "";
 
 function   idx(x, y)
@@ -78,7 +78,11 @@ function plot_point(e) {
 
 	ary = e.target.id.slice(5).split(',');
 
-	cells = push(cells, "1", ary[0], ary[1]);
+	if (cells[idx(ary[0], ary[1])] == "0"){
+		cells = push(cells, "1", ary[0], ary[1]);
+	} else {
+		cells = push(cells, "0", ary[0], ary[1]);
+	}
 
 	state.submitDelta({'cellstate': cells});
 }
