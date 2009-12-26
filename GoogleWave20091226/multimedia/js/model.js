@@ -179,7 +179,7 @@ var soundProcessor = {
         continue;
       }
       soundManager.play(step.sample, {
-        volume : step.velocity
+        volume : (step.velocity / 2)
       });
     }
   }
