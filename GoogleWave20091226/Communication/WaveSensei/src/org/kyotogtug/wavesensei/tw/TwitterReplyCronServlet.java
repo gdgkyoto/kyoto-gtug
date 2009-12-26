@@ -103,10 +103,10 @@ public class TwitterReplyCronServlet extends HttpServlet {
 
       // 対応するポストを取得
       TwPostMeta m = TwPostMeta.get();
-      TwPost twPost =
+      List<TwPost> twPosts =
         Datastore.query(m).filter(
-          m.postTwitId.equal(Long.toString(inReplyToStatusId))).asSingle();
-      if (twPost == null) {
+          m.postTwitId.equal(Long.toString(inReplyToStatusId))).asList();
+      if (twPosts.size() == 0) {
         logger.info("対応するポストがありません[" + status.getText() + "]\r\n");
         tx.rollback();
         twSysProp.setSinceId(status.getId());
@@ -114,6 +114,7 @@ public class TwitterReplyCronServlet extends HttpServlet {
         logger.info("SinceId更新[id=" + twSysProp.getSinceId() + "]\r\n");
         continue;
       }
+      TwPost twPost = twPosts.get(0);
 
       TwReply twReply = new TwReply();
       twReply.setKey(key);
