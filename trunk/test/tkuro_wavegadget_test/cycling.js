@@ -33,15 +33,11 @@ dec = function() {change_value(-1);}
 
 var r = 0;
 
-function inc() {
-    var value = parseInt(wave.getState().get('speed', '50')) + 1;
-    wave.getState().submitDelta({'speed': value });
-}
 function stateUpdated()
 {
     var value1 = parseInt(wave.getState().get("speed", '50'));
     speed = value1;
-    _gel("speed").innerHTML = value1+1;
+    _gel("speed").innerHTML = value1;
 }
 
 function draw() {
