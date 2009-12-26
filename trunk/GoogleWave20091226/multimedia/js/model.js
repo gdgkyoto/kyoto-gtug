@@ -201,12 +201,11 @@ player.processors.push(visualProcessor);
 
 var song = null;
 
-function stateUpdated(){
-// $("#value").text(wave.getState().get("count",0));
+function stateUpdated() {
+  // $("#value").text(wave.getState().get("count",0));
 }
 
-
-function init(){
+function init() {
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
@@ -310,7 +309,6 @@ function createUI(song) {
     }
     $("#piano").append(pLine);
     $("#guitar").append(gLine);
-    n
     $("#bass").append(bLine);
     $("#drum").append(dLine);
   }
