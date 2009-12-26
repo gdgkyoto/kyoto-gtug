@@ -201,7 +201,15 @@ player.processors.push(visualProcessor);
 
 var song = null;
 
-$(document).ready(function() {
+function stateUpdated(){
+// $("#value").text(wave.getState().get("count",0));
+}
+
+function init(){
+  if (wave && wave.isInWaveContainer()) {
+    wave.setStateCallback(stateUpdated);
+  }
+
   song = wave.getState().get("song", initSong(SAMPLES));
 
   $("#tempo").slider( {
@@ -322,3 +330,5 @@ function createUI(song) {
     $("#drum").show(300);
   });
 }
+
+gadgets.util.registerOnLoadHandler(init);
