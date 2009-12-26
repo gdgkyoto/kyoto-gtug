@@ -199,9 +199,11 @@ var visualProcessor = {
 player.processors.push(soundProcessor);
 player.processors.push(visualProcessor);
 
-var song = initSong(SAMPLES);
+var song = null;
 
 $(document).ready(function() {
+  song = wave.getState().get("song", initSong(SAMPLES));
+
   $("#tempo").slider( {
     min : 60,
     max : 300,
@@ -211,10 +213,16 @@ $(document).ready(function() {
     change : function(event, ui) {
       $("#tempo_disp").text(ui.value + "bpm");
       song.tempo = ui.value;
+      wave.getState().submitDelta( {
+        'song' : song
+      });
     },
     slide : function(event, ui) {
       $("#tempo_disp").text(ui.value + "bpm");
       song.tempo = ui.value;
+      wave.getState().submitDelta( {
+        'song' : song
+      });
     }
   });
   $("#tempo").slider('value', 120);
@@ -236,7 +244,6 @@ $(document).ready(function() {
 
 function createUI(song) {
   var instruments = song.patterns[0].instruments;
-
   for ( var i = 0; i < instruments.length; i++) {
     var inst = instruments[i];
     var pLine = $("<div>");
@@ -277,6 +284,9 @@ function createUI(song) {
         }
         song.patterns[0].instruments[img.attr("numOfInst")].steps[img
             .attr("numOfStep")].velocity = img.attr("value");
+        wave.getState().submitDelta( {
+          'song' : song
+        });
       });
 
       if (i < 8) {
@@ -291,6 +301,7 @@ function createUI(song) {
     }
     $("#piano").append(pLine);
     $("#guitar").append(gLine);
+    n
     $("#bass").append(bLine);
     $("#drum").append(dLine);
   }
