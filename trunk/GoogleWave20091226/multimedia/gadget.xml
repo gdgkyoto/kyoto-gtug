@@ -41,12 +41,12 @@
     <div class="icon" id="bass" style="display:none">TEST3</div>
     <div class="icon" id="drum" style="display:none">TEST4</div>
     <script type="text/javascript">
-      onload = function() {
+$(document).ready(function(){
   draw();
   var canvas = document.getElementsById('tempcanvas');
   var p = Processing(canvas);
   p.rect(10,10,70,70);
-};
+});
 function draw() {
   /* canvas要素のノードオブジェクト */
   var canvas = document.getElementById('tempcanvas');
