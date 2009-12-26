@@ -17,12 +17,13 @@
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/soundmanager2.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/json2.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/initSoundManager.js"></script>
+    <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/processing.js"></script>
     <script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/js/model.js"></script>
     <script type="text/javascript">
         gadgets.util.registerOnLoadHandler(init);
     </script>
     
-    <canvas id="tempcanvas" width="140" height="140"></canvas>
+    <canvas id="tempcanvas2" width="140" height="140"></canvas>
     <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
     <input id="play" type="button" value="Play"/>
@@ -39,6 +40,16 @@
     <div class="icon" id="guitar" style="display:none">TEST2</div>
     <div class="icon" id="bass" style="display:none">TEST3</div>
     <div class="icon" id="drum" style="display:none">TEST4</div>
+    <script type="text/javascript">
+$(document).ready(function(){
+  //draw();
+  var canvas = document.getElementById('tempcanvas2');
+  //var canvas = document.getElementsByTagName('tempcanvas2')[0];
+  var code = "size(120,120);fill(255,0,0,100);ellipse(10,10,70,70);"
+      debug.trace("starting...");
+  Processing(canvas,code);
+      debug.trace("starting...");
+});
 
     </script>
     ]]>
