@@ -21,12 +21,12 @@ public class DeleteClickHandler implements ClickHandler {
     public void onClick(ClickEvent event) {
         try {
             int nodeId = Integer.parseInt(gadget.getNodeIdTextBox().getText());
-            Window.alert("delete:" + nodeId);
             Node target = gadget.findNode(nodeId);
             if (target == null) {
-                Window.alert("target is null");
+                Window.alert("target not found:" + nodeId);
             } else {
-                //TODO
+                target.getParentNode().deleteChildNode(target);
+                gadget.saveToSharedState();
             }
         } catch (NumberFormatException e) {}
     }
