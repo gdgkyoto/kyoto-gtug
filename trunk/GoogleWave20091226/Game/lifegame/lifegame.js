@@ -79,7 +79,7 @@ function init()
 		for (var i = 0; i< width* height; i++) {
 			s += "0";
 		}
-		wave.getState().submitDelta({'cellstate', s});
+		wave.getState().submitDelta({'cellstate': s});
 	}
 
 	var list= document.getElementsByTagName('td');
