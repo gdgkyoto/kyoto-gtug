@@ -204,12 +204,12 @@ var visualProcessor = {
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
 
+    ctx.clearRect(0,0,320,175);
     /* 四角を描く */
     if (steps.name === 'P-1') {
       p1r = 100;
       p1g = 0;
       p1b = 0;
-
     }
 
     ctx.fillStyle = 'rgba(' + p1r + ',' + p1g + ',' + p1b + ', 0.5)';
