@@ -88,7 +88,7 @@ public class MindMapCanvas extends GWTCanvas {
 
             this.beginPath();
             //初期値移動
-
+            mindMapGadget.log("EDGE - FROM(" + fromX + "," + fromY + ")");
             this.moveTo(fromX, fromY);
             this.lineTo(toX, toY);
             this.stroke();
@@ -114,12 +114,13 @@ public class MindMapCanvas extends GWTCanvas {
                  node.getX(),
                  node.getY(),
                  node.getWidth(),
-                 node.getHeight());
+                 node.getHeight(),
+                 node);
 
         return 0;
     }
     
-    private int drawNode(String text, int x, int y, int width, int height) {
+    private int drawNode(String text, int x, int y, int width, int height , Node node) {
 
         String tWidth, tHeight;
         //int w = 6;
@@ -136,7 +137,12 @@ public class MindMapCanvas extends GWTCanvas {
         //gcanvas.setFillStyle(Color.RED);
         //this.fillRect(x - w, y - w - height, width + 2 * w, 2 * w + height);
         setStrokeStyle(Color.RED);
-        setFillStyle(Color.LIGHTGREY);
+        if(	mindMapGadget.getSelectionNode() != null &&
+        	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId()){
+        	setFillStyle(Color.SKY_BLUE);
+        }else{
+        	setFillStyle(Color.LIGHTGREY);
+        }
         //rect(x - w, y - w - height, width + 2 * w, 2 * w + height);
         //rect(20,20,20,20);
         fillRect(x, y, width, height);
