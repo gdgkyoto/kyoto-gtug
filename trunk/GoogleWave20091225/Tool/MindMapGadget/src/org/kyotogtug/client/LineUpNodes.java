@@ -22,11 +22,53 @@ public class LineUpNodes {
 	private int LEFT_BRUNCH = -1;
 	
 	/**
+	 * ログを実行する
+	 * @param gadgetForDebug
+	 * @param msg
+	 */
+	private void log(MindMapGadget gadgetForDebug , String msg){
+		if(gadgetForDebug != null){
+			gadgetForDebug.log(msg);
+		}
+	}
+	
+	/**
 	 * ノードを整列させる
 	 * @param root 整列させるルートノード
+	 * @param gadgetForDebug デバッグ用のGadget(実環境実行時にはnullを指定して下さい)
 	 */
 	public void lineUp(Node root , MindMapGadget gadgetForDebug){
-		lineUp(root , 0 , 0 , 0 , LEFT_BRUNCH , gadgetForDebug);
+		int mindMapWidth = root.getWidth() + getBrunchMaxWidth(root , LEFT_BRUNCH , gadgetForDebug);
+		
+		log(gadgetForDebug , "左ブランチ幅 :" + mindMapWidth);
+		log(gadgetForDebug , "右ブランチ幅 :" + getBrunchMaxWidth(root , RIGHT_BRUNCH , gadgetForDebug));
+		
+		lineUp(root , mindMapWidth , 0 , 0 , LEFT_BRUNCH , gadgetForDebug);
+	}
+	
+	/**
+	 * 片側のノードの最大幅を取得する
+	 * @param node
+	 * @param orientation
+	 * @return
+	 */
+	private int getBrunchMaxWidth(Node node , int orientation , MindMapGadget gadgetForDebug){
+		int maxWidth = 0;
+		int isBrunch;
+		if(orientation == RIGHT_BRUNCH) isBrunch = 1;
+		else isBrunch = 0;
+		
+		List<Node> children = node.getChildrenNode();
+		for(Node child : children){
+			if(isBrunch == 1){
+				int nodeWidth = child.getWidth() + NODE_HORIZONTAL_MARGIN + getChildWidth(child);
+				if(nodeWidth > maxWidth) maxWidth = nodeWidth;
+			}
+			
+			isBrunch = 1 - isBrunch;
+		}
+		
+		return maxWidth;
 	}
 	
 	/**
@@ -36,7 +78,7 @@ public class LineUpNodes {
 	 */
 	public void lineUp(Node node , int nodeX, int nodeY,int level , int orientation , MindMapGadget gadgetForDebug){
 		/*Nodeのx座標とy座標をFixする*/
-		gadgetForDebug.log("整列中 : " + node.getText() + " " + nodeX + " " + nodeY);
+		log(gadgetForDebug, "整列中 : " + node.getText() + " " + nodeX + " " + nodeY);
 		node.setX(nodeX);
 		node.setY(nodeY + (getChildHeight(node) / 2));
 		
