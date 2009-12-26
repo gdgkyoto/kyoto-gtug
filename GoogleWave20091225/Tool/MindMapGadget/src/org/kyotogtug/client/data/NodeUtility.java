@@ -49,5 +49,24 @@ public class NodeUtility {
 		// 新しいノードIDの生成
 		return maxId + 1;
 	}
+	
+	/**
+	 * XY座標から、その座標に存在するNodeを取得する。
+	 * 存在しない場合はnullを返す。
+	 * @param rootNode
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static Node getNodeByPotision( Node rootNode , int x , int y ){
+		List<Node> nodeList = getAllNodeList(rootNode);
+		for( Node node : nodeList ){
+			if( node.getX() < x && ( node.getX() + node.getWidth() ) > x &&
+				node.getY() < y && ( node.getY() + node.getHeight() ) > y ){
+				return node;
+			}
+		}
+		return null;
+	}
 
 }
