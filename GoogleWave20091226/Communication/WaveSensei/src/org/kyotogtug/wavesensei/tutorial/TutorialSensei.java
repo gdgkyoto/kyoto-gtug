@@ -56,13 +56,20 @@ public class TutorialSensei {
             switch (level) {
                 case 1 :
                     if (isFirstQuestion) {
-                        message = "はじめまして。ひとりで遊びにきたの？\nまずは Blipを追加してみましょうか。";
+                        message = "はじめまして。ひとりで遊びにきたの？\n"
+                            + "Google Wave ははじめてかしら。\n" 
+                            + "まずは Blip を追加してみましょうか。\n"
+                            + "Blip とはひとつひとつの発言の枠のことよ。\n"
+                            + "このメッセージが表示されているのも一つの Blip。\n"
+                            + "Blip を追加するには、別の Blip の下端にマウスポイントをあわせて青枠がでたらクリックするの。";
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
                     } else if (e.getType() == EventType.BLIP_SUBMITTED) {
                         if (WaveUtil.getGadget(e.getBlip(),
                                                WaveSenseiRobot.SENSEI_GADGET_URL) == null) {
-                            message = "よく出来ました！追加できましたね。\n次は Blip を削除してみましょう。";
+                            message = "よく出来ました！追加できたようね。\n"
+                                    + "次は Blip を削除してみましょう。\n"
+                                    + "Blip を削除するには、Blip の右端にある逆三角のプルダウンから Delete を選ぶの";
                             appendChildBlip(e.getBlip(), message);
                             status.setLevel(2);
                             //                            message = "次は Blip を削除してみましょう。";
@@ -77,10 +84,11 @@ public class TutorialSensei {
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
                     } else if (e.getType() == EventType.BLIP_DELETED) {
-                        message = "よく出来ました！削除できましたね。\nそろそろお友達を誘ってみたらどうかしら。";
+                        message = "よく出来ました！削除できたようね。\n"
+                            + "そろそろお友達を誘ってみたらどうかしら。";
                         appendChildBlip(e.getWavelet(), message);
                         status.setLevel(3);
-//                        status.setIsFirstQuestion(true);
+                        //                        status.setIsFirstQuestion(true);
                     }
                     break;
                 case 3 :
@@ -88,8 +96,13 @@ public class TutorialSensei {
                         message = "Blipを編集してみましょう。";
                         appendChildBlip(e.getBlip(), message);
                         status.setIsFirstQuestion(false);
-                    } else if (e.getType() == EventType.WAVELET_PARTICIPANTS_CHANGED && e.getAddedParticipants().size() > 0) {
-                        message = "よく出来ました！。\nあなたはもう一人ぼっちじゃないわ。";
+                    } else if (e.getType() == EventType.WAVELET_PARTICIPANTS_CHANGED
+                            && e.getAddedParticipants().size() > 0) {
+                        message = "よく出来ました！。\n" 
+                            + "あなたはもう一人ぼっちじゃないわ。\n"
+                            + "もう私に教えられることはないわ。\n"
+                            + "あとわからないことがあれば「ものしり先生」にきいてみるといいわ。\n"
+                            + "ものしり先生に答えられないことはないの。";                        
                         appendChildBlip(e.getWavelet(), message);
                         status.setLevel(4);
                         status.setIsFirstQuestion(true);
