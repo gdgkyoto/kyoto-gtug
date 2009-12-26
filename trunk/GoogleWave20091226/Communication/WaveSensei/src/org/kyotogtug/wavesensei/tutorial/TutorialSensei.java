@@ -68,7 +68,7 @@ public class TutorialSensei {
 				break;
 			case 3:
 				if (isFirstQuestion) {
-					message = "Blipを削除してみましょう。";
+					message = "Blipを編集してみましょう。";
 					status.setIsFirstQuestion(false);
 				} else if(e.getType() == EventType.DOCUMENT_CHANGED) {
 					message = "よく出来ました！";
