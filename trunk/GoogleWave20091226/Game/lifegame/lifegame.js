@@ -43,7 +43,8 @@ function stateUpdated() {
 	var state = wave.getState();
 	var cells = state.get('cellstate', _default);
 	var list= document.getElementsByTagName('td');
-	for (var i = 0; i< list.length; i++) {
+	for (var i = 0; i< cells.length; i++) {
+		list[i].style.backGroundColor = "red";
 		if (cells[i] == "0") {
 			list[i].style.backGroundColor = "white";
 		} else if (cells[i] == "1") {
