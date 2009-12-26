@@ -37,62 +37,8 @@ public class MMCanvas extends Canvas {
      *
      */
     public MMCanvas() {
-
-
-//        this.addMouseListener(this);
-
-        //        Node node1 = new Node();
-        //
-        //        node1.setText("root");
-        //        node1.setX(200);
-        //        node1.setY(200);
-        //        node1.setWidth(100);
-        //        node1.setHeight(10);
-        //
-        //        Node node2 = new Node();
-        //        node2.setText("child1");
-        //        node2.setX(300);
-        //        node2.setY(300);
-        //        node2.setWidth(100);
-        //        node2.setHeight(10);
-        //
-        //
-        //        Node node3 = new Node();
-        //        node3.setText("child2");
-        //        node3.setX(20);
-        //        node3.setY(100);
-        //        node3.setWidth(100);
-        //        node3.setHeight(10);
-        //
-        //        Node node4 = new Node();
-        //        node4.setText("child3");
-        //        node4.setX(20);
-        //        node4.setY(300);
-        //        node4.setWidth(100);
-        //        node4.setHeight(10);
-        //
-        //
-        //
-        //
-        //
-        //        Edge edge1 = new Edge();
-        //        edge1.setFromNode(node1);
-        //        edge1.setToNode(node2);
-        //
-        //        Edge edge2 = new Edge();
-        //        edge2.setFromNode(node1);
-        //        edge2.setToNode(node3);
-        //
-        //        Edge edge3 = new Edge();
-        //        edge3.setFromNode(node2);
-        //        edge3.setToNode(node4);
-        //
-        //        List edgeList = new ArrayList();
-        //        edgeList.add(edge1);
-        //        edgeList.add(edge2);
-        //
-        //        node1.setChildren(edgeList);
-
+        super(400, 400);
+        /**
         rootNode = new Node();
         Node node1 = new Node();
         Node node2 = new Node();
@@ -102,42 +48,42 @@ public class MMCanvas extends Canvas {
         rootNode.setNodeId(1);
         rootNode.setText("ROOT");
         rootNode.setBlipId("BLIP1");
-        rootNode.setX(1);
-        rootNode.setY(2);
-        rootNode.setWidth(3);
-        rootNode.setHeight(4);
+        rootNode.setX(0);
+        rootNode.setY(0);
+        rootNode.setWidth(10);
+        rootNode.setHeight(10);
 
         node1.setNodeId(2);
         node1.setText("NODE1");
         node1.setBlipId("BLIP2");
-        node1.setX(1);
-        node1.setY(2);
-        node1.setWidth(3);
-        node1.setHeight(4);
+        node1.setX(20);
+        node1.setY(20);
+        node1.setWidth(10);
+        node1.setHeight(10);
 
         node2.setNodeId(3);
         node2.setText("NODE2");
         node2.setBlipId("BLIP3");
-        node2.setX(1);
-        node2.setY(2);
-        node2.setWidth(3);
-        node2.setHeight(4);
+        node2.setX(0);
+        node2.setY(20);
+        node2.setWidth(10);
+        node2.setHeight(10);
 
         node1_1.setNodeId(4);
         node1_1.setText("NODE1-1");
         node1_1.setBlipId("BLIP4");
-        node1_1.setX(1);
-        node1_1.setY(2);
-        node1_1.setWidth(3);
-        node1_1.setHeight(4);
+        node1_1.setX(20);
+        node1_1.setY(0);
+        node1_1.setWidth(10);
+        node1_1.setHeight(10);
 
         node1_2.setNodeId(4);
         node1_2.setText("NODE1-2");
         node1_2.setBlipId("BLIP5");
-        node1_2.setX(1);
-        node1_2.setY(2);
-        node1_2.setWidth(3);
-        node1_2.setHeight(4);
+        node1_2.setX(40);
+        node1_2.setY(40);
+        node1_2.setWidth(10);
+        node1_2.setHeight(10);
 
         rootNode.addChildNode(node1);
         rootNode.addChildNode(node2);
@@ -157,7 +103,7 @@ public class MMCanvas extends Canvas {
         //         this.drowEdge(edge2);
 
         this.drowMap(rootNode);
-
+        */
     }
 
     public void drowEdge(Edge edge) {
@@ -205,17 +151,15 @@ public class MMCanvas extends Canvas {
      */
     public void drowMap(Node rootNode) {
         this.drawNode(rootNode);
-        /**
         List elist = rootNode.getChildren();
         Iterator it = elist.iterator();
         while (it.hasNext()) {
             Edge edge = (Edge) it.next();
             Node node = edge.getToNode();
             this.drawNode(node);
-            this.drowEdge(edge);
+            //this.drowEdge(edge);
             drowMap(node);
         }
-        */
     }
 
     int findNode(String lbl) {
@@ -238,24 +182,26 @@ public class MMCanvas extends Canvas {
 
     public int drawNode(Node node) {
 
-        drawNode(node.getText(), node.getX(), node.getY());
+        drawNode(node.getText(),
+                 node.getX(),
+                 node.getY(),
+                 node.getWidth(),
+                 node.getHeight());
 
         return 0;
     }
 
-    private int drawNode(String text, int x, int y) {
+    private int drawNode(String text, int x, int y, int width, int height) {
 
         String tWidth, tHeight;
-        int w = 6;
+        //int w = 6;
+        int w = 0;
         int xx = x, yy = y;
-        int width;
 
         //文字の長さを調べる
         //tWidth = textWidth(context, text);
 
         //width = Integer.parseInt(tWidth);
-        height = 10;
-        width = 10;
         //this.setGlobalAlpha(0.5);
         //this.setFillStyle("rgba(192,80,77,0.5");
 
@@ -265,36 +211,6 @@ public class MMCanvas extends Canvas {
         //this.setGlobalAlpha(1.0);
         //this.setFillStyle("rgb(255,255,255)");
         //this.fillText(text, x, y);
-
-        //        //線を引く（時計の反対回り）
-        //        this.beginPath();
-        //       //初期値移動
-        //        xx=xx-w;
-        //        yy =yy+w;
-        //        this.moveTo(xx, yy);
-        //        //下線（右へ）
-        //        xx=xx+width+2*w;
-        //        this.lineTo(xx, yy);
-        //        //縦線（右）
-        //        yy=yy-(2*w+height);
-        //        this.lineTo(xx, yy);
-        //        //上線（左へ）
-        //        xx=x-w;
-        //        this.lineTo(xx, yy);
-        //        //縦線
-        //        yy=y+w;
-        //        this.lineTo(xx, yy);
-        //        this.stroke();
-
-        //        Node node = new Node();
-
-        // 座標を決めるアルゴリズム
-        //      node.x = 10 + 380*Math.random();
-        //node.y = 10 + 380*Math.random();
-        //TODO 未実装
-        //        node.lbl = lbl;
-        //	nodes[nnodes] = n;
-        //	return nnodes++;
         return 0;
     }
 
@@ -337,44 +253,5 @@ public class MMCanvas extends Canvas {
     public void fillText(String str, int x, int y) {
         dString(context, str, x, y);
 
-    }
-
-    public void onMouseDown(Widget sender, int x, int y) {
-
-        this.drawNode("click", x, y);
-        //this.eraseNode(x, y);
-        //
-        //     String i;
-        //    fillText("あああ",x,y);
-        //    i=mText(context,"あああああ");
-        //    Window.alert(i);
-        //
-
-        //TODO クリック位置を探っていく（未実装）
-        //        for (int i = 0 ; i < nnodes ; i++) {
-        //	    Node n = nodes[i];
-        //	    double dist = (n.x - x) * (n.x - x) + (n.y - y) * (n.y - y);
-        //	    if (dist < bestdist) {
-        //		pick = n;
-        //		bestdist = dist;
-        //	    }
-        //	}
-
-    }
-
-    public void onMouseEnter(Widget sender) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void onMouseLeave(Widget sender) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void onMouseMove(Widget sender, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void onMouseUp(Widget sender, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
