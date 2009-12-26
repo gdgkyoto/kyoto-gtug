@@ -213,44 +213,53 @@ var visualProcessor = {
   for ( var i = 0; i < steps.length; i++) {
     var step = steps[i];
     /* 四角を描く */
-    if (step.sample === 'P-1') {
-      p1r += 100;
-      p1g += 0;
-      p1b += 0;
-      if(p1r < p1rb){
-	  p1r = p1rb;
-      }
-    }
-   p1r -= 10;
 
-
-    ctx.fillStyle = 'rgba(' + p1r + ',' + p1g + ',' + p1b + ', 0.5)';
-    rect(ctx, 8, 20, 52, 155);
-    ctx.fill();
 
 //      alert(JSON.stringify(step));
+    if ((step.sample == 'P-1') && (step.velocity > 0)) {
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      rect(ctx, 8, 20, 52, 155);
+      ctx.fill();
+    }
     if ((step.sample == 'P-2') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
       rect(ctx, 72, 20, 52, 155);
       ctx.fill();
     }
-
-
-    if (step.sample === 'P-3') {
-      ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
-      rect(ctx, 136, 20, 52, 155);
+    if ((step.sample == 'P-3') && (step.velocity > 0)) {
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      rect(ctx,136, 20, 52, 155);
       ctx.fill();
     }
-    if (step.sample === 'P-4') {
+    if ((step.sample == 'P-4') && (step.velocity > 0)) {
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      rect(ctx,200, 20, 52, 155);
+      ctx.fill();
     }
-    if (step.sample === 'P-5') {
+    if ((step.sample == 'P-5') && (step.velocity > 0)) {
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      rect(ctx,264, 20, 52, 155);
+      ctx.fill();
     }
-    if (step.sample === 'P-6') {
+    /*
+    if ((step.sample == 'P-6') && (step.velocity > 0)) {
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      rect(ctx, 72, 20, 52, 155);
+      ctx.fill();
     }
-    if (step.sample === 'P-7') {
+    if ((step.sample == 'P-7') && (step.velocity > 0)) {
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      rect(ctx, 72, 20, 52, 155);
+      ctx.fill();
     }
-    if (step.sample === 'P-8') {
-    }
+    if ((step.sample == 'P-8') && (step.velocity > 0)) {
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
+      rect(ctx, 72, 20, 52, 155);
+      ctx.fill();
+    }*/
+
+
+
   }
   }
 };
