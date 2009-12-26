@@ -26,6 +26,7 @@
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
 
     <div id="patterns"></div>
+    <div style="clear:both;"></div>
     <input id="play" type="button" value="Play"/>
     <input id="playSong" type="button" value="PlaySong"/>
     <input id="stop" type="button" value="Stop"/>

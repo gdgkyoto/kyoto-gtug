@@ -261,7 +261,7 @@ function init() {
   for ( var i = 0; i < song.patterns.length; i++) {
     var ptn = $("<div>");
     ptn.css("float", "left");
-    ptn.text("Pattern" + i);
+    ptn.text("Pattern" + i + "|");
     ptn.attr("patternNo", i);
     ptn.click(function() {
       selectPtn = $(this).attr("patternNo");
