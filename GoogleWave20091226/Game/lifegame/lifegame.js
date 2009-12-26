@@ -33,6 +33,7 @@ function plot_point(e) {
 	ary = e.target.id.slice(5).split(',');
 
 	cells[idx(ary[0], ary[1])] = "1";
+	alert(idx(ary[0], ary[1]));
 
 	state.submitDelta({'cellstate': cells});
 }
