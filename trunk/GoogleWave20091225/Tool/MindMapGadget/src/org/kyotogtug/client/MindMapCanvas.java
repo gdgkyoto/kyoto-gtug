@@ -106,10 +106,11 @@ public class MindMapCanvas extends GWTCanvas {
 
             mindMapGadget.log("EDGE - FROM(" + fromX + "," + fromY + ")");
             mindMapGadget.log("EDGE - TO(" + toX + "," + toY + ")");
-            this.beginPath();
-            this.moveTo(fromX, fromY);
-            this.lineTo(toX, toY);
-            this.stroke();
+            drawArrow(fromX, fromY, toX, toY);
+            //this.beginPath();
+            //this.moveTo(fromX, fromY);
+            //this.lineTo(toX, toY);
+            //this.stroke();
         }
 
     }
@@ -158,6 +159,16 @@ public class MindMapCanvas extends GWTCanvas {
 
         //gcanvas.setFillStyle(Color.RED);
         //this.fillRect(x - w, y - w - height, width + 2 * w, 2 * w + height);
+        /*背景枠描画*/
+        if(	mindMapGadget.getSelectionNode() != null &&
+            	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId()){
+            	setFillStyle(Color.BLUE);
+            }else{
+            	setFillStyle(Color.GREY);
+            }
+        fillRect(x-2, y-2, width+4, height+4);
+        
+        /*背景描画*/
         setStrokeStyle(Color.RED);
         if(	mindMapGadget.getSelectionNode() != null &&
         	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId()){
@@ -169,7 +180,7 @@ public class MindMapCanvas extends GWTCanvas {
         //rect(20,20,20,20);
         fillRect(x, y, width, height);
         setFillStyle(Color.BLACK);
-        canvasSetFont(this, "bold 14px 'Monotype Corsiva'");
+        canvasSetFont(this, "bold 14px 'ＭＳ ゴシック'");
         canvasFillText(this ,text , x + 5 , y + 20 );
 
         //this.setGlobalAlpha(1.0);
