@@ -21,7 +21,8 @@
     <script type="text/javascript">
       gadgets.util.registerOnLoadHandler(init);
     </script>
-
+    
+    <canvas id="tempcanvas" width="140" height="140"></canvas>
     <div id="tempo-l">Tempo <span id="tempo_disp" class="slider_disp"></span></div>
     <div id="tempo-i" class="inner"><br><div id="tempo" class="slider"></div><br></div>
     <input id="play" type="button" value="Play"/>
@@ -38,7 +39,29 @@
     <div class="icon" id="guitar" style="display:none">TEST2</div>
     <div class="icon" id="bass" style="display:none">TEST3</div>
     <div class="icon" id="drum" style="display:none">TEST4</div>
-    <canvas width="400" height="400"></canvas>
+    <script type="text/javascript">
+      onload = function() {
+  draw();
+};
+function draw() {
+  /* canvas要素のノードオブジェクト */
+  var canvas = document.getElementById('canvas');
+  /* canvas要素の存在チェックとCanvas未対応ブラウザの対処 */
+  if ( ! canvas || ! canvas.getContext ) {
+    return false;
+  }
+  /* 2Dコンテキスト */
+  var ctx = canvas.getContext('2d');
+  /* 四角を描く */
+  ctx.beginPath();
+  ctx.moveTo(20, 20);
+  ctx.lineTo(120, 20);
+  ctx.lineTo(120, 120);
+  ctx.lineTo(20, 120);
+  ctx.closePath();
+  ctx.stroke();
+}
+    </script>
     ]]>
   </Content>
 </Module>
