@@ -14,13 +14,12 @@ table { border: 1px black solid;     border-collapse:collapse;}
 
 td { border: 1px blue solid; width:4px; height:8px }
 </style>
+
 </head>
 
 <body>
 <h1>LifeGame!</h1>
-<div id="main"></div>
-<button onclick="parse()">PARSE</button>
-<button onclick="reset()">RESET</button>
+<div id="main"></div><button onclick="parse()">PARSE</button>
 <span id="cellstate">0</span>
 <div id="who"></div>
 </body>
