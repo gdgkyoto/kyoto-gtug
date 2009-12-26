@@ -109,6 +109,14 @@ function stateUpdated() {
 }
 
 function partUpdated() {
+    var part = wave.getParticipants();
+    if (part.length==0) return;
+    var all ='';
+    for (var i = 0; i< part.length; i++) {
+	all +=  '<img src="' + part[i].getThumbnailUrl() + 
+		'" width="50" height="50"/>' + part[i].getDisplayName() + "";
+    }
+    _gel('who').innerHTML = all;
 }
 
 function init()
