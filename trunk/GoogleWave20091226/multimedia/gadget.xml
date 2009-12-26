@@ -27,12 +27,12 @@
     <div style="clear:both;"></div>
     <div id="seq"></div>
     <image id="p-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/piano.png"></image>
-    <div id="piano" style="display:none"></div>
     <image id="g-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/guitar.png"></image>
-    <div id="guitar" style="display:none"></div>
     <image id="b-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/bass.png"></image>
-    <div id="bass" style="display:none"></div>
     <image id="d-icon" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/multimedia/image/drum.png"></image>
+    <div id="piano"></div>
+    <div id="guitar" style="display:none"></div>
+    <div id="bass" style="display:none"></div>
     <div id="drum" style="display:none"></div>
     ]]>
   </Content>
