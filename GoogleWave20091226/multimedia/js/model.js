@@ -295,15 +295,19 @@ function createUI(song) {
     $("#drum").append(dLine);
   }
   $("#p-icon").click(function() {
-    $("#piano").toggle(300);
+    $(".icon").hide(300);
+    $("#piano").show(300);
   });
   $("#g-icon").click(function() {
-    $("#guitar").toggle(300);
+    $(".icon").hide(300);
+    $("#guitar").show(300);
   });
   $("#b-icon").click(function() {
-    $("#bass").toggle(300);
+    $(".icon").hide(300);
+    $("#bass").show(300);
   });
   $("#d-icon").click(function() {
-    $("#drum").toggle(300);
+    $(".icon").hide(300);
+    $("#drum").show(300);
   });
 }
