@@ -206,13 +206,10 @@ function stateUpdated() {
 }
 
 function init() {
-  alert("init1");
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
-  alert("init2");
   song = wave.getState().get("song", initSong(SAMPLES));
-  alert("init3");
 
   $("#tempo").slider( {
     min : 60,
