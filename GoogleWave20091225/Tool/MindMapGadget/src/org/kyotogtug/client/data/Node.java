@@ -26,13 +26,16 @@ public class Node {
 	
 	/**ノードに対応するBlipのID*/
 	private String blipId;
+	
 	/**ノードの座標 X*/
 	private int x;
+	
 	/**ノードの座標 X*/
 	private int y;
 	
 	/**-ノードの幅*/
 	private int width;
+	
 	/**ノードの高さ*/
 	private int height;
 	
