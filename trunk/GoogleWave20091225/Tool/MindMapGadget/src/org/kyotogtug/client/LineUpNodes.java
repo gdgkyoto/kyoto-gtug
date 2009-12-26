@@ -38,7 +38,7 @@ public class LineUpNodes {
 	 * @param gadgetForDebug デバッグ用のGadget(実環境実行時にはnullを指定して下さい)
 	 */
 	public void lineUp(Node root , MindMapGadget gadgetForDebug){
-		int mindMapWidth = root.getWidth() + getBrunchMaxWidth(root , LEFT_BRUNCH , gadgetForDebug);
+		int mindMapWidth = getBrunchMaxWidth(root , LEFT_BRUNCH , gadgetForDebug);
 		
 		log(gadgetForDebug , "左ブランチ幅 :" + mindMapWidth);
 		log(gadgetForDebug , "右ブランチ幅 :" + getBrunchMaxWidth(root , RIGHT_BRUNCH , gadgetForDebug));
@@ -94,6 +94,7 @@ public class LineUpNodes {
 				int alphaX = node.getWidth() + NODE_HORIZONTAL_MARGIN;
 				
 				nextX = nodeX + (alphaX * orientation);
+				if(orientation == LEFT_BRUNCH) nextX = nextX - (child.getWidth() - 70);
 				
 				lineUp(child, nextX, nextY, level+1, orientation , gadgetForDebug);
 				
