@@ -204,7 +204,7 @@ var visualProcessor = {
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'; // 赤
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'; // 赤
   rect(ctx, 0, 0, 320, 175);
   ctx.fill();
 
