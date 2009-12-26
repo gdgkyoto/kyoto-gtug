@@ -97,9 +97,9 @@ public class MindMapCanvas extends GWTCanvas {
         } else {// TODO 左側にある場合
 
             fromX = fromNode.getX();
-            fromY = fromNode.getY();// - fromNode.getHeight() / 2;
+            fromY = fromNode.getY() + (fromNode.getHeight() / 2);
             toX = toNode.getX() + toNode.getWidth();
-            toY = toNode.getY();// - fromNode.getHeight() / 2;
+            toY = toNode.getY() + (toNode.getHeight() /2);
 
             mindMapGadget.log("EDGE - FROM(" + fromX + "," + fromY + ")");
             mindMapGadget.log("EDGE - TO(" + toX + "," + toY + ")");
@@ -150,6 +150,7 @@ public class MindMapCanvas extends GWTCanvas {
         //rect(20,20,20,20);
         fillRect(x, y, width, height);
         setFillStyle(Color.BLACK);
+        canvasSetFont(this, "italic bold 18px 'ＭＳ Ｐゴシック','Monotype Corsiva'");
         canvasFillText(this ,text , x , y + 20 );
 
         //this.setGlobalAlpha(1.0);
