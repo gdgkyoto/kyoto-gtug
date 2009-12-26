@@ -204,7 +204,7 @@ var visualProcessor = {
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.1)'; // 赤
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; // 赤
   rect(ctx, 0, 0, 320, 175);
   ctx.fill();
   //ctx.clearRect(0, 0, 320, 175);
@@ -248,25 +248,25 @@ var visualProcessor = {
     }
     if (step.sample == 'P-5') {
       ctx.fillStyle = 'rgba(120, 80, 0, 0.7)'; 
-      rect(ctx,264+ratio, 20+ratio, 52-ratio, 155+ratio);
+      rect(ctx,42+ratio, 20+ratio, 52-ratio, 155+ratio);
       ctx.fill();
     }
-    /*
-    if ((step.sample == 'P-6') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
-      rect(ctx, 72, 20, 52, 155);
+    
+    if (step.sample == 'P-6') {
+      ctx.fillStyle = 'rgba(0, 40, 100, 0.7)'; 
+      rect(ctx,42+ratio, 20+ratio, 52-ratio, 155+ratio);
       ctx.fill();
     }
-    if ((step.sample == 'P-7') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
-      rect(ctx, 72, 20, 52, 155);
+    if (step.sample == 'P-7') {
+      ctx.fillStyle = 'rgba(0, 20, 120, 0.7)'; 
+      rect(ctx,114+ratio, 20-ratio, 52-ratio, 155+ratio);
       ctx.fill();
     }
-    if ((step.sample == 'P-8') && (step.velocity > 0)) {
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.7)'; 
-      rect(ctx, 72, 20, 52, 155);
+    if (step.sample == 'P-8') {
+      ctx.fillStyle = 'rgba(0, 0, 140, 0.7)'; 
+      rect(ctx,242+ratio, 20+ratio, 52-ratio, 155-ratio);
       ctx.fill();
-    }*/	
+    }
 
     }
 
