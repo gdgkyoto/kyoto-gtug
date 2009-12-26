@@ -19,6 +19,19 @@ function push(cells, c, x, y)
 	return cells.substr(0, ix) + c + cells.slice(ix+1);
 }
 
+function around(cells, x, y)
+{
+	return 
+		cells[idx(x-1, y-1)] != "0"? 1: 0 +
+		cells[idx(x-0, y-1)] != "0"? 1: 0 +
+		cells[idx(x+1, y-1)] != "0"? 1: 0 +
+		cells[idx(x-1, y-0)] != "0"? 1: 0 +
+		cells[idx(x+1, y-0)] != "0"? 1: 0 +
+		cells[idx(x-1, y+1)] != "0"? 1: 0 +
+		cells[idx(x+0, y+1)] != "0"? 1: 0 +
+		cells[idx(x+1, y+1)] != "0"? 1: 0;
+}
+
 function succ(cells)
 {
 	for (var y = 0; y< height; y++) {
