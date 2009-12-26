@@ -13,31 +13,31 @@ import java.util.List;
 public class Node {
 	
 	/** ノードID */
-	private int nodeId;
+	private int nodeId = -1;
 	
 	/**ノードの親ノードのEdge*/
-	private Edge parent;
+	private Edge parent = null;
 	
 	/**ノードの子ノードのEdge*/
 	private List<Edge> children;
 	
 	/** ノードのテキスト */
-	private String text;
+	private String text = "[empty]";
 	
 	/**ノードに対応するBlipのID*/
-	private String blipId;
+	private String blipId = "[empty]";
 	
 	/**ノードの座標 X*/
-	private int x;
+	private int x = -1;
 	
 	/**ノードの座標 X*/
-	private int y;
+	private int y = -1;
 	
 	/**-ノードの幅*/
-	private int width;
+	private int width = -1;
 	
 	/**ノードの高さ*/
-	private int height;
+	private int height = -1;
 	
 	public Node(){
 		children = new ArrayList<Edge>();
