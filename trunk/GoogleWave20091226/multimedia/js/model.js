@@ -263,7 +263,10 @@ function init() {
     ptn.css("float", "left");
     ptn.text("Pattern" + i + "|");
     ptn.attr("patternNo", i);
+    ptn.addClass("ptns");
     ptn.click(function() {
+      $(".ptns").css("background-color", "#fff");
+      $(this).css("background-color", "#afa");
       selectPtn = $(this).attr("patternNo");
       createUI(song);
     });
