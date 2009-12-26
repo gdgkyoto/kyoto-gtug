@@ -7,7 +7,7 @@
 <Content type="html">
 <![CDATA[
 <head>
-<script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/Game/lifegame/lifegame.js">
+<script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/Game/lifegame/lifegame.js"> </script>
 <style>
 table { border: 1px black solid;     border-collapse:collapse;}
 

@@ -25,7 +25,6 @@ function plot_point(e) {
 
 function init()
 {
-
 	var tt = _gel("main");
 	var d= document;
 	var table = d.createElement('table');
