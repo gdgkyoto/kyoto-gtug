@@ -255,7 +255,23 @@ function init() {
       "test" : "testValue"
     });
   });
-
+  $("#p-icon").click(function() {
+    $(".icon").hide(300);
+    $("#piano").show(300);
+  });
+  $("#g-icon").click(function() {
+    $(".icon").hide(300);
+    $("#guitar").show(300);
+  });
+  $("#b-icon").click(function() {
+    $(".icon").hide(300);
+    $("#bass").show(300);
+  });
+  $("#d-icon").click(function() {
+    $(".icon").hide(300);
+    $("#drum").show(300);
+  });
+  
   createUI(song);
 
   var canvas = document.getElementsByTagName('tempcanvas')[0];
@@ -330,20 +346,4 @@ function createUI(song) {
     $("#bass").append(bLine);
     $("#drum").append(dLine);
   }
-  $("#p-icon").click(function() {
-    $(".icon").hide(300);
-    $("#piano").show(300);
-  });
-  $("#g-icon").click(function() {
-    $(".icon").hide(300);
-    $("#guitar").show(300);
-  });
-  $("#b-icon").click(function() {
-    $(".icon").hide(300);
-    $("#bass").show(300);
-  });
-  $("#d-icon").click(function() {
-    $(".icon").hide(300);
-    $("#drum").show(300);
-  });
 }
