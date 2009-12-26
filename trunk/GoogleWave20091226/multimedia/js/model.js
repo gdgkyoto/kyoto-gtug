@@ -191,7 +191,7 @@ var soundProcessor = {
 var canvas = null;
 function rect(c,x,y,w,h){
   c.beginPath();
-  curContext.rect(
+  c.rect(
     Math.round( x ),
     Math.round( y ),
     Math.round( w ),
@@ -216,7 +216,7 @@ var visualProcessor = {
     ctx.closePath();
     ctx.stroke();
 
-     /* 四角を描く */
+    /* 四角を描く */
     rect(ctx,10,10,100,100);
     ctx.stroke();
   }
