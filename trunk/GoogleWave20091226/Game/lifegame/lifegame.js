@@ -81,6 +81,7 @@ function init()
     wave.setParticipantCallback(partUpdated);
 
 	var state = wave.getState();
+	alert(state);
 	//if (state && !state.get('cellstate')) {
 		var s;
 		for (var i = 0; i< width* height; i++) {
