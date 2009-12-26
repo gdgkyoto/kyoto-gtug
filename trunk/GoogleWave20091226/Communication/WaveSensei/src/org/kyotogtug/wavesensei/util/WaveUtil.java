@@ -12,14 +12,13 @@ public class WaveUtil {
      * @return
      */
     public static Gadget getGadget(Blip blip, String url) {
-        if(blip.getDocument() == null) return null;
-        if(blip.getDocument().getGadgetView() == null) return null;
-        if(blip.getDocument().getGadgetView().getGadgets() == null) return null;
-        for(Gadget g : blip.getDocument().getGadgetView().getGadgets()) {
-            if(g.getUrl().equals(url)) {
-                return g;
+        try {
+            for (Gadget g : blip.getDocument().getGadgetView().getGadgets()) {
+                if (g.getUrl().equals(url)) {
+                    return g;
+                }
             }
-        }
+        } catch (Throwable t) {}
         return null;
     }
 
