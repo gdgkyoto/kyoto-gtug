@@ -1,6 +1,7 @@
 package org.kyotogtug.client;
 
 import org.kyotogtug.client.data.Node;
+import org.kyotogtug.client.data.NodeUtility;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -27,19 +28,19 @@ public class SubmitClickHandler implements ClickHandler {
             } else {
                 Window.alert("target:" + target.getNodeId() + ":"
                         + target.getText());
+                Node newNode = new Node();
+                newNode.setNodeId(NodeUtility.nextNodeId(root));
+                newNode.setText(gadget.getNodeTitleTextBox().getText());
+                target.addChildNode(newNode);
             }
         } catch (NumberFormatException e) {}
     }
 
     private Node findNode(Node parent, int nodeId) {
         if (parent != null) {
-            for (Node aNode : parent.getChildrenNode()) {
+            for (Node aNode : NodeUtility.getAllNodeList(parent)) {
                 if (aNode.getNodeId() == nodeId) {
                     return aNode;
-                }
-                Node tmpNode = findNode(aNode, nodeId);
-                if (tmpNode != null) {
-                    return tmpNode;
                 }
             }
         }

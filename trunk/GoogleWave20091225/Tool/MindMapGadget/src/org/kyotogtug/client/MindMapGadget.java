@@ -19,6 +19,7 @@ import com.google.gwt.gadgets.client.UserPreferences;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -26,6 +27,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 @com.google.gwt.gadgets.client.Gadget.ModulePrefs(title = "SimpleGadget", author = "yournamehere", author_email = "yournamehere@gmail.com", height = 500)
 public class MindMapGadget extends WaveGadget<UserPreferences> {
+
+    /** このガジェットのタイトル */
+    private static final String TITLE = "Mind Map version 0.1";
 
     /** ルートノード */
     private Node rootNode;
@@ -66,6 +70,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         textArea.setVisibleLines(50);
         textArea.setText("ほがほが\nほがふ");
 
+        vpanel.add(new Label(TITLE));
         vpanel.add(canvas);
         vpanel.add(hvpanel);
         vpanel.add(textArea);
