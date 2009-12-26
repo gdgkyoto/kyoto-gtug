@@ -11,6 +11,7 @@ import org.kyotogtug.client.data.Node;
 import org.kyotogtug.client.data.NodeParser;
 import org.kyotogtug.client.data.NodeUtility;
 
+import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.gadgets.client.UserPreferences;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -19,6 +20,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 
 @com.google.gwt.gadgets.client.Gadget.ModulePrefs(title = "SimpleGadget", author = "yournamehere", author_email = "yournamehere@gmail.com", height = 500)
 public class MindMapGadget extends WaveGadget<UserPreferences> {
@@ -31,6 +33,8 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** マインドマップを描画するCanvas */
     private MMCanvas canvas;
+    
+    private GWTCanvas gwtCanvas;
 
     /** ノードのIDを入力するためのテキストボックス */
     private TextBox nodeIdTextBox = new TextBox();
@@ -52,7 +56,8 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         VerticalPanel vpanel = new VerticalPanel();
         HorizontalPanel hvpanel = new HorizontalPanel();
 
-        canvas = new MMCanvas();
+        //canvas = new MMCanvas();
+        gwtCanvas = new GWTCanvas();
 
         submitButton.setText("Submit");
         submitButton.addClickHandler(new SubmitClickHandler(this));
@@ -66,7 +71,8 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         textArea.setText("ほがほが\nほがふ");
 
         vpanel.add(new Label(TITLE));
-        vpanel.add(canvas);
+        vpanel.add(gwtCanvas);
+        //vpanel.add(canvas);
         vpanel.add(hvpanel);
         vpanel.add(textArea);
         hvpanel.add(nodeIdTextBox);
@@ -85,12 +91,26 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
                 draw();
             }
         });
+        
+        canvasFillText(gwtCanvas, "ほげほげ", 50, 50);
     }
+    
+	private static native void canvasFillText(GWTCanvas c, String str,
+			double x, double y)/*-{
+		var impl = c.@com.google.gwt.widgetideas.graphics.client.GWTCanvas::impl;
+		(impl.@com.google.gwt.widgetideas.graphics.client.impl.GWTCanvasImplDefault::canvasContext).fillText(str,
+		x, y);
+	}-*/;
 
     /**
      * マインドマップを描画する
      */
     private void draw() {
+    	try{
+    		//canvas.drawNode(rootNode);
+    	}catch( JavaScriptException e){
+    		log("draw時に例外 "+e.getMessage());
+    	}
         log("\n----------------\n");
         List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);
         for (Node tmpNode : nodeList) {
@@ -218,7 +238,11 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         
         // 描画テスト
         log("draw before");
-        canvas.drowMap(rootNode);
+        try{
+        	//canvas.drowMap(rootNode);
+        }catch( Exception e){
+        	log("drowMap時にエラー"+e.getMessage()+"\n\n"+e.toString());
+        }
         log("draw after");
         
     }
