@@ -24,9 +24,9 @@ public class SubmitClickHandler implements ClickHandler {
             Node root = gadget.getRootNode();
             Node target = gadget.findNode(nodeId);
             if (target == null) {
-                Window.alert("target is null");
+                Window.alert("target not found:" + nodeId);
             } else {
-                Window.alert("target:" + target.getNodeId() + ":"
+                Window.alert("add To:" + target.getNodeId() + ":"
                         + target.getText());
                 Node newNode = new Node();
                 newNode.setNodeId(NodeUtility.nextNodeId(root));
@@ -35,16 +35,5 @@ public class SubmitClickHandler implements ClickHandler {
                 gadget.saveToSharedState();
             }
         } catch (NumberFormatException e) {}
-    }
-
-    private Node findNode(Node parent, int nodeId) {
-        if (parent != null) {
-            for (Node aNode : NodeUtility.getAllNodeList(parent)) {
-                if (aNode.getNodeId() == nodeId) {
-                    return aNode;
-                }
-            }
-        }
-        return null;
     }
 }

@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** このガジェットのタイトル */
-    private static final String TITLE = "Mind Map version 0.2";
+    private static final String TITLE = "Mind Map version 0.3";
 
     /** ルートノード */
     private Node rootNode;
@@ -78,6 +78,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         debug();
 
         getWave().addStateUpdateEventHandler(new StateUpdateEventHandler() {
+            @SuppressWarnings("synthetic-access")
             @Override
             public void onUpdate(StateUpdateEvent event) {
                 rootNode = new NodeParser().getRootNodeFromSharedState(getWave().getState());
@@ -93,10 +94,13 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         log("\n----------------\n");
         List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);
         for (Node tmpNode : nodeList) {
-            log(tmpNode.getText());
+            log(tmpNode.getNodeId() + ":" + tmpNode.getText());
         }
     }
 
+    /**
+     * 現状の状態をSharedStateに保存
+     */
     public void saveToSharedState() {
         new NodeParser().saveToSharedState(getWave().getState(), rootNode);
     }
@@ -158,7 +162,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         String xml;
         xml = parser.toString(rootNode);
         log(xml);
-        
+
         /* 整列テスト */
         LineUpNodes lineUpNodes = new LineUpNodes();
         log("LineUpを実行中");
@@ -172,14 +176,14 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         String xmlStr;
         xmlStr = parser.toString(rootNode);
         log(xmlStr);
-        
+
         Node resultRootNode = parser.parseNode(xml);
         log("\n----------------\n" + parser.toString(resultRootNode));
         List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);
         for (Node tmpNode : nodeList) {
             log(tmpNode.getText());
         }
-        
+
         // 次のID生成のテスト
         log("-----------------------");
         log("nextId="+NodeUtility.nextNodeId(rootNode));
@@ -193,7 +197,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         }else{
         	log(clickX+" , "+clickY+" = "+resultNode.getText() );
         }
-        
+
         clickX = 105;
         clickY = 55;
         resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
@@ -202,7 +206,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         }else{
         	log(clickX+" , "+clickY+"= "+resultNode.getText() );
         }
-        
+
         clickX = 155;
         clickY = 55;
         resultNode = NodeUtility.getNodeByPotision(rootNode, clickX,clickY);
@@ -220,6 +224,11 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         return rootNode;
     }
 
+    /**
+     * ノードIDからNodeを検索するメソッド
+     * @param nodeId
+     * @return Node
+     */
     public Node findNode(int nodeId) {
         if (rootNode != null) {
             for (Node aNode : NodeUtility.getAllNodeList(rootNode)) {
@@ -244,7 +253,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     public TextBox getNodeTitleTextBox() {
         return nodeTitleTextBox;
     }
-    
+
     /**
      * デバッグ用テキストエリアにログを表示する
      * @param text
@@ -254,5 +263,4 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         log = log + text + "\n";
         textArea.setText(log);
     }
-
 }
