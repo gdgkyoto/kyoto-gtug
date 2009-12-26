@@ -81,14 +81,15 @@ public class MindMapCanvas extends GWTCanvas {
         if ((fromNode.getX() - toNode.getX()) < 0) {
             //fromNodeについて
             fromX = fromNode.getX() + fromNode.getWidth();
-            fromY = fromNode.getY() - fromNode.getHeight() / 2;
+            fromY = fromNode.getY() + (fromNode.getHeight() / 2);
             //toNodeについて
             toX = toNode.getX();
-            toY = toNode.getY() - toNode.getHeight();
+            toY = toNode.getY() + (toNode.getHeight() /2);
 
             this.beginPath();
             //初期値移動
             mindMapGadget.log("EDGE - FROM(" + fromX + "," + fromY + ")");
+            mindMapGadget.log("EDGE - TO(" + toX + "," + toY + ")");
             this.moveTo(fromX, fromY);
             this.lineTo(toX, toY);
             this.stroke();
@@ -96,10 +97,12 @@ public class MindMapCanvas extends GWTCanvas {
         } else {// TODO 左側にある場合
 
             fromX = fromNode.getX();
-            fromY = fromNode.getY() - fromNode.getHeight() / 2;
+            fromY = fromNode.getY();// - fromNode.getHeight() / 2;
             toX = toNode.getX() + toNode.getWidth();
-            toY = toNode.getY() - fromNode.getHeight() / 2;
+            toY = toNode.getY();// - fromNode.getHeight() / 2;
 
+            mindMapGadget.log("EDGE - FROM(" + fromX + "," + fromY + ")");
+            mindMapGadget.log("EDGE - TO(" + toX + "," + toY + ")");
             this.beginPath();
             this.moveTo(fromX, fromY);
             this.lineTo(toX, toY);
@@ -160,5 +163,10 @@ public class MindMapCanvas extends GWTCanvas {
 		var impl = c.@com.google.gwt.widgetideas.graphics.client.GWTCanvas::impl;
 		(impl.@com.google.gwt.widgetideas.graphics.client.impl.GWTCanvasImplDefault::canvasContext).fillText(str,
 		x, y);
+	}-*/;
+	
+	private static native void canvasSetFont(GWTCanvas c, String f)/*-{
+		var impl = c.@com.google.gwt.widgetideas.graphics.client.GWTCanvas::impl;
+		(impl.@com.google.gwt.widgetideas.graphics.client.impl.GWTCanvasImplDefault::canvasContext).font = f;
 	}-*/;
 }
