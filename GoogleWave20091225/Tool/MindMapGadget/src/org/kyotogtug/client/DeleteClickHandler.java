@@ -20,15 +20,16 @@ public class DeleteClickHandler implements ClickHandler {
     @Override
     public void onClick(ClickEvent event) {
         try {
-            int nodeId = Integer.parseInt(gadget.getNodeIdTextBox().getText());
-            Node target = gadget.findNode(nodeId);
+            //int nodeId = Integer.parseInt(gadget.getNodeIdTextBox().getText());
+            Node target = gadget.getSelectionNode();
             if (target == null) {
-                Window.alert("target not found:" + nodeId);
+                //Window.alert("target not found:" + nodeId);
             } else {
                 target.getParentNode().deleteChildNode(target);
                 gadget.saveToSharedState();
             }
         } catch (NumberFormatException e) {}
+        gadget.draw();
     }
 
 }
