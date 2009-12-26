@@ -2,7 +2,7 @@
 <w:robot
   xmlns:w="http://wave.google.com/extensions/robots/1.0">
   <w:capabilities>
-    <w:version>24</w:version>
+    <w:version>25</w:version>
     <w:capability
       name="BLIP_SUBMITTED"
       content="true"
