@@ -88,7 +88,6 @@ function plot_point(e) {
 
 	ary = e.target.id.slice(5).split(',');
 
-	alert(color[wave.getViewer()]);
 	if (cells[idx(ary[0], ary[1])] == "0"){
 		cells = push(cells, "1", ary[0], ary[1]);
 	} else {
