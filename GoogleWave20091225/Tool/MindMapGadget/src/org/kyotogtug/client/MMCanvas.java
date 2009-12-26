@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
  *
  * @author ochi
  */
-public class MMCanvas extends Canvas implements MouseListener {
+public class MMCanvas extends Canvas  {
 
     JavaScriptObject context;
     RootPanel root;
@@ -36,11 +36,10 @@ public class MMCanvas extends Canvas implements MouseListener {
      * 　ここも本番は修正が必要（RootPanelをここで取ってくる必要はないか）
      *
      */
-    public MMCanvas(RootPanel rp, int width, int height) {
+    public MMCanvas() {
 
-        super(width, height);
 
-        this.addMouseListener(this);
+//        this.addMouseListener(this);
 
         //        Node node1 = new Node();
         //
@@ -146,10 +145,7 @@ public class MMCanvas extends Canvas implements MouseListener {
         node1.addChildNode(node1_1);
         node1.addChildNode(node1_2);
 
-        this.root = rp;
-        //super(width, height);
-        root.add(this);
-        context = getCanvasContext();
+//        context = getCanvasContext();
         //fillText("テすとー", 20, 20);
 
         //this.drawNode("あいうえお", 50, 50);

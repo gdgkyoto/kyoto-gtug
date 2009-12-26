@@ -30,7 +30,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     private Node rootNode;
 
     /** マインドマップを描画するCanvas */
-    private Canvas canvas;
+    private MMCanvas canvas;
 
     /** ノードのIDを入力するためのテキストボックス */
     private TextBox nodeIdTextBox = new TextBox();
@@ -52,7 +52,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         VerticalPanel vpanel = new VerticalPanel();
         HorizontalPanel hvpanel = new HorizontalPanel();
 
-        canvas = new Canvas();
+        canvas = new MMCanvas();
 
         submitButton.setText("Submit");
         submitButton.addClickHandler(new SubmitClickHandler(this));
@@ -215,6 +215,12 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         }else{
         	log(clickX+" , "+clickY+"のノードが間違って取得している！ ERROR= "+resultNode.getText() );
         }
+        
+        // 描画テスト
+        log("draw before");
+        canvas.drowMap(rootNode);
+        log("draw after");
+        
     }
 
     /**
