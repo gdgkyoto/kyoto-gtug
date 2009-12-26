@@ -189,6 +189,14 @@ var soundProcessor = {
  * 画面エフェクトを処理するためのProcessor
  */
 var canvas = null;
+var p1 = 0,
+  p1b = 0,
+  p2r = 0,
+  p2rb = 0,
+  p2b = 0,
+  p2bb = 0,
+  p2g = 0,
+  p2gb = 0;
 function rect(c,x,y,w,h){
   c.beginPath();
   c.rect(
@@ -209,10 +217,15 @@ var visualProcessor = {
     var ctx = canvas.getContext('2d');
 
     /* 四角を描く */
+    if(steps.name === 'P-1'){
+	
+    }
+
     ctx.fillStyle = 'rgba(192, 80, 77, 0.7)'; // 赤
     rect(ctx,8,20,52,155);
     ctx.fill();
 
+    
     ctx.fillStyle = 'rgba(192, 80, 77, 0.7)'; // 赤
     rect(ctx,72,20,52,155);
     ctx.fill();
