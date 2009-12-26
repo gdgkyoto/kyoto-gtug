@@ -57,7 +57,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         HorizontalPanel hvpanel = new HorizontalPanel();
 
         //canvas = new MMCanvas();
-        gwtCanvas = new MindMapCanvas();
+        gwtCanvas = new MindMapCanvas( this );
 
         submitButton.setText("Submit");
         submitButton.addClickHandler(new SubmitClickHandler(this));
