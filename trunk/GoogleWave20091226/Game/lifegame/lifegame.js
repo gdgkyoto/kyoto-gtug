@@ -35,7 +35,6 @@ function plot_point(e) {
 	var ix = idx(ary[0], ary[1]);
 	cells = cells.substr(0, ix) + "1" + cells.slice(ix+1);
 
-	alert(cells);
 	state.submitDelta({'cellstate': cells});
 }
 
