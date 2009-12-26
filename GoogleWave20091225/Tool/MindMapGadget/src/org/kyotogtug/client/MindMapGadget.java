@@ -26,7 +26,7 @@ import com.google.gwt.widgetideas.graphics.client.GWTCanvas;
 public class MindMapGadget extends WaveGadget<UserPreferences> {
 
     /** このガジェットのタイトル */
-    private static final String TITLE = "Mind Map version 0.7";
+    private static final String TITLE = "Mind Map version 0.8";
 
     /** ルートノード */
     private Node rootNode;

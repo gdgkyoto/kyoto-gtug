@@ -23,14 +23,14 @@ public class SubmitClickHandler implements ClickHandler {
         if (target == null) {
             // Window.alert("target not found:" + nodeId);
         } else {
-            Window.alert("add To:" + target.getNodeId() + ":"
-                    + target.getText());
+            gadget.log("add To:" + target.getNodeId() + ":" + target.getText());
             Node newNode = new Node();
             newNode.setNodeId(NodeUtility.nextNodeId(root));
             newNode.setText(gadget.getNodeTitleTextBox().getText());
             target.addChildNode(newNode);
             gadget.saveToSharedState();
             gadget.getNodeTitleTextBox().setText("");
+            gadget.setSelectionNode(null);
         }
     }
 }
