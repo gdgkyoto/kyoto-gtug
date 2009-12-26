@@ -207,20 +207,16 @@ var visualProcessor = {
     }
     /* 2Dコンテキスト */
     var ctx = canvas.getContext('2d');
-    /* 四角を描く */
-    ctx.beginPath();
-    ctx.moveTo(20, 20);
-    ctx.lineTo(120, 20);
-    ctx.lineTo(120, 120);
-    ctx.lineTo(20, 120);
-    ctx.closePath();
-    ctx.stroke();
 
     /* 四角を描く */
     ctx.fillStyle = 'rgba(192, 80, 77, 0.7)'; // 赤
-    rect(ctx,10,10,100,100);
+    rect(ctx,8,20,52,155);
     ctx.fill();
-    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(192, 80, 77, 0.7)'; // 赤
+    rect(ctx,72,20,52,155);
+    ctx.fill();
+
   }
 };
 
