@@ -115,11 +115,11 @@ public class NodeParser {
 	
 	/**
 	 * ノードをテキスト形式に変換する。
-	 * [id:title:x:y:
-	 *   [id:title:x:y
+	 * [id:title:x:y:width:height
+	 *   [id:title:x:y:width:height
 	 *   ]
-	 *   [id:title:x:y
-	 *     [id:title:x:y
+	 *   [id:title:x:y:width:height
+	 *     [id:title:x:y:width:height
 	 *     ]
 	 *   ]
 	 * ]
