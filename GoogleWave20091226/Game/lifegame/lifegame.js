@@ -23,12 +23,12 @@ function around(cells, x, y)
 {
 	return 
 		cells[idx(x-1, y-1)] != "0"? 1: 0 +
-		cells[idx(x-0, y-1)] != "0"? 1: 0 +
+		cells[idx(x  , y-1)] != "0"? 1: 0 +
 		cells[idx(x+1, y-1)] != "0"? 1: 0 +
-		cells[idx(x-1, y-0)] != "0"? 1: 0 +
-		cells[idx(x+1, y-0)] != "0"? 1: 0 +
+		cells[idx(x-1, y  )] != "0"? 1: 0 +
+		cells[idx(x+1, y  )] != "0"? 1: 0 +
 		cells[idx(x-1, y+1)] != "0"? 1: 0 +
-		cells[idx(x+0, y+1)] != "0"? 1: 0 +
+		cells[idx(x  , y+1)] != "0"? 1: 0 +
 		cells[idx(x+1, y+1)] != "0"? 1: 0;
 }
 
@@ -61,7 +61,6 @@ function  parse()
 	{
 		cells = succ(cells);
 		drawscene(cells);
-		alert(cells);
 	}
 	state.submitDelta({'cellstate': cells});
 }
