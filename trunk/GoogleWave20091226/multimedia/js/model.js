@@ -213,7 +213,7 @@ var visualProcessor = {
   for ( var i = 0; i < steps.length; i++) {
     var step = steps[i];
     /* 四角を描く */
-    if (step.name === 'P-1') {
+    if (step.sample === 'P-1') {
       p1r += 100;
       p1g += 0;
       p1b += 0;
@@ -228,28 +228,28 @@ var visualProcessor = {
     rect(ctx, 8, 20, 52, 155);
     ctx.fill();
 
-      alert(JSON.stringify(step));
-    if (step.name == 'P-2') {
+//      alert(JSON.stringify(step));
+    if (step.sample == 'P-2') {
       ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
       rect(ctx, 72, 20, 52, 155);
       ctx.fill();
     }
 
 
-    if (step.name === 'P-3.mp3') {
+    if (step.sample === 'P-3.mp3') {
       ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; 
       rect(ctx, 136, 20, 52, 155);
       ctx.fill();
     }
-    if (step.name === 'P-4') {
+    if (step.sample === 'P-4') {
     }
-    if (step.name === 'P-5') {
+    if (step.sample === 'P-5') {
     }
-    if (step.name === 'P-6') {
+    if (step.sample === 'P-6') {
     }
-    if (step.name === 'P-7') {
+    if (step.sample === 'P-7') {
     }
-    if (step.name === 'P-8') {
+    if (step.sample === 'P-8') {
     }
   }
   }
