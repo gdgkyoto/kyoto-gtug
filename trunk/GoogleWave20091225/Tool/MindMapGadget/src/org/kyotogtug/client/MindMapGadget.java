@@ -32,9 +32,9 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
     private Node rootNode;
 
     /** マインドマップを描画するCanvas */
-    private MMCanvas canvas;
+    //private MMCanvas canvas;
     
-    private GWTCanvas gwtCanvas;
+    private MindMapCanvas gwtCanvas;
 
     /** ノードのIDを入力するためのテキストボックス */
     private TextBox nodeIdTextBox = new TextBox();
@@ -57,7 +57,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         HorizontalPanel hvpanel = new HorizontalPanel();
 
         //canvas = new MMCanvas();
-        gwtCanvas = new GWTCanvas();
+        gwtCanvas = new MindMapCanvas();
 
         submitButton.setText("Submit");
         submitButton.addClickHandler(new SubmitClickHandler(this));
@@ -87,7 +87,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
             @SuppressWarnings("synthetic-access")
             @Override
             public void onUpdate(StateUpdateEvent event) {
-                rootNode = new NodeParser().getRootNodeFromSharedState(getWave().getState());
+                //rootNode = new NodeParser().getRootNodeFromSharedState(getWave().getState());
                 draw();
             }
         });
@@ -107,7 +107,10 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
      */
     private void draw() {
     	try{
-    		//canvas.drawNode(rootNode);
+    		LineUpNodes lineUpNodes = new LineUpNodes();
+    		lineUpNodes.measureNodeSizes(rootNode);
+    		lineUpNodes.lineUp(rootNode, this);
+    		gwtCanvas.drawMap(rootNode);
     	}catch( JavaScriptException e){
     		log("draw時に例外 "+e.getMessage());
     	}
@@ -239,7 +242,8 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         // 描画テスト
         log("draw before");
         try{
-        	//canvas.drowMap(rootNode);
+        	//gwtCanvas.drowMap(rootNode);
+        	draw();
         }catch( Exception e){
         	log("drowMap時にエラー"+e.getMessage()+"\n\n"+e.toString());
         }

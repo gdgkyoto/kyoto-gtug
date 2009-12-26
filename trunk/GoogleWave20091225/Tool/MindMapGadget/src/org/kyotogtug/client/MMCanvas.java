@@ -149,7 +149,7 @@ public class MMCanvas extends Canvas {
      *
      * @param rootNode
      */
-    public void drowMap(Node rootNode) {
+    public void drawMap(Node rootNode) {
         this.drawNode(rootNode);
         List elist = rootNode.getChildren();
         Iterator it = elist.iterator();
@@ -158,7 +158,7 @@ public class MMCanvas extends Canvas {
             Node node = edge.getToNode();
             this.drawNode(node);
             //this.drowEdge(edge);
-            drowMap(node);
+            drawMap(node);
         }
     }
 
