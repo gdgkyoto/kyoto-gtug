@@ -64,11 +64,10 @@ var player = {
   /**
    * パターンの再生を行う。
    * 
-   * @song 再生対象のソングオブジェクト
    * @patternNo 再生するパターンの番号(配列のインデックス)
    * @stepCount 再生処理をコールバックする時の位置を指定。プログラマがこの値を指定することはありません。
    */
-  play : function(song, patternNo, stepCount) {
+  play : function(patternNo, stepCount) {
     if (!stepCount && this.isPlaying) {
       return;
     }
@@ -104,10 +103,9 @@ var player = {
   /**
    * ソング全体の再生を行う。
    * 
-   * @song 再生対象のソングオブジェクト
    * @stepCount 再生処理をコールバックする時の位置を指定。プログラマがこの値を指定することはありません。
    */
-  playSong : function(song, stepCount) {
+  playSong : function(stepCount) {
     if (!stepCount && this.isPlaying) {
       return;
     }
@@ -256,10 +254,10 @@ function init() {
   });
 
   $("#play").click(function() {
-    player.play(song, 0);
+    player.play(0);
   });
   $("#playSong").click(function() {
-    player.playSong(song);
+    player.playSong();
   });
   $("#stop").click(function() {
     player.stop();
