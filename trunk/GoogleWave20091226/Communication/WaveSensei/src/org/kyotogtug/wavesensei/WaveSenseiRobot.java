@@ -17,15 +17,17 @@ import com.google.wave.api.RobotMessageBundle;
 public class WaveSenseiRobot extends AbstractRobotServlet {
 
     private Logger log = Logger.getLogger(this.getClass().getName());
-    public static final String DEFAULT_SENSEI_TYPE = "0";
+    public static final String DEFAULT_SENSEI_TYPE = "-1";
     public static final String SENSEI_GADGET_URL = "http://hosting.gmodules.com/ig/gadgets/file/100410660575232591215/ChooseWS.xml";
 
     @Override
     public void processEvents(RobotMessageBundle bundle) {
         String gSensei = sensei(bundle);
-        if (gSensei.equals("TWITTER")) {
+        log.warning("SenseiType: " + gSensei);
+        if (gSensei.equals("1")) {
             // ついった先生
         } else {
+            // ちゅーと先生
             new TutorialSensei().execute(bundle);
         }
     }

@@ -27,6 +27,7 @@ public class TutorialSensei {
 					meta.waveId.equal(waveId)).asSingle();
 			if (status == null) {
 				status = new TutorialStatus();
+				status.setWaveId(waveId);
 			}
 
 			// レベルに応じて処理
