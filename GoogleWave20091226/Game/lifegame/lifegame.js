@@ -1,5 +1,6 @@
 var width = 50;
 var height = 50;
+var _default;
 
 function   idx(x, y)
 {
@@ -24,12 +25,13 @@ function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
 
-	var cells = state.get("cellstate");
+	var cells = state.get("cellstate", _default);
 	var ary;
 
 	ary = e.target.id.slice(5).split(',');
 
-	//cells[idx(ary[0], ary[1])] = "1";
+	cells[idx(ary[0], ary[1])] = "1";
+	alert(idx(ary[0], ary[1]));
 
 	state.submitDelta({'cellstate': cells});
 }
@@ -80,12 +82,10 @@ function init()
 	var state = wave.getState();
 	alert(state);
 	//if (state && !state.get('cellstate')) {
-		var s;
-		for (var i = 0; i< width* height; i++) {
-			s += "0";
-		}
-		//wave.getState().submitDelta({'cellstate': s});
-	//}
+	for (var i = 0; i< width* height; i++) {
+		_default += "0";
+	}
+	//wave.getState().submitDelta({'cellstate': s});
 
 	var list= document.getElementsByTagName('td');
     list[width+1].style.backgroundColor = "red";
