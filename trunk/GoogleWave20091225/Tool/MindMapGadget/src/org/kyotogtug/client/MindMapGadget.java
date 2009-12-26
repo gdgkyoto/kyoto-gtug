@@ -1,5 +1,7 @@
 package org.kyotogtug.client;
 
+import gwt.canvas.client.Canvas;
+
 import java.util.List;
 
 import org.cobogw.gwt.waveapi.gadget.client.StateUpdateEvent;
@@ -8,15 +10,8 @@ import org.cobogw.gwt.waveapi.gadget.client.WaveGadget;
 import org.kyotogtug.client.data.Node;
 import org.kyotogtug.client.data.NodeParser;
 import org.kyotogtug.client.data.NodeUtility;
-import org.mortbay.log.Log;
 
-import gwt.canvas.client.Canvas;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.gadgets.client.Gadget;
 import com.google.gwt.gadgets.client.UserPreferences;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -67,7 +62,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
 
         textArea = new TextArea();
         textArea.setCharacterWidth(80);
-        textArea.setVisibleLines(50);
+        textArea.setVisibleLines(10);
         textArea.setText("ほがほが\nほがふ");
 
         vpanel.add(new Label(TITLE));
@@ -85,6 +80,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         getWave().addStateUpdateEventHandler(new StateUpdateEventHandler() {
             @Override
             public void onUpdate(StateUpdateEvent event) {
+                rootNode = new NodeParser().getRootNodeFromSharedState(getWave().getState());
                 draw();
             }
         });
@@ -94,7 +90,15 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
      * マインドマップを描画する
      */
     private void draw() {
+        log("\n----------------\n");
+        List<Node> nodeList = NodeUtility.getAllNodeList(rootNode);
+        for (Node tmpNode : nodeList) {
+            log(tmpNode.getText());
+        }
+    }
 
+    public void saveToSharedState() {
+        new NodeParser().saveToSharedState(getWave().getState(), rootNode);
     }
 
     private void debug() {

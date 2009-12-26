@@ -32,6 +32,7 @@ public class SubmitClickHandler implements ClickHandler {
                 newNode.setNodeId(NodeUtility.nextNodeId(root));
                 newNode.setText(gadget.getNodeTitleTextBox().getText());
                 target.addChildNode(newNode);
+                gadget.saveToSharedState();
             }
         } catch (NumberFormatException e) {}
     }
