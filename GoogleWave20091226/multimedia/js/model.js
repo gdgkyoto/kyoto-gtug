@@ -202,8 +202,8 @@ player.processors.push(visualProcessor);
 var song = null;
 
 function stateUpdated() {
-  song = wave.getState().get("song", initSong(SAMPLES));
-  alert(song);
+  song = JSON.parse(wave.getState().get("song",
+      JSON.stringify(initSong(SAMPLES))));
 }
 
 function init() {
@@ -211,7 +211,8 @@ function init() {
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(stateUpdated);
   }
-  song = wave.getState().get("song", initSong(SAMPLES));
+  song = JSON.parse(wave.getState().get("song",
+      JSON.stringify(initSong(SAMPLES))));
 
   $("#tempo").slider( {
     min : 60,
@@ -223,14 +224,14 @@ function init() {
       $("#tempo_disp").text(ui.value + "bpm");
       song.tempo = ui.value;
       wave.getState().submitDelta( {
-        'song' : song
+        'song' : JSON.stringify(song)
       });
     },
     slide : function(event, ui) {
       $("#tempo_disp").text(ui.value + "bpm");
       song.tempo = ui.value;
       wave.getState().submitDelta( {
-        'song' : song
+        'song' : JSON.stringify(song)
       });
     }
   });
@@ -304,7 +305,7 @@ function createUI(song) {
         song.patterns[0].instruments[img.attr("numOfInst")].steps[img
             .attr("numOfStep")].velocity = img.attr("value");
         wave.getState().submitDelta( {
-          'song' : song
+          'song' : JSON.stringify(song)
         });
       });
 
