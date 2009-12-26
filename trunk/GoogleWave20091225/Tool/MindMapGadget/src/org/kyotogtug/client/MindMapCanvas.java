@@ -166,6 +166,11 @@ public class MindMapCanvas extends GWTCanvas {
             }else{
             	setFillStyle(Color.GREY);
             }
+        if(	mindMapGadget.getRootNode().getNodeId() == node.getNodeId() &&
+        	!(mindMapGadget.getSelectionNode() != null &&
+        	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId())){
+            	setFillStyle(Color.RED);
+        }
         fillRect(x-2, y-2, width+4, height+4);
         
         /*背景描画*/
@@ -176,6 +181,13 @@ public class MindMapCanvas extends GWTCanvas {
         }else{
         	setFillStyle(Color.LIGHTGREY);
         }
+        
+        if(	mindMapGadget.getRootNode().getNodeId() == node.getNodeId() &&
+            	!(mindMapGadget.getSelectionNode() != null &&
+            	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId())){
+            	setFillStyle(Color.PEACH);
+        }
+        
         //rect(x - w, y - w - height, width + 2 * w, 2 * w + height);
         //rect(20,20,20,20);
         fillRect(x, y, width, height);
