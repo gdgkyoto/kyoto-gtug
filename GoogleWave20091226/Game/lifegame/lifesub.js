@@ -34,11 +34,10 @@ function around_cell(cells, x, y)
 	sum +=	((cells[idx(x+1, y+1)] != "0")? 1: 0);
 	return sum;
 }
-//	wave.getViewer()
 
 function succ(cells)
 {
-	outcells = cells;
+	var outcells = cells;
 	for (var y = 0; y< height; y++) {
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
@@ -86,13 +85,13 @@ function plot_point(e) {
 
 	var cells = state.get("cellstate", _default);
 	var ary;
+	var mycolor = color[wave.getViewer().getDisplayName()];
 
 	ary = e.target.id.slice(5).split(',');
-
 	var atpoint = cells[idx(ary[0], ary[1])];
 	if (atpoint == "0"){
-		cells = push(cells, color[wave.getViewer().getDisplayName()], ary[0], ary[1]);
-	} else if ({
+		cells = push(cells, mycolor, ary[0], ary[1]);
+	} else if (atpoint == mycolor) {
 		cells = push(cells, "0", ary[0], ary[1]);
 	}
 
