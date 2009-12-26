@@ -189,8 +189,19 @@ var soundProcessor = {
  * 画面エフェクトを処理するためのProcessor
  */
 var canvas = null;
-var p1 = 0, p1b = 0, p2r = 0, p2rb = 0, p2b = 0, p2bb = 0, p2g = 0, p2gb = 0;
-function rect(c, x, y, w, h) {
+var p1r = 0,
+  p1rb = 0,
+  p1g = 0,
+  p1gb = 0,
+  p1b = 0,
+  p1bb = 0,
+  p2r = 0,
+  p2rb = 0,
+  p2g = 0,
+  p2gb = 0,
+  p2b = 0,
+  p2bb = 0;
+function rect(c,x,y,w,h){
   c.beginPath();
   c.rect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
   c.closePath();
@@ -205,17 +216,36 @@ var visualProcessor = {
     var ctx = canvas.getContext('2d');
 
     /* 四角を描く */
-    if (steps.name === 'P-1') {
+    if(steps.name === 'P-1'){
+	p1r = 100;
+	p1g = 0;
+	p1b = 0;
 
     }
 
-    ctx.fillStyle = 'rgba(192, 80, 77, 0.7)'; // 赤
+    ctx.fillStyle = 'rgba('+p1r+','+p1g+','+p1b+', 0.5)';
     rect(ctx, 8, 20, 52, 155);
     ctx.fill();
 
-    ctx.fillStyle = 'rgba(192, 80, 77, 0.7)'; // 赤
+
+    if(steps.name === 'P-2'){
+    }
+    ctx.fillStyle = 'rgba(192, 80, 77, 0.5)'; // 赤
     rect(ctx, 72, 20, 52, 155);
     ctx.fill();
+
+    if(steps.name === 'P-3'){
+    }
+    if(steps.name === 'P-4'){
+    }
+    if(steps.name === 'P-5'){
+    }
+    if(steps.name === 'P-6'){
+    }
+    if(steps.name === 'P-7'){
+    }
+    if(steps.name === 'P-8'){
+    }
 
   }
 };
