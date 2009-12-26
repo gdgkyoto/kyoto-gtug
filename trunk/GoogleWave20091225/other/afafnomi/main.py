@@ -5,6 +5,7 @@ from waveapi import events
 from waveapi import model
 from waveapi import robot
 from waveapi import document
+from waveapi import ops
 
 from google.appengine.api import urlfetch
 
@@ -17,7 +18,9 @@ import logging
 #ロボットが追加されたとき
 def OnRobotAdded(properties, context):
     root_wavelet = context.GetRootWavelet()
-    root_wavelet.CreateBlip().GetDocument().SetText('広告王に オレはなる!!')
+    blip_doc = root_wavelet.CreateBlip().GetDocument()
+    blip_doc.AppendElement(document.Image('http://btf-test.appspot.com/assets/icon.png'))
+    blip_doc.AppendText('広告王に オレはなる!!')
 
 #Blipが送信されたとき
 def OnBlipSubmitted(properties, context):
@@ -33,9 +36,9 @@ def OnBlipSubmitted(properties, context):
         if len(items) > 0:
             #新しいBlipを生成
             root_wavelet = context.GetRootWavelet()
-            new_blip_doc = root_wavelet.CreateBlip().GetDocument()
+            new_blip = root_wavelet.CreateBlip()
             #Blipに広告を表示
-            createAdBlip(new_blip_doc, items, keyphrases)
+            createAdBlip(context, new_blip, items, keyphrases)
 
 #キーフレーズを取得
 def getKeyPhrase(text):
@@ -103,8 +106,9 @@ def getItemsByRakutenAPI(words):
         ItemSearch = body['ItemSearch']
         Items = ItemSearch['Items']
         Item = Items['Item']
-        for x in Item:
-            items.append( (x['itemName'],x['affiliateUrl'],x['mediumImageUrl']) )
+        if len(Item) > 0:
+            for x in Item:
+                items.append( (x['itemName'],x['affiliateUrl'],x['mediumImageUrl']) )
 
     logging.debug(items)
 
@@ -117,9 +121,8 @@ def getItemsByAmazonAPI(words):
     return items
 
 #広告Blipを生成
-def createAdBlip(blip, items, keyphrases):
+def createAdBlip(context, blip, items, keyphrases):
 
-    logging.debug(blip)
     if len(items) > 0:
         logging.debug('OK!')
         #メッセージ用のキーワードを抽出
@@ -127,17 +130,16 @@ def createAdBlip(blip, items, keyphrases):
         for y in keyphrases:
             words.append(y)
         #メッセージをBlipに表示
-        blip.AppendText('　'.join(words) + ' に関連する広告はこちら\n\n')
-        logging.debug('　'.join(words) + ' に関連する広告はこちら\n\n')
+        blip.GetDocument().AppendText('　'.join(words) + ' に関連する広告はこちら\n\n')
         #広告を表示
         for x in items:
-#        for x in items[:3]:
             #blipに表示
-            logging.debug(x[0])
-            logging.debug(get_short_url(x[1], None))
-            blip.AppendElement(document.Image(x[2]))
-            blip.AppendText('\n' + x[0] + '\n')
-            blip.AppendText(x[1] + ' [' + get_short_url(x[1], None) + ']\n\n')
+            blip.GetDocument().AppendElement(document.Image(x[2]))
+            blip.GetDocument().AppendText('\n')
+            #アンカーを構成
+            aElem = '<a href=\"%s\">%s</a>' % (x[1], x[0])
+            context.builder.DocumentAppendMarkup(blip.GetWaveId(), blip.GetWaveletId(), blip.GetId(), aElem)
+            blip.GetDocument().AppendText('\n[' + get_short_url(x[1], None) + ']\n\n')
 
 
 #goo.gl short URL Hack
