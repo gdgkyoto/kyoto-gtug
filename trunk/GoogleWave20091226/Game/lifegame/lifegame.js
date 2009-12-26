@@ -21,15 +21,20 @@ function push(cells, c, x, y)
 
 function around_cell(cells, x, y)
 {
-	return 
-		((cells[idx(x-1, y-1)] != "0")? 1: 0) +
-		((cells[idx(x  , y-1)] != "0")? 1: 0) +
-		((cells[idx(x+1, y-1)] != "0")? 1: 0) +
-		((cells[idx(x-1, y  )] != "0")? 1: 0) +
-		((cells[idx(x+1, y  )] != "0")? 1: 0) +
-		((cells[idx(x-1, y+1)] != "0")? 1: 0) +
-		((cells[idx(x  , y+1)] != "0")? 1: 0) +
-		((cells[idx(x+1, y+1)] != "0")? 1: 0);
+	
+	var sum = 0;
+
+	sum += ((cells[idx(x-1, y-1)] != "0")? 1: 0);
+
+	alert(sum);
+	sum +=	((cells[idx(x  , y-1)] != "0")? 1: 0) ;
+	sum +=	((cells[idx(x+1, y-1)] != "0")? 1: 0) ;
+	sum +=	((cells[idx(x-1, y  )] != "0")? 1: 0) ;
+	sum +=	((cells[idx(x+1, y  )] != "0")? 1: 0) ;
+	sum +=	((cells[idx(x-1, y+1)] != "0")? 1: 0) ;
+	sum +=	((cells[idx(x  , y+1)] != "0")? 1: 0) ;
+	sum +=	((cells[idx(x+1, y+1)] != "0")? 1: 0);
+	return sum;
 }
 
 function succ(cells)
