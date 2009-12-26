@@ -2,15 +2,43 @@ package org.kyotogtug.client.data;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.cobogw.gwt.waveapi.gadget.client.State;
 
 
 
 /**
  * ノードの永続化を行うクラス
+ * 
+ * このクラスの変更は北村が担当します。
+ * 
  * @author Kenji
  *
  */
 public class NodeParser {
+	
+	/** マインドマップのノード情報すべてをテキスト化した情報 */
+	public static final String SHARED_STATE_DATA = "DATA";
+	
+	/**
+	 * SharedStateにマインドマップのデータを保存する。
+	 * 本来はここに実装すべきではないけれど、作業分担を考慮して
+	 * @param state
+	 */
+	public void saveToSharedState( State state , Node rootNode ){
+		String text = toString(rootNode);
+		state.submitValue(SHARED_STATE_DATA, text);
+	}
+	
+	/**
+	 * SharedStateからノードの情報を読み込み、パースしてルートのNodeインスタンスを生成する。
+	 * @param state
+	 * @return
+	 */
+	public Node getRootNodeFromSharedState( State state ){
+		String text = state.get(SHARED_STATE_DATA);
+		Node rootNode = parseNode(text);
+		return rootNode;
+	}
 	
 	
 	/**
