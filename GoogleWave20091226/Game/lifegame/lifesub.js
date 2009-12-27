@@ -28,7 +28,7 @@ function around_cell(cells, x, y)
 		[-1, +1], [0, +1], [1, +1]];
 	var sum = {};
 	for (var d in direction) {
-		var v = cells[idx(d[0], d[1])];
+		var v = cells[x+idx(d[0], y+d[1])];
 		sum[v] = sum[v] +1 || 1;
 	}
 	ary = [];
