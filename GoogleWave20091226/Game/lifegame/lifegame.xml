@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-<ModulePrefs title="Hello World!" width="500" height="600">
+<ModulePrefs title="LifeGameBattle" width="500" height="600">
 <Require feature="wave" />
 </ModulePrefs>
 
@@ -8,22 +8,21 @@
 <Content type="html">
 <![CDATA[
 <head>
-<script type="text/javascript" src="http://kyoto-gtug.googlecode.com/svn/trunk/GoogleWave20091226/Game/lifegame/lifegame.js"> </script>
+<script type="text/javascript" src="https://dl.dropbox.com/u/2617992/lifesub.js"></script>
 <style>
 table { border: 1px black solid;     border-collapse:collapse;}
-
-td { border: 1px blue solid; width:4px; height:8px }
+td { border: 1px blue solid; width:4px; height:8px; text-align: right }
+.normal td { border: 1px black solid; }
 </style>
-
 </head>
 
 <body>
-<h1>LifeGame!</h1>
+<h1>LifeGame Battle!</h1>
 <div id="main"></div>
 <button onclick="parse()">PARSE</button>
 <button onclick="reset()">RESET</button>
-<span id="cellstate">0</span>
-<div id="who"></div>
+<span id="cellstate" style="display: none;">0</span>
+<table id="players" class="normal"> </table>
 </body>
 ]]>
 </Content>
