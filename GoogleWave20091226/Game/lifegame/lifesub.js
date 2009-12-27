@@ -20,7 +20,7 @@ function push(cells, c, x, y)
 	return cells.substr(0, ix) + c + cells.slice(ix+1);
 }
 
-function around_cell(cells, x, y)
+function around_cell(cells, x, y, flag)
 {
 	var direction = [
 		[-1, -1], [0, -1], [+1, -1],
@@ -30,6 +30,13 @@ function around_cell(cells, x, y)
 	for (var d in direction) {
 		var v = cells[idx(x+d[0], y+d[1])];
 		sum[v] = sum[v] +1 || 1;
+		if (flag) { 
+			alert( x +","+
+				y +","+
+				d[0] +","+
+				d[1] +","+
+				v);
+		}
 	}
 	ary = [];
 	for (var n in sum) { ary.push([n, sum[n]]) }
@@ -41,7 +48,7 @@ function around_cell(cells, x, y)
 function succ(cells)
 {
 	var outcells = cells;
-	alert(around_cell(cells, 1,1));
+	alert(around_cell(cells, 1,1), true);
 	for (var y = 0; y< height; y++) {
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
