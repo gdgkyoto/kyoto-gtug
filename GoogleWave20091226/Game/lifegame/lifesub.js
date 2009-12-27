@@ -23,9 +23,9 @@ function push(cells, c, x, y)
 function around_cell(cells, x, y)
 {
 	var direction = [
-		[-1, -1], [0, -1], [1, -1],
-		[-1,  0],          [1,  0],
-		[-1, +1], [0, +1], [1, +1]];
+		[-1, -1], [0, -1], [+1, -1],
+		[-1,  0],          [+1,  0],
+		[-1, +1], [0, +1], [+1, +1]];
 	var sum = {};
 	for (var d in direction) {
 		var v = cells[idx(x+d[0], y+d[1])];
@@ -33,7 +33,7 @@ function around_cell(cells, x, y)
 	}
 	ary = [];
 	for (var n in sum) { ary.push([n, sum[n]]) }
-	ary.sort(function(a, b) {return a[1] < b[1]? 1 : -1})
+	ary.sort(function(a, b) {return a[1] < b[1]? 1 : -1});
 
 	return ary;
 }
