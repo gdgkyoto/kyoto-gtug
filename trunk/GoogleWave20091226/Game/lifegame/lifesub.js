@@ -1,6 +1,7 @@
 var width = 60;
 var height = 40;
 var _default = "";
+var totalmember = 0;
 
 function   idx(x, y)
 {
@@ -21,18 +22,20 @@ function push(cells, c, x, y)
 
 function around_cell(cells, x, y)
 {
-	
-	var sum = 0;
+	var direction = [
+		[-1, -1], [0, -1], [1, -1],
+		[-1,  0],          [1,  0],
+		[-1, +1], [0, +1], [1, +1]];
+	var sum = {};
+	for (var d in direction) {
+		var v = cells[idx(d[0], d[1])]];
+		sum[v] = sum[v] +1 || 1;
+	}
+	ary = [];
+	for (var n in sum) { ary.push([n, sum[n]]) }
+	ary.sort(function(a, b) {return a[1] < b[1]? 1 : -1})
 
-	sum +=  ((cells[idx(x-1, y-1)] != "0")? 1: 0);
-	sum +=	((cells[idx(x  , y-1)] != "0")? 1: 0) ;
-	sum +=	((cells[idx(x+1, y-1)] != "0")? 1: 0) ;
-	sum +=	((cells[idx(x-1, y  )] != "0")? 1: 0) ;
-	sum +=	((cells[idx(x+1, y  )] != "0")? 1: 0) ;
-	sum +=	((cells[idx(x-1, y+1)] != "0")? 1: 0) ;
-	sum +=	((cells[idx(x  , y+1)] != "0")? 1: 0) ;
-	sum +=	((cells[idx(x+1, y+1)] != "0")? 1: 0);
-	return sum;
+	return ary;
 }
 
 function succ(cells)
@@ -42,13 +45,22 @@ function succ(cells)
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
 			var around_h = around_cell(cells, x,y);
+			
 			if (center == "0") {
-				if (around_h == 3) {
-					outcells = push(outcells, "1", x, y);
+				if (around_h.length == 1) {
+					if (around_h[0][1] == 3) {
+						outcells = push(outcells, around_h[0][0], x, y);
+					}
+				} else if (around_h > 1 && around_h[0][1] > around_h[1][1]) {
+					outcells = push(outcells, around_h[0][0], x, y);
 				}
 			} else {
-				if (!(around_h == 2 || around_h == 3)) {
-					outcells = push(outcells, "0", x, y);
+				if (around_h.length == 1) { 
+					if (!(around_h == 2 || around_h == 3)) {
+						outcells = push(outcells, "0", x, y);
+					}
+				} else if (around_h > 1 && around_h[0][1] > around_h[1][1]) {
+					outcells = push(outcells, around_h[0][0], x, y);
 				}
 			}
 		}
@@ -79,6 +91,17 @@ function reset()
 }
 
 var color = {};
+var label_color = {
+	"#0000ff", 
+	"#00ff00", 
+	"#ff0000", 
+	"#202020", 
+	"#00ffff", 
+	"#a0a000", 
+	"#f090f0", 
+	"#00f0f0" 
+};
+
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
 	var state = wave.getState();
@@ -90,8 +113,8 @@ function plot_point(e) {
 	ary = e.target.id.slice(5).split(',');
 	var atpoint = cells[idx(ary[0], ary[1])];
 	if (atpoint == "0"){
-		cells = push(cells, mycolor, ary[0], ary[1]);
-	} else if (atpoint == mycolor) {
+		cells = push(cells, color[wave.getViewer().getId()], ary[0], ary[1]);
+	} else if ({
 		cells = push(cells, "0", ary[0], ary[1]);
 	}
 
@@ -101,18 +124,7 @@ function plot_point(e) {
 function drawscene(cells) {
 	var list= document.getElementsByTagName('td');
 	for (var i = 0; i< cells.length; i++) {
-		if (cells[i] == "0") {
-			list[i].style.backgroundColor = "white";
-		} else if (cells[i] == "1") {
-			list[i].style.backgroundColor = "green";
-		} else if (cells[i] == "2") {
-			list[i].style.backgroundColor = "yellow";
-		} else if (cells[i] == "3") {
-			list[i].style.backgroundColor = "red";
-		} else {
-			alert(cells[i]);
-			break;
-		}
+		list[i].style.backgroundColor = label_color[parseInt(cells[i])];
 	}
 }
 
@@ -127,11 +139,12 @@ function partUpdated() {
     var part = wave.getParticipants();
     if (part.length==0) return;
     var all ='';
-    for (var i = 0; i< part.length; i++) {
-		color[part[i].getDisplayName()] = String(i+1);
-	all +=  '<img src="' + part[i].getThumbnailUrl() + 
-		'" width="50" height="50"/>' + part[i].getDisplayName() + "";
-    }
+	for (var i = 0; i< part.length; i++) {
+		color[part[i].getId()] = String(i+1);
+		all +=  '<img src="' + part[i].getThumbnailUrl() + 
+			'" width="25" height="25"/> <div style="color: '+label_color[i+1]+
+			'">' + part[i].getDisplayName() + "</div>";
+	}
     _gel('who').innerHTML = all;
 }
 
