@@ -91,7 +91,7 @@ function reset()
 }
 
 var color = {};
-var label_color = {
+var label_color = [
 	"#0000ff", 
 	"#00ff00", 
 	"#ff0000", 
@@ -100,7 +100,7 @@ var label_color = {
 	"#a0a000", 
 	"#f090f0", 
 	"#00f0f0" 
-};
+];
 
 function plot_point(e) {
 	//wave.getState().submitDelta({e.target}
