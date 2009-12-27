@@ -27,16 +27,10 @@ function around_cell(cells, x, y, flag)
 		[-1,  0],          [+1,  0],
 		[-1, +1], [0, +1], [+1, +1]];
 	var sum = {};
-	for (var d in direction) {
+	for (var i = 0; i< direction.length; i++) {
+		var d = direction[i];
 		var v = cells[idx(x+d[0], y+d[1])];
-		sum[v] = sum[v] +1 || 1;
-		if (flag) { 
-			alert( x +","+
-				y +","+
-				d[0] +","+
-				d[1] +","+
-				v);
-		}
+		if (v != "0") sum[v] = sum[v] +1 || 1;
 	}
 	ary = [];
 	for (var n in sum) { ary.push([n, sum[n]]) }
