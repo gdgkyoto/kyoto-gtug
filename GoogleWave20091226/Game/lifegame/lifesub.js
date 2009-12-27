@@ -42,7 +42,6 @@ function around_cell(cells, x, y, flag)
 function succ(cells)
 {
 	var outcells = cells;
-	alert(around_cell(cells, 1,1, true));
 	for (var y = 0; y< height; y++) {
 		for (var x = 0; x< width; x++) {
 			var center = cells[idx(x, y)];
