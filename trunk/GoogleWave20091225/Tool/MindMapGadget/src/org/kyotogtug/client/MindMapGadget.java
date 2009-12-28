@@ -89,6 +89,7 @@ public class MindMapGadget extends WaveGadget<UserPreferences> {
         textArea.setCharacterWidth(40);
         textArea.setVisibleLines(10);
         textArea.setText("ほがほが\nほがふ");
+        textArea.setVisible(false);
 
         vpanel.add(new Label(TITLE));
         ScrollPanel scroll = new ScrollPanel(gwtCanvas);

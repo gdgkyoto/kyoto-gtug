@@ -68,6 +68,11 @@ public class LineUpNodes {
 			isBrunch = 1 - isBrunch;
 		}
 		
+		// 子が無い場合は適当に右にずらす
+		if( maxWidth == 0 ){
+			maxWidth = 100;
+		}
+		
 		return maxWidth;
 	}
 	
