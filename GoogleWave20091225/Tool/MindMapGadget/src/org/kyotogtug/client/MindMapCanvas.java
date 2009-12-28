@@ -162,15 +162,15 @@ public class MindMapCanvas extends GWTCanvas {
         /*背景枠描画*/
         if(	mindMapGadget.getSelectionNode() != null &&
             	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId()){
-            	setFillStyle(Color.BLUE);
-            }else{
-            	setFillStyle(Color.GREY);
-            }
-        if(	mindMapGadget.getRootNode().getNodeId() == node.getNodeId() &&
-        	!(mindMapGadget.getSelectionNode() != null &&
-        	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId())){
-            	setFillStyle(Color.RED);
+            setFillStyle(Color.BLUE);
+        }else 	if(	mindMapGadget.getRootNode().getNodeId() == node.getNodeId() &&
+                	!(mindMapGadget.getSelectionNode() != null &&
+            mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId())){
+            setFillStyle(Color.RED);
+        }else{
+           	setFillStyle(Color.GREY);
         }
+        
         fillRect(x-2, y-2, width+4, height+4);
         
         /*背景描画*/
@@ -178,15 +178,15 @@ public class MindMapCanvas extends GWTCanvas {
         if(	mindMapGadget.getSelectionNode() != null &&
         	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId()){
         	setFillStyle(Color.SKY_BLUE);
+        }else if(	mindMapGadget.getRootNode().getNodeId() == node.getNodeId() &&
+        		!(mindMapGadget.getSelectionNode() != null &&
+            	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId())){
+          	setFillStyle(Color.PEACH);
         }else{
         	setFillStyle(Color.LIGHTGREY);
         }
         
-        if(	mindMapGadget.getRootNode().getNodeId() == node.getNodeId() &&
-            	!(mindMapGadget.getSelectionNode() != null &&
-            	mindMapGadget.getSelectionNode().getNodeId() == node.getNodeId())){
-            	setFillStyle(Color.PEACH);
-        }
+        
         
         //rect(x - w, y - w - height, width + 2 * w, 2 * w + height);
         //rect(20,20,20,20);
