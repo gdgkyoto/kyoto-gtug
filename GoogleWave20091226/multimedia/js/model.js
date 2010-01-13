@@ -388,7 +388,7 @@ function createUI(song) {
     var dLine = $("<div>");
     for ( var j = 0; j < inst.steps.length; j++) {
       var step = inst.steps[j];
-      var img = $("<image>");
+      var img = $("<img>");
       img.attr("velocity", step.velocity);
       img.attr("numOfInst", i);
       img.attr("numOfStep", j);
