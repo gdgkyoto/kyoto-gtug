@@ -24,11 +24,12 @@ public class GuestbookServlet extends HttpServlet {
 		char[] chr = new char[0];
 		int lenght = reader.read(chr);
 		
+		// 
 		for (char c : chr) 
 		{
-			resp.getWriter().println(c);
+			resp.getWriter().print(c);
 		}
-	
+		
 		in.close();
 	}
 }
