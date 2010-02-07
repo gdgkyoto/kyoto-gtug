@@ -34,5 +34,13 @@ public class MapperData{
 		this.parameter= a_parameter;
 	}
 
+	public String GetParameter(){return this.parameter;}
+	public String GetPropaty(){return this.parameter;}
+	public Long GetType(){return this.type;}
+
+
+
+
+
 
 }
