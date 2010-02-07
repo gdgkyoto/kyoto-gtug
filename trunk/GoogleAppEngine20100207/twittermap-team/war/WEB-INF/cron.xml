@@ -2,7 +2,7 @@
 <!DOCTYPE cronentries>
 <cronentries>
 	<cron>
-		<url>/cron</url>
+		<url>/collecting</url>
 		<schedule>every 3 minutes</schedule>
 	</cron>
 </cronentries>
