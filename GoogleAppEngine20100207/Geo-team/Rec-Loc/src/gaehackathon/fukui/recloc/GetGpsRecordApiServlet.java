@@ -10,6 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.xml.parsers.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import gaehackathon.fukui.recloc.model.GpsRecord;
 import gaehackathon.fukui.recloc.model.RecLocUser;
 
@@ -53,9 +62,36 @@ public class GetGpsRecordApiServlet extends HttpServlet {
 		System.out.println("query = " + queryStr.toString());
 		List<GpsRecord> recs = (List<GpsRecord>)pm.newQuery(queryStr.toString()).execute(user.getName());
 		*/
-		
-		//Document retDoc = new javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-		//Element pointElement = retDoc.createElement("Point");
+		//*
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			Document retDoc = dbf.newDocumentBuilder().getDOMImplementation().createDocument("", "items", null);
+			Element pointItems = retDoc.getDocumentElement();
+			//Element pointItems = retDoc.createElement("items");
+			for (GpsRecord rec : recs) {
+				Element point = retDoc.createElement("item");
+				Element lat = retDoc.createElement("lat");
+				lat.appendChild(retDoc.createTextNode(Double.toString(rec.getLatitude())));
+				point.appendChild(lat);
+				Element lng = retDoc.createElement("lng");
+				lng.appendChild(retDoc.createTextNode(Double.toString(rec.getLongitude())));
+				point.appendChild(lng);
+				pointItems.appendChild(point);
+			}
+			//root.appendChild(pointItems);
+			
+			resp.setContentType("application/xml");
+			TransformerFactory transFactory = TransformerFactory.newInstance();
+			Transformer transformer = transFactory.newTransformer();
+			DOMSource source = new DOMSource(retDoc);
+			StreamResult result = new StreamResult(resp.getWriter());
+			transformer.transform(source, result);		
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
+		/*/
 		StringBuilder sb = new StringBuilder();
 		for (GpsRecord rec : recs) {
 			sb.append(rec.getGpsDate().getTime()).append('\t');
@@ -64,6 +100,7 @@ public class GetGpsRecordApiServlet extends HttpServlet {
 		}
 		resp.setContentType("text/plain");
 		resp.getWriter().println(sb.toString());
+		//*/
 	}
 
 }
