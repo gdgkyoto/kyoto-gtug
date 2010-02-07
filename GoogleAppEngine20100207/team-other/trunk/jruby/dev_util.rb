@@ -31,19 +31,45 @@ end
 
 
 get '/devutil/create_GroupUserList' do
+	#XXXX.destroy_all
+	#XXXX.create ...
+	erb	'ok <a href="./">戻る</a>'
 end
 
 
 get '/devutil/create_UserDetailList' do
+	#XXXX.destroy_all
+	#XXXX.create ...
+	erb	'ok <a href="./">戻る</a>'
 end
 
 get '/devutil/create_GroupPostion' do
+	#XXXX.destroy_all
+	#XXXX.create ...
+	erb	'ok <a href="./">戻る</a>'
 end
 
 get '/devutil/create_TwitterAccount' do
+	#XXXX.destroy_all
+	#XXXX.create ...
+	erb	'ok <a href="./">戻る</a>'
 end
 
 
 get '/devutil/create_Association' do
+	Association.destroy_all
+	Association.create({
+											:group1group2=>['FITEA','HokuEng'].sort.join(':'),
+											:value => 8		# 1～10
+											})
+	Association.create({
+											:group1group2=>['FITEA','Sakai'].sort.join(':'),
+											:value => 1		# 1～10
+											})
+#	Association.create({
+#											:group1group2=>['FITEA','HokuEng'].sort.join(':'),
+#											:value => 8		# 1～10
+#											})
+	erb	'ok <a href="./">戻る</a>'
 end
 
