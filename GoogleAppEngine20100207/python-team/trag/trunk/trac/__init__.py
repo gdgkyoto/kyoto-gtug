@@ -11,4 +11,4 @@
 # individuals. For the exact contribution history, see the revision
 # history and logs, available at http://trac.edgewall.org/log/.
 
-__version__ = __import__('pkg_resources').get_distribution('Trac').version
+__version__ = "0.11.6"#__import__('pkg_resources').get_distribution('Trac').version
