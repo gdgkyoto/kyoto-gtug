@@ -35,6 +35,35 @@ end
 class GroupPostion< TinyDS::Base
 	property	    :posindex       ,:string     #緯度経度の丸め値
 	property	    :groupname      ,:string     #グループ名
+
+	# pos1 南西
+	#	pos2 北東
+	def self.get_groupname( pos1 , pos2 )
+		logs = []
+		keido_s = pos1[0]*60
+		keido_e = ((pos2[0]*60+9)/10)*10
+		groups = []
+		range = Range.new(keido_s,keido_e)
+		range.step(10) do |keido|
+			ss = [keido/60.0,pos1[1]]
+			se = [keido/60.0,pos2[1]]
+			ks = create_key_name(ss)
+			ke = create_key_name(se)
+			logs << [ks,ke]
+			self.query.filter(:posindex, ">=", ks).filter(:posindex, "<=", ke).all.all?{|r| groups << r.groupname }
+		end
+		groups
+#		logs << groups
+#		logs
+	end
+
+	def self.create_key_name( pos )
+		ido , keido = *pos
+		ido_min = (ido*60).to_i
+		keido_min = (keido*60).to_i
+		sprintf("%+05d,%+05d", ido_min/10,keido_min/10)
+	end
+
 end
 
 #ソフトウェアチェックポイント構造
