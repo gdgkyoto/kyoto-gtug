@@ -35,7 +35,7 @@ public class GoogleSuggest {
 	/**
 	 * GoogleSuggestAPI‚ğƒR[ƒ‹
 	 */
-	public ArrayList<String> searchGoogleSuggest(){
+	public ArrayList<String> GetGoogleKeyword(){
 		
 		String encodedWord;
 		ArrayList<String> resultList = null;
