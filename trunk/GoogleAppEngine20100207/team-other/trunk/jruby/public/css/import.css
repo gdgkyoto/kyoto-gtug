@@ -1,0 +1,56 @@
+* {
+	margin: auto;
+}
+
+body {
+	background-color: #AFEEEE;
+}
+
+a:visited {
+	color: #800080;
+}
+
+.test {
+	border-style: solid;
+}
+
+.header {
+	width: 1200px;
+	height: 130px;
+	color: #FFFFFF;
+}
+
+#content-top {
+	width: 1200px;
+	height: 70px;
+}
+
+#entry {
+	float: right;
+	width: 200px;
+	height: 40px;
+	margin: 10px;
+}
+
+.content {
+	width: 1300px;
+	height: 500px;
+	background-color: #FFFFFF;
+}
+
+#content-main {
+	width: 1200px;
+	height: 400px;
+}
+
+#map {
+	float: left;
+	width: 800px;
+	height: 400px;
+}
+
+#timeline {
+	float: right;
+	width: 350px;
+	height: 400;
+}
