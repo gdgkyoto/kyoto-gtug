@@ -1,0 +1,7 @@
+<form action="/group/edit/<%= h @item.key %>" method="post">
+name<input name="groupname" value="<%= h @item.groupname %>" type="text"/><br/>
+url<input name="url" value="<%= h @item.url %>" type="text"/><br/>
+list<input name="list" value="<%= h @item.list %>" type="text"/><br/>
+tag<input name="tag" value="<%= h @item.tag %>" type="text"/><br/>
+<input type="submit" value="submit">
+</form>
