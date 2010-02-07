@@ -10,10 +10,142 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Hello App Engine</title>
+	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAApxf65mCIbw73XNBj01urmRRajTW0NjlKtJ8t8ZB39FGJt19dshRoA0bBTPGlnwxYs0oSjQE_Px2U4w&sensor=false"></script>
+	<script type="text/javascript">
+		
+		google.load("maps", "2");
+		google.load("jquery", "1.2");
+
+		/**
+		 * @var google.map
+		 */
+		var g_Map; /// setGlobal
+		var g_XmlPath = 'getpoint?user=yuta';
+		//var g_XmlPath = 'document.xml';
+		function init_maps() {
+			/*
+		  	$('#map_canvas').mousewheel(function(event, delta) { 
+			    if (delta > 0) 
+			        log('#test1: up ('+delta+')'); 
+			    else if (delta < 0) 
+			        log('#test1: down ('+delta+')'); 
+			    log('pageX: ' + event.pageX + ' pageY: ' + event.pageY ); 
+			});
+			*/
+			
+			
+			
+			
+			
+			  var myOptions = {
+			    zoom: 1
+				,sensor: false
+			    //,center: new google.maps.LatLng(34.676319, 135.543966)
+			    //,disableDefaultUI: false
+			    //,mapTypeId: google.maps.MapTypeId.ROADMAP
+			  }
+			  var map = new google.maps.Map(document.getElementById("map_canvas"),
+			       myOptions); 
+		    //map.setCenter(new google.maps.LatLng(34.676319, 135.543966), 13);
+			map.addControl(new google.maps.LargeMapControl());
+		    //map.addControl(new google.maps.TextualZoomControl());
+			g_Map = map;
+			
+			//google.maps.Directions(g_Map, panel?:Element) 
+			execAjax(g_Map);
+			
+			//within small browser
+			//map.addControl(new GSmallMapControl());
+			//map.addControl(new GMapTypeControl());
+			
+
+			
+			//google.maps.Event.addListener(map,"click", mapClickEvent);
+		}
+		
+		function finallize()
+		{
+			g_Map = null;
+		} 
+		
+		
+		
+		
+		/**
+		 * 非同期通信で情報を取得する　
+		 * @param google.map gmap
+		 */
+		function execAjax(gmap)
+		{
+		    $.ajax({
+			    url: g_XmlPath,
+			    type: 'GET',
+			    dataType: 'xml',
+			    timeout: 1000,
+			    error: function(){
+			        alert('Error loading XML document');
+			    },
+			    success: function(xml){
+			        parseXmlgmap(xml,gmap);
+			    }
+			});
+		}
+		/**
+		 * XML情報をGoogle Mapへマップする 
+		 * @param jQuery.xml xml
+		 * @param google.map gmap
+		 */
+		function parseXmlgmap(xml,gmap)
+		{
+			var pline = new Array();
+		    $((xml),'items').find('item').each(function(){
+		        var lat = parseFloat($('lat', this).text());
+		        var lng = parseFloat($('lng', this).text());
+				pline[pline.length] = new google.maps.LatLng(lat, lng);
+		    });
+			if(pline.length > 0)
+			{
+				/**
+				 * @todo スケールの自動調整 
+				 */
+				gmap.setCenter(pline[0],10);
+			}
+			Polyline = new google.maps.Polyline(pline,"black",10,1, {"geodesic":false});
+			//Polyline.enableDrawing();
+			Polyline.enableEditing();
+			Polyline.show();
+			google.maps.Event.addListener(Polyline,"click", mapClickEvent);
+
+			gmap.addControl(Polyline);
+		}
+		
+		
+		
+		/*******************************************
+		 * イベントハンドら関連
+		 * 
+		 */
+		//function mapClickEvent(overlay, latlng)
+		function mapClickEvent(latlng) { 
+			  alert("check");
+			  if (latlng) { 
+			    var myHtml = "The GPoint value is: " + 
+				g_Map.fromLatLngToDivPixel(latlng) + 
+				" at zoom level " + g_Map.getZoom();
+			    g_Map.openInfoWindow(latlng, myHtml);
+			  }
+		}
+		
+		google.setOnLoadCallback(init_maps);
+		google.setOnUnloadCallback(finallize);
+
+		
+	</script>
   </head>
 
   <body>
     <h1>Hello App Engine!</h1>
+	<div id="map_canvas" style="width: 500px; height: 300px"></div>
 	
     <table>
       <tr>
