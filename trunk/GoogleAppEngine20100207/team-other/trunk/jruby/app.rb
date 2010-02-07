@@ -22,6 +22,23 @@ get '/' do
 	erb	:index		# ./views/index.erb をレンダリングします。(layout.erbも含めて)
 end
 
+
+get '/mapinfo/group/' do
+	ido1   = param[:ido1]
+	keido1 = param[:keido1]
+	ido2   = param[:ido2]
+	keido2 = param[:keido2]
+
+	ido1_num = ido1.to_i
+	ido2_num = ido2.to_i
+	keido1_num = keido1.to_i
+	keido2_num = keido2.to_i
+
+	
+
+end
+
+
 get '/group/' do
 	@groups = Group.query.all
 	erb :group_index			# ./views/index.erb をレンダリングします。(layout.erbも含めて)

@@ -1,3 +1,5 @@
+require 'pp'
+
 get '/devutil/' do
 
 	erb	:dev_util
@@ -111,3 +113,11 @@ get '/devutil/create_Association' do
 	erb	'ok <a href="./">戻る</a>'
 end
 
+get '/devutil/test_GroupPostion' do
+
+	pos1 = [35.95133,136.018982]
+	pos2 = [36.248703,136.724854]
+	@r = GroupPostion.get_groupname(pos1,pos2)
+
+	erb "<pre>#{h PP.pp(@r,'')}</pre>"
+end
