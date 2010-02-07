@@ -23,19 +23,19 @@ public class HomePage extends BasePage {
 
     public HomePage() {
         HashMap<String,GLatLng> dummyMap = new HashMap<String,GLatLng>();
-        dummyMap.put("北海道", new GLatLng(43.03, 141.21));
-        dummyMap.put("青森県", new GLatLng(40.49, 140.44));
-        dummyMap.put("岩手県", new GLatLng(39.42, 141.09));
-        dummyMap.put("宮城県", new GLatLng(38.16, 140.52));
-        dummyMap.put("秋田県", new GLatLng(39.43, 140.06));
-        dummyMap.put("山形県", new GLatLng(38.15, 140.20));
-        dummyMap.put("福島県", new GLatLng(37.45, 140.28));
-        dummyMap.put("茨城県", new GLatLng(36.22, 140.28));
-        dummyMap.put("栃木県", new GLatLng(36.33, 139.53));
-        dummyMap.put("群馬県", new GLatLng(36.23, 139.03));
-        dummyMap.put("埼玉県", new GLatLng(35.51, 139.38));
-        dummyMap.put("千葉県", new GLatLng(35.36, 140.06));
-        dummyMap.put("東京都", new GLatLng(35.41, 139.45));
+        dummyMap.put("北海道", new GLatLng(141.21, 43.03));
+        dummyMap.put("青森県", new GLatLng(140.44, 40.49));
+        dummyMap.put("岩手県", new GLatLng(141.09, 39.42));
+        dummyMap.put("宮城県", new GLatLng(140.52, 38.16));
+        dummyMap.put("秋田県", new GLatLng(140.06, 39.43));
+        dummyMap.put("山形県", new GLatLng(140.20, 38.15));
+        dummyMap.put("福島県", new GLatLng(140.28, 37.45));
+        dummyMap.put("茨城県", new GLatLng(140.28, 36.22));
+        dummyMap.put("栃木県", new GLatLng(139.53, 36.33));
+        dummyMap.put("群馬県", new GLatLng(139.03, 36.23));
+        dummyMap.put("埼玉県", new GLatLng(139.38, 35.51));
+        dummyMap.put("千葉県", new GLatLng(140.06, 35.36));
+        dummyMap.put("東京都", new GLatLng(139.45, 35.41));
         dummyMap.put("神奈川県", new GLatLng(35.26, 139.38));
         dummyMap.put("新潟県", new GLatLng(37.55, 139.02));
         dummyMap.put("富山県", new GLatLng(36.41, 137.13));
@@ -77,6 +77,9 @@ public class HomePage extends BasePage {
 //        map.setCenter(new GLatLng(52.37649, 4.888573));
         map.setCenter(new GLatLng(35.0, 135.0));
         map.addControl(GControl.GScaleControl);
+        map.addControl(GControl.GMapTypeControl);
+        map.addControl(GControl.GSmallMapControl);
+        map.addControl(GControl.GLargeMapControl);
         add(map);
 
 //        GIcon icon = new GIcon(
