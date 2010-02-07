@@ -45,14 +45,14 @@ function getGroupData(map) {
 	var zoomLevel = map.getZoom();
 	groupData.bounds = mapBounds;  //取得時の領域を記憶
 	///////////TODO
-	$.getJSON("/group/position/", { /**/ }, function(json){
+/**
+	$.getJSON("/group/position/", {  }, function(json){
 //		  alert("JSON Data: " + json.users[3].name);
 		groupData.groups = json[0];
 		groupData.relations = json[1];
 		}); } );
-		
+**/	
 
-/*	
 	//dummy
 	var groups = [ { id: "id1", name: "FITEA", lat: 36.173357, lng: 136.224976 },
 	               { id: "id2", name: "日本語名のグループ名", lat: 36.000000, lng: 136.000000 },
@@ -65,7 +65,6 @@ function getGroupData(map) {
 		];
 	groupData.groups = groups;
 	groupData.relations = relations;
-*/
 		
 	var groupHashMap = new Array();
 	for (var i = 0; i < groups.length; i++) {
