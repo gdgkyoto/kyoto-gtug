@@ -37,7 +37,7 @@ public class MapperData{
 	public String GetParameter(){return this.parameter;}
 	public String GetPropaty(){return this.parameter;}
 	public Long GetType(){return this.type;}
-
+	public String GetKeyword(){return this.keyword;}
 
 
 
