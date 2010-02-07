@@ -34,4 +34,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>GetKeyword</servlet-name>
 		<url-pattern>/getKeyword</url-pattern>
 	</servlet-mapping>
+	
+	<!-- XML出力用のサーブレット -->
+	<servlet>
+		<servlet-name>Output</servlet-name>
+		<servlet-class>jp.fukui.mapper.OutputServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Output</servlet-name>
+		<url-pattern>/output</url-pattern>
+	</servlet-mapping>
+
+	
 </web-app>
