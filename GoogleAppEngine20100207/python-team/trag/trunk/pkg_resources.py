@@ -21,7 +21,14 @@ except NameError:
     from sets import ImmutableSet as frozenset
 
 # capture these to bypass sandboxing
-from os import utime, rename, unlink, mkdir
+from os import utime
+try:
+    from os import mkdir, rename, unlink
+    WRITE_SUPPORT = True
+except ImportError:
+    # no write support, probably under GAE
+    WRITE_SUPPORT = False
+    
 from os import open as os_open
 from os.path import isdir, split
 

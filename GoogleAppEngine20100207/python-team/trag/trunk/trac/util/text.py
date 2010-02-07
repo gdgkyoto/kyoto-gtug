@@ -190,7 +190,7 @@ def shorten_line(text, maxlen=75):
     return text[:cut] + ' ...'
 
 def wrap(t, cols=75, initial_indent='', subsequent_indent='',
-         linesep=os.linesep):
+         linesep='\n'):#os.linesep):
     try:
         import textwrap
         t = t.strip().replace('\r\n', '\n').replace('\r', '\n')
