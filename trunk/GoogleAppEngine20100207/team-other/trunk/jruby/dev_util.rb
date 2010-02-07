@@ -46,9 +46,30 @@ get '/devutil/create_UserDetailList' do
 	erb	'ok <a href="./">戻る</a>'
 end
 
+
+def create_pos_index( ido , keido )
+		ido_min = (ido*60).to_i
+		keido_min = (keido*60).to_i
+		sprintf("%+05d,%+05d", ido_min/10,keido_min/10)
+end
+
 get '/devutil/create_GroupPostion' do
 	#XXXX.destroy_all
 	#XXXX.create ...
+	GroupPostion.destroy_all
+	GroupPostion.create({
+												:groupname => 'FITEA',
+												:posindex  => create_pos_index(36.067278,136.219311)
+											})
+	GroupPostion.create({
+												:groupname => 'HokuEng',
+												:posindex  => create_pos_index(36.573078,136.657562)
+											})
+	GroupPostion.create({
+												:groupname => 'Sakai',
+												:posindex  => create_pos_index(36.172803,136.231842)
+											})
+
 	erb	'ok <a href="./">戻る</a>'
 end
 
