@@ -1,3 +1,4 @@
+package jp.fukui.mapper.MapperDB;
 
 public class MapperDB {
 
