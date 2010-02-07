@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
@@ -38,15 +39,37 @@ public class TwitterCollectingService {
 	private static final Logger LOG = Logger.getLogger(TwitterCollectingService.class.getName());
 
 	public void collect() {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
 		HttpClient httpClient = new DefaultHttpClient(new GaeClientConnectionManager(), new BasicHttpParams());
 		InputStream is = null;
 		Document doc = null;
 		try {
+			Long lastStatusId = 0L;
+			Query q = pm.newQuery(Twitter.class);
+			q.setOrdering("statusId desc");
+			q.setRange(0, 1);
+			try {
+				Twitter lastTweet = null;
+				@SuppressWarnings("unchecked")
+				List<Twitter> results = (List<Twitter>) q.execute();
+				if (results.iterator().hasNext()) {
+					for (Twitter e : results) {
+						lastTweet = e;
+					}
+				}
+				if (null != lastTweet) {
+					lastStatusId = lastTweet.getStatusId();
+				}
+			} finally {
+				q.closeAll();
+			}
+
 			final String lang = "ja";
 			final String query = URLEncoder.encode("風邪 OR インフル", "utf-8");
-			final int rpp = 10;
+			final int rpp = 100;
 			HttpGet httpMethod = new HttpGet(String.format(
-					"http://search.twitter.com/search.atom?show_user=true&lang=%s&q=%s&rpp=%d", lang, query, rpp));
+					"http://search.twitter.com/search.atom?show_user=true&lang=%s&q=%s&rpp=%d&since_id=%d", lang,
+					query, rpp, lastStatusId.longValue()));
 			LOG.fine(String.format("GET\tURL:%s", httpMethod.getURI().toString()));
 
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
@@ -69,7 +92,6 @@ public class TwitterCollectingService {
 		httpClient.getConnectionManager().shutdown();
 
 		XPath xpath = XPathFactory.newInstance().newXPath();
-		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			NodeList list = (NodeList) xpath.evaluate("/feed/entry", doc, XPathConstants.NODESET);
 			for (int i = 1; i <= list.getLength(); ++i) {
