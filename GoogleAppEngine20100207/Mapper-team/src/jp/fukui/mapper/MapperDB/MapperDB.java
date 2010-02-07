@@ -147,7 +147,7 @@ public class MapperDB {
 		//
 		//String query = "select from " + MapperData.class.getName();
 		String[] query= new String[2];
-		query[0]= "select from "+ MapperData.class.getName()+ " where keyword="+keyword;
+		query[0]= "select from "+ MapperData.class.getName()+ " where keyword=="+keyword;
 		//query[1]="where type = 1";
 		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
 
