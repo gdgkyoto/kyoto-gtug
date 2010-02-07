@@ -4,6 +4,27 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+        <filter>
+        <filter-name>TwKazemapApplication</filter-name>
+            <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+                <init-param>
+                  <param-name>applicationClassName</param-name>
+                  <param-value>twkazemap.publicpage.Application</param-value>
+                </init-param>
+                <init-param>
+                  <param-name>GoogleMapsAPIkey</param-name>
+                  <param-value>ABQIAAAAMHVqhhnbhz_-pHAr2L2C_RQnc_KanOiqNN6FEpuZsxDzou1xoxRg8dVfmrLE45iTX4XFxFqaDrXf1w</param-value>
+                </init-param>
+                <init-param>
+                  <param-name>wicket.configuration</param-name>
+                  <param-value>deployment</param-value>
+        </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>TwKazemapApplication</filter-name
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
+
 	<servlet>
 		<servlet-name>Twkazemap</servlet-name>
 		<servlet-class>twkazemap.TwkazemapServlet</servlet-class>
