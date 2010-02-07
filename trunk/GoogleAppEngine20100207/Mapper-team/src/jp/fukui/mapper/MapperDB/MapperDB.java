@@ -29,11 +29,6 @@ public class MapperDB {
 
 		try{
 			pm.makePersistent(data);
-
-
-
-
-
 		}finally{
 			pm.close();
 		}
@@ -64,11 +59,15 @@ public class MapperDB {
 			return null;
 		}
 
+
+		for (int i=0;i<mapperdata.size();i++){
+			keywordlist.add(mapperdata.get(i).GetKeyword());
+
+		}
+
+
 		try{
-			for(MapperData md: mapperdata){
-				keywordlist.add(md.GetKeyword());
-				pm.deletePersistent(md);
-			}
+
 
 		}finally{
 			pm.close();
@@ -144,15 +143,13 @@ public class MapperDB {
 
 
 
-		//
-		//String query = "select from " + MapperData.class.getName();
-		String[] query= new String[2];
-		query[0]= "select from "+ MapperData.class.getName()+ " where keyword=="+keyword;
+
+		String query= "select from "+ MapperData.class.getName()+ " where keyword=="+keyword;
 		//query[1]="where type = 1";
 		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
 
 		@SuppressWarnings("unchecked")
-		List<MapperData> googledata = (List<MapperData>)pm.newQuery(query[0]).execute();
+		List<MapperData> googledata = (List<MapperData>)pm.newQuery(query).execute();
 
 		ArrayList<MapperData> mapperdata = new ArrayList<MapperData>();
 
@@ -160,12 +157,15 @@ public class MapperDB {
 			return null;
 		}
 
+		for(int i=0;i<googledata.size();i++){
+			mapperdata.add(googledata.get(i));
+		}
+
+
+
 		try{
 
-			for(MapperData md: googledata){
-				mapperdata.add(md);
-				pm.deletePersistent(md);
-			}
+
 
 		}finally{
 			pm.close();
@@ -200,11 +200,11 @@ public class MapperDB {
 			return null;
 		}
 
+		for(int i=0;i<mapperdata.size();i++){
+			propatylist.add(mapperdata.get(i).GetPropaty());
+		}
+
 		try{
-			for(MapperData md: mapperdata){
-				propatylist.add(md.GetPropaty());
-				pm.deletePersistent(md);
-			}
 
 		}finally{
 			pm.close();
@@ -231,11 +231,11 @@ public class MapperDB {
 			return null;
 		}
 
+		for(int i=0;i<mapperdata.size();i++){
+			parameterlist.add(mapperdata.get(i).GetParameter());
+		}
+
 		try{
-			for(MapperData md: mapperdata){
-				parameterlist.add(md.GetParameter());
-				pm.deletePersistent(md);
-			}
 
 		}finally{
 			pm.close();
