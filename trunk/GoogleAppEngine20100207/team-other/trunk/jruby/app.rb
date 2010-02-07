@@ -115,8 +115,10 @@ end
 
 
 post '/group/position/' do
-  pos1 = [params[:ido1].to_i, params[:keido1].to_i]
-  pos2 = [params[:ido2].to_i, params[:keido2].to_i]
+#  pos1 = [params[:ido1].to_i, params[:keido1].to_i]
+#  pos2 = [params[:ido2].to_i, params[:keido2].to_i]
+	pos1 = [35.95133,136.018982]
+	pos2 = [36.248703,136.724854]
 
   arr = []
 	@group_names = GroupPostion.get_groupname(pos1,pos2)
@@ -140,7 +142,7 @@ post '/group/position/' do
 #  { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 }
   content_type 'text/javascript', :charset => 'utf-8'	
 
-  @result.to_json
+#  @result.to_json
 end
 
 
