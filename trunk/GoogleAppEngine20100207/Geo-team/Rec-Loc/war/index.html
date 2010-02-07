@@ -103,19 +103,20 @@
 			    success: function(xml){
 			        
 				    $(xml).find('user').each(function(){
-					$.ajax({
-					    url: 'getpoint?' + ($((this),'name').text())
-					    type: 'GET',
-					    dataType: 'xml',
-					    timeout: 1000,
-					    error: function(){
-					        //alert('Error loading XML document');
-					    },
-					    success: function(xml){
-					        parseXmlgmap(xml,gmap);
-					    }
+						var user = 'getpoint?' + ($((this),'name').text());
+						$.ajax({
+						    url: user,
+						    type: 'GET',
+						    dataType: 'xml',
+						    timeout: 1000,
+						    error: function(){
+						        //alert('Error loading XML document');
+						    },
+						    success: function(xml){
+						        parseXmlgmap(xml,gmap);
+						    }
+						});
 					});
-					}
 			    }
 			});
 		}
