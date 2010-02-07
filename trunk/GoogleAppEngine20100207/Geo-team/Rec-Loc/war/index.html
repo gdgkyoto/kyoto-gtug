@@ -93,7 +93,7 @@
 		function execAjax(gmap)
 		{
 		    $.ajax({
-			    url: '/getuserlist',
+			    url: g_XmlPath,
 			    type: 'GET',
 			    dataType: 'xml',
 			    timeout: 1000,
@@ -101,22 +101,7 @@
 			        //alert('Error loading XML document');
 			    },
 			    success: function(xml){
-			        
-				    $(xml).find('user').each(function(){
-						var user = 'getpoint?' + ($((this),'name').text());
-						$.ajax({
-						    url: user,
-						    type: 'GET',
-						    dataType: 'xml',
-						    timeout: 1000,
-						    error: function(){
-						        //alert('Error loading XML document');
-						    },
-						    success: function(xml){
-						        parseXmlgmap(xml,gmap);
-						    }
-						});
-					});
+			        parseXmlgmap(xml,gmap);
 			    }
 			});
 		}
@@ -152,7 +137,7 @@
 			//Polyline.enableDrawing();
 			Polyline.enableEditing();
 			Polyline.show();
-			//google.maps.Event.addListener(Polyline,"click", mapClickEvent);
+			google.maps.Event.addListener(Polyline,"click", mapClickEvent);
 
 			gmap.addOverlay(Polyline);
 		}
