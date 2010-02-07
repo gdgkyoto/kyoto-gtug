@@ -15,4 +15,23 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+	<servlet>
+		<servlet-name>PostRecord</servlet-name>
+		<servlet-class>gaehackathon.fukui.recloc.PostGpsRecordApiServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostRecord</servlet-name>
+		<url-pattern>/post</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetRecord</servlet-name>
+		<servlet-class>gaehackathon.fukui.recloc.GetGpsRecordApiServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetRecord</servlet-name>
+		<url-pattern>/getpoint</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
