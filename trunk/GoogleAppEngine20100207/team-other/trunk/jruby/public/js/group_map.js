@@ -17,7 +17,7 @@ function initializeMap() {
 
 	//表示変更時のリスナ登録（パン、ズーム時）
 	GEvent.addListener(map, "moveend", function() {
-		//TODO 更新必要性の判断
+		//更新必要性の判断
 		if (map.getBounds().containsBounds(groupData.bounds)) {
 			updateGroupMap(map);
 		}
