@@ -21,7 +21,7 @@ import jp.fukui.mapper.MapperDB.MapperDB;
 import jp.fukui.mapper.MapperData.MapperData;
 
 /**
- * XMLì¬ƒNƒ‰ƒX
+ * XMLä½œæˆã‚¯ãƒ©ã‚¹
  * @author tanayama
  *
  */
@@ -30,27 +30,27 @@ public class MapperXML {
 	private static final Logger log = Logger.getLogger(MapperXML.class.getName());
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public MapperXML(String keyword){
 		targetKeyword = keyword;
 	}
 
 	/**
-	 * ƒL[ƒ[ƒh
+	 * ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰
 	 */
 	private String targetKeyword = null;
 
 	/**
-	 * XMLì¬
+	 * XMLä½œæˆ
 	 * @return
 	 */
 	public String CreateXML(){
 
-		// DB‚É“o˜^‚³‚ê‚Ä‚¢‚éƒL[ƒ[ƒhî•ñ‚ğæ“¾
+		// DBã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰æƒ…å ±ã‚’å–å¾—
 		ArrayList<MapperData> userKeywordList = GetData(targetKeyword);
 
-		// Google Suggest KeywordƒŠƒXƒgæ“¾
+		// Google Suggest Keywordãƒªã‚¹ãƒˆå–å¾—
 		GoogleSuggest googleSuggestAPI = new GoogleSuggest(targetKeyword);
 		ArrayList<String> googleKeywordList = googleSuggestAPI.GetGoogleKeyword();
 
@@ -64,27 +64,27 @@ public class MapperXML {
 			DocumentBuilder docbuilder = domFactory.newDocumentBuilder();
 			Document document = docbuilder.newDocument();
 
-			// e—v‘f(MainKeyword)
+			// è¦ªè¦ç´ (MainKeyword)
 			Element root = document.createElement("MainKeyword");
 			document.appendChild(root);
 
-			// Keyword—v‘f‚ğ’Ç‰Á
+			// Keywordè¦ç´ ã‚’è¿½åŠ 
 			Element mainKeyword = document.createElement("keyword");
 			Text text = document.createTextNode(targetKeyword);
 			mainKeyword.appendChild(text);			
 			root.appendChild(mainKeyword);
 
-			// GoogleSuggestƒL[ƒ[ƒh‚ğİ’è
+			// GoogleSuggestã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’è¨­å®š
 			this.SetGoogleSuggestKeyword(googleKeywordList, root, document);
 
-			// DB‚©‚çæ“¾‚µ‚½ƒL[ƒ[ƒh‚ğİ’è
+			// DBã‹ã‚‰å–å¾—ã—ãŸã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’è¨­å®š
 			this.SetUserKeyword(userKeywordList, root, document);
 
-			// DOMƒIƒuƒWƒFƒNƒg‚ğ•¶š—ñ‚Æ‚µ‚Äo—Í
+			// DOMã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ–‡å­—åˆ—ã¨ã—ã¦å‡ºåŠ›
 			TransformerFactory tfactory = TransformerFactory.newInstance();
 			Transformer transformer = tfactory.newTransformer();
 
-			// ƒGƒ“ƒR[ƒh‚ğUTF-8‚Éw’è
+			// ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã‚’UTF-8ã«æŒ‡å®š
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.transform(new DOMSource(document), new StreamResult(outStream));
 
@@ -99,15 +99,15 @@ public class MapperXML {
 	}
 
 	/**
-	 * DBŒŸõ‚µƒf[ƒ^‚ğ•Ô‹p‚·‚é
-	 * @param keyword@
+	 * DBæ¤œç´¢ã—ãƒ‡ãƒ¼ã‚¿ã‚’è¿”å´ã™ã‚‹
+	 * @param keywordã€€
 	 * @return
 	 */
 	private ArrayList<MapperData> GetData(String keyword) {
 
 		ArrayList<MapperData> resultList = new ArrayList<MapperData>();
 
-		// DB‚©‚çæ“¾
+		// DBã‹ã‚‰å–å¾—
 		MapperDB db = new MapperDB();
 		
 		resultList = db.Get(keyword);
@@ -116,7 +116,7 @@ public class MapperXML {
 	}
 
 	/**
-	 * GoogleSuggest‚Åæ“¾‚µ‚½ƒL[ƒ[ƒh‚ğXML‚Öİ’è
+	 * GoogleSuggestã§å–å¾—ã—ãŸã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’XMLã¸è¨­å®š
 	 * @param keywordList
 	 * @param rootElement
 	 * @param document
@@ -138,9 +138,9 @@ public class MapperXML {
 	}
 
 	/**
-	 * ƒ†[ƒU[‚ª“o˜^‚µ‚½ƒL[ƒ[ƒhî•ñ‚ğXML‚Öİ’è
-	 * @param dataList			ƒL[ƒ[ƒhî•ñ
-	 * @param rootElement		MainKeywordƒGƒŒƒƒ“ƒg
+	 * ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒç™»éŒ²ã—ãŸã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰æƒ…å ±ã‚’XMLã¸è¨­å®š
+	 * @param dataList			ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰æƒ…å ±
+	 * @param rootElement		MainKeywordã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆ
 	 * @param document			Document
 	 */
 	private void SetUserKeyword(ArrayList<MapperData> dataList, Element rootElement, Document document) {
@@ -152,13 +152,13 @@ public class MapperXML {
 			HashMap<String, Element> elementMap = new HashMap<String, Element>();
 			
 			for (MapperData data : dataList) {
-				// Type‚ª‚P‚Ìê‡
+				// TypeãŒï¼‘ã®å ´åˆ
 				if (data.GetType() == 1) {
-					// MainKeyword‚Ì‚½‚ßAŸ‚Ì“Ç‚İ‚İ
+					// MainKeywordã®ãŸã‚ã€æ¬¡ã®èª­ã¿è¾¼ã¿
 					continue;
 				}
 
-				// XML¶¬
+				// XMLç”Ÿæˆ
 				if (data.GetType() == 2) {
 					
 					Element element = document.createElement("keyword");
@@ -166,16 +166,16 @@ public class MapperXML {
 					element.appendChild(text);
 					userRootElement.appendChild(element);
 
-					// ‘æ‚Q—v‘f‚ğHashMap‚ÉŠi”[
+					// ç¬¬ï¼’è¦ç´ ã‚’HashMapã«æ ¼ç´
 					elementMap.put(data.GetPropaty(), element);
 					
 				}
 				else if(data.GetType() == 3) {
 					
-					// e‚Ì—v‘f‚ğæ“¾
+					// è¦ªã®è¦ç´ ã‚’å–å¾—
 					if (elementMap.containsKey(data.GetPropaty())) {
 						
-						// e‚Ì—v‘fæ“¾
+						// è¦ªã®è¦ç´ å–å¾—
 						Element subKeywordElement = document.createElement("SubKeyword");
 						userRootElement.appendChild(subKeywordElement);
 						

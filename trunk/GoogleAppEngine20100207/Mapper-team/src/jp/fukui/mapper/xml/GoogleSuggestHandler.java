@@ -6,7 +6,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * GoogleSuggest‚©‚çæ“¾‚µ‚½XML‚ğƒp[ƒX‚·‚éƒNƒ‰ƒX
+ * GoogleSuggestã‹ã‚‰å–å¾—ã—ãŸXMLã‚’ãƒ‘ãƒ¼ã‚¹ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * @author tanahizu
  *
  */
@@ -15,7 +15,7 @@ public class GoogleSuggestHandler extends DefaultHandler {
 	private ArrayList<String> suggestWordList = null;
 
 	/**
-	 * GoogleSuggestƒL[ƒ[ƒhƒŠƒXƒgæ“¾
+	 * GoogleSuggestã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ãƒªã‚¹ãƒˆå–å¾—
 	 * @return
 	 */
 	public ArrayList<String> getSuggestWordList() {
@@ -23,7 +23,7 @@ public class GoogleSuggestHandler extends DefaultHandler {
 	}
 
 	/**
-	 * —v‘f‚ÌŠJnƒ^ƒO“Ç‚İ‚İ
+	 * è¦ç´ ã®é–‹å§‹ã‚¿ã‚°èª­ã¿è¾¼ã¿æ™‚
 	 */
 	public void startElement(String uri,
 			String localName,

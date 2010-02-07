@@ -11,29 +11,29 @@ import javax.xml.parsers.SAXParserFactory;
 
 
 /**
- * GoogleƒTƒWƒFƒXƒgAPI‚ğŒÄ‚Ô
+ * Googleã‚µã‚¸ã‚§ã‚¹ãƒˆAPIã‚’å‘¼ã¶
  * @author tanayama
  *
  */
 public class GoogleSuggest {
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param keyword	GoogleƒTƒWƒFƒXƒg‚ğs‚¤ƒL[ƒ[ƒh
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param keyword	Googleã‚µã‚¸ã‚§ã‚¹ãƒˆã‚’è¡Œã†ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰
 	 */
 	public GoogleSuggest(String keyword){
 		targetKeyword = keyword;		
 	}
 
 	/**
-	 * ƒL[ƒ[ƒh
+	 * ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰
 	 */
 	private String targetKeyword = null;
 
 	private static final Logger log = Logger.getLogger(GoogleSuggest.class.getName());
 
 	/**
-	 * GoogleSuggestAPI‚ğƒR[ƒ‹
+	 * GoogleSuggestAPIã‚’ã‚³ãƒ¼ãƒ«
 	 */
 	public ArrayList<String> GetGoogleKeyword(){
 		
@@ -41,14 +41,14 @@ public class GoogleSuggest {
 		ArrayList<String> resultList = null;
 		try {
 			
-			// ƒL[ƒ[ƒh‚ğƒGƒ“ƒR[ƒh
+			// ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰
 			encodedWord = URLEncoder.encode(targetKeyword, "sjis");
 						
-			// “Ç‚İ‚İ
+			// èª­ã¿è¾¼ã¿
 			InputStream in = new URL("http://google.com/complete/search?output=toolbar&q=" + encodedWord).openStream();
 		
 
-			// GoogleƒTƒWƒFƒXƒgƒL[ƒ[ƒhƒŠƒXƒgæ“¾
+			// Googleã‚µã‚¸ã‚§ã‚¹ãƒˆã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ãƒªã‚¹ãƒˆå–å¾—
 			resultList= GetGoogleSuggest(in);
 	
 			
@@ -60,7 +60,7 @@ public class GoogleSuggest {
 	
 	
 	/**
-	 * InputStream(XML)‚©‚çGoogleSuggestƒL[ƒ[ƒh‚Ìˆê——‚ğæ“¾‚·‚éB
+	 * InputStream(XML)ã‹ã‚‰GoogleSuggestã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã®ä¸€è¦§ã‚’å–å¾—ã™ã‚‹ã€‚
 	 * @param inputStream
 	 * @return
 	 */
@@ -69,14 +69,14 @@ public class GoogleSuggest {
 		ArrayList<String> resultList = null;
 		
 		try {
-		      // SAXƒp[ƒT[ƒtƒ@ƒNƒgƒŠ‚ğ¶¬
+		      // SAXãƒ‘ãƒ¼ã‚µãƒ¼ãƒ•ã‚¡ã‚¯ãƒˆãƒªã‚’ç”Ÿæˆ
 		      SAXParserFactory spfactory = SAXParserFactory.newInstance();
-		      // SAXƒp[ƒT[‚ğ¶¬
+		      // SAXãƒ‘ãƒ¼ã‚µãƒ¼ã‚’ç”Ÿæˆ
 		      SAXParser parser = spfactory.newSAXParser();
 		      
 		      GoogleSuggestHandler handler = new GoogleSuggestHandler();
 		      
-		      // XMLƒtƒ@ƒCƒ‹‚ğw’è‚³‚ê‚½ƒfƒtƒHƒ‹ƒgƒnƒ“ƒhƒ‰[‚Åˆ—‚µ‚Ü‚·
+		      // XMLãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã•ã‚ŒãŸãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒãƒ³ãƒ‰ãƒ©ãƒ¼ã§å‡¦ç†ã—ã¾ã™
 		      parser.parse(inputStream, handler, "utf-8");
 		      
 		      resultList = handler.getSuggestWordList();
