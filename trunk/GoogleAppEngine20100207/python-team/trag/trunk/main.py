@@ -6,7 +6,10 @@
 #debugger.set_trace(sys._getframe().f_back)
 
 import os
-os.environ['TRAC_ENV'] = '/Users/yuuitiro/tmp/trac'
+os.environ['TRAC_ENV'] = './'
 
 import trac.web.main
+from google.appengine.ext.webapp import util
+
 application = trac.web.main.dispatch_request
+util.run_wsgi_app(application)
