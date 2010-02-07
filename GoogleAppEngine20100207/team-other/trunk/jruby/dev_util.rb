@@ -32,13 +32,27 @@ get '/devutil/create_groupdata' do
 	erb	'ok <a href="./">戻る</a>'
 end
 
-
 get '/devutil/create_GroupUserList' do
 	#XXXX.destroy_all
 	#XXXX.create ...
-	erb	'ok <a href="./">戻る</a>'
+	GroupUserList.destroy_all		#データ全消し
+	
+	begin
+	GroupUserList.create({
+	  :groupname => 'FETEA',
+	  :users => ['kabakiyo', 'hashimoto', 'okamoto', 'kobayashi'],
+	  :count => 4
+	})
+	GroupUserList.create({
+	  :groupname => '北エン',
+	  :users => ['kabakiyo', 'hashimoto', 'okamoto', 'kobayashi'],
+	  :count => 4
+	})
+    erb	'ok <a href="./">戻る</a>'
+  rescue
+    erb	'ok <a href="./">Error</a>'
+  end
 end
-
 
 get '/devutil/create_UserDetailList' do
 	#XXXX.destroy_all
