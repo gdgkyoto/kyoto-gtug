@@ -118,8 +118,8 @@ public class TwitterCollectingService {
 				String geo = (String) xpath.evaluate(String.format("/feed/entry[%d]/twitter:geo/text()", i), doc,
 						XPathConstants.STRING);
 				boolean geoEnabled = null == geo || "".equals(geo) ? false : true;
-				LOG.info(String.format("%d:%s, %s, %s, [%s], %s", i, id, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-						.format(theUpdate), nameId, showName, text));
+				LOG.info(String.format("%d:%s, %s, %s, [%s], %s, %s", i, id, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+						.format(theUpdate), nameId, showName, text, geo));
 
 				Twitter t = new Twitter();
 				t.setCreateDatetime(theUpdate);
