@@ -50,3 +50,7 @@ class Association< TinyDS::Base
 	property	    :value      ,:integer    #強さ(正負)最大??
 end
 
+class TwitterAccount<TinyDS::Base
+	property			:account		,:string
+	property			:password		,:string
+end
