@@ -40,9 +40,11 @@ public class MapperDB {
 
 		ArrayList<String> keywordlist = new ArrayList<String>();
 		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
-		String query = "select from MapperData where type==1";
-		keywordlist = (ArrayList<String>)pm.newQuery(query).execute();
-
+		String query = "select from "+MapperData.class.getName()+" where type==1";
+		ArrayList<MapperData> mapperdata = (ArrayList<MapperData>)pm.newQuery(query).execute();
+		if(mapperdata.isEmpty()){
+			return null;
+		}
 
 
 
@@ -114,7 +116,16 @@ public class MapperDB {
 	}
 
 
+	public ArrayList<MapperData> Get(String keyword){
 
+		ArrayList<MapperData> mapperdata = new ArrayList<MapperData>();
+
+		
+
+
+		return mapperdata;
+
+	}
 
 
 
