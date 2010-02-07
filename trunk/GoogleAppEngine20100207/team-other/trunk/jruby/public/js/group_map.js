@@ -11,13 +11,13 @@ function initializeMap() {
 	var center = new GLatLng(36.173357, 136.224976);
 	map.setCenter(center, 8);
 
-	//•\¦•ÏX‚ÌƒŠƒXƒi“o˜^
+	//è¡¨ç¤ºå¤‰æ›´æ™‚ã®ãƒªã‚¹ãƒŠç™»éŒ²
 	GEvent.addListener(map, "moveend", function() {
-		//TODO XV•K—v«‚Ì”»’f
+		//TODO æ›´æ–°å¿…è¦æ€§ã®åˆ¤æ–­
 
 		updateGroupMap(map);
 	});
-	//TODO ƒY[ƒ€Ø‚è‘Ö‚¦‚ÌXV
+	//TODO ã‚ºãƒ¼ãƒ åˆ‡ã‚Šæ›¿ãˆæ™‚ã®æ›´æ–°
 
 	return map;
 }
@@ -34,19 +34,19 @@ function updateGroupMap(map) {
 
 function getGroupData(map) {
 	//get data from server
-	//TODO ­‚µL‚ß‚Ì—Ìˆæ‚Åƒf[ƒ^‚ğæ“¾‚·‚é
+	//TODO å°‘ã—åºƒã‚ã®é ˜åŸŸã§ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 	var mapBounds = map.getBounds();
 	var zoomLevel = map.getZoom();
 	///////////TODO
 
 	//dummy
 	var groups = [ { id: "id1", name: "FITEA", lat: 36.173357, lng: 136.224976 },
-	               { id: "id2", name: "“ú–{Œê–¼‚ÌƒOƒ‹[ƒv–¼", lat: 36.000000, lng: 136.000000 },
+	               { id: "id2", name: "æ—¥æœ¬èªåã®ã‚°ãƒ«ãƒ¼ãƒ—å", lat: 36.000000, lng: 136.000000 },
 	               { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 }
 		];
 	var groupHashMap = new Array();
 	groupHashMap["id1"] = { id: "id1", name: "FITEA", lat: 36.173357, lng: 136.224976 };
-	groupHashMap["id2"] = { id: "id2", name: "“ú–{Œê–¼‚ÌƒOƒ‹[ƒv–¼", lat: 36.000000, lng: 136.000000 };
+	groupHashMap["id2"] = { id: "id2", name: "æ—¥æœ¬èªåã®ã‚°ãƒ«ãƒ¼ãƒ—å", lat: 36.000000, lng: 136.000000 };
 	groupHashMap["id3"] = { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 };
 
 	//dummy tunagari data
@@ -100,21 +100,21 @@ function onSelectedGroup(group) {
 	//	    alert("onSelectedGroup: " + "group.id = " + group.id + ", group.name = " + group.name);
 
 	var groupId = group.id;
-	//TODO ƒOƒ‹[ƒvÚ×î•ñ‚ğƒT[ƒo‚©‚çæ“¾
+	//TODO ã‚°ãƒ«ãƒ¼ãƒ—è©³ç´°æƒ…å ±ã‚’ã‚µãƒ¼ãƒã‹ã‚‰å–å¾—
 
 	var groupDetails = {
 			id: "id1",
 			name: "FITEA",
-			description: "‚±‚ñ‚ÈƒOƒ‹[ƒv‚Å‚·",
+			description: "ã“ã‚“ãªã‚°ãƒ«ãƒ¼ãƒ—ã§ã™",
 			tags: "GAE, RIA, Java, Python, Ruby",
 			url: "http://www.www.www"
 		};
 
-	//ƒOƒ‹[ƒvÚ×•\¦‚ÌXV
+	//ã‚°ãƒ«ãƒ¼ãƒ—è©³ç´°è¡¨ç¤ºã®æ›´æ–°
 	//TODO
 	document.getElementById("groupDetails").innerText = "Selected Group: " + group.name;
 
-	//twitter‚Â‚Ô‚â‚«‚ÌXV
+	//twitterã¤ã¶ã‚„ãã®æ›´æ–°
 	//TODO
 	var second = false;
 	$.timer(1000, function(timer) {
