@@ -35,6 +35,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>GetUserList</servlet-name>
+		<servlet-class>gaehackathon.fukui.recloc.GetUserListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetUserList</servlet-name>
+		<url-pattern>/getuserlist</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>MakeHash</servlet-name>
 		<servlet-class>gaehackathon.fukui.recloc.MakeUserHashCodeServlet</servlet-class>
 	</servlet>

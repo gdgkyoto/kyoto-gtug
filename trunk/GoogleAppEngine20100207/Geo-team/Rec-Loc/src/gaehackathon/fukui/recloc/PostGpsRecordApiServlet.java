@@ -3,6 +3,7 @@ package gaehackathon.fukui.recloc;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -15,9 +16,10 @@ import gaehackathon.fukui.recloc.model.GpsRecord;
 import gaehackathon.fukui.recloc.model.RecLocUser;
 
 public class PostGpsRecordApiServlet extends HttpServlet {
+	private static final Logger logger = Logger.getLogger(PostGpsRecordApiServlet.class.getName());
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
-		
+		logger.warning("aaa");
 		String userCode = req.getParameter("code");
 		GpsRecord record = null;
 		try {
@@ -29,6 +31,7 @@ public class PostGpsRecordApiServlet extends HttpServlet {
 			record = new GpsRecord(user, lat, lng, gpsDate); 
 		} catch (NumberFormatException nfe) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
 		}
 		// •Û‘¶
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -36,9 +39,12 @@ public class PostGpsRecordApiServlet extends HttpServlet {
 			Query query = pm.newQuery(RecLocUser.class);
 			query.setFilter("hashCode == rplHashCode");
 			query.declareParameters("String rplHashCode");
+		
 			List<RecLocUser> users = (List<RecLocUser>)query.execute(userCode);
 			if (users.size() != 1) {
+				//resp.getWriter().println("users.size() = " + users.size());
 				resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
 			}
 			pm.makePersistent(record);
 		} finally {

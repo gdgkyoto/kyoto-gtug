@@ -20,8 +20,9 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public class MakeUserHashCodeServlet extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 		
@@ -30,7 +31,39 @@ public class MakeUserHashCodeServlet extends HttpServlet {
 			resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
 			return;
 		} else if (dispName == null || dispName.trim().length() == 0) {
-			resp.sendRedirect("/makehash.html");
+			String html = "<html><body>\n"
+				+ "<h1>Make Hash</h1>\n"
+				+ "<form action=\"/makehash\" method=\"post\">\n"
+				+ "<div>User Name: <input type=\"text\" name=\"dispname\" size=\"60\" /></div>"
+				+ "<div><input type=\"submit\" value=\"Send\" /></div>"
+				+ "</form>\n"
+				+ "<br><a href=\"" + userService.createLogoutURL("/") + "\">logout</a><br>"
+				+ "</body></html>";
+			resp.getWriter().println(html);
+			return;
+		}
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		
+		String dispName = req.getParameter("dispname");
+		if (user == null) {
+			//resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
+			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		} else if (dispName == null || dispName.trim().length() == 0) {
+			String html = "<html><body>\n"
+				+ "<h1>Make Hash</h1>\n"
+				+ "<form action=\"/makehash\" method=\"post\">\n"
+				+ "<div>User Name: <input type=\"text\" name=\"dispname\" size=\"60\" /></div>"
+				+ "<div><input type=\"submit\" value=\"Send\" /></div>"
+				+ "</form>\n"
+				+ "</body></html>";
+			resp.getWriter().println(html);
+			return;
 		}
 		RecLocHashCode code = new RecLocHashCode(user.getNickname());
 		// •Û‘¶
