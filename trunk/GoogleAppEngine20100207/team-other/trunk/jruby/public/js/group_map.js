@@ -1,3 +1,5 @@
+var groupData = {};
+
 function GroupMap() {
 	this.map = initializeMap();
 
@@ -10,20 +12,22 @@ function initializeMap() {
 	map.addControl(new GMapTypeControl());
 	var center = new GLatLng(36.173357, 136.224976);
 	map.setCenter(center, 8);
+	
+	groupData.bounds = map.getBounds();
 
-	//表示変更時のリスナ登録
+	//表示変更時のリスナ登録（パン、ズーム時）
 	GEvent.addListener(map, "moveend", function() {
 		//TODO 更新必要性の判断
-
-		updateGroupMap(map);
+//		if (!map.getBounds().containsBounds(groupData.bounds)) {
+			updateGroupMap(map);
+//		}
 	});
-	//TODO ズーム切り替え時の更新
 
 	return map;
 }
 
 function updateGroupMap(map) {
-	var groupData = getGroupData(map);
+	groupData = getGroupData(map);
 	//clear all markers and lines
 	map.clearOverlays();
 
@@ -33,10 +37,12 @@ function updateGroupMap(map) {
 }
 
 function getGroupData(map) {
+	var groupData = { };
 	//get data from server
 	//TODO 少し広めの領域でデータを取得する
 	var mapBounds = map.getBounds();
 	var zoomLevel = map.getZoom();
+	groupData.bounds = mapBounds;  //取得時の領域を記憶
 	///////////TODO
 
 	//dummy
@@ -44,16 +50,16 @@ function getGroupData(map) {
 	               { id: "id2", name: "日本語名のグループ名", lat: 36.000000, lng: 136.000000 },
 	               { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 }
 		];
-	var groupHashMap = new Array();
-	groupHashMap["id1"] = { id: "id1", name: "FITEA", lat: 36.173357, lng: 136.224976 };
-	groupHashMap["id2"] = { id: "id2", name: "日本語名のグループ名", lat: 36.000000, lng: 136.000000 };
-	groupHashMap["id3"] = { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 };
-
 	//dummy tunagari data
-	var relations = [ { group1_id: "id1", group2_id: "id2", tunagari: 3 }, { group1_id: "id1", group2_id: "id3", tunagari: 10 }, { group1_id: "id2", group2_id: "id3", tunagari: 1 },
+	var relations = [ { group1_id: "id1", group2_id: "id2", tunagari: 3 },
+	                  { group1_id: "id1", group2_id: "id3", tunagari: 10 },
+	                  { group1_id: "id2", group2_id: "id3", tunagari: 1 },
 		];
+	var groupHashMap = new Array();
+	for (var i = 0; i < groups.length; i++) {
+		groupHashMap[groups[i].id] = groups[i];
+	}
 
-	var groupData = { };
 	groupData.groups = groups;
 	groupData.groupHashMap = groupHashMap;
 	groupData.relations = relations;
@@ -112,21 +118,22 @@ function onSelectedGroup(group) {
 
 	//グループ詳細表示の更新
 	//TODO
-	document.getElementById("groupDetails").innerText = "Selected Group: " + group.name;
+	document.getElementById("group_details").innerText = "Selected Group: " + group.name;
 
 	//twitterつぶやきの更新
 	//TODO
-	var second = false;
+/*	var second = false;
 	$.timer(1000, function(timer) {
 		if (!second) {
-			document.getElementById("groupTwits").innerText = "groupTwits: First time!";
+			document.getElementById("timeline").innerText = "つぶやき１";
 			second = true;
 			timer.reset(5000);
 		} else {
-			document.getElementById("groupTwits").innerText = "groupTwits: Second time!";
+			document.getElementById("timeline").innerText = "つぶやき１<br>つぶやき２<br>";
 			timer.stop();
 		}
 	});
+*/
 }
 
 function initialize() {
