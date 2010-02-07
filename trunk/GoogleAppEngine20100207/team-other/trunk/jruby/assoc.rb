@@ -45,17 +45,17 @@ end
 # 密度で連結の強さを計算する
 class DenstinyCalcAssociation
   def calc()
-    overlap_users = []
+    count = 0
 
     group1.users.each do |user1|
       group2.users.each do |user2|
-        overlap_users << user1 if user1 == user2
+        count = count + 1 if user1 == user2
       end
     end
     
     Association.create({
       :group1group2 => user1 + ":" + user2,
-      :value => overlap_users/group1.users.count + overlap_users/group2.users.count
+      :value => count/group1.users.count + count/group2.users.count
     })
   end
 end
