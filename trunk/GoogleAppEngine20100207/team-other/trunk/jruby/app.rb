@@ -4,7 +4,7 @@ require 'tiny_ds'
 require 'util'
 	##モデル追加
 require 'model'
-require 'json'
+#require 'json'
 
 include MySinatraUtil
 
