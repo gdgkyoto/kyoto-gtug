@@ -18,9 +18,9 @@ function initializeMap() {
 	//表示変更時のリスナ登録（パン、ズーム時）
 	GEvent.addListener(map, "moveend", function() {
 		//TODO 更新必要性の判断
-//		if (!map.getBounds().containsBounds(groupData.bounds)) {
+		if (map.getBounds().containsBounds(groupData.bounds)) {
 			updateGroupMap(map);
-//		}
+		}
 	});
 
 	return map;
@@ -28,6 +28,7 @@ function initializeMap() {
 
 function updateGroupMap(map) {
 	groupData = getGroupData(map);
+	
 	//clear all markers and lines
 	map.clearOverlays();
 
@@ -44,7 +45,23 @@ function getGroupData(map) {
 	var zoomLevel = map.getZoom();
 	groupData.bounds = mapBounds;  //取得時の領域を記憶
 	///////////TODO
-
+/*
+	var the_object;
+	var http_request = new XMLHttpRequest();
+	http_request.open( "GET", url, true );
+	http_request.onreadystatechange = function () {
+	    if ( http_request.readyState == 4 ) {
+	        if ( http_request.status == 200 ) {
+	            the_object = eval( "(" + http_request.responseText + ")" );
+	        } else {
+	            alert( "There was a problem with the URL." );
+	        }
+	        http_request = null;
+	    }
+	};
+	http_request.send(null);
+*/
+	
 	//dummy
 	var groups = [ { id: "id1", name: "FITEA", lat: 36.173357, lng: 136.224976 },
 	               { id: "id2", name: "日本語名のグループ名", lat: 36.000000, lng: 136.000000 },
