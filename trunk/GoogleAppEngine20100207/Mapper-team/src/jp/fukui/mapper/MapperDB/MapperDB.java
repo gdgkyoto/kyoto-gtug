@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.jdo.PersistenceManager;
 import java.util.List;
 
-import com.google.appengine.api.datastore.Query;
+
 
 public class MapperDB {
 
@@ -140,7 +140,7 @@ public class MapperDB {
 	}
 
 
-	public List<MapperData> Get(String keyword){
+	public ArrayList<MapperData> Get(String keyword){
 
 
 
@@ -152,17 +152,18 @@ public class MapperDB {
 		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
 
 		@SuppressWarnings("unchecked")
-		List<MapperData> mapperdata = (List<MapperData>)pm.newQuery(query[0]).execute();
+		List<MapperData> googledata = (List<MapperData>)pm.newQuery(query[0]).execute();
 
+		ArrayList<MapperData> mapperdata = new ArrayList<MapperData>();
 
-
-		if(mapperdata.isEmpty()){
+		if(googledata.isEmpty()){
 			return null;
 		}
 
 		try{
-			for(MapperData md: mapperdata){
 
+			for(MapperData md: googledata){
+				mapperdata.add(md);
 				pm.deletePersistent(md);
 			}
 
@@ -179,6 +180,69 @@ public class MapperDB {
 	}
 
 
+	public ArrayList<String> GetPropatyList()
+	{
+
+		ArrayList<String> propatylist = new ArrayList<String>();
+		//
+		//String query = "select from " + MapperData.class.getName();
+
+		String query= "select from "+ MapperData.class.getName()+ " where type==2 && keyword =="+this.keyword;
+
+		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
+
+		@SuppressWarnings("unchecked")
+		List<MapperData> mapperdata = (List<MapperData>)pm.newQuery(query).execute();
+
+
+
+		if(mapperdata.isEmpty()){
+			return null;
+		}
+
+		try{
+			for(MapperData md: mapperdata){
+				propatylist.add(md.GetPropaty());
+				pm.deletePersistent(md);
+			}
+
+		}finally{
+			pm.close();
+		}
+		return propatylist;
+
+	}
+
+	public ArrayList<String> GetParameterList()
+	{
+
+		ArrayList<String> parameterlist = new ArrayList<String>();
+
+		String query= "select from "+ MapperData.class.getName()+ " where type==3 && keyword =="+this.keyword +" && propaty=="+this.propaty;
+
+		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
+
+		@SuppressWarnings("unchecked")
+		List<MapperData> mapperdata = (List<MapperData>)pm.newQuery(query).execute();
+
+
+
+		if(mapperdata.isEmpty()){
+			return null;
+		}
+
+		try{
+			for(MapperData md: mapperdata){
+				parameterlist.add(md.GetParameter());
+				pm.deletePersistent(md);
+			}
+
+		}finally{
+			pm.close();
+		}
+		return parameterlist;
+
+	}
 
 
 
