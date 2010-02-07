@@ -2,6 +2,8 @@ require 'sinatra'
 require 'appengine-apis/users'
 require 'tiny_ds'
 require 'util'
+	##モデル追加
+require 'model'
 
 include MySinatraUtil
 
