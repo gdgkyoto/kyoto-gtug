@@ -5,12 +5,16 @@ import PMF.*;
 
 import java.util.ArrayList;
 import javax.jdo.PersistenceManager;
+import java.util.List;
+
+import com.google.appengine.api.datastore.Query;
 
 public class MapperDB {
 
 	String keyword="";
 	String propaty="";
 
+	//PersistenceManager pm = PMF.getInstance().getPersistenceManager();
 
 	public boolean NewKeyword(String keyword)
 	{
@@ -25,6 +29,11 @@ public class MapperDB {
 
 		try{
 			pm.makePersistent(data);
+
+
+
+
+
 		}finally{
 			pm.close();
 		}
@@ -39,16 +48,31 @@ public class MapperDB {
 	{
 
 		ArrayList<String> keywordlist = new ArrayList<String>();
+		//
+		//String query = "select from " + MapperData.class.getName();
+		String[] query= new String[2];
+		query[0]= "select from "+ MapperData.class.getName()+ " where type==1";
+		//query[1]="where type = 1";
 		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
-		String query = "select from "+MapperData.class.getName()+" where type==1";
-		ArrayList<MapperData> mapperdata = (ArrayList<MapperData>)pm.newQuery(query).execute();
+
+		@SuppressWarnings("unchecked")
+		List<MapperData> mapperdata = (List<MapperData>)pm.newQuery(query[0]).execute();
+
+
+
 		if(mapperdata.isEmpty()){
 			return null;
 		}
 
+		try{
+			for(MapperData md: mapperdata){
+				keywordlist.add(md.GetKeyword());
+				pm.deletePersistent(md);
+			}
 
-
-
+		}finally{
+			pm.close();
+		}
 		return keywordlist;
 
 	}
@@ -116,11 +140,38 @@ public class MapperDB {
 	}
 
 
-	public ArrayList<MapperData> Get(String keyword){
+	public List<MapperData> Get(String keyword){
 
-		ArrayList<MapperData> mapperdata = new ArrayList<MapperData>();
 
-		
+
+		//
+		//String query = "select from " + MapperData.class.getName();
+		String[] query= new String[2];
+		query[0]= "select from "+ MapperData.class.getName()+ " where keyword="+keyword;
+		//query[1]="where type = 1";
+		PersistenceManager pm = PMF.getInstance().getPersistenceManager();
+
+		@SuppressWarnings("unchecked")
+		List<MapperData> mapperdata = (List<MapperData>)pm.newQuery(query[0]).execute();
+
+
+
+		if(mapperdata.isEmpty()){
+			return null;
+		}
+
+		try{
+			for(MapperData md: mapperdata){
+
+				pm.deletePersistent(md);
+			}
+
+		}finally{
+			pm.close();
+		}
+
+
+
 
 
 		return mapperdata;
