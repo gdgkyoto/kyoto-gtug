@@ -9,6 +9,8 @@ class  Group < TinyDS::Base
 	property	    :tags           ,:list       #タグ(文字列)の集合
 	property	    :description    ,:text       #詳細
 
+	property			:location				,:string     #緯度経度 例:36.173357,136.224976
+
 	property	    :swcp           ,:string     #ソフトウェアチェックポイント
 end
 

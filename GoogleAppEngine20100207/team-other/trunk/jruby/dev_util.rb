@@ -10,12 +10,14 @@ get '/devutil/create_groupdata' do
 									:logo_url=>'',
 									:listnames=>['@tomohiro555/fitea'],
 									:tags=>['IT','FUKUI'],
+									:location=>'36.067278,136.219311',
 									:description=>'福井情報技術者協会'
 								} )
 	Group.create( {	:groupname => 'HokuEng',
 									:site_url=>'https://www.google.com/accounts/ServiceLogin?passive=true&service=groups2&continue=http%3A%2F%2Fgroups.google.co.jp%2Fgroup%2Fhokuriku_engineer&cd=JP&hl=ja',
 									:logo_url=>'',
 									:listnames=>['@tomohiro555/fitea'],
+									:location=>'36.573078,136.657562',
 									:tags=>['IT','FUKUI','ISHIKAWA','TOYAMA'],
 									:description=>'北陸エンジニアグループ '
 								} )
@@ -23,6 +25,7 @@ get '/devutil/create_groupdata' do
 									:site_url=>'https://www.google.com/accounts/ServiceLogin?passive=true&service=groups2&continue=http%3A%2F%2Fgroups.google.co.jp%2Fgroup%2Fhokuriku_engineer&cd=JP&hl=ja',
 									:logo_url=>'',
 									:listnames=>['@tomohiro555/fitea'],
+									:location=>'36.172803,136.231842',
 									:tags=>['IT','FUKUI'],
 									:description=>'さかいのグループ'
 								} )
