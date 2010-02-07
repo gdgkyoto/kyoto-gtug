@@ -1,4 +1,5 @@
 require 'pp'
+require 'json'
 
 get '/devutil/' do
 
@@ -139,7 +140,28 @@ get '/devutil/test_GroupPostion' do
 	pos2 = [36.248703,136.724854]
 	@r = GroupPostion.get_groupname(pos1,pos2)
 
-	erb "<pre>#{h PP.pp(@r,'')}</pre>"
+  @arr = []
+  @hash = {}
+	@group_names = GroupPostion.get_groupname(pos1,pos2)
+  @group_names.each do |name|
+    group = Group.query.filter(:groupname, "==", name).all[0]
+    @hash[group.groupname] = group.key
+    @arr << Hash[:id => group.key, :name => group.groupname,
+                :lat => group.location.split(',')[0], :lng => group.location.split(',')[1]]
+  end
+
+  @asso = []
+  @group_names.each_index do |i|[0]
+    @group_names.each_index do |j|
+      next if j <= i # G1とG2の計算が終わったらG2とG1を計算しないための制御
+      @asso << [@hash[@group_names[i]], @hash[@group_names[j]], Association.query.filter(:group1group2, "==", [@group_names[i], @group_names[j]].sort.join(':')).all[0].value]
+    end
+  end
+#  ary2 = @arr.map{|item| '{'+item.map{|k,v| k.to_s+':'+v.inspect}.join(' ')+'}'}.join(',')
+#  @ary2 = [ary2]
+  @result = [@arr, @asso]
+
+	erb "<pre>#{h (@result.to_json)}</pre>"
 end
 
 

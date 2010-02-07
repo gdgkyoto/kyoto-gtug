@@ -4,6 +4,7 @@ require 'tiny_ds'
 require 'util'
 	##モデル追加
 require 'model'
+require 'json'
 
 include MySinatraUtil
 
@@ -114,12 +115,32 @@ end
 
 
 post '/group/position/' do
-  pos1 = params[:pos1]
-  pos2 = params[:pos2]
+  pos1 = [params[:ido1].to_i, params[:keido1].to_i]
+  pos2 = [params[:ido2].to_i, params[:keido2].to_i]
 
+  arr = []
 	@group_names = GroupPostion.get_groupname(pos1,pos2)
+  @group_names.each do |name|
+    group = Group.query.filter(:groupname, "==", name).all[0]
+    arr << Hash[:id => group.key, :name => group.groupname,
+                :lat => group.location.split(',')[0], :lng => group.location.split(',')[1]]
+  end
+  
+  asso = []
+  @group_names.each_index do |i|
+    @group_names.each_index do |j|
+      next if j <= i # G1とG2の計算が終わったらG2とG1を計算しないための制御
+      asso << Association.query.filter(:group1group2, "==", [@group_names[i], @group_names[j]].sort.join(':')).all[0]
+    end
+  end
 
-	erb "<pre>#{h PP.pp(@group_names,'')}</pre>"
+#  ary2 = ary.map{|item| item.each{|k,v| k+':'+v.inspect}}
+
+  @result = [arr2, asso]
+#  { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 }
+  content_type 'text/javascript', :charset => 'utf-8'	
+
+  @result.to_json
 end
 
 
