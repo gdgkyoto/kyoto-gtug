@@ -77,7 +77,7 @@ public class GoogleSuggest {
 		      GoogleSuggestHandler handler = new GoogleSuggestHandler();
 		      
 		      // XMLファイルを指定されたデフォルトハンドラーで処理します
-		      parser.parse(inputStream, handler);
+		      parser.parse(inputStream, handler, "utf-8");
 		      
 		      resultList = handler.getSuggestWordList();
 		      
