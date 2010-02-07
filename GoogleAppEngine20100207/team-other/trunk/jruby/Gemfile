@@ -8,4 +8,3 @@ gem "appengine-rack"
 gem "appengine-apis"
 gem "sinatra"
 gem 'tiny_ds'
-gem 'json'
