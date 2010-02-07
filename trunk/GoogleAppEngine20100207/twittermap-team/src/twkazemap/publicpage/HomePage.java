@@ -66,10 +66,10 @@ public class HomePage extends BasePage {
         dummyMap.put("佐賀県", new GLatLng(33.16, 130.16));
         dummyMap.put("長崎県", new GLatLng(32.45, 129.52));
         dummyMap.put("熊本県", new GLatLng(32.48, 130.42));
-        dummyMap.put("大分県", new GLatLng(131.37, 33.14));
-        dummyMap.put("宮崎県", new GLatLng(131.25, 31.56));
-        dummyMap.put("鹿児島県", new GLatLng(130.33, 31.36));
-        dummyMap.put("沖縄県", new GLatLng(127.41, 26.13));
+        dummyMap.put("大分県", new GLatLng(33.14, 131.37));
+        dummyMap.put("宮崎県", new GLatLng(31.56, 131.25));
+        dummyMap.put("鹿児島県", new GLatLng(31.36, 130.33));
+        dummyMap.put("沖縄県", new GLatLng(26.13, 127.41));
 
 
 
