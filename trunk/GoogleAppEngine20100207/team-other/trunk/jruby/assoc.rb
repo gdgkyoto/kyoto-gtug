@@ -16,7 +16,7 @@ class CalcAssociation
   end
 end
 
-
+# 人数の多さで連結の強さを測る
 class CountCalcAssociation
   def calc()
     overlap_users = []
@@ -30,7 +30,7 @@ class CountCalcAssociation
     Association.create({
       :group1group2 => user1 + ":" + user2,
       :value => overlap_users.count
-    })  
+    })
 end
 
 #グループのユーザリスト(twitter api のキャッシュ的存在)
@@ -52,7 +52,7 @@ class DenstinyCalcAssociation
         count = count + 1 if user1 == user2
       end
     end
-    
+
     Association.create({
       :group1group2 => user1 + ":" + user2,
       :value => count/group1.users.count + count/group2.users.count
