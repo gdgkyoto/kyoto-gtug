@@ -24,10 +24,10 @@ end
 
 
 get '/mapinfo/group/' do
-	ido1   = param[:ido1]
-	keido1 = param[:keido1]
-	ido2   = param[:ido2]
-	keido2 = param[:keido2]
+	ido1   = params[:ido1]
+	keido1 = params[:keido1]
+	ido2   = params[:ido2]
+	keido2 = params[:keido2]
 
 	ido1_num = ido1.to_i
 	ido2_num = ido2.to_i
@@ -110,6 +110,16 @@ get '/group/delete/:key' do
 	else
 	end
 	redirect '/group/'
+end
+
+
+post '/group/position/' do
+  pos1 = params[:pos1]
+  pos2 = params[:pos2]
+
+	@group_names = GroupPostion.get_groupname(pos1,pos2)
+
+	erb "<pre>#{h PP.pp(@group_names,'')}</pre>"
 end
 
 
