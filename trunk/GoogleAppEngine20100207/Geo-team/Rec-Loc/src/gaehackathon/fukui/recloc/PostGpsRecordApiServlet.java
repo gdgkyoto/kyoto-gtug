@@ -2,8 +2,10 @@ package gaehackathon.fukui.recloc;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ public class PostGpsRecordApiServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
 		
+		String userCode = req.getParameter("code");
 		GpsRecord record = null;
 		try {
 			String userName = req.getParameter("user");
@@ -30,6 +33,13 @@ public class PostGpsRecordApiServlet extends HttpServlet {
 		// •Û‘¶
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
+			Query query = pm.newQuery(RecLocUser.class);
+			query.setFilter("hashCode == rplHashCode");
+			query.declareParameters("String rplHashCode");
+			List<RecLocUser> users = (List<RecLocUser>)query.execute(userCode);
+			if (users.size() != 1) {
+				resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+			}
 			pm.makePersistent(record);
 		} finally {
 			pm.close();
