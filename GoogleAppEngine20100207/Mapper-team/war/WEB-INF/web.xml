@@ -12,7 +12,26 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Mapper</servlet-name>
 		<url-pattern>/mapper</url-pattern>
 	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+	<servlet>
+		<servlet-name>SetKeyword</servlet-name>
+		<servlet-class>jp.fukui.mapper.form.SetKeyword</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SetKeyword</servlet-name>
+		<url-pattern>/setKeyword</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetKeyword</servlet-name>
+		<servlet-class>jp.fukui.mapper.form.GetKeyword</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetKeyword</servlet-name>
+		<url-pattern>/getKeyword</url-pattern>
+	</servlet-mapping>
 </web-app>
