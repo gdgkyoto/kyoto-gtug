@@ -31,6 +31,14 @@ get '/devutil/create_groupdata' do
 									:tags=>['IT','FUKUI'],
 									:description=>'さかいのグループ'
 								} )
+	Group.create( {	:groupname => 'TeamOther',
+									:site_url=>'https://www.google.com/accounts/ServiceLogin?passive=true&service=groups2&continue=http%3A%2F%2Fgroups.google.co.jp%2Fgroup%2Fhokuriku_engineer&cd=JP&hl=ja',
+									:logo_url=>'',
+									:listnames=>['@tomohiro555/fitea'],
+									:location=>'35.943044,136.198797',
+									:tags=>['IT','FUKUI'],
+									:description=>'つながったー開発グループ'
+								} )
 	erb	'ok <a href="./">戻る</a>'
 end
 
@@ -85,6 +93,10 @@ get '/devutil/create_GroupPostion' do
 												:groupname => 'Sakai',
 												:posindex  => create_pos_index(36.172803,136.231842)
 											})
+	GroupPostion.create({
+												:groupname => 'TeamOther',
+												:posindex  => create_pos_index(35.943044,136.198797)
+											})
 
 	erb	'ok <a href="./">戻る</a>'
 end
@@ -106,6 +118,14 @@ get '/devutil/create_Association' do
 											:group1group2=>['FITEA','Sakai'].sort.join(':'),
 											:value => 1		# 1～10
 											})
+	Association.create({
+											:group1group2=>['FITEA','TeamOther'].sort.join(':'),
+											:value => 2		# 1～10
+											})
+	Association.create({
+											:group1group2=>['HokuEng','TeamOther'].sort.join(':'),
+											:value => 2		# 1～10
+											})
 #	Association.create({
 #											:group1group2=>['FITEA','HokuEng'].sort.join(':'),
 #											:value => 8		# 1～10
@@ -120,4 +140,26 @@ get '/devutil/test_GroupPostion' do
 	@r = GroupPostion.get_groupname(pos1,pos2)
 
 	erb "<pre>#{h PP.pp(@r,'')}</pre>"
+end
+
+
+get '/devutil/json' do
+#text/javascript; charset=utf-8
+	content_type 'text/javascript', :charset => 'utf-8'	
+	'[1,2,3]'
+end
+
+get '/devutil/jsontest' do
+	erb %|
+		<script type="text/javascript">
+		<!--
+			$(document).ready(function(){
+				$.getJSON("/devutil/json",{},
+function(json){
+  alert(json);
+});
+			});
+		//-->
+		</script>
+	|
 end
