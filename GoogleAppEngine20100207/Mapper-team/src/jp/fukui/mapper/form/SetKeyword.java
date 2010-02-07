@@ -21,6 +21,7 @@ public class SetKeyword extends HttpServlet {
 		{
 			// キーワードの挿入
 			jp.fukui.mapper.MapperDB.MapperDB db = new jp.fukui.mapper.MapperDB.MapperDB(); 
+			db.NewKeyword(setKeyword);
 			if(db.SetKeyword(setKeyword))
 			{
 				// 成功
