@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import jp.fukui.mapper.MapperDB.MapperDB;
 import jp.fukui.mapper.MapperData.MapperData;
 
 /**
@@ -107,32 +108,9 @@ public class MapperXML {
 		ArrayList<MapperData> resultList = new ArrayList<MapperData>();
 
 		// DB‚©‚çŽæ“¾
-		//		MapperDB dbAccess = new MapperDB();
-
-		MapperData data = new MapperData();
-		data.SetKeyword("Google");
-		data.SetType(1l);
-		resultList.add(data);
-
-		data = new MapperData();
-		data.SetKeyword("Google");
-		data.SetType(2l);
-		data.SetPropaty("What Service?");
-		resultList.add(data);
-
-		data = new MapperData();
-		data.SetKeyword("Google");
-		data.SetType(3l);
-		data.SetPropaty("What Service?");
-		data.SetParameter("search");
-		resultList.add(data);
-
-		data = new MapperData();
-		data.SetKeyword("Google");
-		data.SetType(3l);
-		data.SetPropaty("What Service?");
-		data.SetParameter("gmail");
-		resultList.add(data);
+		MapperDB db = new MapperDB();
+		
+		resultList = db.Get(keyword);
 
 		return resultList;
 	}
