@@ -45,13 +45,16 @@ public class GetGpsRecordApiServlet extends HttpServlet {
 		}
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Query query = pm.newQuery(GpsRecord.class);
-		query.setFilter("ownerName == replOwnerName");
-		query.setOrdering("postGpsDate");
-		query.setRange(startPoint, (startPoint + maxPoints));
-		query.declareParameters("String replOwnerName");
-		List<GpsRecord> recs = (List<GpsRecord>)query.execute(user.getName());
-		
+		try {
+			Query query = pm.newQuery(GpsRecord.class);
+			query.setFilter("ownerName == replOwnerName");
+			query.setOrdering("postGpsDate");
+			query.setRange(startPoint, (startPoint + maxPoints));
+			query.declareParameters("String replOwnerName");
+			List<GpsRecord> recs = (List<GpsRecord>)query.execute(user.getName());
+		} finally {
+			pm.close();
+		}
 		/*
 		StringBuilder queryStr = new StringBuilder();
 		queryStr.append("select from ").append(GpsRecord.class.getName());
