@@ -161,7 +161,7 @@ get '/devutil/test_GroupPostion' do
 #  @ary2 = [ary2]
   @result = [@arr, @asso]
 
-	erb "<pre>#{h (@result.to_json)}</pre>"
+	erb "<pre>#{h (@result)}</pre>"
 end
 
 
