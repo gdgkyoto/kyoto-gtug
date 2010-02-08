@@ -5,6 +5,7 @@ require 'util'
 	##モデル追加
 require 'model'
 #require 'json'
+require 'lib/json'
 
 include MySinatraUtil
 
@@ -51,12 +52,12 @@ end
 
 # Time.now.strftime("%Y%m%d%H%M%S")+"-"+java.util.UUID.randomUUID().to_s
 
-class Group < TinyDS::Base
-  property :groupname,   		:string
-  property :url, 	  		:string
-  property :list,       :string	
-  property :tag,       :string	
-end
+#class Group < TinyDS::Base
+#  property :groupname,   		:string
+#  property :url, 	  		:string
+#  property :list,       :string	
+#  property :tag,       :string	
+#end
 
 post '/group/create/' do
 	is_ok = request_is_ok?({:groupname=>"グループ名なし",:list=>"LISTなし"})
@@ -114,35 +115,39 @@ get '/group/delete/:key' do
 end
 
 
-post '/group/position/' do
+get '/group/position/' do
 #  pos1 = [params[:ido1].to_i, params[:keido1].to_i]
 #  pos2 = [params[:ido2].to_i, params[:keido2].to_i]
 	pos1 = [35.95133,136.018982]
 	pos2 = [36.248703,136.724854]
 
-  arr = []
-	@group_names = GroupPostion.get_groupname(pos1,pos2)
-  @group_names.each do |name|
+  ret_group_list = []
+	cache_of_group = {}
+	group_names = GroupPostion.get_groupname(pos1,pos2)
+  group_names.each do |name|
     group = Group.query.filter(:groupname, "==", name).all[0]
-    arr << Hash[:id => group.key, :name => group.groupname,
+		cache_of_group[group.groupname] = group.key.to_s
+    ret_group_list << Hash['id' => group.key.to_s, :name => group.groupname,
                 :lat => group.location.split(',')[0], :lng => group.location.split(',')[1]]
   end
   
   asso = []
-  @group_names.each_index do |i|
-    @group_names.each_index do |j|
+  group_names.each_index do |i|
+    group_names.each_index do |j|
       next if j <= i # G1とG2の計算が終わったらG2とG1を計算しないための制御
-      asso << Association.query.filter(:group1group2, "==", [@group_names[i], @group_names[j]].sort.join(':')).all[0]
+      ass = Association.query.filter(:group1group2, "==", [group_names[i], group_names[j]].sort.join(':')).all[0]
+      asso << [cache_of_group[group_names[i]],cache_of_group[group_names[j]],ass.value] if ass
     end
   end
 
 #  ary2 = ary.map{|item| item.each{|k,v| k+':'+v.inspect}}
 
-  @result = [arr2, asso]
+  @result = [ret_group_list, asso]
 #  { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 }
   content_type 'text/javascript', :charset => 'utf-8'	
 
 #  @result.to_json
+	WebAPI::JsonBuilder.new.build(@result)
 end
 
 
