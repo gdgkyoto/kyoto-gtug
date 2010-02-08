@@ -27,6 +27,26 @@ function initializeMap() {
 }
 
 function updateGroupMap(map) {
+	$.getJSON("/group/position/", {  }, function(json){
+
+			var groups = json[0];
+			var relations = json[1];
+
+			var groupHashMap = new Array();
+			for (var i = 0; i < groups.length; i++) {
+				groupHashMap[groups[i].id] = groups[i];
+			}
+
+			//clear all markers and lines
+			map.clearOverlays();
+
+			//add new marker and lines
+			addAllGroupMarkers(map, groups);
+			addAllRelationLines(map, relations, groupHashMap);
+
+		});
+
+/**
 	groupData = getGroupData(map);
 	
 	//clear all markers and lines
@@ -35,6 +55,7 @@ function updateGroupMap(map) {
 	//add new marker and lines
 	addAllGroupMarkers(map, groupData.groups);
 	addAllRelationLines(map, groupData.relations, groupData.groupHashMap);
+**/
 }
 
 function getGroupData(map) {
@@ -65,7 +86,7 @@ function getGroupData(map) {
 		];
 	groupData.groups = groups;
 	groupData.relations = relations;
-		
+
 	var groupHashMap = new Array();
 	for (var i = 0; i < groups.length; i++) {
 		groupHashMap[groups[i].id] = groups[i];
@@ -152,3 +173,11 @@ function getGroupDetails(groupId) {
 function initialize() {
 	var groupMap = new GroupMap();
 }
+
+// body の onload の代わりに jquery のを使うようにする。By H
+// 後々リファクタリングする!!
+/**
+$(document).ready(function(){
+	initialize();
+});
+**/
