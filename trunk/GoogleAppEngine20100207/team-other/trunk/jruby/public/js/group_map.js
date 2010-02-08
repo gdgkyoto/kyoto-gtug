@@ -11,7 +11,7 @@ function initializeMap() {
 	map.addControl(new GLargeMapControl());
 	map.addControl(new GMapTypeControl());
 	var center = new GLatLng(36.173357, 136.224976);
-	map.setCenter(center, 8);
+	map.setCenter(center, 9);
 	
 	groupData.bounds = map.getBounds();
 
@@ -37,6 +37,9 @@ function updateGroupMap(map) {
 				groupHashMap[groups[i].id] = groups[i];
 			}
 
+			var mapBounds = map.getBounds(); //TODO 大きめの領域に
+			groupData.bounds = mapBounds;  //取得時の領域を記憶
+
 			//clear all markers and lines
 			map.clearOverlays();
 
@@ -45,19 +48,9 @@ function updateGroupMap(map) {
 			addAllRelationLines(map, relations, groupHashMap);
 
 		});
-
-/**
-	groupData = getGroupData(map);
-	
-	//clear all markers and lines
-	map.clearOverlays();
-
-	//add new marker and lines
-	addAllGroupMarkers(map, groupData.groups);
-	addAllRelationLines(map, groupData.relations, groupData.groupHashMap);
-**/
 }
 
+/*
 function getGroupData(map) {
 	var groupData = { };
 	//get data from server
@@ -65,19 +58,11 @@ function getGroupData(map) {
 	var mapBounds = map.getBounds();
 	var zoomLevel = map.getZoom();
 	groupData.bounds = mapBounds;  //取得時の領域を記憶
-	///////////TODO
-/**
-	$.getJSON("/group/position/", {  }, function(json){
-//		  alert("JSON Data: " + json.users[3].name);
-		groupData.groups = json[0];
-		groupData.relations = json[1];
-		}); } );
-**/	
 
 	//dummy
 	var groups = [ { id: "id1", name: "FITEA", lat: 36.173357, lng: 136.224976 },
 	               { id: "id2", name: "日本語名のグループ名", lat: 36.000000, lng: 136.000000 },
-	               { id: "id3", name: "LONG NAME", lat: 35.350000, lng: 137.224976 }
+	               { id: "id3", name: "チームOther", lat: 35.350000, lng: 137.224976 }
 		];
 	//dummy tunagari data
 	var relations = [ { group1_id: "id1", group2_id: "id2", tunagari: 3 },
@@ -94,6 +79,7 @@ function getGroupData(map) {
 	groupData.groupHashMap = groupHashMap;
 	return groupData;
 }
+*/
 
 function addAllGroupMarkers(map, groups) {
 	for (var i = 0; i < groups.length; i++) {
@@ -122,12 +108,16 @@ function addAllRelationLines(map, relations, groupHashMap) {
 }
 
 function addRelationLine(map, relation, groupHashMap) {
-	var group1 = groupHashMap[relation.group1_id];
+//	var group1 = groupHashMap[relation.group1_id];
+	var group1 = groupHashMap[relation[0]];
 	var location1 = new GLatLng(group1.lat, group1.lng, false);
-	var group2 = groupHashMap[relation.group2_id];
+//	var group2 = groupHashMap[relation.group2_id];
+	var group2 = groupHashMap[relation[1]];
 	var location2 = new GLatLng(group2.lat, group2.lng, false);
+//	var tunagari = relation.tunagari;
+	var tunagari = relation[2] * 5;
 
-	var polyline = new GPolyline([location1, location2], "#ff0000", relation.tunagari);
+	var polyline = new GPolyline([location1, location2], "#ff0000", tunagari, 1);
 	map.addOverlay(polyline);
 }
 
@@ -159,8 +149,8 @@ function onSelectedGroup(group) {
 function getGroupDetails(groupId) {
 	var groupDetails = [
 	               { id: "id1", name: "FITEA", description: "こんなグループです", tags: "GAE, RIA, Java, Python, Ruby", url: "http://www.www.www"},
-	               { id: "id2", name: "FITEA", description: "こんなグループです", tags: "GAE, RIA, Java, Python, Ruby", url: "http://www.www.www"},
-	               { id: "id3", name: "FITEA", description: "こんなグループです", tags: "GAE, RIA, Java, Python, Ruby", url: "http://www.www.www"}
+	               { id: "id2", name: "日本語名のグループ名", description: "こんなグループです", tags: "GAE, RIA, Java, Python, Ruby", url: "http://www.www.www"},
+	               { id: "id3", name: "チームOther", description: "こんなグループです", tags: "GAE, RIA, Java, Python, Ruby", url: "http://www.www.www"}
 		];
 	var groupDetailHashMap = new Array();
 	for (var i = 0; i < groupDetails.length; i++) {
