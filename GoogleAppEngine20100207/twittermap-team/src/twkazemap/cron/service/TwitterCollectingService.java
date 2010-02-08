@@ -6,11 +6,14 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+import javax.xml.XMLConstants;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -25,6 +28,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -100,26 +104,60 @@ public class TwitterCollectingService {
 		httpClient.getConnectionManager().shutdown();
 
 		XPath xpath = XPathFactory.newInstance().newXPath();
+		xpath.setNamespaceContext(new NamespaceContext() {
+			@Override
+			public String getNamespaceURI(String prefix) {
+				if (prefix == null) {
+					throw new NullPointerException("Null prefix");
+				} else if ("google".equals(prefix)) {
+					return "http://base.google.com/ns/1.0";
+				} else if ("twitter".equals(prefix)) {
+					return "http://api.twitter.com/";
+				} else if ("atom".equals(prefix)) {
+					return "http://www.w3.org/2005/Atom";
+				} else if ("georss".equals(prefix)) {
+					return "http://www.georss.org/georss";
+				}
+				return XMLConstants.NULL_NS_URI;
+			}
+
+			@Override
+			public String getPrefix(String namespaceURI) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public Iterator<String> getPrefixes(String namespaceURI) {
+				throw new UnsupportedOperationException();
+			}
+		});
 		try {
-			NodeList list = (NodeList) xpath.evaluate("/feed/entry", doc, XPathConstants.NODESET);
-			for (int i = 1; i <= list.getLength(); ++i) {
-				String id = (String) xpath.evaluate(String.format("/feed/entry[%d]/id/text()", i), doc,
-						XPathConstants.STRING);
+			NodeList list = (NodeList) xpath.evaluate("/atom:feed/atom:entry", doc, XPathConstants.NODESET);
+			for (int i = 0; i < list.getLength(); ++i) {
+				Node n = list.item(i);
+				String id = (String) xpath.evaluate(String.format("atom:id/text()", i), n, XPathConstants.STRING);
 				id = id.substring(1 + id.lastIndexOf(":"));
-				String text = (String) xpath.evaluate(String.format("/feed/entry[%d]/title/text()", i), doc,
+				String text = (String) xpath.evaluate(String.format("atom:title/text()", i), n, XPathConstants.STRING);
+				String update = (String) xpath.evaluate(String.format("atom:published/text()", i), n,
 						XPathConstants.STRING);
-				String update = (String) xpath.evaluate(String.format("/feed/entry[%d]/published/text()", i), doc,
-						XPathConstants.STRING);
-				Date theUpdate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(update);
-				String name = (String) xpath.evaluate(String.format("/feed/entry[%d]/author/name/text()", i), doc,
+				Date theUpdate = null;
+				String updateStr = "";
+				if (null != update && !"".equals(update)) {
+					theUpdate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(update);
+					updateStr = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(theUpdate);
+				}
+				String name = (String) xpath.evaluate(String.format("atom:author/atom:name/text()", i), n,
 						XPathConstants.STRING);
 				String nameId = name.substring(0, name.indexOf(" "));
 				String showName = name.substring(1 + name.indexOf("("), name.indexOf(")"));
-				String geo = (String) xpath.evaluate(String.format("/feed/entry[%d]/twitter:geo/text()", i), doc,
+				String geo = (String) xpath.evaluate(String.format("twitter:geo/georss:point/text()", i), n,
 						XPathConstants.STRING);
-				boolean geoEnabled = null == geo || "".equals(geo) ? false : true;
-				LOG.info(String.format("%d:%s, %s, %s, [%s], %s, %s", i, id, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-						.format(theUpdate), nameId, showName, text, geo));
+				boolean geoEnabled = null != geo && !"".equals(geo);
+				String location = (String) xpath
+						.evaluate(String.format("google:location", i), n, XPathConstants.STRING);
+
+				LOG.info(String.format("%d:%s, %s, %s, [%s], %s, %s, %b, %s", i, id, updateStr, nameId, showName, text,
+						geo, geoEnabled, location));
 
 				Twitter t = new Twitter();
 				t.setCreateDatetime(theUpdate);
@@ -151,6 +189,7 @@ public class TwitterCollectingService {
 		try {
 			DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
 			// fac.setValidating(true);
+			fac.setNamespaceAware(true);
 			DocumentBuilder db = fac.newDocumentBuilder();
 			db.setErrorHandler(new ErrorHandler() {
 				public void warning(SAXParseException exception) throws SAXException {
