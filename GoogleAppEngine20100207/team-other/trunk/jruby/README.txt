@@ -1,9 +1,12 @@
 
 
-�J���f�[�^�쐬URL
+■開発データ作成URL
 http://localhost:8080/devutil/
-	��L�ɃA�N�Z�X���āA�N���b�N����ƊJ���f�[�^���쐬�����
+	上記にアクセスして、クリックすると開発データが作成される
+		・グループデータ作成
+		・グループ間のつながりデータ作成
+		・グループ位置の検索インデックス作成
 
-���[�J���f�[�^�m�F
+■ローカルデータ確認
 http://localhost:8080/_ah/admin
 
