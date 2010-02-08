@@ -1,6 +1,7 @@
 require 'pp'
 #require 'json'
 
+
 get '/devutil/' do
 
 	erb	:dev_util
@@ -161,7 +162,7 @@ get '/devutil/test_GroupPostion' do
 #  @ary2 = [ary2]
   @result = [@arr, @asso]
 
-	erb "<pre>#{h (@result)}</pre>"
+	erb "<pre>#{h(@result)}</pre>"
 end
 
 
@@ -176,12 +177,21 @@ get '/devutil/jsontest' do
 		<script type="text/javascript">
 		<!--
 			$(document).ready(function(){
-				$.getJSON("/devutil/json",{},
+				$.getJSON("/group/position/",{},
 function(json){
   alert(json);
 });
 			});
 		//-->
 		</script>
+	
+	<div id="content-main">
+		<div id="map" class="test">
+			地図
+		</div>
+		<div id="group_details" class="test">
+			タイムライン
+		</div>
+	</div>
 	|
 end
