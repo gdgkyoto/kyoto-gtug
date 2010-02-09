@@ -27,7 +27,17 @@ function initializeMap() {
 }
 
 function updateGroupMap(map) {
-	$.getJSON("/group/position/", {  }, function(json){
+  var bounds = map.getBounds(); 
+  var southWest = bounds.getSouthWest(); 
+  var northEast = bounds.getNorthEast(); 
+	//lat: 36.173357, lng: 136.224976
+
+	var params = {keido1:southWest.lng(),
+	ido1:southWest.lat(),
+	keido2:northEast.lng(),
+	ido2:northEast.lat()}
+
+	$.getJSON("/group/position/", params , function(json){
 
 			var groups = json[0];
 			var relations = json[1];
@@ -108,14 +118,14 @@ function addAllRelationLines(map, relations, groupHashMap) {
 }
 
 function addRelationLine(map, relation, groupHashMap) {
-//	var group1 = groupHashMap[relation.group1_id];
-	var group1 = groupHashMap[relation[0]];
+	var group1 = groupHashMap[relation.group1_id];
+//	var group1 = groupHashMap[relation[0]];
 	var location1 = new GLatLng(group1.lat, group1.lng, false);
-//	var group2 = groupHashMap[relation.group2_id];
-	var group2 = groupHashMap[relation[1]];
+	var group2 = groupHashMap[relation.group2_id];
+//	var group2 = groupHashMap[relation[1]];
 	var location2 = new GLatLng(group2.lat, group2.lng, false);
-//	var tunagari = relation.tunagari;
-	var tunagari = relation[2] * 5;
+	var tunagari = relation.tunagari;
+//	var tunagari = relation[2] * 5;
 
 	var polyline = new GPolyline([location1, location2], "#ff0000", tunagari, 1);
 	map.addOverlay(polyline);

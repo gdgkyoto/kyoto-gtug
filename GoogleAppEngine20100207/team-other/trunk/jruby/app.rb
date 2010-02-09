@@ -114,12 +114,19 @@ get '/group/delete/:key' do
 	redirect '/group/'
 end
 
-
 get '/group/position/' do
-#  pos1 = [params[:ido1].to_i, params[:keido1].to_i]
-#  pos2 = [params[:ido2].to_i, params[:keido2].to_i]
+
+	##TODO 削除		とりあえず、福井周辺をいれてます
 	pos1 = [35.95133,136.018982]
 	pos2 = [36.248703,136.724854]
+
+	if params[:ido1] && params[:ido2] && params[:keido1] && params[:keido2] 
+		##TODO 数字の妥当性チェック
+	  pos1 = [params[:ido1].to_f, params[:keido1].to_f]
+	  pos2 = [params[:ido2].to_f, params[:keido2].to_f]
+	else
+		##TODO エラー処理
+	end
 
   ret_group_list = []
 	cache_of_group = {}
@@ -136,7 +143,7 @@ get '/group/position/' do
     group_names.each_index do |j|
       next if j <= i # G1とG2の計算が終わったらG2とG1を計算しないための制御
       ass = Association.query.filter(:group1group2, "==", [group_names[i], group_names[j]].sort.join(':')).all[0]
-      asso << [cache_of_group[group_names[i]],cache_of_group[group_names[j]],ass.value] if ass
+      asso << {:group1_id=>cache_of_group[group_names[i]],:group2_id=>cache_of_group[group_names[j]],:tunagari=>ass.value} if ass
     end
   end
 
