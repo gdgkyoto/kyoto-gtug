@@ -1,10 +1,13 @@
 require 'appengine-rack'
-AppEngine::Rack.configure_app(          
-    :application => "tunagatta",           
+AppEngine::Rack.configure_app(
+    :application => "tunagatter",
     :precompilation_enabled => true,
     :version => "1")
 
 require 'app.rb'
+
+#開発用ツール
+require 'dev_util'
 
 configure :development do
   class Sinatra::Reloader < ::Rack::Reloader
