@@ -30,12 +30,12 @@ function updateGroupMap(map) {
   var bounds = map.getBounds(); 
   var southWest = bounds.getSouthWest(); 
   var northEast = bounds.getNorthEast(); 
-	//lat: 36.173357, lng: 136.224976
 
 	var params = {keido1:southWest.lng(),
 	ido1:southWest.lat(),
 	keido2:northEast.lng(),
 	ido2:northEast.lat()}
+	//サーバサイドで少し大きめに取得してますがちょっと不十分です。
 
 	$.getJSON("/group/position/", params , function(json){
 
@@ -105,9 +105,10 @@ function addGroupMarker(map, group) {
 
 	GEvent.addListener(marker, 'click', function() {
 		//	         var info = "id = " + group.id + ", name = " + group.name + ",\n lat = " + group.lat + ", lng = " + group.lng;
-		var info = group.name + ":\n welcome";
-		marker.openInfoWindow(document.createTextNode(info));
-		onSelectedGroup(group);
+//取得した情報ベースで表示しよう
+//		var info = group.name + ":\n welcome";
+//		marker.openInfoWindow(document.createTextNode(info));
+		onSelectedGroup(group,marker);
 	});
 }
 
@@ -131,14 +132,23 @@ function addRelationLine(map, relation, groupHashMap) {
 	map.addOverlay(polyline);
 }
 
-function onSelectedGroup(group) {
+function onSelectedGroup(group,marker) {
 	var groupId = group.id;
 	//グループ詳細情報をサーバから取得
-	var groupDetails = getGroupDetails(groupId);
+	//var groupDetails = getGroupDetails(groupId);
 
+	$.getJSON("/group/information/json/"+groupId, {} , function(json){
 	//グループ詳細表示の更新
-    var groupDetailsText = groupDetails.name + ", " + groupDetails.tags + ", " + groupDetails.url;
-	document.getElementById("group_details").innerText = "選択されたグループ: " + groupDetailsText;
+		var groupDetails = json
+
+		//マーカー作成
+		var info = groupDetails.name + ":\n "+groupDetails.description;
+		marker.openInfoWindow(document.createTextNode(info));
+
+		//div要素変更(TODO?)
+		var groupDetailsText = groupDetails.name + ", " + groupDetails.tags + ", " + groupDetails.url;
+		document.getElementById("group_details").innerText = "選択されたグループ: " + groupDetailsText;
+	});
 
 	//twitterつぶやきの更新
 	//TODO
