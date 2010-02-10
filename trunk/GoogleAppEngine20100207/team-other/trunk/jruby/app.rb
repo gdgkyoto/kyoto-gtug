@@ -21,23 +21,8 @@ before do
 end
 
 get '/' do
+	## TODO index.erb は レイアウトなしのほうがいいかもしれない。
 	erb	:index		# ./views/index.erb をレンダリングします。(layout.erbも含めて)
-end
-
-
-get '/mapinfo/group/' do
-	ido1   = params[:ido1]
-	keido1 = params[:keido1]
-	ido2   = params[:ido2]
-	keido2 = params[:keido2]
-
-	ido1_num = ido1.to_i
-	ido2_num = ido2.to_i
-	keido1_num = keido1.to_i
-	keido2_num = keido2.to_i
-
-	
-
 end
 
 
@@ -114,17 +99,36 @@ get '/group/delete/:key' do
 	redirect '/group/'
 end
 
+get '/group/information/json/:key' do
+	group = Group.get(params[:key])
+	hash = nil
+	if group
+		hash = {:name=>group.groupname,
+							:site_url=>group.site_url,
+							:logo_url=>group.logo_url,
+							:tags=>group.tags,
+							:description=>group.description}
+	else
+		hash = {:name=>'',
+							:site_url=>'',
+							:logo_url=>'',
+							:tags=>'',
+							:description=>''}
+	end
+	WebAPI::JsonBuilder.new.build(hash)
+end
+
 get '/group/position/' do
-
-	##TODO 削除		とりあえず、福井周辺をいれてます
-	pos1 = [35.95133,136.018982]
-	pos2 = [36.248703,136.724854]
-
+	pos1 = nil
+	pos2 = nil
 	if params[:ido1] && params[:ido2] && params[:keido1] && params[:keido2] 
 		##TODO 数字の妥当性チェック
 	  pos1 = [params[:ido1].to_f, params[:keido1].to_f]
 	  pos2 = [params[:ido2].to_f, params[:keido2].to_f]
 	else
+		##TODO 削除		とりあえず、福井周辺をいれてます
+		pos1 = [35.95133,136.018982]
+		pos2 = [36.248703,136.724854]
 		##TODO エラー処理
 	end
 
