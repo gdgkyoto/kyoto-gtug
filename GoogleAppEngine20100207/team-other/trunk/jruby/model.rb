@@ -36,12 +36,12 @@ class GroupPostion< TinyDS::Base
 	property	    :posindex       ,:string     #緯度経度の丸め値
 	property	    :groupname      ,:string     #グループ名
 
-	# pos1 南西
-	#	pos2 北東
+	# pos1 南西の緯度経度
+	#	pos2 北東の緯度経度
 	def self.get_groupname( pos1 , pos2 )
 		logs = []
-		keido_s = pos1[0]*60
-		keido_e = ((pos2[0]*60+9)/10)*10
+		keido_s = ((pos1[0]*60-9)/10)*10		#丸め処理
+		keido_e = ((pos2[0]*60+9)/10)*10		#丸め処理
 		groups = []
 		range = Range.new(keido_s,keido_e)
 		range.step(10) do |keido|
@@ -50,11 +50,11 @@ class GroupPostion< TinyDS::Base
 			ks = create_key_name(ss)
 			ke = create_key_name(se)
 			logs << [ks,ke]
-			self.query.filter(:posindex, ">=", ks).filter(:posindex, "<=", ke).all.all?{|r| groups << r.groupname }
+			self.query.filter(:posindex, ">=", ks).
+										filter(:posindex, "<=", ke).
+											all.all?{|r| groups << r.groupname }
 		end
 		groups
-#		logs << groups
-#		logs
 	end
 
 	def self.create_key_name( pos )
@@ -78,7 +78,7 @@ end
 #グループ-グループ間の相関
 class Association< TinyDS::Base
 	property	    :group1group2   ,:string     #50文字x2 程度 (FITEA:WCAF)のような連結文字列を想定
-	property	    :value      ,:integer    #強さ(正負)最大??
+	property	    :value    		  ,:integer    #強さ(正負)最大??
 end
 
 class TwitterAccount<TinyDS::Base
