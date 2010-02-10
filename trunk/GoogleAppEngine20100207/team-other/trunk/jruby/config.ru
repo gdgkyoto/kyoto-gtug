@@ -9,7 +9,9 @@ require 'app.rb'
 configure :development do
   class Sinatra::Reloader < ::Rack::Reloader
     def safe_load(file, mtime, stderr = $stderr)
-      ::Sinatra::Application.reset!
+      if file == Sinatra::Application.app_file 
+        ::Sinatra::Application.reset!
+      end
       super
     end
   end
