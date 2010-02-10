@@ -162,4 +162,3 @@ get '/group/position/' do
 end
 
 
-require 'dev_util'
