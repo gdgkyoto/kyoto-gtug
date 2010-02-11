@@ -37,7 +37,7 @@ function updateGroupMap(map) {
 	ido2:northEast.lat()}
 	//サーバサイドで少し大きめに取得してますがちょっと不十分です。
 
-	$.getJSON("/group/position/", params , function(json){
+	$.getJSON("/group/position/json/", params , function(json){
 
 			var groups = json[0];
 			var relations = json[1];
