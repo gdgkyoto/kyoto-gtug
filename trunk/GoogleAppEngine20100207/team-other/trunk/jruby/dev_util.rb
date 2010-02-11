@@ -3,8 +3,77 @@ require 'pp'
 
 
 get '/devutil/' do
-
 	erb	:dev_util
+end
+
+get '/devutil/create_initialdata' do
+	Group.destroy_all		#データ全消し
+	#GroupUserList.destroy_all		#データ全消し
+	GroupPostion.destroy_all
+	Association.destroy_all
+
+	associations = [
+			[['FITEA','HokuEng'],				8],
+			[['FITEA','Sakai'],					1],
+			[['FITEA','TeamOther'],			2],
+			[['HokuEng','TeamOther'],		2],
+	]
+
+	list = [	
+			{
+				:groupname => 'FITEA',
+				:site_url=>'http://www.fitea.org/',
+				:logo_url=>'',
+				:listnames=>['@tomohiro555/fitea'],
+				:tags=>['IT','FUKUI'],
+				:location=>'36.067278,136.219311',
+				:description=>'福井情報技術者協会'
+			}, 
+			{
+				:groupname => 'HokuEng',
+				:site_url=>'https://www.google.com/accounts/ServiceLogin?passive=true&service=groups2&continue=http%3A%2F%2Fgroups.google.co.jp%2Fgroup%2Fhokuriku_engineer&cd=JP&hl=ja',
+				:logo_url=>'',
+				:listnames=>['@tomohiro555/fitea'],
+				:location=>'36.573078,136.657562',
+				:tags=>['IT','FUKUI','ISHIKAWA','TOYAMA'],
+				:description=>'北陸エンジニアグループ '
+			},
+			{
+				:groupname => 'Sakai',
+				:site_url=>'https://www.google.com/accounts/ServiceLogin?passive=true&service=groups2&continue=http%3A%2F%2Fgroups.google.co.jp%2Fgroup%2Fhokuriku_engineer&cd=JP&hl=ja',
+				:logo_url=>'',
+				:listnames=>['@tomohiro555/fitea'],
+				:location=>'36.172803,136.231842',
+				:tags=>['IT','FUKUI'],
+				:description=>'さかいのグループ'
+			},
+			{
+				:groupname => 'TeamOther',
+				:site_url=>'https://www.google.com/accounts/ServiceLogin?passive=true&service=groups2&continue=http%3A%2F%2Fgroups.google.co.jp%2Fgroup%2Fhokuriku_engineer&cd=JP&hl=ja',
+				:logo_url=>'',
+				:listnames=>['@tomohiro555/fitea'],
+				:location=>'35.943044,136.198797',
+				:tags=>['IT','FUKUI'],
+				:description=>'つながったー開発グループ'
+			}
+	]
+
+	###自動作成
+	list.each do |item|
+		Group.create( item )
+		pos = create_pos_index(*( item[:location].split(/,/).map{|val| val.to_f}))
+		GroupPostion.create({
+				:groupname => item[:groupname],
+				:posindex  => pos})
+	end
+	associations.each do |item|
+		Association.create({
+												:group1group2=>item[0].sort.join(':'),
+												:value => item[1]		# 1～10
+												})
+	end
+
+	erb	'ok <a href="./">戻る</a>'
 end
 
 get '/devutil/create_groupdata' do
