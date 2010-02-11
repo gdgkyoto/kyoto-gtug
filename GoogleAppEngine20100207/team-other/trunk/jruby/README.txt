@@ -16,3 +16,11 @@
 ■ローカルデータ確認
 	http://localhost:8080/_ah/admin
 
+
+■ダウンロードしたもの
+
+	JavaScript(MIT)
+		http://github.com/dknight/jQuery-Notify-bar
+
+	JSON
+		

@@ -264,3 +264,14 @@ function(json){
 	</div>
 	|
 end
+
+get '/devutil/printenv/' do
+	erb %{
+<pre>
+	<%=h @env['java.servlet_context'].getServerInfo() %>
+	<% @env.each do |k,v| %>
+		[<%= h k %>]<%= h v.inspect %>
+	<% end %>
+</pre>
+}
+end
