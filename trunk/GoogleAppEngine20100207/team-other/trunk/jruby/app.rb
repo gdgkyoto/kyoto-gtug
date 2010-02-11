@@ -21,8 +21,11 @@ before do
 end
 
 get '/' do
-	## TODO index.erb は レイアウトなしのほうがいいかもしれない。
-	erb	:index		# ./views/index.erb をレンダリングします。(layout.erbも含めて)
+	## index.erb は レイアウトなしにして、レイアウトをレンダリング
+	## しないようにしました。
+	## index.erb ですべての結果が生成できるように、お願いします。
+
+	erb	:index,:layout => false		# ./views/index.erb のみです。
 end
 
 
