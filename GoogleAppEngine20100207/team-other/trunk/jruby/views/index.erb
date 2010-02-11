@@ -34,8 +34,29 @@
 	          //$(this).dialog('close');  
 	        }  
 	      });
+	      $('#login_info').dialog({  
+	        bgiframe: true,
+	        autoOpen: false,
+	        width: 600,
+	        height: 350,  
+	        modal: true,  
+	        close: function() {  
+	        }  
+	      });
+
 			$('#entry-button').click(function() {
-				$('#dialog').dialog('open');  
+				//ログインチェック
+				$.getJSON("/status/accountcheck/json/", {} , function(result){
+					if ( result.status != 'login' ) {
+						//ログインしてなければ、ログイン用ダイアログ表示
+						var anchor = $('#login_info_a');
+						anchor.attr("href",result.url);
+						$('#login_info').dialog('open');
+					} else {
+						//ログイン済みということでダイアログ表示
+						$('#dialog').dialog('open');
+					}
+				});
 	      })
 	    });
     </script> 
@@ -65,6 +86,10 @@
 			サイトURL：<br />
 			<input type="text" name="siteurl" id="siteurl" size="65" />
 		</div>
+		<div id="login_info" title="ログインしてください" style="display: none;">
+			google にログインしてから登録してください。 <a id="login_info_a" href="">google に login</a>
+		</div>
+
 	</div>
 	<div id="content-main">
 		<div id="map" class="test">

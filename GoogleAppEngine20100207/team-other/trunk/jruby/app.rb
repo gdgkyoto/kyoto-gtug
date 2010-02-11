@@ -1,11 +1,12 @@
+##外部ライブラリ
 require 'sinatra'
-require 'appengine-apis/users'
-require 'tiny_ds'
-require 'util'
-	##モデル追加
-require 'model'
-#require 'json'
-require 'lib/json'
+require 'appengine-apis/users'	#認証用
+require 'tiny_ds'								#モデル用
+require 'lib/json'							#外部ライブラリ(JSON)
+
+##内部の今回作成ライブラリ
+require 'util'									#ユーティリティ
+require 'model'									#つながったー独自モデル
 
 include MySinatraUtil
 
@@ -28,6 +29,19 @@ get '/' do
 	erb	:index,:layout => false		# ./views/index.erb のみです。
 end
 
+get '/status/accountcheck/json/' do
+  user_name = AppEngine::Users.current_user
+  h = nil
+  if user_name 
+    url = AppEngine::Users.create_logout_url('/')
+    h = {:status=>'login',:url=>url}
+  else
+    url = AppEngine::Users.create_login_url('/')
+    h = {:status=>'not_login',:url=>url}
+  end
+  content_type 'text/javascript', :charset => 'utf-8'
+  WebAPI::JsonBuilder.new.build(h)
+end
 
 get '/group/' do
 	@groups = Group.query.all
@@ -111,6 +125,7 @@ get '/group/information/json/:key' do
 							:tags=>'',
 							:description=>''}
 	end
+  content_type 'text/javascript', :charset => 'utf-8'	
 	WebAPI::JsonBuilder.new.build(hash)
 end
 
