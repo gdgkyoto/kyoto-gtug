@@ -40,13 +40,6 @@ end
 
 # Time.now.strftime("%Y%m%d%H%M%S")+"-"+java.util.UUID.randomUUID().to_s
 
-#class Group < TinyDS::Base
-#  property :groupname,   		:string
-#  property :url, 	  		:string
-#  property :list,       :string	
-#  property :tag,       :string	
-#end
-
 post '/group/create/' do
 	is_ok = request_is_ok?({:groupname=>"グループ名なし",:list=>"LISTなし"})
 	if is_ok
@@ -121,7 +114,7 @@ get '/group/information/json/:key' do
 	WebAPI::JsonBuilder.new.build(hash)
 end
 
-get '/group/position/' do
+get '/group/position/json/' do
 	pos1 = nil
 	pos2 = nil
 	if params[:ido1] && params[:ido2] && params[:keido1] && params[:keido2] 

@@ -14,6 +14,9 @@ class  Group < TinyDS::Base
 	property	    :swcp           ,:string     #ソフトウェアチェックポイント
 end
 
+class ApplicationLog < TinyDS::Base
+end
+
 #グループのユーザリスト(twitter api のキャッシュ的存在)
 class GroupUserList< TinyDS::Base
 	property	    :groupname      ,:string
