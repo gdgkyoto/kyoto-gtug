@@ -9,10 +9,17 @@ require 'util'									#ユーティリティ
 require 'model'									#つながったー独自モデル
 
 include MySinatraUtil
+include Rack::Utils
+enable :sessions 
 
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
+end
+
+def notify_message( message )
+	session[:notify] ||= []
+	session[:notify] << message
 end
 
 before do
@@ -21,10 +28,21 @@ before do
 	content_type 'text/html', :charset => 'utf-8'	
 end
 
+def is_development?
+	@env['java.servlet_context'].getServerInfo() =~ /Google App Engine Development/ 
+end
+
 get '/' do
 	## index.erb は レイアウトなしにして、レイアウトをレンダリング
 	## しないようにしました。
 	## index.erb ですべての結果が生成できるように、お願いします。
+	if is_development?
+		#開発用キー
+		@google_map_api_key = 'ABQIAAAAgapTRXAOQ1ujOCRTo31osBS9gEXLlk-bbmjsmtM6rjseNKPRwRQbXymit5BVR2Nr5wu33PIQRBz7EA'
+	else
+		#本番用キー
+		@google_map_api_key = 'ABQIAAAAiiJ8no53FLslswsn0wxdVhQ6nRY5Sd7N2P-dpdFFnQhAKbdkbRTSLmNNZFL_0LDokISeuETFi1-rOg'
+	end
 
 	erb	:index,:layout => false		# ./views/index.erb のみです。
 end
@@ -39,6 +57,18 @@ get '/status/accountcheck/json/' do
     url = AppEngine::Users.create_login_url('/')
     h = {:status=>'not_login',:url=>url}
   end
+  content_type 'text/javascript', :charset => 'utf-8'
+  WebAPI::JsonBuilder.new.build(h)
+end
+
+##どうするか悩み中
+get '/status/notifymessage/json/' do
+	h= if session[:notify] && session[:notify].size > 0 
+		{:notify=>true,:message=>session[:notify].map(){|s| escape_html s}.join('<br>'),:timeout=>3000,:speed=>"normal"}
+	else
+		{:notify=>false,:message=>'',:timeout=>3000,:speed=>"normal"}
+	end
+	session.clear
   content_type 'text/javascript', :charset => 'utf-8'
   WebAPI::JsonBuilder.new.build(h)
 end
