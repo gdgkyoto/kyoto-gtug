@@ -1,4 +1,4 @@
-■開発環境準備
+﻿■開発環境準備
 
 	1. dev_appserver.rb .
 	2. http://localhost:8080/
@@ -24,3 +24,11 @@
 
 	JSON
 		
+
+	Twitter4j
+		http://twitter4j.org/ja/index.html#download
+
+■jarファイル追加
+
+	trunk/java/のMyTwitter.jarとtwitter4j-core-2.1.0.jarを
+	jruby/WEB-INF/lib/へコピーしてください。
