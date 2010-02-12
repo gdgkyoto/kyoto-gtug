@@ -3,6 +3,7 @@ require 'sinatra'
 require 'appengine-apis/users'	#認証用
 require 'tiny_ds'								#モデル用
 require 'lib/json'							#外部ライブラリ(JSON)
+require 'WEB-INF/lib/MyTwitter.jar'			#TwitterAPI
 
 ##内部の今回作成ライブラリ
 require 'util'									#ユーティリティ
