@@ -275,3 +275,14 @@ get '/devutil/printenv/' do
 </pre>
 }
 end
+
+#Twitterテスト
+get '/devutil/twitter_get_list_timeline/:screen_name/:list_name/:count/' do
+	include_class('com.ts0604.twitterapi.MyTwitter')
+	MyTwitter.getListTimeLine(params[:screen_name],params[:list_name], (params[:count]).to_i);	#リストのタイムライン取得
+end
+
+get '/devutil/twitter_get_list/:screen_name/:list_name/' do
+	include_class('com.ts0604.twitterapi.MyTwitter')
+	MyTwitter.getList(params[:screen_name], params[:list_name]);	#リスト取得
+end
