@@ -116,6 +116,9 @@ function onSelectedGroup(group,marker) {
 		document.getElementById("group_details").innerText = "選択されたグループ: " + groupDetailsText;
 	});
 
+	//タイムライン取得テスト(前田)
+	getTimeLine("ts0604","team-other");
+	
 	//twitterつぶやきの更新
 	//TODO
 /*	var second = false;
@@ -157,3 +160,28 @@ $(document).ready(function(){
 	initialize();
 });
 **/
+
+//タイムライン表示
+function getTimeLine(screenName,listName,page) {
+	getTimeLineSub(screenName,listName,page);
+}
+
+//タイムライン表示
+function getTimeLine(screenName,listName) {
+	getTimeLineSub(screenName,listName,1);
+}
+
+function getTimeLineSub(screenName,listName,page){
+	$.getJSON("/devutil/twitter_get_list_timeline/" + screenName + "/" + listName + "/" + page + "/", {} , function(json){
+		var timeLine = "";
+		$(json).each(function(i, tubuyaki) {
+			timeLine += tubuyaki.screen_name;
+			timeLine += "  ";
+			timeLine += tubuyaki.text;
+			timeLine += "\n";
+        });
+		
+		document.getElementById("group_timeline").innerText = timeLine;	//とりあえずどこかに表示してみる
+	});
+}
+
