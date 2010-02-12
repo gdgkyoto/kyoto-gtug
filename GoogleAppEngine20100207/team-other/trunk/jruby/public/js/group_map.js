@@ -7,7 +7,7 @@ function GroupMap() {
 }
 
 function initializeMap() {
-	map = new GMap2(document.getElementById("map"));
+	var map = new GMap2(document.getElementById("map"));
 	map.addControl(new GLargeMapControl());
 	map.addControl(new GMapTypeControl());
 	var center = new GLatLng(36.173357, 136.224976);
