@@ -280,6 +280,27 @@ end
 get '/devutil/twitter_get_list_timeline/:screen_name/:list_name/:count/' do
 	include_class('com.ts0604.twitterapi.MyTwitter')
   content_type 'text/javascript', :charset => 'utf-8'
+
+	r = [{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"},
+{"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"}
+]
+#	WebAPI::JsonBuilder.new.build(r)
 	MyTwitter.getListTimeLine(params[:screen_name],params[:list_name], (params[:count]).to_i);	#リストのタイムライン取得
 end
 
