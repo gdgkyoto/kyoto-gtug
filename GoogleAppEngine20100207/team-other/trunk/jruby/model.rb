@@ -14,7 +14,24 @@ class  Group < TinyDS::Base
 	property	    :swcp           ,:string     #ソフトウェアチェックポイント
 end
 
+#アプリケーションログ
+#更新がかかった! とか グループ追加された! とかアプリケーション固有のログを残すことを
+#検討。WEBで確認できるように
 class ApplicationLog < TinyDS::Base
+end
+
+#設定
+class AppSetting < TinyDS::Base
+	property	    :twitter_id        ,:string
+	property	    :twitter_pass      ,:string
+
+	def self.applicationsetting
+		setting = AppSetting.query.all[0]
+		unless setting
+			AppSetting.create
+			setting = AppSetting.query.all[0]
+		end
+	end
 end
 
 #グループのユーザリスト(twitter api のキャッシュ的存在)
