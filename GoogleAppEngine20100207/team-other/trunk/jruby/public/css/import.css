@@ -51,7 +51,33 @@ a:visited {
 }
 
 #timeline {
-	float: right;
 	width: 350px;
-	height: 400;
+	height: 400px;
+}
+
+div.tweet {
+	
+}
+#screen_name {
+	float: left;
+	background-image:url(/images/tweet.png);
+	background-repeat: no-repeat;
+	width:  72px;
+	height: 64px;
+	margin: 0 auto; 
+}
+
+#tweet_text {
+	float: right;
+	height: 64px;
+	width: 280px;
+}
+#group_timeline {
+	width: 381px;
+	height: 400px;
+	overflow: auto;
+}
+#groups {
+	float: right;
+	width: 381px;
 }

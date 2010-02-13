@@ -117,8 +117,10 @@ function onSelectedGroup(group,marker) {
 		$('#group_details').text("選択されたグループ: " + groupDetailsText);
 	});
 
+	//TODO グループ情報から取得しないといけないだろう...
 	//タイムライン取得テスト(前田)	//nagise/hokuriku
 	getTimeLine("ts0604","team-other");
+//	getTimeLine("nagise","hokuriku");
 	
 	//twitterつぶやきの更新
 	//TODO
@@ -172,18 +174,26 @@ function getTimeLine(screenName,listName) {
 	getTimeLineSub(screenName,listName,1);
 }
 
+function escapeHTML_replace(s) {
+  return s.replace(/[&"<>]/g, function(c){
+    return escapeRules[c];
+  });
+}
+
 function getTimeLineSub(screenName,listName,page){
 	$.getJSON("/devutil/twitter_get_list_timeline/" + screenName + "/" + listName + "/" + page + "/", {} , function(json){
 		var timeLine = "";
 		$(json).each(function(i, tubuyaki) {
-			timeLine += tubuyaki.screen_name;
-			timeLine += "  ";
+			timeLine += "<div class=\"tweet\">"
+			timeLine += "<div id=\"screen_name\">"+escapeHTML_replace(tubuyaki.screen_name)+"</div>";
+			timeLine += "<div id=\"tweet_text\">";
 			timeLine += tubuyaki.text;
-			timeLine += "\n";
+			timeLine += "</div></div>\n";
         });
 		
 //		document.getElementById("group_timeline").innerText = timeLine;	//とりあえずどこかに表示してみる
-			$('#group_timeline').text(timeLine);
+//			$('#group_timeline').text(timeLine);
+			$('#group_timeline').html(timeLine);
 	});
 }
 
