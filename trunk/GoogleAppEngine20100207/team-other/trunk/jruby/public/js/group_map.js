@@ -119,7 +119,7 @@ function onSelectedGroup(group,marker) {
 
 	//TODO グループ情報から取得しないといけないだろう...
 	//タイムライン取得テスト(前田)	//nagise/hokuriku
-	getTimeLine("ts0604","team-other");
+	getTimeLine("ts0604","team-other",2);
 //	getTimeLine("nagise","hokuriku");
 	
 	//twitterつぶやきの更新
@@ -167,11 +167,6 @@ $(document).ready(function(){
 //タイムライン表示
 function getTimeLine(screenName,listName,page) {
 	getTimeLineSub(screenName,listName,page);
-}
-
-//タイムライン表示
-function getTimeLine(screenName,listName) {
-	getTimeLineSub(screenName,listName,1);
 }
 
 function escapeHTML_replace(s) {
