@@ -277,7 +277,7 @@ get '/devutil/printenv/' do
 end
 
 #Twitterテスト
-get '/devutil/twitter_get_list_timeline/:screen_name/:list_name/:count/' do
+get '/devutil/twitter_get_list_timeline/:screen_name/:list_name/:page/' do
 	include_class('com.ts0604.twitterapi.MyTwitter')
   content_type 'text/javascript', :charset => 'utf-8'
 
@@ -301,7 +301,7 @@ get '/devutil/twitter_get_list_timeline/:screen_name/:list_name/:count/' do
 {"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"}
 ]
 #	WebAPI::JsonBuilder.new.build(r)
-	MyTwitter.getListTimeLine(params[:screen_name],params[:list_name], (params[:count]).to_i);	#リストのタイムライン取得
+	MyTwitter.getListTimeLine(params[:screen_name],params[:list_name], (params[:page]).to_i);	#リストのタイムライン取得
 end
 
 get '/devutil/twitter_get_list/:screen_name/:list_name/' do
