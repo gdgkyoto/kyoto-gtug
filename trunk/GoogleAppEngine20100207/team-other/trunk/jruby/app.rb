@@ -203,4 +203,65 @@ get '/group/position/json/' do
 	WebAPI::JsonBuilder.new.build(@result)
 end
 
+#######################
+##  管理者用ツール画面
 
+require 'digest/sha1'
+def authed_user?( email )
+	auted_users_hash = {'f39a542f465fead3a33b4c24db35639afbe56fde'=>'k1',
+											'c589bd64c2088ea3e3797f7332360c51dd0c65b6'=>'u1',
+											'bedeb49f34e2934fba21fe31412b30afa0347d9b'=>'ka',
+											'bffaf4e7e3af16b3ec2825c629db1482641bbe61'=>'ts',
+											'cdc318c81a6c2ec47863625fd48f12d2f0ab6c64'=>'gi'
+											}
+	key1 = 'Aoihdoieur8ihjdoia&Atgeliu3ge'
+	key2 = '%Ajew78iUWO(RY;ojfwpeo9)SRp3o'
+	h1 = Digest::SHA1.hexdigest( key1 + email)
+	hash = Digest::SHA1.hexdigest( key2 + h1)
+	auted_users_hash[hash] != nil
+end
+
+post '/admintool/save/' do
+  user_name = AppEngine::Users.current_user
+  if user_name && authed_user?( user_name.email )
+		setting = AppSetting.query.all[0]
+		unless setting
+			AppSetting.create
+			setting = AppSetting.query.all[0]
+		end
+
+		AppSetting.property_definitions.each do |k,v|
+			setting.set_property(k,params[k.to_sym])
+		end
+		setting.save
+	end
+	redirect '/admintool/'
+end
+get '/admintool/' do
+  user_name = AppEngine::Users.current_user
+  if user_name 
+		##ログイン済み
+    @logout_url = AppEngine::Users.create_logout_url('/admintool/')
+		if authed_user?( user_name.email )
+			@vals = {}
+			setting = AppSetting.query.all[0]
+			unless setting
+				AppSetting.create
+				setting = AppSetting.query.all[0]
+			end
+			AppSetting.property_definitions.each do |k,v|
+				@vals[k] = setting.get_property(k)
+			end
+			erb :admintool_logined_authed
+		else
+	    @logout_url = AppEngine::Users.create_login_url('/admintool/')
+			erb :admintool_logined_not_authed
+		end
+		#erbで結果が返るのでここでは処理をかかないこと
+  else
+		##ログインではない
+    @url = AppEngine::Users.create_login_url('/admintool/')
+		erb :admintool_nologin
+  end
+	#erbで結果が返るのでここでは処理をかかないこと
+end
