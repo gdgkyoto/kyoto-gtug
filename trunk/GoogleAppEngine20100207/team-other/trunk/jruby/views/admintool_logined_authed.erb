@@ -1,0 +1,11 @@
+<h1>管理ツール</h1>
+<div>
+<form action="/admintool/save/" method="post">
+<% @vals.each do |k,v| %>
+<%= h k %>
+<input name="<%= h k %>" value="<%= h v %>" type="text"/>
+<br/>
+<% end %>
+<input type="submit" value="更新">
+</form>
+</div>
