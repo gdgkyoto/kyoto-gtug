@@ -113,10 +113,11 @@ function onSelectedGroup(group,marker) {
 
 		//div要素変更(TODO?)
 		var groupDetailsText = groupDetails.name + ", " + groupDetails.tags + ", " + groupDetails.url;
-		document.getElementById("group_details").innerText = "選択されたグループ: " + groupDetailsText;
+//		document.getElementById("group_details").innerText = "選択されたグループ: " + groupDetailsText;
+		$('#group_details').text("選択されたグループ: " + groupDetailsText);
 	});
 
-	//タイムライン取得テスト(前田)
+	//タイムライン取得テスト(前田)	//nagise/hokuriku
 	getTimeLine("ts0604","team-other");
 	
 	//twitterつぶやきの更新
@@ -181,7 +182,8 @@ function getTimeLineSub(screenName,listName,page){
 			timeLine += "\n";
         });
 		
-		document.getElementById("group_timeline").innerText = timeLine;	//とりあえずどこかに表示してみる
+//		document.getElementById("group_timeline").innerText = timeLine;	//とりあえずどこかに表示してみる
+			$('#group_timeline').text(timeLine);
 	});
 }
 
