@@ -28,9 +28,10 @@ class AppSetting < TinyDS::Base
 	def self.applicationsetting
 		setting = AppSetting.query.all[0]
 		unless setting
-			AppSetting.create
+			AppSetting.create()
 			setting = AppSetting.query.all[0]
 		end
+		setting
 	end
 end
 

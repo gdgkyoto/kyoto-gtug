@@ -309,3 +309,25 @@ get '/devutil/twitter_get_list/:screen_name/:list_name/' do
   content_type 'text/javascript', :charset => 'utf-8'
 	MyTwitter.getList(params[:screen_name], params[:list_name]);	#リスト取得
 end
+
+get '/devutil/sample_of_application_setting/' do
+	@setting = AppSetting.applicationsetting
+	@setting.twitter_id	#twitter id
+	@setting.twitter_pass	#twitter password
+	if @setting.twitter_id 
+		#twiiter id 設定済み処理
+	else
+		#twiiter id 未設定の処理
+	end
+
+	erb %{
+		<h1>アプリケーション設定</h1>
+		<div>
+		@setting.twitter_id: "<%= h @setting.twitter_id %>"<br/>
+		@setting.twitter_pass: "<%= h @setting.twitter_pass %>"<br/>
+		</div>
+
+		<a href="/admintool/">管理者画面へ</a>
+	}
+end
+
