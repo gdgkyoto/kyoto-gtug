@@ -17,7 +17,7 @@ class CalcAssociation
 end
 
 # 人数の多さで連結の強さを測る
-class CountCalcAssociation
+class CountCalcAssociation < CalcAssociation
   def calc()
     overlap_users = []
 
@@ -43,7 +43,7 @@ end
 #end
 
 # 密度で連結の強さを計算する
-class DenstinyCalcAssociation
+class DenstinyCalcAssociation < CalcAssociation
   def calc()
     count = 0
 
