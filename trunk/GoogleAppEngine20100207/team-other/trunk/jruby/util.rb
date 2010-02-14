@@ -7,6 +7,7 @@ class Hash
 	##
 	def pairs_at(*keys)
 		keys.zip(values_at(*keys)).inject(self.class.new) {|h, (k, v)|
+			v = yield(k, v) if block_given?
 			h.merge(k => v)
 		}
 	end

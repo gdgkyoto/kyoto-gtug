@@ -74,6 +74,11 @@ get '/status/notifymessage/json/' do
   WebAPI::JsonBuilder.new.build(h)
 end
 
+
+
+#######################
+##  グループ
+
 get '/group/' do
 	@groups = Group.query.all
 	erb :group_index			# ./views/index.erb をレンダリングします。(layout.erbも含めて)
@@ -86,14 +91,25 @@ end
 # Time.now.strftime("%Y%m%d%H%M%S")+"-"+java.util.UUID.randomUUID().to_s
 
 post '/group/create/' do
-	is_ok = request_is_ok?({:groupname=>"グループ名なし",:list=>"LISTなし"})
-	if is_ok
-		Group.create( params.pairs_at(:groupname,:url,:list,:tag) )
-	else
-		##エラー
-	end
-#	erb %{ #{h @r.inspect} }
-	redirect '/group/'
+  # プレーンテキストで出力する
+  content_type 'text/plane', :charset => 'utf-8'
+
+	is_ok = request_is_ok?({:groupname=>"グループ名なし",:listnames=>"LISTなし"})
+	msg = if is_ok
+	        begin
+  		      Group.create( params.pairs_at(:groupname,:site_url,:listnames,:description){|k,v|
+  		        v = v.split(',') if k == :listnames # listnamesは,区切りでくることを想定して','で分割する
+  		        v
+  	        })
+  		      "Success!"
+          rescue => exc
+  		      "Failure Group Create! => " + exc
+          end
+	      else
+		      ##エラー
+		      "Failure Bad Request! => " + params.to_s
+	      end
+	msg
 end
 
 get '/group/edit/:key' do
