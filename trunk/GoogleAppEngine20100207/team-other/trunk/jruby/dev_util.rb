@@ -301,13 +301,17 @@ get '/devutil/twitter_get_list_timeline/:screen_name/:list_name/:page/' do
 {"screen_name"=>"xxxxx","text"=>"php 5.2.12がubuntuに入らん。5.3.1ならちゃんと動いたのに。ふぁっきゅー"}
 ]
 #	WebAPI::JsonBuilder.new.build(r)
-	MyTwitter.getListTimeLine(params[:screen_name],params[:list_name], (params[:page]).to_i);	#リストのタイムライン取得
+	if MyTwitter.basicAuth('twitter_name','password') then	#BASIC認証
+		MyTwitter.getListTimeLine(params[:screen_name],params[:list_name], (params[:page]).to_i);	#リストのタイムライン取得
+	end
 end
 
 get '/devutil/twitter_get_list/:screen_name/:list_name/' do
 	include_class('com.ts0604.twitterapi.MyTwitter')
   content_type 'text/javascript', :charset => 'utf-8'
-	MyTwitter.getList(params[:screen_name], params[:list_name]);	#リスト取得
+  if MyTwitter.basicAuth('twitter_name','password') then	#BASIC認証
+		MyTwitter.getList(params[:screen_name], params[:list_name]);	#リスト取得
+	end
 end
 
 get '/devutil/sample_of_application_setting/' do
