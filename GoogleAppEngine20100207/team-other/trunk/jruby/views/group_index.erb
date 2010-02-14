@@ -1,10 +1,17 @@
-<div >
-<a href="/group/create/">create</a>
-</div>
 
-<% @groups.each do |group| %>
-	<%= h group.groupname %>
-		<a href="/group/view/<%= h group.key%>">[閲覧]</a>
-			<a href="/group/edit/<%= h group.key%>">[編集]</a>
-				<a href="/group/delete/<%= h group.key%>">[削除]</a> <br/>
-<% end %>
+<table border="0" cellspacing="1" cellpadding="1">
+	<tbody>
+		<% @groups.each do |group| %>
+		<tr>
+			<th><%=h group.groupname %></th>
+			<td><a href="/group/view/<%= h group.key%>">閲覧</a>
+			<a href="/group/edit/<%= h group.key%>">編集</a>
+			<a href="/group/delete/<%= h group.key%>">削除</a></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<div >
+<a href="/group/create/">Create</a>
+</div>

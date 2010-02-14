@@ -25,6 +25,24 @@
 						});
 					}
 				});
+        function register () {
+	      var data = new Object();
+	      $(["groupname", "description", "listnames", "site_url"]).each(function(i){
+		    var name = this.toString();
+		    data[name] = $("#"+name).val();
+          })
+          $.ajax({
+	        type: "POST",
+            url: "/group/create/",
+            data: $.param(data),
+            success: function(msg){
+              //alert( "Data Saved: " + msg );
+            },
+            error: function(msg){
+              //alert("error: " + msg);
+            }
+	      });
+        }				
 	      $('#dialog').dialog({  
 	        bgiframe: true,
 	        autoOpen: false,
@@ -33,15 +51,16 @@
 	        modal: true,  
 	        buttons: {  
 	          '登録': function() {
+		        register();
 	            $(this).dialog('close');  
 	          },  
 	          'キャンセル': function() {  
 	            $(this).dialog('close');  
 	          }  
-	        },  
+	        },
 	        close: function() {  
 	          //$(this).dialog('close');  
-	        }  
+	        }
 	      });
 	      $('#login_info').dialog({  
 	        bgiframe: true,
@@ -80,13 +99,13 @@
 		</div>
 		<div id="dialog" title="団体情報の登録" style="display: none;">
 			団体名：<br />
-			<input type="text" name="name" id="name" size="65" /><br />
+			<input type="text" name="groupname" id="groupname" size="65" /><br />
 			説明：<br />
-			<input type="text" name="subject" id="subject" size="65" /><br />
+			<input type="text" name="description" id="description" size="65" /><br />
 			リスト：<br />
-			<input type="text" name="list" id="list" size="65" /><br />
+			<input type="text" name="listnames" id="listnames" size="65" /><br />
 			サイトURL：<br />
-			<input type="text" name="siteurl" id="siteurl" size="65" />
+			<input type="text" name="site_url" id="site_url" size="65" />
 		</div>
 		<div id="login_info" title="ログインしてください" style="display: none;">
 			google にログインしてから登録してください。 <a id="login_info_a" href="">google に login</a>
