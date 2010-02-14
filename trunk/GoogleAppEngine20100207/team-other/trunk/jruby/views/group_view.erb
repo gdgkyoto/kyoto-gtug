@@ -1,4 +1,27 @@
-name <%= h @item.groupname %><br/>
-url  <%= h @item.url %><br/>
-list <%= h @item.list %><br/>
-tag  <%= h @item.tag %><br/>
+<p>
+  <b>グループ名:</b>
+  <%=h @item.groupname %>
+</p>
+
+<p>
+	<b>説明:</b>
+	<%=h @item.description %>
+</p>
+
+<p>
+  <b>URL:</b>
+  <%=h @item.site_url %>
+</p>
+
+<p>
+  <b>リスト:</b>
+  <%=h @item.listnames %>
+</p>
+
+<p>
+  <b>タグ:</b>
+  <%=h @item.tags %>
+</p>
+
+<a href="/group/edit/<%= @item.key %>">[編集]</a>
+<a href="/group/">戻る</a>

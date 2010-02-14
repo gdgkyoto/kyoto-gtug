@@ -1,7 +1,28 @@
 <form action="/group/create/" method="post">
-name<input name="groupname" type="text"/><br/>
-url<input name="url" type="text"/><br/>
-list<input name="list" type="text"/><br/>
-tag<input name="tag" type="text"/><br/>
-<input type="submit" value="submit">
+	<table border="0" cellspacing="5" cellpadding="5">
+		<tbody>
+			<tr>
+				<th>グループ名:</th>
+				<td><input name="groupname" type="text"/></td>
+			</tr>
+			<tr>
+				<th>説明:</th>
+				<td><input name="description" type="text" /></td>
+			</tr>
+			<tr>
+			  <th><b>URL:</b></th>
+			  <td><input name="site_url" type="text" /></td>
+			</tr>
+			<tr>
+			  <th><b>リスト:</b></th>
+			  <td><input name="listnames" type="text" /></td>
+			</tr>
+			<tr>
+			  <th><b>タグ:</b></th>
+			  <td><input name="tags" type="text" /></td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="submit" value="submit">
 </form>
+<a href="/group/">一覧へ</a>
