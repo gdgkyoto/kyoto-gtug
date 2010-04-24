@@ -1,0 +1,17 @@
+{
+   "background_page": "background.html",
+   "chrome_url_overrides": {
+      "newtab": "newtab.html"
+   },
+   "description": "Double Mctwist",
+   "icons": {
+      "128": "icons/128.png",
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png"
+   },
+   "name": "Double Mctwist",
+   "options_page": "option.html",
+   "permissions": [ "tabs", "http://*/*", "https://*/*" ],
+   "version": "0.1"
+}
