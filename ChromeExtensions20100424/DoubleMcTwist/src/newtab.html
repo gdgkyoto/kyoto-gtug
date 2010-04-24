@@ -40,7 +40,7 @@
 				}
 				next = selected.next();
 				
-				if (!top.attr('src') || top.attr('src')) {
+				if (!top.attr('src') || top.attr('src').length == 0) {
 					top.attr('src', selected.val());
 				}
 				back.attr('src', next.val());
