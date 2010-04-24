@@ -1,4 +1,6 @@
 var isChange = false;
+var fontColor = "#5500AA";
+var font = "bold 14px 'Book Antiqua,Century,ヒラギノ角ゴ Pro'";
 
 function init(){
 	checkLogo();
@@ -26,8 +28,8 @@ function drawIcon() {
 	var gfx = document.getElementById('gfx');
 
 	var g = "g";
-	ctx.fillStyle = "#5500AA";
-	ctx.font = "bold 14px 'Book Antiqua,Century,ヒラギノ角ゴ Pro'";
+	ctx.fillStyle = fontColor;
+	ctx.font = font;
 	ctx.textAlign = "left";
 	ctx.textBaseline = "bottom";
 	var textWidth = ctx.measureText(g).width;
@@ -41,8 +43,8 @@ function drawRotateIcon() {
 	var gfx = document.getElementById('gfx');
 
 	var g = "g";
-	ctx.fillStyle = "#5500AA";
-	ctx.font = "bold 14px 'Book Antiqua,Century,ヒラギノ角ゴ Pro'";
+	ctx.fillStyle = fontColor;
+	ctx.font = font;
 	ctx.textAlign = "left";
 	ctx.textBaseline = "bottom";
 	ctx.translate(10, 10);
