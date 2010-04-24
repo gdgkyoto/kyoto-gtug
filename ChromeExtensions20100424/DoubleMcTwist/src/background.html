@@ -23,6 +23,8 @@
 					url: 'https://www.google.com/reader/atom/user/-/state/com.google/reading-list',
 					dataType: 'xml',
 					success: function(xml) {
+						console.log(xml);
+						
 						var d = parseFeed(xml);
 						
 						if (!d || d.length == 0) {
@@ -32,6 +34,9 @@
 						for (var i = 0; i < d.length; i++) {
 							$('#timeline').append('<option value="' + d[i].url + '">' + d[i].title + '</option>');
 						}
+					},
+					error: function(res, statusCode){
+						$('#content').html('ÉçÉOÉCÉìÇµÇƒÇ»Ç¢ÇÒÇøÇ·Ç§ÅH');
 					}
 				});
 			}
@@ -43,7 +48,7 @@
 	</head>
 	<body>
 		<div id="content">
-			<select id="timeline" multiple></select>
+			<select id="timeline" size="1000"></select>
 			<iframe id="preview"></iframe>
 		</div>
 	</body>
