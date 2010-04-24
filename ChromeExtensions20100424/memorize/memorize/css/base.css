@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
+
+body {
+  min-width: 500px;
+}
+
+
+#tabs {
+  width: 480px;
+
+}
+
+/*
+#tabs-nav {
+  overflow: visible;
+  border-bottom: 9px solid #FFFFFF;
+  background: none repeat scroll 0 0 #BBD9EE;
+  
+  top: 65px;
+  left: 0;
+  height: 30px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#tabs-nav li {
+  float: left;
+  width: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+#tabs-nav a{
+  text-align: center;
+  display: block;
+  padding: 0.5em 0;
+  width: 100%;
+  color: #000000;
+}
+
+*/
+
+
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/base.css"><link/>
+    <link rel="stylesheet" type="text/css" href="css/history.css"><link/>
+    <link rel="stylesheet" type="text/css" href="development-bundle/themes/base/jquery.ui.all.css"></link>
+    <script src="jquery-1.4.2.js"></script>
+    <script src="content.js"></script>
+    <script src="storage.js"></script>
+    <script src="development-bundle/ui/jquery.ui.core.js"></script>
+    <script src="development-bundle/ui/jquery.ui.widget.js"></script>
+    <script src="development-bundle/ui/jquery.ui.tabs.js"></script>
+    <script>
+      $(function() {
+        $('#tabs').tabs()
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      キーワード：
+      <input id="query" type="text" />
+      <input id="send" type="button" value="検索" />
+    </header>
+
+
+    <div id="tabs">
+      <ul>
+        <li><a href="#tabs-1">単語検索</a></li>
+        <li><a href="#tabs-2">検索履歴</a></li>
+        <li><a href="#tabs-3">テスト</a></li>
+      </ul>
+
+      <div id="tabs-1"></div>
+      <div id="tabs-2">
+        検索履歴：
+        <div id="history_result"></div>
+        <input id="clear_history" type="button" value="localStorageの初期化" />
+      </div>
+      <div id="tabs-3"></div>
+
+    </div>
+  </body>
+</html>
