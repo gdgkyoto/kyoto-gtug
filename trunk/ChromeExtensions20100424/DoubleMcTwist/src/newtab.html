@@ -7,19 +7,46 @@
 		<script src="js/jquery-1.4.1.min.js"></script>
 		<script>
 			$(function(){
-				$('#timeline').change(function(){
-					$('#preview').attr('src', $('#timeline').val());
-				});
+				function swap(){
+					var top = $('.preview.top'),
+						back = $('.preview:not(.top)');
+					top.removeClass('top');
+					back.addClass('top');
+				}
 				
-				(function(){
+				function nextIndex(){
 					var index = $('#timeline').get(0).selectedIndex;
 					if (index == -1) {
 						index = 0;
 					} else {
 						index ++;
 					}
-					$('#timeline').get(0).selectedIndex = index;
-					$('#timeline').trigger('change');
+					return index;
+				}
+			
+				function change(){
+					swap();
+					
+					var top = $('.preview.top'),
+						back = $('.preview:not(.top)'),
+						selected = $('#timeline option:selected'),
+						next = selected.next();
+					
+					if (!next) {
+						next = $('#timeline option:first');
+					}
+					
+					if (!top.attr('src')) {
+						top.attr('src', selected.val());
+					}
+					back.attr('src', next.val());
+				}
+				
+				$('#timeline').change(function(){change();});
+				
+				(function(){
+					$('#timeline').get(0).selectedIndex = nextIndex();
+					change();
 					
 					setTimeout(arguments.callee, 5000);
 				})();
