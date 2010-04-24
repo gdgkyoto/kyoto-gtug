@@ -1,0 +1,22 @@
+{
+	"name": "Scouter",
+	"version": "1.0.0",
+	"descripsion": "Cross-search-engine hit count viewer",
+	"permissions": [
+		"http://www.google.com/*"
+	],
+	"icons": {
+		"48": "sample-48.png",
+		"128": "sample-128.png"
+	},
+	"background_page": "background.html",
+	"content_scripts": [
+		{
+			"matches": [
+				"http://www.google.com/*",
+				"http://www.google.co.jp/*"
+			],
+			"js": ["contentscript.js"]
+		}
+	]
+}

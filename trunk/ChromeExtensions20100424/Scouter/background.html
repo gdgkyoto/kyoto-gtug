@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<script>
+			// 参考コード
+			// http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/howto/contentscript_xhr/
+
+			// 複数の検索エンジンに対して検索を行い、結果を返す。
+			// query: 検索クエリ
+			// callback: コールバック
+			function fetchSearchResult(query, callback) {
+				// 仮実装
+				var result = [
+					{
+						'engine': 'Google',
+						'count': 1000
+					}, {
+						'engine': 'Yahoo',
+						'count', 1500
+					}, {
+						'engine': 'Bing',
+						'count': 800
+					}
+				];
+				callback(result);
+			};
+			// message passing のハンドラ
+			// 引数
+			// action: 実行する命令の名前
+			//         命令についてはそれぞれの関数を参照
+			function onRequest(request, sender, callback) {
+				if (request.action == 'fetchSearchResult') {
+					fetchSearchResult(request.query, callback);
+				}
+			};
+			// onResultをmessage passingのハンドラとして登録
+			chrome.extension.onRequest.addListener(onRequest);
+		</script>
+	</body>
+</html>
+
