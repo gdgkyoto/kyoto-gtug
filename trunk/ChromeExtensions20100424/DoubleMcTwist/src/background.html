@@ -23,34 +23,34 @@
 					url: 'https://www.google.com/reader/atom/user/-/state/com.google/reading-list',
 					dataType: 'xml',
 					success: function(xml) {
-						console.log(xml);
+						var feed = parseFeed(xml);
 						
-						var d = parseFeed(xml);
-						
-						if (!d || d.length == 0) {
-							return;
-						}
-						
-						for (var i = 0; i < d.length; i++) {
-							$('#timeline').append('<option value="' + d[i].url + '">' + d[i].title + '</option>');
-						}
+						chrome.tabs.onUpdated.addListener(function() {
+							var viewTabUrl = chrome.extension.getURL('newtab.html');
+
+							// この拡張機能に属するビューを全て確認し、今回使うものを見つける
+							var views = chrome.extension.getViews();
+							
+							for (var i = 0; i < views.length; i++) {
+								var view = views[i];
+
+								// ビューが該当するURLを指し、未使用のものであれば...
+								if (view.location.href == viewTabUrl && !view.alreadySet) {
+
+									// ...関数を呼び出し、使用済みに状態を変える
+									view.setSelectBox(feed);
+									view.alreadySet = true;
+									break; // 完了
+								}
+							}
+						});
 					},
 					error: function(res, statusCode){
-						$('#content').html('ログインしてないんちゃう？');
 					}
 				});
 			}
 			
-			$(function(){
-				load();
-			})();
+			load();
 		</script>
 	</head>
-	<body>
-		<div id="content">
-			<select id="timeline"></select><br>
-			<iframe class="preview back" scrolling="no"></iframe>
-			<iframe class="preview top" scrolling="no"></iframe>
-		</div>
-	</body>
 </html>
