@@ -32,8 +32,8 @@
 					selected = $('#timeline option:selected'),
 					next;
 				
-				top.removeClass('top').animate({opacity:0}, ANIMATE_TIME);
-				back.addClass('top').css('display', 'block').animate({opacity:1}, ANIMATE_TIME);
+				top.removeClass('top').animate({opacity:0, top:'80px'}, ANIMATE_TIME / 2);
+				back.addClass('top').css('display', 'block').animate({opacity:1, top:'50px'}, ANIMATE_TIME);
 
 				if (!selected) {
 					selected = $('#timeline option:first');
@@ -45,7 +45,7 @@
 				}
 				
 				setTimeout(function(){
-					top.attr('src', next.val()).css('display', 'none');
+					top.attr('src', next.val()).css('display', 'none').css('top', '20px');
 				}, ANIMATE_TIME);
 			}
 			
