@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"descripsion": "Cross-search-engine hit count viewer",
 	"permissions": [
-		"http://www.google.com/*"
+		"http://www.google.com/*",
+		"http://api.search.live.net/*"
 	],
 	"icons": {
 		"48": "sample-48.png",
