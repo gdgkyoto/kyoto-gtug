@@ -6,58 +6,75 @@
 
 		<script src="js/jquery-1.4.1.min.js"></script>
 		<script>
-			$(function(){
-				function swap(){
-					var top = $('.preview.top'),
-						back = $('.preview:not(.top)');
-					top.removeClass('top');
-					back.addClass('top');
-				}
-				
-				function nextIndex(){
-					var index = $('#timeline').get(0).selectedIndex;
-					if (index == -1) {
-						index = 0;
-					} else {
-						index ++;
-					}
-					return index;
-				}
+			var alreadySet = false;
 			
-				function change(){
-					swap();
-					
-					var top = $('.preview.top'),
-						back = $('.preview:not(.top)'),
-						selected = $('#timeline option:selected'),
-						next = selected.next();
-					
-					if (!next) {
-						next = $('#timeline option:first');
-					}
-					
-					if (!top.attr('src')) {
-						top.attr('src', selected.val());
-					}
-					back.attr('src', next.val());
+			function setSelectBox(d) {
+				if (!d || d.length == 0) {
+					return;
 				}
 				
-				$('#timeline').change(function(){change();});
+				for (var i = 0; i < d.length; i++) {
+					$('#timeline').append('<option value="' + d[i].url + '">' + d[i].title + '</option>');
+				}
 				
+				startPreview();
+			}
+			
+			function swap(){
+				var top = $('.preview.top'),
+					back = $('.preview:not(.top)');
+				top.removeClass('top');
+				back.addClass('top');
+			}
+			
+			function change(){
+				swap();
+				
+				var top = $('.preview.top'),
+					back = $('.preview:not(.top)'),
+					selected = $('#timeline option:selected'),
+					next;
+				
+				if (!selected) {
+					selected = $('#timeline option:first');
+				}
+				next = selected.next();
+				
+				if (!top.attr('src') || top.attr('src')) {
+					top.attr('src', selected.val());
+				}
+				back.attr('src', next.val());
+			}
+			
+			function startPreview(){
 				(function(){
-					$('#timeline').get(0).selectedIndex = nextIndex();
+					var selected = $('#timeline option:selected'),
+						next;
+					
+					if (!selected || selected.length == 0) {
+						next = $('#timeline option:first');
+					} else {
+						next = selected.next();
+					}
+					
+					next.attr('selected', 'selected');
+					
 					change();
 					
 					setTimeout(arguments.callee, 5000);
 				})();
+			};
+			
+			$(function(){
+				$('#timeline').change(function(){change();});
 			});
 		</script>
 	</head>
 	<body>
-		<script>
-			document.open();
-			document.write(chrome.extension.getBackgroundPage().document.body.innerHTML);
-			document.close();
-		</script>
+		<div id="content">
+			<select id="timeline"></select><br>
+			<iframe class="preview" scrolling="no"></iframe>
+			<iframe class="preview top" scrolling="no"></iframe>
+		</div>
 	</body>
 </html>
