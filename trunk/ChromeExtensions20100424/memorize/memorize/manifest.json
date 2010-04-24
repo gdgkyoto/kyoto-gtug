@@ -1,0 +1,12 @@
+{
+	"name": "Memorize",
+	"version": "0.1",
+	"description": "Memorize words for Chrome extensions",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"popup": "popup.html"
+	},
+	"permissions": [
+		"http://api.smart.fm/*"
+	]
+}

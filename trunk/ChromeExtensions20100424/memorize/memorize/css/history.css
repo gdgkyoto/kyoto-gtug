@@ -1,0 +1,113 @@
+
+body {
+    min-width: 520px;
+}
+
+#tabs {
+    margin: 0;
+    padding: 0;
+    width: 480px;
+}
+
+
+div.card{
+    margin-top: 25px;
+    width: 500px;
+    position: relative;
+    border: 1px solid black;
+    /*  background-image: url("Paper0036_2_S.jpg");
+    background-position:center;
+     */
+}
+
+div.card_main{
+    border: 1px dotted black;
+    width: 500px;
+}
+
+div.card_head {
+    border:dotted 1px red;
+    width: 500px;
+    min-height: 40px;
+}
+
+div.word{
+    position: absolute;
+    top: 3px;
+    left: 30px;
+    margin:3px;
+    padding:4px;
+    background-color:black;
+    color:white;
+    font-size:20px;
+}
+
+div.search_count{
+    position: absolute;
+    top: 6px;
+    right: 5%;
+    color: black;
+    font-size: 12px;
+}
+
+div.card_body {
+    border:dotted 1px purple;
+}
+
+li.wordtype {
+    left: 10px;
+    color: green;
+}
+
+li.mean{
+    font-size: 10px;
+    color: black;
+}
+
+div.card_footer{
+    border:dotted 1px green;
+    position:relative;
+    padding: 3px 0px 3px 0px;
+    background:lightyellow;
+    width: 500px;
+    height: 15px;
+}
+
+div.created{
+    position: absolute;
+    border:dotted 1px black;
+    font-size: 10px;
+    left: 10px;
+    color: black;
+}
+
+div.updated{
+    position: absolute;
+    border:dotted 1px black;
+    font-size: 10px;
+    left: 200px;
+    color: black;
+}
+
+img.trash_box{
+    position: absolute;
+    height: 15px;
+    top: 3px;
+    right: 5px;
+}
+
+div.delete_confirm{
+    position: absolute;
+    height: 20px;
+    top: -33px;
+    right: 5px;
+    width: 250px;
+    text-align: center;
+    color: black;
+    -webkit-border-radius: 5px;
+    border: 3px solid #3BAAE3;
+    background-color: #e5effe;
+    font-size: 14px;
+}
+
+
