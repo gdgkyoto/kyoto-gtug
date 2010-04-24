@@ -1,41 +1,48 @@
 // SVGの描画にRaphaelというライブラリを使用しています。
 // Raphael Reference: http://raphaeljs.com/reference.html
-var SVG_NS = "http://www.w3.org/2000/svg";
 
 function onResult(result) {
 	if (result.error) {
 		console.log(result.error);
 		return;
 	}
-	var res = document.getElementById("res");
 	var container = document.createElement("div");
 	container.style.float = "right";
-	res.parentNode.insertBefore(container, res);
-	container.innerHTML = dataToHtml(result);
+	container.className = "scouter";
+	var tbd = document.getElementById("tbd");
+	tbd.parentNode.insertBefore(container, tbd.nextSibling);
 
-	//var paper = Raphael(container, 200, 400);
-	//paper.text(100, 20, "Search from " + result.length + " engines.");
-	//paper.text(100, 40, result[2].data[0].title);
-	//paper.text(100, 60, result[2].data[1].title);
-	//paper.text(100, 80, result[2].data[2].title);
+	showAsText(result, container);
+	//showAsSvg(result, container);
+
+	var mbEnd = document.getElementById("mbEnd");
+	if (mbEnd) {
+		container.appendChild(mbEnd);
+	}
 }
 
-function dataToHtml(data) {
+function showAsText(data, container) {
 	var i, j;
 	var html = "";
 	for (i = 0; i < data.length; i++) {
-		html += data[i].engine + '<ol>';
+		html += '<div class="engine">' + data[i].engine + ': '
+			+ data[i].total + ' Hit!<ol>';
 		for (j = 0; j < data[i].data.length; j++) {
-			html += '<li style="list-style-type: decimal;">' + data[i].data[j].title + "</li>";
+			html += '<li><a href="'
+				+ data[i].data[j].url + '">' + data[i].data[j].title
+				+ "</a></li>";
 		}
-		html += "</ol>";
+		html += "</ol></div>";
 	}
-	return html;
+	container.innerHTML = html;
 }
 
-function makeSvg(data) {
-	var svg = Raphael(0, 0, 200, 400);
-	return svg;
+function showAsSvg(data, container) {
+	var paper = Raphael(container, 200, 400);
+	paper.text(100, 20, "Search from " + data.length + " engines.");
+	paper.text(100, 40, data[2].data[0].title);
+	paper.text(100, 60, data[2].data[1].title);
+	paper.text(100, 80, data[2].data[2].title);
 }
 
 // background.htmlにmessage passing

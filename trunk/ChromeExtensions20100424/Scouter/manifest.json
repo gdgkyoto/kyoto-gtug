@@ -17,6 +17,7 @@
 				"http://www.google.com/*",
 				"http://www.google.co.jp/*"
 			],
+			"css": ["scouter.css"],
 			"js": ["jquery-1.4.2.js", "raphael.js", "contentscript.js"]
 		}
 	]
