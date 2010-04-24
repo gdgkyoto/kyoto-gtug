@@ -26,22 +26,24 @@
 					data: params,
 					dataType: 'json',
 					success: function(response){
-						var results = response.SearchResponse.Results;
+						var results = response.SearchResponse.Web.Results;
+//						var result = {};
+//						result.error = response;
 						var result = [
 							{
 								'engine': 'Google',
 								'count': 0,
-								[]
+								'data': []
 							},
 							{
 								'engine': 'Yahoo',
 								'count': 0,
-								[]
+								'data': []
 							},
 							{
 								'engine': 'Bing',
 								'count': 3,
-								[
+								'data': [
 									{title: results[0].Title, url: results[0].Url},
 									{title: results[1].Title, url: results[1].Url},
 									{title: results[2].Title, url: results[2].Url}
