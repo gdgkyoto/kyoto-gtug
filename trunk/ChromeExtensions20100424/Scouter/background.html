@@ -4,14 +4,14 @@
 	</head>
 	<body>
 		<script>
-			// QlƒR[ƒh
+			// å‚è€ƒã‚³ãƒ¼ãƒ‰
 			// http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/howto/contentscript_xhr/
 
-			// •¡”‚ÌŒŸõƒGƒ“ƒWƒ“‚É‘Î‚µ‚ÄŒŸõ‚ğs‚¢AŒ‹‰Ê‚ğ•Ô‚·B
-			// query: ŒŸõƒNƒGƒŠ
-			// callback: ƒR[ƒ‹ƒoƒbƒN
+			// è¤‡æ•°ã®æ¤œç´¢ã‚¨ãƒ³ã‚¸ãƒ³ã«å¯¾ã—ã¦æ¤œç´¢ã‚’è¡Œã„ã€çµæœã‚’è¿”ã™ã€‚
+			// query: æ¤œç´¢ã‚¯ã‚¨ãƒª
+			// callback: ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
 			function fetchSearchResult(query, callback) {
-				// ‰¼À‘•
+				// ä»®å®Ÿè£…
 				var result = [
 					{
 						'engine': 'Google',
@@ -26,16 +26,16 @@
 				];
 				callback(result);
 			};
-			// message passing ‚Ìƒnƒ“ƒhƒ‰
-			// ˆø”
-			// action: Às‚·‚é–½—ß‚Ì–¼‘O
-			//         –½—ß‚É‚Â‚¢‚Ä‚Í‚»‚ê‚¼‚ê‚ÌŠÖ”‚ğQÆ
+			// message passing ã®ãƒãƒ³ãƒ‰ãƒ©
+			// å¼•æ•°
+			// action: å®Ÿè¡Œã™ã‚‹å‘½ä»¤ã®åå‰
+			//         å‘½ä»¤ã«ã¤ã„ã¦ã¯ãã‚Œãã‚Œã®é–¢æ•°ã‚’å‚ç…§
 			function onRequest(request, sender, callback) {
 				if (request.action == 'fetchSearchResult') {
 					fetchSearchResult(request.query, callback);
 				}
 			};
-			// onResult‚ğmessage passing‚Ìƒnƒ“ƒhƒ‰‚Æ‚µ‚Ä“o˜^
+			// onResultã‚’message passingã®ãƒãƒ³ãƒ‰ãƒ©ã¨ã—ã¦ç™»éŒ²
 			chrome.extension.onRequest.addListener(onRequest);
 		</script>
 	</body>
