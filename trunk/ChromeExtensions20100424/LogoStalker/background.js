@@ -1,15 +1,8 @@
-var isChange = false;
 var fontColor = "#5500AA";
 var font = "bold 14px 'Book Antiqua,Century,ヒラギノ角ゴ Pro'";
 
 function init(){
-	checkLogo();
-	
-	if (isChange){
-		drawRotateIcon();
-	}else{
-		drawIcon();
-	}
+	checkLogo();	
 }
 
 function checkLogo () {
@@ -17,9 +10,16 @@ function checkLogo () {
 		url: "http://www.google.co.jp/intl/ja_jp/images/logo.gif"
 	};
 	
-	$("#response").load("http://www.google.co.jp #logo");
-	var logoUrl = $('#logo').attr('src');
-	isChange = logoUrl != logo.url;
+	$("#response").load("http://www.google.co.jp #logo", function(){
+		var logoUrl = $('#logo').attr('src');
+		var isChange = logoUrl != logo.url;
+
+		if (isChange){
+			drawRotateIcon();
+		}else{
+			drawIcon();
+		}
+	});
 }
 
 function drawIcon() {
