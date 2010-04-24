@@ -8,15 +8,14 @@
 		<script>
 			var alreadySet = false;
 			var ANIMATE_TIME = 1000;
+			var feed;
 			
 			function setSelectBox(d) {
 				if (!d || d.length == 0) {
 					return;
 				}
 				
-				for (var i = 0; i < d.length; i++) {
-					$('#timeline').append('<option value="' + d[i].url + '">' + d[i].title + '</option>');
-				}
+				feed = d;
 				
 				startPreview();
 			}
@@ -26,56 +25,38 @@
 					back = $('.preview:not(.top)');
 			}
 			
-			function change(){
-				var top = $('.preview.top'),
-					back = $('.preview:not(.top)'),
-					selected = $('#timeline option:selected'),
-					next;
-				
-				top.removeClass('top').animate({opacity:0, top:'80px'}, ANIMATE_TIME / 2);
-				back.addClass('top').css('display', 'block').animate({opacity:1, top:'50px'}, ANIMATE_TIME);
-
-				if (!selected) {
-					selected = $('#timeline option:first');
-				}
-				next = selected.next();
-				
-				if (!back.attr('src') || back.attr('src').length == 0) {
-					back.attr('src', selected.val());
-				}
-				
-				setTimeout(function(){
-					top.attr('src', next.val()).css('display', 'none').css('top', '20px');
-				}, ANIMATE_TIME);
-			}
-			
 			function startPreview(){
+				var selected = 0;
 				(function(){
-					var selected = $('#timeline option:selected'),
-						next;
+					var top = $('.preview.top'),
+						back = $('.preview:not(.top)');
 					
-					if (!selected || selected.length == 0) {
-						next = $('#timeline option:first');
-					} else {
-						next = selected.next();
+					top.removeClass('top').animate({opacity:0, top:'80px'}, ANIMATE_TIME / 2);
+					back.addClass('top').css('display', 'block').animate({opacity:1, top:'50px'}, ANIMATE_TIME);
+					
+					$('#title').text(feed[selected].title);
+					
+					if (!back.attr('src') || back.attr('src').length == 0) {
+						back.attr('src', feed[selected].url);
 					}
 					
-					next.attr('selected', 'selected');
+					selected ++;
+					if (selected >= feed.length) {
+						selected = 0;
+					}
 					
-					change();
+					setTimeout(function(){
+						top.attr('src', feed[selected].url).css('display', 'none').css('top', '20px');
+					}, ANIMATE_TIME);
 					
 					setTimeout(arguments.callee, 5000);
 				})();
 			};
-			
-			$(function(){
-				$('#timeline').change(function(){change();});
-			});
 		</script>
 	</head>
 	<body>
 		<div id="content">
-			<select id="timeline"></select><br>
+			<h3 id="title"></h3><br>
 			<iframe class="preview" scrolling="no"></iframe>
 			<iframe class="preview top" scrolling="no"></iframe>
 		</div>
