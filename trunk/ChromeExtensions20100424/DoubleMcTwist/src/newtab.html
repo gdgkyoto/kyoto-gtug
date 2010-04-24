@@ -5,6 +5,8 @@
 		<title>Double Mctwist</title>
 
 		<script src="js/jquery-1.4.1.min.js"></script>
+		<script src="js/jquery-css-transform.js"></script>
+		<script src="js/jquery-animate-css-rotate-scale.js"></script>
 		<script>
 			var alreadySet = false;
 			var ANIMATE_TIME = 1000;
@@ -31,8 +33,9 @@
 					var top = $('.preview.top'),
 						back = $('.preview:not(.top)');
 					
-					top.removeClass('top').animate({opacity:0, top:'95px'}, ANIMATE_TIME / 2);
-					back.addClass('top').css('display', 'block').animate({opacity:1, top:'65px'}, ANIMATE_TIME);
+					top.removeClass('top').animate({opacity:0, top:'95px', rotate: '7deg'}, ANIMATE_TIME / 2);
+					back.rotate('-7deg');
+					back.addClass('top').css('display', 'block').animate({opacity:1, top:'65px', rotate: '0deg'}, ANIMATE_TIME);
 					
 					$('#title').attr('href', feed[selected].url).text(feed[selected].title);
 					
@@ -46,7 +49,7 @@
 					}
 					
 					setTimeout(function(){
-						top.attr('src', feed[selected].url).css('display', 'none').css('top', '35px');
+						top.attr('src', feed[selected].url).css('display', 'none').css('top', '35px').rotate('-7deg');
 					}, ANIMATE_TIME);
 					
 					setTimeout(arguments.callee, 5000);
