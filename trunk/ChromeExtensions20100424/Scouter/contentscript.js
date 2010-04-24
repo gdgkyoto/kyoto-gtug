@@ -13,6 +13,9 @@ function onResult(result) {
 	res.parentNode.insertBefore(container, res);
 	var paper = Raphael(container, 200, 400);
 	paper.text(100, 20, "Search from " + result.length + " engines.");
+	paper.text(100, 40, result[2].data[0].title);
+	paper.text(100, 60, result[2].data[1].title);
+	paper.text(100, 80, result[2].data[2].title);
 }
 
 function makeSvg(data) {
@@ -21,4 +24,8 @@ function makeSvg(data) {
 }
 
 // background.htmlにmessage passing
-chrome.extension.sendRequest({'action': 'fetchSearchResult', 'query': 'hoge'}, onResult);
+chrome.extension.sendRequest({
+		'action': 'fetchSearchResult',
+		'query': document.forms.gs.q.value
+		}, onResult);
+
