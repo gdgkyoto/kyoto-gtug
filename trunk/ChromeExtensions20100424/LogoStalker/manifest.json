@@ -1,0 +1,14 @@
+{
+  "name": "Logo Stalker",
+  "version": "1.0",
+  "description": "Inform me to change logo",
+  "browser_action": {
+	"name": "Logo Stalker",
+    "default_icon": "icon.png"
+  },
+  "background_page": "background.html",
+  "permissions": [
+	"tabs",
+    "http://www.google.co.jp/"
+  ]
+}
