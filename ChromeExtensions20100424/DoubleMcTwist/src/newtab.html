@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/main.css" type="text/css">
+		<title>Double Mctwist</title>
+
+		<script src="js/jquery-1.4.1.min.js"></script>
+		<script>
+			$(function(){
+				var timeline = $('#timeline');
+				
+				timeline.select(function(){
+					$('#preview').src = this
+				});
+				
+				(function(){
+					var selected = $('#timeline').val();
+					
+					setTimeout(arguments.callee, 10000);
+				})();
+			});
+		</script>
+	</head>
+	<body>
+		<script>
+			document.open();
+			document.write(chrome.extension.getBackgroundPage().document.body.innerHTML);
+			document.close();
+		</script>
+	</body>
+</html>

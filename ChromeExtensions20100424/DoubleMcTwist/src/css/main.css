@@ -1,0 +1,21 @@
+#content {
+	position:absolute;
+	left:50%;
+	width:800px;
+	height:80%;
+	margin-left:-400px;
+	text-align:center;
+}
+#timeline {
+	display:block;
+	float:left;
+	width:49%;
+	height:100%;
+}
+#preview {
+	display:block;
+	float:right;
+	overflow:hidden;
+	width:49%;
+	height:100%;
+}

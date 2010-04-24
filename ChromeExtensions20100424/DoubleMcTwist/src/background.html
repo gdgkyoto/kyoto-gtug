@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<script src="js/jquery-1.4.1.min.js"></script>
+		<script>
+			function parseFeed(xml){
+				var res = [];
+				
+				$(xml)
+					.find('entry')
+					.each(function(){
+						res.push({
+							'title' : $(this).find('title').text(),
+							'url' : $(this).find('link[rel="alternate"]').attr('href')
+						});
+					});
+				
+				return res;
+			}
+			
+			function load(){
+				$.ajax({
+					type: 'GET',
+					url: 'https://www.google.com/reader/atom/user/-/state/com.google/reading-list',
+					dataType: 'xml',
+					success: function(xml) {
+						var d = parseFeed(xml);
+						
+						if (!d || d.length == 0) {
+							return;
+						}
+						
+						for (var i = 0; i < d.length; i++) {
+							$('#timeline').append('<option value="' + d[i].url + '">' + d[i].title + '</option>');
+						}
+					}
+				});
+			}
+			
+			$(function(){
+				load();
+			})();
+		</script>
+	</head>
+	<body>
+		<div id="content">
+			<select id="timeline" multiple></select>
+			<iframe id="preview"></iframe>
+		</div>
+	</body>
+</html>
