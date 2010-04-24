@@ -3,6 +3,10 @@
 var SVG_NS = "http://www.w3.org/2000/svg";
 
 function onResult(result) {
+	if (result.error) {
+		console.log(result.error);
+		return;
+	}
 	var res = document.getElementById("res");
 	var container = document.createElement("div");
 	container.style.float = "right";
