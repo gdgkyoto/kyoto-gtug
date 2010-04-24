@@ -7,16 +7,21 @@
 		<script src="js/jquery-1.4.1.min.js"></script>
 		<script>
 			$(function(){
-				var timeline = $('#timeline');
-				
-				timeline.select(function(){
-					$('#preview').src = this
+				$('#timeline').change(function(){
+					$('#preview').attr('src', $('#timeline').val());
 				});
 				
 				(function(){
-					var selected = $('#timeline').val();
+					var index = $('#timeline').get(0).selectedIndex;
+					if (index == -1) {
+						index = 0;
+					} else {
+						index ++;
+					}
+					$('#timeline').get(0).selectedIndex = index;
+					$('#timeline').trigger('change');
 					
-					setTimeout(arguments.callee, 10000);
+					setTimeout(arguments.callee, 5000);
 				})();
 			});
 		</script>
