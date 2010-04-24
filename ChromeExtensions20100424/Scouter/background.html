@@ -32,17 +32,17 @@
 						var result = [
 							{
 								'engine': 'Google',
-								'count': 0,
+								'total': 0,
 								'data': []
 							},
 							{
 								'engine': 'Yahoo',
-								'count': 0,
+								'total': 0,
 								'data': []
 							},
 							{
 								'engine': 'Bing',
-								'count': 3,
+								'total': response.SearchResponse.Web.Total,
 								'data': [
 									{title: results[0].Title, url: results[0].Url},
 									{title: results[1].Title, url: results[1].Url},
