@@ -7,6 +7,7 @@
 		<script src="js/jquery-1.4.1.min.js"></script>
 		<script>
 			var alreadySet = false;
+			var ANIMATE_TIME = 1000;
 			
 			function setSelectBox(d) {
 				if (!d || d.length == 0) {
@@ -23,27 +24,29 @@
 			function swap(){
 				var top = $('.preview.top'),
 					back = $('.preview:not(.top)');
-				top.removeClass('top');
-				back.addClass('top');
 			}
 			
 			function change(){
-				swap();
-				
 				var top = $('.preview.top'),
 					back = $('.preview:not(.top)'),
 					selected = $('#timeline option:selected'),
 					next;
 				
+				top.removeClass('top').animate({opacity:0}, ANIMATE_TIME);
+				back.addClass('top').css('display', 'block').animate({opacity:1}, ANIMATE_TIME);
+
 				if (!selected) {
 					selected = $('#timeline option:first');
 				}
 				next = selected.next();
 				
-				if (!top.attr('src') || top.attr('src').length == 0) {
-					top.attr('src', selected.val());
+				if (!back.attr('src') || back.attr('src').length == 0) {
+					back.attr('src', selected.val());
 				}
-				back.attr('src', next.val());
+				
+				setTimeout(function(){
+					top.attr('src', next.val()).css('display', 'none');
+				}, ANIMATE_TIME);
 			}
 			
 			function startPreview(){
