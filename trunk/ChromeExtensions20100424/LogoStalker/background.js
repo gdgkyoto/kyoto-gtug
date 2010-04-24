@@ -7,7 +7,8 @@ function init(){
 
 function checkLogo () {
 	var logo = {
-		url: "http://www.google.co.jp/intl/ja_jp/images/logo.gif"
+		domain: "http://www.google.co.jp",
+		url: "/intl/ja_jp/images/logo.gif"
 	};
 	
 	$("#response").load("http://www.google.co.jp #logo", function(){
