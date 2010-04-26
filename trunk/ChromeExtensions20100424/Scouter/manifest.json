@@ -4,7 +4,8 @@
 	"descripsion": "Cross-search-engine hit count viewer",
 	"permissions": [
 		"http://www.google.com/*",
-		"http://api.search.live.net/*"
+		"http://api.search.live.net/*",
+		"http://search.yahooapis.jp/*"
 	],
 	"icons": {
 		"48": "sample-48.png",
