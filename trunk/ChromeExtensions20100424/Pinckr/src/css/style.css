@@ -1,0 +1,219 @@
+
+/*==================================================================*/
+
+/* common css：基本css */
+
+/*==================================================================*/
+
+/* base：ベース */
+
+/* ---------------------------------------------------------------- */
+html{height:100%;}
+
+body{
+	margin:0;
+	padding:0;
+	height:100%;
+	line-height:1.6;
+	color:#aaa;
+	background:#000 url('/images/header.gif') repeat-x 0 0;
+	font-family:"メイリオ",Meiryo,"MS P Gothic","ＭＳ Ｐゴシック",Osaka,Verdana,Chicago,sans-serif;
+	font-size:0.8em;
+}
+
+body#options{
+	background:#fff;
+	text-align:center;
+}
+
+
+/* hack */
+/* -------------------------------------------- */
+/* letter-spacing hack */
+@media screen{
+	body{letter-spacing:0.08em;}
+	br{letter-spacing:0;}
+}
+
+/* height100% hack */
+body > #container{height:auto;}
+
+
+/* link */
+/* -------------------------------------------- */
+a					{color:#555;text-decoration:none;}
+a:link		{}
+a:visited	{}
+a:hover		{color:#1352d0;text-decoration:none;}
+a:active	{}
+
+/* other */
+/* -------------------------------------------- */
+img{border:none;vertical-align:bottom;}
+form{margin:0;padding:0;}
+
+/* ---------------------------------------------------------------- */
+/* header：ヘッダ */
+/* ---------------------------------------------------------------- */
+/* リセット */
+#header *{margin:0;padding:0;}
+#header{
+	margin:0 auto 17px;
+	padding:10px 20px;
+}
+#header:after {  /*clearfix*/
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+	content: ".";
+}
+
+#header h1{
+	float:left;
+}
+
+#header #form-area{
+	float:right;
+	width:205px;
+	padding-top:18px;
+}
+
+#header #form-area{
+	float:right;
+	width:208px;
+}
+
+#header #form-area .form-search{
+	width:172px;
+	height:24px;
+	margin-right:5px;
+	background:url('/images/form.jpg') no-repeat 0 0;
+	border:none;
+	vertical-align:bottom;
+}
+
+#header #form-area .form-btn{
+	width:26px;
+	height:24px;
+	padding-top:1px;
+	background:url('/images/search.jpg') no-repeat 0 0;
+	cursor:pointer;
+	border:none;
+	vertical-align:bottom;
+}
+
+
+/* ---------------------------------------------------------------- */
+/* wrapper： */
+/* ---------------------------------------------------------------- */
+#wrapper *{margin:0;padding:0;}
+
+#wrapper{
+	margin-bottom:12px;
+	padding:0 20px;
+}
+/* clear hack */
+#wrapper{zoom:1;}
+#wrapper:after{content:".";clear:both;height:0;display:block;visibility:hidden;}
+
+
+/* ---------------------------------------------------------------- */
+/* contents：コンテンツ */
+/* ---------------------------------------------------------------- */
+#main{
+	float:left;
+	border:#666 1px solid;
+}
+
+#main object{
+	vertical-align:bottom;
+}
+
+/* ---------------------------------------------------------------- */
+/* side：サイドメニュー */
+/* ---------------------------------------------------------------- */
+#thumb *{margin:0;padding:0;}
+#thumb{
+	float:right;
+	width:106px;
+	padding:2px;
+	background:#333;
+}
+
+#thumb ul{
+	overflow:hidden;
+	height:218px;
+	padding-top:7px;
+	background:#333;
+	list-style: none;
+	text-align:center;
+}
+
+#thumb li{
+	margin-bottom:7px;
+}
+
+/* ---------------------------------------------------------------- */
+/* footer */
+/* ---------------------------------------------------------------- */
+/* リセット */
+#footer *{margin:0;padding:0;}
+#footer{
+	padding:0 20px;
+}
+
+#footer dl{
+}
+/* clear hack */
+#footer dl{zoom:1;}
+#footer dl:after{content:" ";clear:both;height:0;display:block;visibility:hidden;}
+
+#footer dt{	
+	float:left;
+	margin-right:10px;
+}
+
+#footer dd{
+	float:left;
+	padding-top:3px;
+}
+
+#footer dd ul{
+	list-style:none;
+}
+/* clear hack */
+#footer dd ul{zoom:1;}
+#footer dd ul:after{content:" ";clear:both;height:0;display:block;visibility:hidden;}
+
+#footer dd li{
+	float:left;
+	margin-right:10px;
+}
+
+/* ---------------------------------------------------------------- */
+/* keyword */
+/* ---------------------------------------------------------------- */
+#options p{
+	margin:40px 0 30px;
+	font-size:2em;
+	font-weight:bold;
+	color:#333;
+}
+
+
+
+#keyword *{margin:0;padding:0;}
+#keyword{
+	width:500px;
+	margin:0 auto;
+	padding:40px 20px;
+	border:#999 1px solid;
+	color:#333;
+}
+
+#keyword .word{
+	margin-bottom:30px;
+}
+
+/* ---------------------------------------------------------------- */

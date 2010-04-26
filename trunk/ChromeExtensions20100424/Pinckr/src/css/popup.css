@@ -1,0 +1,7 @@
+.updnWatermark
+{
+	position: relative;	/* positioning container */
+	width: 0;
+	height: 1.25em;	/* must specify height for consistent vertical alignment */
+	vertical-align: middle;
+}

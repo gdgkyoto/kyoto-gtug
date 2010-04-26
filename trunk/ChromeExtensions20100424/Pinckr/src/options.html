@@ -1,0 +1,80 @@
+<html>
+<head>
+	<link rel="stylesheet" href="/css/style.css" />
+	<title>Pinckr Options</title>
+
+</head>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+  var select = document.getElementById("color");
+  var color = select.children[select.selectedIndex].value;
+  localStorage["favorite_color"] = color;
+
+  // Update status to let user know options were saved.
+  var status = document.getElementById("status");
+  status.innerHTML = "Options Saved.";
+  setTimeout(function() {
+    status.innerHTML = "";
+  }, 750);
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+  var favorite = localStorage["favorite_color"];
+  if (!favorite) {
+    return;
+  }
+  var select = document.getElementById("color");
+  for (var i = 0; i < select.children.length; i++) {
+    var child = select.children[i];
+    if (child.value == favorite) {
+      child.selected = "true";
+      break;
+    }
+  }
+}
+
+</script>
+
+<style>
+body{
+	text-align:center;
+}
+
+p{
+	margin:40px 0 30px;
+	font-size:2em;
+	font-weight:bold;
+	color:#333;
+}
+
+#keyword *{margin:0;padding:0;}
+#keyword{
+	width:500px;
+	margin:0 auto;
+	padding:40px 20px;
+	border:#999 1px solid;
+	color:#333;
+}
+
+#keyword .word{
+	margin-bottom:30px;
+}
+
+</style>
+
+<body id="options" onload="restore_options()">
+
+<!-- keyword STR -->
+<p>Pinckr Options</p>
+
+<div id="keyword">
+	Keyword : <input type="text" name="" class="word" /><br>
+	<button onclick="save_options()">Save</button>
+</div>
+<!-- keyword END -->
+
+</body>
+</html>
