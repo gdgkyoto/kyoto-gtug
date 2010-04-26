@@ -8,11 +8,7 @@
 			// 参考コード
 			// http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/howto/contentscript_xhr/
 
-			// 複数の検索エンジンに対して検索を行い、結果を返す。
-			// query: 検索クエリ
-			// callback: コールバック
-			function fetchSearchResult(query, callback) {
-				console.log('fetchSearchResult');
+			function bingSearch(response, query, callback){
 				var params = {
 					Appid: 'F86569E3A5245BCD131B9E5A90939CFCF65E92CC',
 					query: query,
@@ -22,40 +18,73 @@
 				}
 				$.ajax({
 					type: 'GET',
-					url: 'http://api.search.live.net/json.aspx',
+					url: "http://api.search.live.net/json.aspx",
 					data: params,
 					dataType: 'json',
-					success: function(response){
-						var results = response.SearchResponse.Web.Results;
-//						var result = {};
-//						result.error = response;
-						var result = [
-							{
-								'engine': 'Google',
-								'total': 0,
-								'data': []
-							},
-							{
-								'engine': 'Yahoo',
-								'total': 0,
-								'data': []
-							},
-							{
-								'engine': 'Bing',
-								'total': response.SearchResponse.Web.Total,
-								'data': [
-									{title: results[0].Title, url: results[0].Url},
-									{title: results[1].Title, url: results[1].Url},
-									{title: results[2].Title, url: results[2].Url}
-								]
-							}
-						];
-						callback(result);
-					},
-					error:function(data){
-						callback({error: data});
+					success: function(res){
+						var results = res.SearchResponse.Web.Results;
+						response.push({
+							'engine': 'Bing',
+							'total': res.SearchResponse.Web.Total,
+							'data': [
+								{title: results[0].Title, url: results[0].Url},
+								{title: results[1].Title, url: results[1].Url},
+								{title: results[2].Title, url: results[2].Url}
+							]							
+						})
+						callback();
 					}
-				})					// 仮実装
+				})				
+			}
+
+			// http://search.yahooapis.jp/WebSearchService/V1/webSearch?appid=zdksqkOxg65uC2CemuYVRiO7QhAbtJUTt9JsIBxADGnXNK0cKPf2FO0dcdTbpD_zqWau&query=YAHOO&results=2&output=json
+			
+			var yahooSearchCallback = function(response) {
+				console.log(response);
+				var results = response.ResultSet.Result;
+				yahooSearchCallback.response.push({
+					'engine': 'Yahoo!',
+					'total': response.ResultSet.totalResultsAvailable,
+					'data': [
+						{title: results[0].Title, url: results[0].Url},
+						{title: results[1].Title, url: results[1].Url},
+						{title: results[2].Title, url: results[2].Url}
+					]
+				})
+
+				yahooSearchCallback.callback();
+			}
+			function yahooSearch(response, query, callback){
+				yahooSearchCallback.response = response;
+				yahooSearchCallback.callback = callback;
+				
+				var appid = 'zdksqkOxg65uC2CemuYVRiO7QhAbtJUTt9JsIBxADGnXNK0cKPf2FO0dcdTbpD_zqWau';
+				var script = document.createElement('script');
+				script.setAttribute('type', 'text/javascript');
+				script.setAttribute('src', [
+					'http://search.yahooapis.jp/WebSearchService/V1/webSearch',
+					'?appid=', encodeURIComponent(appid),
+					'&query=', encodeURIComponent(query),
+					'&results=3',
+					'&output=json',
+					'&callback=yahooSearchCallback'
+					].join(''));
+				script.setAttribute('charset', 'UTF-8');
+				document.body.appendChild(script);
+			}
+			
+			// 複数の検索エンジンに対して検索を行い、結果を返す。
+			// query: 検索クエリ
+			// callback: コールバック
+			function fetchSearchResult(query, callback) {
+				console.log('fetchSearchResult');
+				
+				var results = [];
+				bingSearch(results, query, function(){
+					yahooSearch(results, query, function(){
+						callback(results);						
+					});
+				});
 			};
 			// message passing のハンドラ
 			// 引数
