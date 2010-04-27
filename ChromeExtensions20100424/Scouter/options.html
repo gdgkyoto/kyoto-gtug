@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Scouter Options</title>
+		<style>
+			body {
+				font-family: arial;
+			}
+		</style>
+		<script>
+			function loadOptions() {
+				var numberOfResults = localStorage["numberOfResults"];
+				if (numberOfResults == undefined) {
+					numberOfResults = 3;
+				}
+				document.getElementById("numberOfResults").value = numberOfResults;
+			}
+			function saveOptions() {
+				localStorage["numberOfResults"] = document.getElementById("numberOfResults").value;
+			}
+			function eraseOptions() {
+				localStorage.removeItem("numberOfResults");
+				location.reload();
+			}
+		</script>
+	</head>
+	<body onload="loadOptions()">
+		<h1>Scouter Options</h1>
+		Number of results: <input type="text" id="numberOfResults"></input><br/>
+
+		<button onclick="saveOptions()">Save</button>
+		<button onclick="eraseOptions()">Restore default</button>
+	</body>
+</html>
+
