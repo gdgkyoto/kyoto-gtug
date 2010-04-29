@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"descripsion": "Cross-search-engine hit count viewer",
 	"permissions": [
-		"http://www.google.com/*",
 		"http://api.search.live.net/*",
-		"http://search.yahooapis.jp/*"
+		"http://search.yahooapis.jp/*",
+		"http://ajax.googleapis.com/*"
 	],
 	"icons": {
 		"48": "sample-48.png",

@@ -33,18 +33,28 @@
 							]							
 						})
 						callback();
+					},
+					error: function(xhr, textStatus, errorThrown){
+						console.log(errorThrown);
 					}
 				})				
 			}
 
 			// http://search.yahooapis.jp/WebSearchService/V1/webSearch?appid=zdksqkOxg65uC2CemuYVRiO7QhAbtJUTt9JsIBxADGnXNK0cKPf2FO0dcdTbpD_zqWau&query=YAHOO&results=2&output=json
-			
-			var yahooSearchCallback = function(response) {
-				console.log(response);
-				var results = response.ResultSet.Result;
+			// Yahoo! 検索
+			// data: APIで取得した検索結果
+			var yahooSearchCallback = function(data) {
+				console.log("yahooSearchCallback");
+				console.log(data);
+				if (!yahooSearchCallback.response)
+					throw { error: "yahooSearchCallbackにresonseがセットされていません" }
+				if (!yahooSearchCallback.callback)
+					throw { error: "yahooSearchCallbackにcallbackがセットされていません" }
+
+				var results = data.ResultSet.Result;
 				yahooSearchCallback.response.push({
 					'engine': 'Yahoo!',
-					'total': response.ResultSet.totalResultsAvailable,
+					'total': data.ResultSet.totalResultsAvailable,
 					'data': [
 						{title: results[0].Title, url: results[0].Url},
 						{title: results[1].Title, url: results[1].Url},
@@ -73,6 +83,49 @@
 				document.body.appendChild(script);
 			}
 			
+			// Google 検索			
+			// data: APIで取得した検索結果
+			function googleSearchCallback(data)
+			{
+				console.log("googleSearchCallback");
+				console.log(data);
+				if (!googleSearchCallback.response)
+					throw { error: "googleSearchCallbackにresonseがセットされていません" }
+				if (!googleSearchCallback.callback)
+					throw { error: "googleSearchCallbackにcallbackがセットされていません" }
+
+				var results = data.responseData.results;
+				googleSearchCallback.response.push({
+					'engine': 'Google',
+					'total': data.responseData.cursor.estimatedResultCount,
+					'data': [
+						{title: results[0].title, url: results[0].url},
+						{title: results[1].title, url: results[1].url},
+						{title: results[2].title, url: results[2].url}
+					]
+				})
+				googleSearchCallback.callback();
+			}
+			function googleSearch(response, query, callback)
+			{
+				googleSearchCallback.response = response;
+				googleSearchCallback.callback = callback;
+
+				var appid = 'ABQIAAAAIWerzbncqqoIPMsGqlPItRQMvVaHn46sKFEB-9OpdaAgTkqXtBQQ_iLPa_Kues42K0wHkoyq-cFdUw';
+				var script = document.createElement('script');
+				script.setAttribute('type', 'text/javascript');
+				script.setAttribute('src', [
+					'http://ajax.googleapis.com/ajax/services/search/web',
+					'?key=', encodeURIComponent(appid),
+					'&q=', encodeURIComponent(query),
+					'&v=1.0',
+//					'&rsz=large',
+					'&callback=googleSearchCallback'
+				].join(''));
+				script.setAttribute('charset', 'UTF-8');
+				document.body.appendChild(script);
+			}
+			
 			// 複数の検索エンジンに対して検索を行い、結果を返す。
 			// query: 検索クエリ
 			// callback: コールバック
@@ -82,7 +135,9 @@
 				var results = [];
 				bingSearch(results, query, function(){
 					yahooSearch(results, query, function(){
-						callback(results);						
+						googleSearch(results, query, function(){
+							callback(results);							
+						})
 					});
 				});
 			};
