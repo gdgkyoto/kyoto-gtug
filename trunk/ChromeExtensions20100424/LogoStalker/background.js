@@ -15,19 +15,21 @@
 			color: '#5500AA',
 			font: "bold 14px 'Book Antiqua,Century,ヒラギノ角ゴ Pro'"		
 		}
-	}
+	};
 	
 	logoStalker.checkLogo = function(){
+//		console.log(this);
 		var logo = {
 			domain: "http://www.google.co.jp",
-			url: "/intl/ja_jp/images/logo.gif"
+			url: /\/intl\/en_com\/images\/srpr\/logo1w.png/
 		};
-		var that = this;
 
 		return function(callback) {
+			var that = this;
 			$("#response").load("http://www.google.co.jp #logo", function(){
-				var logoUrl = $('#logo').attr('src');
-				that.isChange = logoUrl != logo.url;
+				var backgroundImage = $('#logo').css('background-image');
+				that.isChange = !logo.url.test(backgroundImage);
+				console.log(that.isChange);
 
 				callback();
 			});			
@@ -43,6 +45,7 @@
 	}
 	
 	logoStalker.drawNormalIcon = function(){
+		console.log('normalDraw');
 		var config = this.setttings.normal;
 		var canvas = document.getElementById(this.setttings.canvas);
 		var ctx = canvas.getContext('2d');
@@ -59,6 +62,7 @@
 	}
 	
 	logoStalker.drawRotateIcon = function(){
+		console.log('rotateDraw');
 		var config = this.setttings.rotate;
 		var canvas = document.getElementById(this.setttings.canvas);
 		var ctx = canvas.getContext('2d');
@@ -85,7 +89,7 @@
 	}
 	
 	w.logoStalker = logoStalker;
-}(window));
+})(window);
 
 $(function(){
 	logoStalker.checkLogo(function(){
