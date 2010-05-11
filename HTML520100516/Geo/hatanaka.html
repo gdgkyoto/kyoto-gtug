@@ -1,6 +1,15 @@
 <html>
 <head>
 <title>hatanaka</title>
+<script type="text/javascript">
+function getPosition(){
+	navigator.geolocation.getCurrentPosition(function(position){
+		alert(position.coords.latitude + ' , ' + position.coords.longitude);
+	});
+}
+</script>
 </head>
-<body>テスト</body>
+<body>
+<form><input type="button" value="位置取得" onclick="getPosition()"></form>
+</body>
 </html>
