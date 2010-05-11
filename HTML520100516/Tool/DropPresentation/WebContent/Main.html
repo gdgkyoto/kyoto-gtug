@@ -2,8 +2,11 @@
 <html lang="ja"> 
 <head> 
 	<meta charset="utf-8"> 
+	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.1.custom.min.js"></script>
 	<script type="text/javascript" src="js/base64.js"></script>
 	<script type="text/javascript" src="js/canvas2image.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.1.custom.css"></link>
 	
 	<title>ドロッププレゼンテーション</title>
 <script type="text/javascript">
@@ -28,6 +31,31 @@ window.addEventListener("load", function() {
 		//console.log("mouseup : " + drawFlag);
 	}, false);
 
+	myCanvas.addEventListener("dblclick", function(e) {
+		//console.log("dbclick");
+		
+		document.getElementById("inputText").value = "";
+		
+		$('#dialog').dialog({
+		    bgiframe: true,
+		    autoOpen: true,
+		    width: 200,
+		    modal: false,
+		    buttons: {
+		        'OK': function() {
+					var myCanvas = document.getElementById("myCanvas");
+					var context = myCanvas.getContext("2d");
+					var x = e.clientX;
+					var y = e.clientY;
+					var text = document.getElementById("inputText").value;
+					context.font = "10px";
+					context.fillText(text, x, y);
+					$(this).dialog("close");
+		        }
+		    }
+		});		
+	}, false);
+
 	myCanvas.addEventListener("dragenter", function(e) {
 		//console.log("dragenter");
 		e.stopPropagation();
@@ -46,7 +74,7 @@ window.addEventListener("load", function() {
 		var files = dt.files;
 		if (files.length <= 0) return false;
 		var file = files[0];
-		if (file.type.match(/image.*/)) { 
+		//if (file.type.match(/image.*/)) { 
 			var img = new Image();
 			var dataURLReader = new FileReader();
 		    dataURLReader.onloadend = function() {
@@ -54,7 +82,7 @@ window.addEventListener("load", function() {
 		        drawImage(img, e.clientX, e.clientY);
 		    }
 		    dataURLReader.readAsDataURL(file);
-		}
+		//}
 		e.stopPropagation();
 	}, false);
 
@@ -101,6 +129,9 @@ function saveData() {
 	<canvas id="myCanvas" width="640" height="480" draggable="true" style="-webkit-user-drag: element; border: 1px solid gray;"> 
 		HTML 5　Canvasに対応したブラウザを使用してください。
 	</canvas>
+	<div id="dialog" title="テキスト" style="display : none;">
+    	<input type="text" name="inputText" id="inputText" size="20" />
+	</div>
 	<div id="menu">
 		<button onclick="drawImage()"">画像</button>
 		<button onclick="saveData()">保存</button>
