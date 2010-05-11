@@ -5,6 +5,11 @@
 	</head>
 	<body>
 		<script>
+			// localStorageへアクセス
+			function numOfRes(){
+				return localStorage["numberOfResults"] |= 3;				
+			}
+
 			// 参考コード
 			// http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/howto/contentscript_xhr/
 
@@ -13,7 +18,7 @@
 					Appid: 'F86569E3A5245BCD131B9E5A90939CFCF65E92CC',
 					query: query,
 					sources: 'web',
-					'web.count': 3
+					'web.count': numOfRes()
 //					'web.offset': 100
 				}
 				$.ajax({
@@ -23,14 +28,17 @@
 					dataType: 'json',
 					success: function(res){
 						var results = res.SearchResponse.Web.Results;
+						var data = [];
+						for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+							data.push({
+								title: results[i].Title, 
+								url: results[i].Url
+							})
+						}
 						response.push({
 							'engine': 'Bing',
 							'total': res.SearchResponse.Web.Total,
-							'data': [
-								{title: results[0].Title, url: results[0].Url},
-								{title: results[1].Title, url: results[1].Url},
-								{title: results[2].Title, url: results[2].Url}
-							]							
+							'data': data
 						})
 						callback();
 					},
@@ -43,23 +51,26 @@
 			// http://search.yahooapis.jp/WebSearchService/V1/webSearch?appid=zdksqkOxg65uC2CemuYVRiO7QhAbtJUTt9JsIBxADGnXNK0cKPf2FO0dcdTbpD_zqWau&query=YAHOO&results=2&output=json
 			// Yahoo! 検索
 			// data: APIで取得した検索結果
-			var yahooSearchCallback = function(data) {
+			var yahooSearchCallback = function(res) {
 				console.log("yahooSearchCallback");
-				console.log(data);
+				console.log(res);
 				if (!yahooSearchCallback.response)
 					throw { error: "yahooSearchCallbackにresonseがセットされていません" }
 				if (!yahooSearchCallback.callback)
 					throw { error: "yahooSearchCallbackにcallbackがセットされていません" }
 
-				var results = data.ResultSet.Result;
+				var results = res.ResultSet.Result;
+				var data = [];
+				for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+					data.push({
+						title: results[i].Title, 
+						url: results[i].Url
+					})
+				}
 				yahooSearchCallback.response.push({
 					'engine': 'Yahoo!',
-					'total': data.ResultSet.totalResultsAvailable,
-					'data': [
-						{title: results[0].Title, url: results[0].Url},
-						{title: results[1].Title, url: results[1].Url},
-						{title: results[2].Title, url: results[2].Url}
-					]
+					'total': res.ResultSet.totalResultsAvailable,
+					'data': data
 				})
 
 				yahooSearchCallback.callback();
@@ -75,7 +86,7 @@
 					'http://search.yahooapis.jp/WebSearchService/V1/webSearch',
 					'?appid=', encodeURIComponent(appid),
 					'&query=', encodeURIComponent(query),
-					'&results=3',
+					'&results=', numOfRes(),
 					'&output=json',
 					'&callback=yahooSearchCallback'
 					].join(''));
@@ -85,24 +96,27 @@
 			
 			// Google 検索			
 			// data: APIで取得した検索結果
-			function googleSearchCallback(data)
+			function googleSearchCallback(res)
 			{
 				console.log("googleSearchCallback");
-				console.log(data);
+				console.log(res);
 				if (!googleSearchCallback.response)
 					throw { error: "googleSearchCallbackにresonseがセットされていません" }
 				if (!googleSearchCallback.callback)
 					throw { error: "googleSearchCallbackにcallbackがセットされていません" }
 
-				var results = data.responseData.results;
+				var results = res.responseData.results;
+				var data = [];
+				for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+					data.push({
+						title: results[i].title, 
+						url: results[i].url
+					})
+				}
 				googleSearchCallback.response.push({
 					'engine': 'Google',
-					'total': data.responseData.cursor.estimatedResultCount,
-					'data': [
-						{title: results[0].title, url: results[0].url},
-						{title: results[1].title, url: results[1].url},
-						{title: results[2].title, url: results[2].url}
-					]
+					'total': res.responseData.cursor.estimatedResultCount,
+					'data': data
 				})
 				googleSearchCallback.callback();
 			}
@@ -119,7 +133,7 @@
 					'?key=', encodeURIComponent(appid),
 					'&q=', encodeURIComponent(query),
 					'&v=1.0',
-//					'&rsz=large',
+					'&rsz=large',
 					'&callback=googleSearchCallback'
 				].join(''));
 				script.setAttribute('charset', 'UTF-8');
@@ -131,6 +145,7 @@
 			// callback: コールバック
 			function fetchSearchResult(query, callback) {
 				console.log('fetchSearchResult');
+				console.log('localStorage["numberOfResults"]=' + numOfRes());
 				
 				var results = [];
 				bingSearch(results, query, function(){
