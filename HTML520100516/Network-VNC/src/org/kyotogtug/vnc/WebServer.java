@@ -28,9 +28,8 @@ public class WebServer extends WebSocketServlet{
 	  }
 
 	  public void start() throws Exception{
-		    SelectChannelConnector connector = new SelectChannelConnector();
-		    connector.setPort(8080);
-		    Server server = new Server(8090);
+//		    SelectChannelConnector connector = new SelectChannelConnector();
+//		    connector.setPort(8080);
 //		    server.setConnectors(new Connector[] {connector});
 //		    WebAppContext web = new WebAppContext();
 //		    web.setWar("WebContent");  //WARフォルダの指定
@@ -43,6 +42,7 @@ public class WebServer extends WebSocketServlet{
 //		    server.start();
 //		    server.join();
 
+		    Server server = new Server(8090);
 		    VncServlet servlet = new VncServlet();
 
 		    ResourceHandler resourceHandler = new ResourceHandler();
