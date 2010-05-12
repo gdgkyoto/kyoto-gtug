@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- 参考 http://d.hatena.ne.jp/shibason/20100111/1263191021 -->
+
+<script type="text/javascript">
+    function start() {
+      /* ファイルがドロップされた時のイベントリスナをセット */
+      document.documentElement.addEventListener('dragover', function(event) {
+        event.preventDefault();
+      }, false);
+      document.documentElement.addEventListener('drop', function(event) {
+        event.preventDefault();
+        update(event.dataTransfer.files);
+      }, false);
+    }
+    document.addEventListener('DOMContentLoaded', start, false);
+
+    function update(files) {
+      /* 結果表示欄をクリア */
+      var result_container = document.getElementById('result_container');
+      while (result_container.hasChildNodes()) {
+        result_container.removeChild(result_container.firstChild);
+      }
+
+      for (var i = 0; i < files.length; i++) {
+        result_container.appendChild(convert(files[i]));
+      }
+    }
+
+    function convert(file) {
+      var result = document.createElement('div');
+      result.setAttribute('class', 'result');
+
+      /* ファイルの情報を表示 */
+      var info = document.createElement('div');
+      var name = document.createElement('a');
+      name.appendChild(document.createTextNode(file.name));
+      info.appendChild(name);
+      var text = ' (' + file.size + 'バイト) [' + file.type + ']';
+      info.appendChild(document.createTextNode(text));
+      result.appendChild(info);
+
+      return result;
+    }
+
+
+</script>
+<p>
+ファイルをドロップ
+</p>
+
+    <div id="result_container"></div>
+
+</body>
+</html>
