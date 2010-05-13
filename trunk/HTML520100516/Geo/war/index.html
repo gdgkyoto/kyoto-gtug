@@ -1,0 +1,22 @@
+<html>
+<head><title></title>
+<script type="text/javascript" src="gears_init.js"></script>
+<script type="text/javascript">
+var geo = google.gears.factory.create('beta.geolocation');
+
+function updatePosition(position) {
+	document.getElementById('location').innerHTML += position.latitude + ',' + position.longitude + '<br>';
+}
+
+function handleError(positionError) {
+  alert('Attempt to get location failed: ' + positionError.message);
+}
+
+setInterval('geo.getCurrentPosition(updatePosition, handleError)', 5000);
+</script>
+</head>
+<body>
+åªç›ín
+<div id="location"></div>
+</body>
+</html>
