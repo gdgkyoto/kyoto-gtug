@@ -9,8 +9,18 @@ function onResult(result) {
 	var container = document.createElement("div");
 	container.style.float = "right";
 	container.className = "scouter";
-	var tbd = document.getElementById("tbd");
-	tbd.parentNode.insertBefore(container, tbd.nextSibling);
+	var rhs = document.getElementById("rhs");
+	if (!rhs) {
+		rhs = document.createElement("div");
+		rhs.style.position = "absolute";
+		rhs.style.width = "264px";
+		rhs.style.right = "0px";
+		rhs.style.top = "0px";
+		var center_col = document.getElementById("center_col");
+		center_col.style.minWidth = "0px";
+		center_col.parentNode.appendChild(rhs);
+	}
+	rhs.appendChild(container);
 
 	showAsText(result, container);
 	//showAsSvg(result, container);
