@@ -1,18 +1,33 @@
 package org.kyotogtug.vnc;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.websocket.WebSocket;
 
 public class VncWebSocket implements WebSocket{
 
+	/** 画面をキャプチャし、画像ファイルを保存するFile
+	 *  このFileにいったん保存し、そのファイルのバイトデータをクライアントに送信する */
+	private File file;
 
+	/** TCPで言うSocket的なやつ */
 	private Outbound outbound ;
 
-//	public VncWebSocket( VncServlet vncServlet ){
-//		this.vncServlet = vncServlet;
-//	}
+	public VncWebSocket(){
+		file = new File("screen.jpg");
+	}
 
 	@Override
 	public void onConnect(Outbound outbound) {
@@ -31,15 +46,41 @@ public class VncWebSocket implements WebSocket{
 		System.out.println("onDisconnect!");
 	}
 
+	/**
+	 * データ受信時の処理
+	 */
 	@Override
 	public void onMessage(byte arg0, String data) {
 		System.out.println("onMessage!");
 		try {
-			outbound.sendMessage((byte)0, "Received!:"+data);
+
+			// 画面をキャプチャし、Jpegのバイト配列を取得する
+			byte[] bytes = capture();
+
+			// Base64でエンコードし、クライアントに送信する
+			outbound.sendMessage((byte)0, Base64.encodeBase64(bytes));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 画面をキャプチャし、バイトデータを取得する。
+	 * @return
+	 * @throws AWTException
+	 * @throws IOException
+	 */
+	private byte[] capture() throws AWTException, IOException{
+		Robot robot = new Robot();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		BufferedImage img = robot.createScreenCapture( new Rectangle(screenSize));
+		ImageIO.write(img, "jpg", file);
+		byte[] bytes = FileUtils.readFileToByteArray(file);
+		return bytes;
 	}
 
 	@Override

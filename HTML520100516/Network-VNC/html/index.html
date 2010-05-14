@@ -6,22 +6,56 @@
 <script src = 'jquery-1.4.2.js' type = 'text/javascript'></script>
 
 <script type="text/javascript">
-    var ws = new WebSocket("ws://localhost:8090/ws/");
+
+    //---------------------------------------------------
+    // 接続
+    var protocol=(location.protocol=="https:")?"wss":"ws";
+    var host=location.host;
+    var ws = new WebSocket(protocol+"://"+host+"/ws/");
+
+    // 初期化
+    var screenImage ;
+    var imageRequestTimer=null;
+
+    // データ受信時の処理
     ws.onmessage = function(m) {
-      $('#content').prepend(m.data );
+        // 受信データをimgタグに反映
+        screenImage.setAttribute("src","data:image/jpg;base64,"+m.data);
     };
-    $('#hashtag').change(function(){
-      ws.send(this.value);
-    });
+
+    // 切断処理
     $(window).unload(function(){
       ws.close();
     });
-    
-    
-    function click2(){
-      alert('aaa');
+
+	// 画面更新タイマー
+    function setImageRequestTimer(milliseconds){
+    	if(imageRequestTimer!=null){
+    		clearTimeout(imageRequestTimer);
+    	}
+    	imageRequestTimer=setTimeout(updateImage,milliseconds);
+    }
+
+	// 手動の画面更新
+    function refresh(){
       ws.send( $('#in').val() );
     }
+
+    // HTMLロード完了時の処理
+    $(function(){
+        screenImage = document.getElementById("screen");
+        setImageRequestTimer(500);
+    });
+
+    // 画面更新
+    function updateImage(){
+        // 画面更新要求
+    	ws.send( $('#in').val() );
+
+    	// 500ミリ秒後に再度画面更新
+    	setImageRequestTimer(500);
+    }
+
 </script>
 
 <title>WebSocketRemote</title>
@@ -29,8 +63,8 @@
 <body>
 <div id="content">AAA</div>
 <div id="hashtag">BBB</div>
-<input type="button" onClick="click2()" value="Send"/>
+<input type="button" onClick="refresh()" value="refresh"/>
 <input type="text" id="in" />
-<img id="remote" src="images/splash.png" />
+<img id="screen" src="gtug210x85.png" />
 </body>
 </html>

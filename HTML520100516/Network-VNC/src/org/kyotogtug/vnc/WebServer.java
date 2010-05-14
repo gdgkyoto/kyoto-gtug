@@ -14,7 +14,11 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.websocket.WebSocket;
 import org.eclipse.jetty.websocket.WebSocketServlet;
-
+/**
+ * Webサーバメインクラス
+ * @author kitamura
+ *
+ */
 public class WebServer extends WebSocketServlet{
 	@Override
 	  protected WebSocket doWebSocketConnect(HttpServletRequest req, String protocol) {
@@ -28,29 +32,13 @@ public class WebServer extends WebSocketServlet{
 	  }
 
 	  public void start() throws Exception{
-//		    SelectChannelConnector connector = new SelectChannelConnector();
-//		    connector.setPort(8080);
-//		    server.setConnectors(new Connector[] {connector});
-//		    WebAppContext web = new WebAppContext();
-//		    web.setWar("WebContent");  //WARフォルダの指定
-//		    web.setContextPath("/JettyRunTest");  //コンテキストパス
-//
-//
-//		    web.addServletWithMapping(WebServer.class, "/");
-//
-//		    server.setHandler(web);
-//		    server.start();
-//		    server.join();
 
 		    Server server = new Server(8090);
 		    VncServlet servlet = new VncServlet();
 
 		    ResourceHandler resourceHandler = new ResourceHandler();
-		    //String htmlPath = this.getClass().getClassLoader().getResource("html").toExternalForm();
 		    resourceHandler.setResourceBase("./html");
 
-
-		    //WSServlet wsServlet = new WSServlet(this);
 		    ServletHolder wsServletHolder = new ServletHolder(servlet);
 		    wsServletHolder.setInitParameter("bufferSize", Integer.toString(8192*256,10));
 		    ServletContextHandler wsServletContextHandler = new ServletContextHandler();
