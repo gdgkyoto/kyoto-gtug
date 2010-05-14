@@ -48,7 +48,6 @@ public class WebServer extends WebSocketServlet{
 		    handlerList.setHandlers(new Handler[] {resourceHandler, wsServletContextHandler});
 		    server.setHandler(handlerList);
 		    server.start();
-		    System.out.println("YAHOOOO");
 		  }
 
 }
