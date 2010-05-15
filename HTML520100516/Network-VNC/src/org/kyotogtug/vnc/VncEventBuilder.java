@@ -1,5 +1,8 @@
 package org.kyotogtug.vnc;
 
+import org.kyotogtug.vnc.events.Event;
+import org.kyotogtug.vnc.events.ImageEvent;
+
 /**
  * 通信イベント作成用クラス
  * @author Kenji
@@ -13,7 +16,10 @@ public class VncEventBuilder {
 	 * @param bytes
 	 * @return
 	 */
-	public VncEvent createImageEvent( byte[] bytes ){
+	public Event createImageEvent( byte[] bytes ){
+		ImageEvent event = new ImageEvent();
+		
+		
 		return null;
 	}
 	
@@ -23,8 +29,8 @@ public class VncEventBuilder {
 	 * @param data
 	 * @return
 	 */
-	public VncEvent parseEvent( String str ){
-		VncEvent vncEvent = new VncEvent();
+	public Event parseEvent( String str ){
+		Event vncEvent = new Event();
 		String[] data = str.split("\\|");
 		if( data.length <= 4 ){
 			throw new IllegalArgumentException("invalid format!");
