@@ -2,7 +2,8 @@
 <html>
 <head>
 <link type="text/css" href="common.css" rel="stylesheet">
-<script src="common.js" type="text/javascript"></script>
+<script src="websocket.js" type="text/javascript"></script>
+<script src="file_upload.js" type="text/javascript"></script>
 <script src = 'jquery-1.4.2.js' type = 'text/javascript'></script>
 
 <script type="text/javascript">
@@ -55,7 +56,9 @@
     	
         screenImage = document.getElementById("screen");
         setImageRequestTimer(500);
+
         console.log("onLoad end");
+        initFileUpload();
     });
 
     // 画面更新
@@ -81,6 +84,7 @@
 <div id="hashtag">BBB</div>
 <input type="button" onClick="refresh()" value="refresh"/>
 <input type="text" id="in" />
+<div id="text" style="width:200px; height:200px; border:1px solid gray;"></div>
 <img id="screen" src="gtug210x85.png" />
 </body>
 </html>
