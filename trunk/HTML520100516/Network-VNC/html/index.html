@@ -11,17 +11,11 @@
     // 接続
     var protocol=(location.protocol=="https:")?"wss":"ws";
     var host=location.host;
-    var ws = new WebSocket(protocol+"://"+host+"/ws/");
+    var ws;
 
     // 初期化
     var screenImage ;
     var imageRequestTimer=null;
-
-    // データ受信時の処理
-    ws.onmessage = function(m) {
-        // 受信データをimgタグに反映
-        screenImage.setAttribute("src","data:image/jpg;base64,"+m.data);
-    };
 
     // 切断処理
     $(window).unload(function(){
@@ -30,10 +24,16 @@
 
 	// 画面更新タイマー
     function setImageRequestTimer(milliseconds){
+    	console.log("setImageRequestTimer start");
     	if(imageRequestTimer!=null){
     		clearTimeout(imageRequestTimer);
     	}
-    	imageRequestTimer=setTimeout(updateImage,milliseconds);
+    	(function(obj){
+    	imageRequestTimer=setTimeout(function(){
+    		updateImage(obj);
+    	},milliseconds);
+    	})(ws)
+    	console.log("setImageRequestTimer end");
     }
 
 	// 手動の画面更新
@@ -43,17 +43,33 @@
 
     // HTMLロード完了時の処理
     $(function(){
+    	console.log("onLoad start");
+    	
+    	ws = new WebSocket(protocol+"://"+host+"/ws/");
+        // データ受信時の処理
+        ws.onmessage = function(m) {
+          // 受信データをimgタグに反映
+          screenImage.setAttribute("src","data:image/jpg;base64,"+m.data);
+        };
+
+    	
         screenImage = document.getElementById("screen");
         setImageRequestTimer(500);
+        console.log("onLoad end");
     });
 
     // 画面更新
-    function updateImage(){
+    function updateImage(ws_obj){
+    	console.log("updateImage start "+ws.send);
+        var v = $('#in').val(); 
+    
+    	
         // 画面更新要求
-    	ws.send( $('#in').val() );
+    	ws_obj.send( v );
 
     	// 500ミリ秒後に再度画面更新
     	setImageRequestTimer(500);
+    	console.log("updateImage end");
     }
 
 </script>
