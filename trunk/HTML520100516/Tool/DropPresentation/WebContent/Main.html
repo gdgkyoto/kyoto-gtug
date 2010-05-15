@@ -1,12 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html lang="ja"> 
 <head> 
-	<meta charset="utf-8"> 
+	<meta charset="utf-8" /> 
+	<!-- 
+	<link rel="stylesheet" type="text/css" media="screen, projection, print"  href="http://www.w3.org/Talks/Tools/Slidy/slidy.css" /> 
+	<script src="http://www.w3.org/Talks/Tools/Slidy/slidy.js"  type="text/javascript"></script> 
+	-->
 	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8.1.custom.min.js"></script>
 	<script type="text/javascript" src="js/base64.js"></script>
 	<script type="text/javascript" src="js/canvas2image.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.1.custom.css"></link>
+	<style type="text/css">
+		div.active {
+		}
+		
+		div.passive {
+			display : none;
+		}
+	</style>
 	
 	<title>ドロッププレゼンテーション</title>
 <script type="text/javascript">
@@ -16,85 +29,69 @@ var oldX = 0;
 var oldY = 0;
 
 window.addEventListener("load", function() {
-	var myCanvas = document.getElementById("myCanvas");
-	myCanvas.addEventListener("mousemove", draw, false);
+	var canvas = $("#template canvas"); 
+	canvas.mousemove(function(e) {
+		// console.log("mousemove : " + drawFlag);
+		var x = e.clientX;
+		var y = e.clientY;
+		drawLine($(this).context, x, y);
+	});
 
-	myCanvas.addEventListener("mousedown", function(e) {
+	canvas.mousedown(function(e) {
 		drawFlag = true;
-		//console.log("mousedown : " + drawFlag);
+		console.log("mousedown : " + drawFlag);
 		oldX = e.clientX;
 		oldY = e.clientY;
-	}, false);
+	});
 
-	myCanvas.addEventListener("mouseup", function() {
+	canvas.mouseup(function() {
 		drawFlag = false;
 		//console.log("mouseup : " + drawFlag);
-	}, false);
+	});
 
-	myCanvas.addEventListener("dblclick", function(e) {
-		//console.log("dbclick");
-		
-		document.getElementById("inputText").value = "";
-		
-		$('#dialog').dialog({
-		    bgiframe: true,
-		    autoOpen: true,
-		    width: 200,
-		    modal: false,
-		    buttons: {
-		        'OK': function() {
-					var myCanvas = document.getElementById("myCanvas");
-					var context = myCanvas.getContext("2d");
-					var x = e.clientX;
-					var y = e.clientY;
-					var text = document.getElementById("inputText").value;
-					context.font = "10px";
-					context.fillText(text, x, y);
-					$(this).dialog("close");
-		        }
-		    }
-		});		
-	}, false);
+	canvas.dblclick(function(e) {
+		console.log("dbclick");
+		var x = e.clientX;
+		var y = e.clientY;
+		var text = inputText($(this), drawText, x, y);
+	});
 
-	myCanvas.addEventListener("dragenter", function(e) {
+	canvas.context.addEventListener("dragenter",function(e) {
 		//console.log("dragenter");
 		e.stopPropagation();
 		e.preventDefault();
 	}, false);
 
-	myCanvas.addEventListener("dragover", function(e) {
+	canvas.context.addEventListener("dragover", function(e) {
 		//console.log("dragover");
 		e.stopPropagation();
 		e.preventDefault();
 	}, false);
 
-	myCanvas.addEventListener("drop", function(e) {
+	canvas.context.addEventListener("drop", function(e) {
 		//console.log("drop");
+
 		var dt = e.dataTransfer;
 		var files = dt.files;
 		if (files.length <= 0) return false;
 		var file = files[0];
-		//if (file.type.match(/image.*/)) { 
+		if (file.type.match(/image.*/)) { 
 			var img = new Image();
 			var dataURLReader = new FileReader();
 		    dataURLReader.onloadend = function() {
 		        img.src = dataURLReader.result;
-		        drawImage(img, e.clientX, e.clientY);
+		        drawImage(e.target, img, e.clientX, e.clientY);
 		    }
 		    dataURLReader.readAsDataURL(file);
-		//}
+		}
 		e.stopPropagation();
 	}, false);
 
 }, false);
 
-function draw(e) {
-	//console.log("mousemove : " + drawFlag);
+function drawLine(canvas, x, y) {
 	if (!drawFlag) return;
-	var x = e.clientX;
-	var y = e.clientY;
-	var myCanvas = document.getElementById("myCanvas");
-	var context = myCanvas.getContext("2d");
+	var context = canvas.getContext("2d");
 	context.strokeStyle = "rgba(255,0,0,1)";
 	context.lineWidth = 1;
 	context.beginPath();
@@ -106,35 +103,91 @@ function draw(e) {
 	oldY = y;
 }
 
-function drawImage(img, x, y) {
-	var myCanvas = document.getElementById("myCanvas");
-	var context = myCanvas.getContext("2d");
+function drawImage(canvas, img, x, y) {
+	var context = canvas.getContext("2d");
 	img.onload = function() {
 		context.drawImage(img, x, y);
 	}
 }
 
-function saveData() {
-	var myCanvas = document.getElementById("myCanvas");
-	Canvas2Image.saveAsPNG(myCanvas);
+function drawText(canvas, text, x, y) {
+	var context = canvas.context.getContext("2d");
+	context.font = "10px";
+	context.fillText(text, x, y);
+}
+
+function inputText(canvas, drawFunc, x, y) {
+	$("#inputText").val("");
+	$("#dialog").dialog({
+	    bgiframe: true,
+	    autoOpen: true,
+	    width: 200,
+	    modal: false,
+	    buttons: {
+	        "OK": function() {
+				$(this).dialog("close");
+				var text = $("#inputText").val();
+				drawFunc(canvas, text, x, y);
+	        }
+	    }
+	});	
+}
+
+function saveData(canvas) {
+	Canvas2Image.saveAsPNG(canvas);
 	/*
-	var data = myCanvas.toDataURL("image/png");
+	var data = canvas.toDataURL("image/png");
 	data = data.replace("image/png", "image/octet-stream");
 	window.open(data, "save");
 	*/
 }
+
+function previousSlide() {
+	var active = $("#contents .active");
+	var prev = active.prev();
+	if (prev.length > 0) {
+		active.toggleClass("active").toggleClass("passive");
+		prev.toggleClass("active").toggleClass("passive");
+	}
+}
+
+function nextSlide() {
+	var active = $("#contents .active");
+	var next = active.next();
+	if (next.length > 0) {
+		active.toggleClass("active").toggleClass("passive");
+		next.toggleClass("active").toggleClass("passive");
+	}
+}
+
+function addSlide() {
+	// 現在アクティブなも非アクティブへ
+	$("#contents .active").toggleClass("active").toggleClass("passive");
+
+	// 新しいスライドを作りアクティブへ
+	var newSlide = $("#template").clone(true);
+	newSlide.removeAttr("id");
+	$("#contents").append(newSlide);
+	newSlide.toggleClass("active").toggleClass("passive");
+}
 </script>
 </head> 
-<body> 
-	<canvas id="myCanvas" width="640" height="480" draggable="true" style="-webkit-user-drag: element; border: 1px solid gray;"> 
-		HTML 5　Canvasに対応したブラウザを使用してください。
-	</canvas>
+<body>
+	<div id="template" class="slide passive">
+		<canvas width="640" height="480" draggable="true" style="-webkit-user-drag: element; border: 1px solid gray;"> 
+			HTML 5　Canvasに対応したブラウザを使用してください。
+		</canvas>
+	</div>
+	<div id="contents">
+	</div>
 	<div id="dialog" title="テキスト" style="display : none;">
-    	<input type="text" name="inputText" id="inputText" size="20" />
+	    	<input type="text" name="inputText" id="inputText" size="20" />
 	</div>
 	<div id="menu">
-		<button onclick="drawImage()"">画像</button>
-		<button onclick="saveData()">保存</button>
+		<button id="save" onclick="saveData()">保存</button>
+		<button id="add" onclick="addSlide()">スライド追加</button>
+		<button id="previous" onclick="previousSlide()">←</button>
+		<button id="next" onclick="nextSlide()">→</button>
 	</div>
 </body> 
 </html>
