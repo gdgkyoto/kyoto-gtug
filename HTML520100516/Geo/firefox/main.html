@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui-1.8.1.custom.min.js"></script>
+	<script type="text/javascript" src="geo.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.1.custom.css"></link>
+<script type="text/javascript">
+var watchId;
+var timer;
+function WalkRun() {
+	timer = setInterval('navigator.geolocation.getCurrentPosition(updatePosition, onError);', 5000);
+}
+function WalkStop() {
+	clearInterval(timer);
+}
+function watchPositionRun() {
+	navigator.geolocation.watchPosition(onSuccess);//, onError,
+//	{
+//		enableHighAccuracy: true;
+//		maximumAge: 0;
+	//	});
+	alert("currentPositionRun end");
+	return position;
+}
+function WatchPositionStop() {
+	alert("WatchPositionStop start");
+	navigator.geolocation.clearWatch(watchId);
+	alert("WatchPositionStop end");
+	return position;
+}
+
+function getCurrentPositionRun() {
+	alert("getCurrentPositionRun start");
+	navigator.geolocation.getCurrentPosition(onSuccess);//, onError,
+//	{
+//		enableHighAccuracy: true;
+//		maximumAge: 0;
+	//	});
+	alert("getCurrentPositionRun end");
+}
+
+function updatePosition(position) {
+	document.getElementById('location').innerHTML += "【緯度】" + position.coords.latitude + '【経度】' + position.coords.longitude + '<br>';
+}
+
+function onError(error) {
+	if (error == error.TIMEOUT) {
+		alert("現在利用可能な位置情報が存在しません。");
+	} else {
+		alert("エラーが発生しました。");
+	}
+}
+
+</script>
+</head>
+<body>
+<button name="start" onclick="WalkRun()">歩く</button>
+<button name="stop" onclick="WalkStop()">止まる<br/><br/>
+現在地
+<div id="location"></div>
+</body>
+</html>
