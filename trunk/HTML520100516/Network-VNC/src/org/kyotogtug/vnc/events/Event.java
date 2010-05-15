@@ -11,6 +11,11 @@ public class Event {
 	/** 画像送信イベント */
 	public static final String HEADER_IMAGE = "IMAGE";
 	
+	/** 画面更新リクエストイベント
+	 *  画面を更新したいタイミングでクライアントからサーバに子のイベントを送信する
+	 *  このイベントをサーバが受け取ると、画面をキャプチャしてその画像データをIMAGEイベントでクライアントに送信する */
+	public static final String HEADER_IMAGE_REQUEST = "IMAGE_REQUEST";
+	
 	/** データの種類を示す文字列 IMAGE=画像データなど */
 	protected String eventType;
 	
