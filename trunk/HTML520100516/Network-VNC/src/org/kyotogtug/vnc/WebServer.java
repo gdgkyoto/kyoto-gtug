@@ -14,6 +14,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.websocket.WebSocket;
 import org.eclipse.jetty.websocket.WebSocketServlet;
+import org.kyotogtug.vnc.ui.SystemTrayIcon;
 /**
  * Webサーバメインクラス
  * @author kitamura
@@ -29,6 +30,7 @@ public class WebServer extends WebSocketServlet{
 		  WebServer main = new WebServer();
 		  main.start();
 
+		  SystemTrayIcon icon = new SystemTrayIcon();
 	  }
 
 	  public void start() throws Exception{
