@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <link rel="stylesheet" type="text/css" href="../../css/samples.css"> 
+        <title>HTML5 test</title> 
+        <script type="text/javascript"> 
+            var ws = new WebSocket("ws://127.0.0.1/file");
+            ws.onopen = function(event) {
+                document.getElementById("status").innerHTML = "connected";
+            };
+            ws.onclose = function(event) {
+                document.getElementById("status").innerHTML = "disconnected";
+            };
+            var eventSource = new EventSource("/source.py");
+            eventSource.onopen = function(event) {
+                //alert('opened');
+            };
+            eventSource.onmessage = function(event) {
+//                alert(event.data);
+//                document.getElementById('audiosrc').src = '/musics/' + event.data;
+                document.getElementById('audiolabel').innerHTML = event.data;
+            };
+            eventSource.onerror = function(event) {
+                //alert('error');
+            }
+            function init() {
+                var dest = document.getElementById("text");
+                dest.addEventListener("dragover", function(ev) {
+                        ev.preventDefault();
+                        var dt = ev.dataTransfer;
+                        return false;
+                        }, false);
+                dest.addEventListener("drop", function(ev) {
+                        //ev.stopPropagation();
+                        var dt = ev.dataTransfer;
+                        var files = dt.files;
+                        ev.preventDefault();
+                        if(files.length > 0){
+                            var file = files[0];
+                            var reader = new FileReader();
+                            reader.onerror = function() {
+                                alert('read error');
+                            };
+                            reader.onloadend = function() {
+                                var content = reader.result;
+                                alert(content.length);
+                                ws.send(content);
+                            };
+                            reader.readAsBinaryString(file);
+                        }else{
+                            alert('no file');
+                        }
+                        return false;
+                        }, false);
+            }
+        </script> 
+    </head> 
+    <body onload="init()"> 
+        <h1>ドラッグアンドドロップAPIとかのテスト/h1> 
+        <p id="status">disconnected</p>
+        <div id="text" style="width:200px; height:200px; border:1px solid gray;"></div>
+        <span id="audiolabel"></span>
+        <audio id="audio" controls loop autoplay>
+            オーディオのテスト
+        </audio>
+    </body> 
+</html> 

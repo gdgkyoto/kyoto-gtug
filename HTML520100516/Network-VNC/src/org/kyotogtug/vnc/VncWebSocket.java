@@ -52,6 +52,8 @@ public class VncWebSocket implements WebSocket{
 	@Override
 	public void onMessage(byte arg0, String data) {
 		System.out.println("onMessage!");
+		System.out.println(arg0);
+		System.out.println(data);
 		try {
 
 			// 画面をキャプチャし、Jpegのバイト配列を取得する
