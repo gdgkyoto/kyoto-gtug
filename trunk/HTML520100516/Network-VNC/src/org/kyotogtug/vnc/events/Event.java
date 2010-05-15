@@ -1,23 +1,27 @@
-package org.kyotogtug.vnc;
+package org.kyotogtug.vnc.events;
 
 /**
  * データの送受信時に使用するイベント
  * @author Kenji
  *
  */
-public class VncEvent {
+public class Event {
+	
+	
+	/** 画像送信イベント */
+	public static final String HEADER_IMAGE = "IMAGE";
 	
 	/** データの種類を示す文字列 IMAGE=画像データなど */
-	private String eventType;
+	protected String eventType;
 	
 	/** データのシーケンス 0からの連番 */
-	private int sequence;
+	protected int sequence;
 	
 	/** データを送信した時刻のタイムスタンプ */
-	private long timestamp;
+	protected long timestamp;
 	
-	/** データ本体 */
-	private String data;
+	/** 受信データ本体 */
+	protected String data;
 		
 	public String getEventType() {
 		return eventType;
