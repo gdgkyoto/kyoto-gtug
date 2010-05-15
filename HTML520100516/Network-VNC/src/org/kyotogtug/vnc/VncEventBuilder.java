@@ -27,8 +27,9 @@ public class VncEventBuilder {
 		VncEvent vncEvent = new VncEvent();
 		String[] data = str.split("\\|");
 		if( data.length <= 4 ){
-			
+			throw new IllegalArgumentException("invalid format!");
 		}
+		
 		return null;
 	}
 	
