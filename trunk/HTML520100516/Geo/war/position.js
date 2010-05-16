@@ -3,22 +3,35 @@
  * Position.latitude
  */
 function getPosition(func) {
-	var value;
+	if(navigator.userAgent.indexOf('Firefox') != -1){
+		getPositionFF(func);
+	}else if(navigator.userAgent.indexOf('Chrome') != -1){
+		getPositionChrome(func);
+	}else{
+		getPositionDemo(func);
+	}
+}
+
+function getPositionFF(func){
 	navigator.geolocation.getCurrentPosition(function(position){
+		var value = {};
 		value.latitude = position.coords.latitude;
 		value.longitude = position.coords.longitude;
 		func(value);
 	});
 }
 
-function getPosition2(func){
-	var geo = google.gears.factory.create('beta.geolocation');
+var geo = null;
+function getPositionChrome(func){
+	if(geo === null){
+		geo = google.gears.factory.create('beta.geolocation');
+	}
 	geo.getCurrentPosition(function(position){
 		func(position);
 	});
 }
 
-function getPosition3(func){
+function getPositionDemo(func){
 	if(index >= latitudes.length){
 		index = 0;
 	}
