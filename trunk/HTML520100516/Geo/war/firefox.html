@@ -14,7 +14,7 @@ var currentPosition = null;
 var totalDistance = 0;
 var timer;
 function initialize() {
-	timer = setInterval('getPosition(updatePosition)', 2000);
+	timer = setInterval('getPosition(updatePosition)', 10000);
 }
 
 function updatePosition(position){
@@ -69,9 +69,9 @@ function googleMap(position){
 	<div id="distance"></div>
 	<br/>
 	<div id="message"></div>
-	</td><td>
+	</td><!--<td>
 	<img src="./image/man.png"/>
-	</td>
+	</td>-->
 	</tr>
 	</table>
 	<br />
