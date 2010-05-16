@@ -2,20 +2,18 @@
  * Position.longitude
  * Position.latitude
  */
-function getPosition() {
+function getPosition(func) {
 	var value;
 	navigator.geolocation.getCurrentPosition(function(position){
 		value.latitude = position.coords.latitude;
 		value.longitude = position.coords.longitude;
+		func(value);
 	});
-	return value;
 }
 
-function getPosition2(){
+function getPosition2(func){
 	var geo = google.gears.factory.create('beta.geolocation');
-	var value;
 	geo.getCurrentPosition(function(position){
-		value = position;	
+		func(position);
 	});
-	return value;
 }

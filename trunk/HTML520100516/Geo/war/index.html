@@ -1,42 +1,34 @@
-<html>
-<head><title></title>
-<script type="text/javascript" src="gears_init.js"></script>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8" >
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script src="position.js"></script>
+	<script src="distance.js"></script>
+	<script src="message.js"></script>
+	<!-- <script src="http://maps.google.com/maps/api/js?sensor=false" ></script> -->
 <script type="text/javascript">
-var geo = google.gears.factory.create('beta.geolocation');
-
-function updatePosition(position) {
-	document.getElementById('location').innerHTML = position.latitude + ',' + position.longitude;
-	window.localStorage.setItem(new Date().getTime(), position.latitude + ',' + position.longitude);
+var previousPosition;
+var currentPosition;
+var timer;
+function initialize() {
+	timer = setInterval('getPosition2(updatePosition)', 5000);
 }
 
-function handleError(positionError) {
-  alert('Attempt to get location failed: ' + positionError.message);
-}
-
-setInterval('geo.getCurrentPosition(updatePosition, handleError)', 5000);
-
-function printPositions(){
-	var text = '';
-	var date = new Date();
-	for(var i=0; i< window.localStorage.length; i++){
-		var key = localStorage.key(i);
-		var item = localStorage.getItem(key);
-		text += date.setTime(key).toString() + ':' + item + '<br>';
-	}
-	document.getElementById('history').innerHTML = text;
-}
-
-function clearPositions(){
-	localStorage.clear();
+function updatePosition(position){
+	previousPosition = currentPosition;
+	currentPosition = position;
+	document.getElementById('location').innerHTML = "ã€ç·¯åº¦ã€‘" + currentPosition.latitude + 'ã€çµŒåº¦ã€‘' + currentPosition.longitude + '<br>';
 }
 
 </script>
 </head>
-<body>
-Œ»İ’n
-<div id="location"></div>
-<a href="javascript:;" onclick="printPositions();">ˆÚ“®—š—ğ</a>
-<a href="javascript:;" onclick="clearPositions();">ƒNƒŠƒA</a>
-<div id="history"></div>
+<body onload="initialize()">
+	ç¾åœ¨åœ°
+	<div id="location"></div>
+	<br/>
+	ç¾åœ¨ã®æ­©è¡Œè·é›¢ã¯<br/>
+	<div id="distance"></div>
+	ã§ã™ã€‚
 </body>
 </html>
