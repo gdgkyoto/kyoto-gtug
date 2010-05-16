@@ -91,8 +91,8 @@ public class EventProcessor {
             }
 	    } else if (event instanceof KeyPressEvent) {
 	        KeyPressEvent ev = (KeyPressEvent)event;
-	        Integer keyCode = Integer.parseInt(ev.getData());
-	        robot.keyPress(keyCode);
+	        log.debug("keyPress keyCode="+ev.getKeyCode());
+	        robot.keyPress(ev.getKeyCode());
 	    } else if (event instanceof MouseReleaseEvent) {
 	        MouseReleaseEvent e = (MouseReleaseEvent)event;
 	        robot.mouseMove(e.getX(), e.getY());
