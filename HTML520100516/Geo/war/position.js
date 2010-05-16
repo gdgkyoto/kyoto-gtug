@@ -15,12 +15,7 @@ function getPosition(func) {
 }
 
 function getPositionFF(func){
-	navigator.geolocation.getCurrentPosition(function(position){
-		var value = {};
-		value.latitude = position.coords.latitude;
-		value.longitude = position.coords.longitude;
-		func(value);
-	});
+	navigator.geolocation.getCurrentPosition(func);
 }
 
 var geo = null;
@@ -36,8 +31,10 @@ function getPositionDemo(func){
 		index = 0;
 	}
 	var position = {};
-	position.latitude = latitudes[index];
-	position.longitude = longitudes[index];
+	position.timestamp = new Date().getTime();
+	position.coords = {};
+	position.coords.latitude = latitudes[index];
+	position.coords.longitude = longitudes[index];
 	func(position);
 	index ++;
 }

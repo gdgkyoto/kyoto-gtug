@@ -18,7 +18,7 @@ function initialize() {
 
 function updatePosition(position){
 	previousPosition = currentPosition;
-	currentPosition = position;
+	currentPosition = position.coords;
 	document.getElementById('location').innerHTML = "【緯度】" + currentPosition.latitude + '【経度】' + currentPosition.longitude;
 	if(previousPosition != null){
 		var distance = getDistance(previousPosition.longitude, previousPosition.latitude, currentPosition.longitude, currentPosition.latitude);
@@ -33,7 +33,8 @@ function updatePosition(position){
 
 var map = null;
 function googleMap(position){
-	var mapCenter = new google.maps.LatLng(position.latitude, position.longitude);
+	var coords = position.coords;
+	var mapCenter = new google.maps.LatLng(coords.latitude, coords.longitude);
 	if (map === null) {
 		map = new google.maps.Map(document.getElementById('map'), {
 			center : mapCenter,
@@ -42,12 +43,13 @@ function googleMap(position){
 		});
 	}
 	var time = new Date();
+	time.setTime(position.timestamp);
 	var title = time.getHours() + ':' +
 				time.getMinutes() + ':' +
 				time.getSeconds();
 	var marker = new google.maps.Marker({
 		position : mapCenter,
-		title : '現在地',
+		title : title,
 		map : map
 	});
 }
