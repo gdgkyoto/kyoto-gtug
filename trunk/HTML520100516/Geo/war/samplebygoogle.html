@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" >
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script src="http://maps.google.com/maps/api/js?sensor=false" ></script>
+<script type="text/javascript">
+var map, watchId;
+
+function startWatchPosition() {
+	alert("start");
+	watchId = navigator.geolocation.watchPosition(
+			function(position) {
+				var coords = position.coords;
+				var mapCenter = new google.maps.LatLng(coords.latitude, coords.longitude);
+				if (!map) {
+					map = new google.maps.Map(document.getElementById("map"), {
+						center : mapCenter,
+						mapTypeId : google.maps.MapTypeId.ROADMAP,
+						zoom : 14
+					});
+				}
+
+				var time = new Date();
+				time.setTime(position.timestamp);
+				var title = time.getHours() + "時" +
+							time.getMinutes() + "分" +
+							time.getSeconds() + "秒の位置情報";
+				var marker = new google.maps.Marker({
+					position : mapCenter,
+					title : title,
+					map : map
+				});
+
+				map.setCenter(mapCenter);
+			}, onPositionError, {enableHighAccuracy : true});
+	var buttons = document.getElementsByTagName("button");
+	buttons[0].disabled = true, buttons[1].disabled = false;
+	alert("end");
+}
+function stopWatchPosition() {
+	navigator.geolocation.clearWatch(watchId);
+	var buttons = document.getElementsByTagName("button");
+	buttons[0].disabled = false, buttons[1].disabled = true;
+	alert("位置情報の取得を停止しました。");
+}
+function onPositionError(error) {
+	alert("位置情報を取得できません。" + error.message);
+}
+</script>
+</head>
+<body onload="startWatchPosition()">
+	<div id="map" style="width : 400px; height : 400px">
+	マップを初期化中です。しばらくお待ちください．．．
+	</div>
+	<button onclick="startWatchPosition()" disabled>開始</button>
+	<button onclick="stopWatchPosition()" disabled>終了</button>
+</body>
+</html>
