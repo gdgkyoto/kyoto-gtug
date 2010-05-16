@@ -85,11 +85,20 @@ public class EventProcessor {
 	    } else if (event instanceof MouseReleaseEvent) {
 	        MouseReleaseEvent e = (MouseReleaseEvent)event;
 	        robot.mouseMove(e.getX(), e.getY());
+	        robot.mouseRelease(toRobotButtonId(e.getButton()));
 	    } else if (event instanceof MouseMoveEvent) {
 	        MouseMoveEvent ev = (MouseMoveEvent)event;
 	        robot.mouseMove(ev.getX(), ev.getY());
 	    }
 	}
+
+    private int toRobotButtonId(int button) {
+        switch (button) {
+        default:
+            return button;
+        }
+    }
+
 
     private void sendScreenImage() {
         String base64Image = capturer.getBase64ImageData();
