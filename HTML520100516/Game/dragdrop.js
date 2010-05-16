@@ -2,7 +2,6 @@ var dropbox0;
 var dropbox1;
 var dropbox;
 
-var dropfiles;
 var filehash = new Array(3);
 
 function init() {
@@ -35,8 +34,8 @@ function doMyDrop(e) {
 	cx.fillRect(20,20,200,50);
 
 	
-	filehash[dropfiles] = CybozuLabs.MD5.calc(files[0].name + files[0].size.tostring)
-	dropfiles = dropfiles + 1;
+	filehash[0/*ここにはドロップした位置を書く*/] = CybozuLabs.MD5.calc(files[0].name + files[0].size.tostring)
+	
 	
 	
 	e.stopPropagation();
