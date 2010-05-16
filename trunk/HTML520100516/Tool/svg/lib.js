@@ -28,8 +28,8 @@
 				TextMode='make';
 				svg.appendChild(text);
 			}else{
-				document.getElementById("textform").style.display="none";
-				svg.style.backgroundColor="white";
+				//document.getElementById("textform").style.display="none";
+				//svg.style.backgroundColor="white";
 			}
 			},false);
 			svg.addEventListener("dragover",function(ev){
@@ -152,7 +152,7 @@
 			 	var childs = svg.childNodes;
 			 	var tagname;
 			 	var svgtext="";
-			 	svgtext+='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">';
+			 	//svgtext+='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">';
 	            for(var i=0;i< childs.length;i++){
 	            	tagname=childs[i].tagName;
 	            	if(tagname==="image"){
@@ -174,16 +174,59 @@
 	            		svgtext+=("</text> ");
 	            	}
 	            }
-	            svgtext=("data:image/svg+xml;charset=utf-8,"+svgtext+"</svg>");
+	            //svgtext=("data:image/svg+xml;charset=utf-8,"+svgtext);
+	            //svgtext+="</svg>";
 	            setLocalStorage(svgtext);
 		}
 		function setLocalStorage(svg){
 			localStorage[("svgpresentation_"+(CurrentPage-1))]=svg;
 		}
-		function Go2Prev(){
+		function Go2Page(move){
+			if(move==="next"){
+				CurrentPage=CurrentPage+1;
+			}else if(move==="prev"){
+				CurrentPage=CurrentPage-1;
+			}
 			
+			if(!localStorage[("svgpresentation_"+(CurrentPage-1))]){
+				//移動先のページが存在しない場合
+				console.log("make_new");
+				ResetSVG();
+			}else{
+				ResetSVG();
+				//存在する場合
+				var svg  = document.getElementById("svg");
+				var svgtext=localStorage[("svgpresentation_"+(CurrentPage-1))];
+				var parser= new DOMParser();
+				var svgdom=parser.parseFromString(svgtext, "text/xml");
+				
+				var childs = svgdom.childNodes;
+			 	var tagname;
+			 	var svgtext="";
+			 	//svgtext+='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">';
+	            for(var i=0;i< childs.length;i++){
+	            	tagname=childs[i].tagName;
+	            	var atts=childs[i].attributes;
+	            	var node=document.createElementNS("http://www.w3.org/2000/svg",tagname);
+	            	for(var f=0;f<atts.length;f++){
+            			node.setAttribute(childs[i].attributes[f].nodeName,childs[i].attributes[f].nodeValue);
+            		}
+	            	if(tagname==="text"){
+	            		node.textContent=childs[i].textContent;
+	            	}
+	            	svg.appendChild(node);
+	            }
+				
+			}
 		}
-		function Go2Next(){
-			
-		}
+		function ResetSVG(){
+			var svg  = document.getElementById("svg");
+		 	var childs = svg.childNodes;
+		 	var tagname;
+            for(var i=0;i< childs.length;i++){
+            	tagname=childs[i].tagName;
+            	if(tagname==="image" | tagname==="text"){
+            		svg.removeChild(childs[i]);
+            	}
+            }
 		}
