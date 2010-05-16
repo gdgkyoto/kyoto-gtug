@@ -58,7 +58,6 @@ function init() {
 	audience.changeVoltageByPause();
     };
     
-
     leftVolumeControl.on = function () {
 	leftVolumeChange();
 	audience.changeVoltageByVolumeControl();
@@ -71,6 +70,31 @@ function init() {
 	leftVolumeChange();
 	rightVolumeChange();
 	audience.changeVoltageByBalanceControl();
+    }
+
+    leftDiskCanvas.onmousedown = function (e) {
+	leftTurnTable.keydown(e);
+    }
+    leftDiskCanvas.onmousemove = function (e) {
+	leftTurnTable.drag(e);
+    }
+    leftDiskCanvas.onmouseup = function () {
+	leftTurnTable.keyup();
+    }
+    leftDiskCanvas.onmouseout = function () {
+	leftTurnTable.keyup();
+    }
+    rightDiskCanvas.onmousedown = function (e) {
+	rightTurnTable.keydown(e);
+    }
+    rightDiskCanvas.onmousemove = function (e) {
+	rightTurnTable.drag(e);
+    }
+    rightDiskCanvas.onmouseup = function () {
+	rightTurnTable.keyup();
+    }
+    rightDiskCanvas.onmouseout = function () {
+	rightTurnTable.keyup();
     }
     
     function leftVolumeChange() {

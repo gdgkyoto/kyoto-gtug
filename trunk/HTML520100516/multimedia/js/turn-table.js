@@ -11,6 +11,14 @@ function TurnTable (mp3Path, diskCanvas) {
     this.audio.controls = 0.5;
 
     this.disk = new Disk(diskCanvas);
+
+    this.isKeyDown = false;
+    
+    this.point1;
+    this.point2;
+    this.p0 = {x:diskCanvas.width/2, y:diskCanvas.height/2};
+
+    var _this = this;
 }
 
 // 再生
@@ -34,4 +42,45 @@ TurnTable.prototype.setDisk = function (imagePath) {
     this.disk.setDisk(imagePath);
 }
 
+// ディスク上でマウスボタンが押された時
+TurnTable.prototype.keydown = function(e) {
+    this.isKeyDown = true;
+    var mouseX = e.offsetX;
+    var mouseY = e.offsetY;
+    this.point1 = {x:mouseX, y:mouseY};
+}
 
+// ディスク上でマウスボタンが押されてからポインタが移動したとき
+TurnTable.prototype.drag = function(e) {
+    if (this.isKeyDown) {
+	var mouseX = e.offsetX;
+	var mouseY = e.offsetY;;	
+	this.point2 = this.point1;
+	this.point1 = {x:mouseX, y:mouseY}
+
+	var angle = this.calcRad(this.point1, this.point2);
+	this.disk.rotate(angle);
+    }
+}
+
+// ディスク上でマウスボタンが押されてからボタンが放たれたとき
+TurnTable.prototype.keyup = function() {
+    if(this.isKeyDown) {
+	this.isKeyDown = false;
+//	this.play();
+    }
+}
+
+// ベクトルの角度を計算（ラジアン）
+TurnTable.prototype.calcRad  = function(p1, p2) {
+    var vec1 = {x:p1.x - this.p0.x, y:p1.y - this.p0.y};
+    var vec2 = {x:p2.x - this.p0.x, y:p2.y - this.p0.y};
+
+    var innerProduct = vec1.x * vec2.x + vec1.y * vec2.y;
+    var outerProduct = vec1.x * vec2.y - vec1.y * vec2.x;
+
+    var s = -Math.atan2(outerProduct, innerProduct);
+    var deg = (s/Math.PI)*180;
+    
+    return deg;
+}

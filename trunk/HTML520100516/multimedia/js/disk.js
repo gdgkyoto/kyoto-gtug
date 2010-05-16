@@ -51,3 +51,20 @@ Disk.prototype.stopRotation = function() {
     }
 }
 
+Disk.prototype.rotate = function(diff) {
+
+    this.angle = (this.angle + diff) % 360;
+    
+    var ctx = this.diskCanvas.getContext('2d');
+    ctx.fillStyle = 'rgba(255,255,255,1)';
+    ctx.fillRect(0, 0, this.diskCanvas.width, this.diskCanvas.height);
+
+    ctx.save();
+    ctx.translate(this.diskCanvas.width/2, this.diskCanvas.height/2);
+    ctx.rotate(this.angle/180*Math.PI);
+    ctx.translate(-this.img.width/2, -this.img.height/2);
+    ctx.drawImage(this.img, 0, 0);
+    ctx.restore();
+
+}
+
