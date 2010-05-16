@@ -1,14 +1,15 @@
 package org.kyotogtug.proxy;
 
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.jetty.websocket.WebSocket;
 
 public class SocketManager {
 
-	private Set<ProxyClientSocket> clientSockets;
-	
+	LinkedList<ProxyClientSocket> clientSockets = new LinkedList<ProxyClientSocket>();
+
 	private static SocketManager manager;
 
 	static {
@@ -17,25 +18,40 @@ public class SocketManager {
 
 	private SocketManager() {}
 
-	public ProxyClientSocket getSocket() {
-		if (clientSockets.size() > 0) {
-			return null;
-		} else {
-			throw new RuntimeException("socket is empty"); 
+	// ソケットを返す
+	public synchronized ProxyClientSocket getSocket() {
+		while(clientSockets.size() > 0) {
+			ProxyClientSocket socket = clientSockets.remove(0);
+			if(socket.isConnecting()) {
+				clientSockets.add(socket);
+				return socket;
+			}
 		}
+		
+		throw new RuntimeException("connecting socket is empty");
+	}
+
+	public ProxyClientSocket createSocket() {
+		ProxyClientSocket socket = new ProxyClientSocket();
+		clientSockets.add(socket);
+		return socket;
 	}
 	
-	public static ProxyClientSocket createSocket() {
-		ProxyClientSocket socket = new ProxyClientSocket();
-		manager.clientSockets.add(socket);
-		return socket;
+	public void sendMessageAll(byte frame , String data) {
+		for (ProxyClientSocket client : SocketManager.getInstance().clientSockets) {
+			try {
+				client.bound.sendMessage(frame, data);
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static SocketManager getInstance() {
 		return manager;
 	}
 
-	
 	static class ProxyClientSocket implements WebSocket {
 
 		private Outbound bound;
@@ -54,6 +70,21 @@ public class SocketManager {
 			this.connected = false;
 		}
 
+		@Override
+		public void onMessage(byte frame, String data) {
+			try {
+				System.out.println("receive message:" + data);
+				this.bound.sendMessage(frame, data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void onMessage(byte arg0, byte[] arg1, int arg2, int arg3) {
+			
+		}
+
 		public boolean isConnecting() {
 			return connected;
 		}
@@ -62,16 +93,6 @@ public class SocketManager {
 
 			// bound.sendMessage("");
 			return "";
-		}
-
-		@Override
-		public void onMessage(byte frame, String data) {
-
-		}
-
-		@Override
-		public void onMessage(byte arg0, byte[] arg1, int arg2, int arg3) {
-
 		}
 
 		private String hashToJson(Map<String, String> headers) {
