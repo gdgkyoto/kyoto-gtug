@@ -135,7 +135,7 @@ public class EventBuilder {
 			event = new Event();
 		}
 		
-		event.setEventType(data[0]);
+		event.setEventType(data[0].trim());
 		event.setSequence(getSequence(data[1]));
 		event.setTimestamp(getTimestamp(data[2]));
 		
