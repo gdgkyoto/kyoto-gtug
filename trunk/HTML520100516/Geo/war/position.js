@@ -17,3 +17,18 @@ function getPosition2(func){
 		func(position);
 	});
 }
+
+function getPosition3(func){
+	if(index >= latitudes.length){
+		index = 0;
+	}
+	var position = {};
+	position.latitude = latitudes[index];
+	position.longitude = longitudes[index];
+	func(position);
+	index ++;
+}
+
+var index = 0;
+var latitudes=[34.996257, 34.996258, 34.996259, 34.996258];
+var longitudes=[135.739085, 135.739086, 135.739085, 135.739084];
