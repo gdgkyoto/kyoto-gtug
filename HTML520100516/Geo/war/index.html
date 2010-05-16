@@ -18,9 +18,10 @@ function initialize() {
 function updatePosition(position){
 	previousPosition = currentPosition;
 	currentPosition = position;
-	document.getElementById('location').innerHTML = "【緯度】" + currentPosition.latitude + '【経度】' + currentPosition.longitude + '<br>';
+	document.getElementById('location').innerHTML = "【緯度】" + currentPosition.latitude + '【経度】' + currentPosition.longitude;
+	var distance = getDistance(previousPosition.longitude, previousPosition.latitude, currentPosition.longitude, currentPosition.latitude);
+	document.getElementById('distance').innerHTML = distance + "メートル";
 }
-
 </script>
 </head>
 <body onload="initialize()">
