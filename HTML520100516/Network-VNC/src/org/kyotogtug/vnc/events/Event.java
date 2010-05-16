@@ -20,6 +20,16 @@ public class Event {
 	 *  クライアントからサーバに対して送信する。 */
 	public static final String HEADER_CURSOR_MOVE = "CURSOR_MOVE";
 	
+	/**
+	 * キー押下イベント
+	 */
+	public static final String HEADER_KEY_PRESS = "KEY_PRESS";
+	
+	/**
+	 * キー解放イベント
+	 */
+	public static final String HEADER_KEY_RELEASE = "KEY_RELEASE";
+	
 
 	/**
 	 * マウスボタンのプレス

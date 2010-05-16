@@ -1,12 +1,12 @@
 package org.kyotogtug.vnc;
 
-import java.util.logging.Logger;
-
 import org.apache.commons.codec.binary.Base64;
 import org.kyotogtug.vnc.events.Event;
 import org.kyotogtug.vnc.events.FileUploadEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
+import org.kyotogtug.vnc.events.KeyPressEvent;
+import org.kyotogtug.vnc.events.KeyReleaseEvent;
 import org.kyotogtug.vnc.events.MousePressEvent;
 import org.kyotogtug.vnc.events.MouseReleaseEvent;
 import org.kyotogtug.vnc.events.MouseMoveEvent;
@@ -101,6 +101,22 @@ public class EventBuilder {
 			mousePressEvent.setX(x);
 			mousePressEvent.setY(y);
 			mousePressEvent.setButton(button);
+			
+		// キー押下イベント
+		}else if( eventType.equals( Event.HEADER_KEY_PRESS )){
+			event = new KeyPressEvent();
+			KeyPressEvent keyPressEvent = (KeyPressEvent)event;
+			String keyPressData = data[3];
+			int keyCode = Integer.parseInt(keyPressData);
+			keyPressEvent.setKeyCode(keyCode);
+			
+		// キー解放イベント
+		}else if( eventType.equals( Event.HEADER_KEY_RELEASE )){
+			event = new KeyReleaseEvent();
+			KeyReleaseEvent keyReleaseEvent = (KeyReleaseEvent)event;
+			String keyReleaseData = data[3];
+			int keyCode = Integer.parseInt(keyReleaseData);
+			keyReleaseEvent.setKeyCode(keyCode);
 			
 		// ファイルアップロードイベント
 		}else if( eventType.equals(Event.HEADER_FILE_UPDATE)){

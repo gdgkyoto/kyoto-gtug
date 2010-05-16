@@ -3,6 +3,8 @@ package org.kyotogtug.vnc;
 import org.junit.Before;
 import org.junit.Test;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
+import org.kyotogtug.vnc.events.KeyPressEvent;
+import org.kyotogtug.vnc.events.KeyReleaseEvent;
 import org.kyotogtug.vnc.events.MousePressEvent;
 import org.kyotogtug.vnc.events.MouseReleaseEvent;
 import org.kyotogtug.vnc.events.MouseMoveEvent;
@@ -67,6 +69,25 @@ public class EventBuilderTest {
 		ImageRequestEvent event = (ImageRequestEvent)eventBuilder.parseEvent(data);
 		
 		assertThat(event.getEventType(), is("IMAGE_REQUEST"));
-		
+	}
+	
+	@Test
+	public void testキー押下イベント(){
+		String data = "KEY_PRESS|0|1|123";
+		KeyPressEvent event = (KeyPressEvent)eventBuilder.parseEvent(data);
+		assertThat(event.getEventType(), is("KEY_PRESS"));
+		assertThat(event.getKeyCode(), is(123));
+		assertThat(event.getSequence(), is(0));
+		assertThat(event.getTimestamp(), is(1L));
+	}
+	
+	@Test
+	public void testキー解放イベント(){
+		String data = "KEY_RELEASE|0|1|123";
+		KeyReleaseEvent event = (KeyReleaseEvent)eventBuilder.parseEvent(data);
+		assertThat(event.getEventType(), is("KEY_RELEASE"));
+		assertThat(event.getKeyCode(), is(123));
+		assertThat(event.getSequence(), is(0));
+		assertThat(event.getTimestamp(), is(1L));
 	}
 }
