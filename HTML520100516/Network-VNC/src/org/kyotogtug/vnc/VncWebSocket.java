@@ -101,11 +101,13 @@ public class VncWebSocket implements WebSocket{
 	 * @throws IOException
 	 */
 	private byte[] capture() throws AWTException, IOException{
+		log.debug("Capture start");
 		Robot robot = new Robot();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		BufferedImage img = robot.createScreenCapture( new Rectangle(screenSize));
 		ImageIO.write(img, "jpg", file);
 		byte[] bytes = FileUtils.readFileToByteArray(file);
+		log.debug("Capture end");
 		return bytes;
 	}
 
