@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 		
@@ -14,9 +14,15 @@ window.onload = function() {
 	var canvas = document.getElementById("box1");
 	var cx = canvas.getContext('2d');
 	
-//	cx.strokeRect(0,0,300,100);
+	cx.strokeRect(0,0,300,100);
 	cx.strokeRect(20,20,100,50);
-	cx.fillRect(20,20,100,50);
+//	cx.fillRect(20,20,100,50);
+
+	var canvas = document.getElementById("box2");
+	var cx = canvas.getContext('2d');
+	
+		cx.strokeRect(0,0,20,20);
+		cx.fillRect(0,0,20,20);
 
 };
 </script>
@@ -33,12 +39,12 @@ window.onload = function() {
 <h1>HTML5ファーム</h1>
 <p>下の四角にファイルをドラッグ＆ドロップしてください。</p>
 
-<canvas id="box1" class="box1" width="300" height="300"></canvas>
-<input type=button value="キャラ作成" onClick="">
+<canvas id="box1" class="box1" width="300" height="300">
+	<canvas id="box2" class="box2" width="100" height="100"></canvas>
+</canvas>
+
 <div id="sound">♪sound:<span class="lnk">on</span></div>
-
-
-<audio src="nos1.wav" loop="loop" autoplay></audio>	
+<audio src="nos1.wav" loop="loop" autoplay>	
 
 </body>
 
