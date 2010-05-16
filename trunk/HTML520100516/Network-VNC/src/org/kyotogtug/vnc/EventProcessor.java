@@ -133,10 +133,14 @@ public class EventProcessor {
     }
 
     private void sendScreenImage() {
+    	log.debug("Capture start");
         String base64Image = capturer.getBase64ImageData();
         String data = String.format("IMAGE|0|%d|%s", new Date().getTime(), base64Image);
+    	log.debug("Capture end");
         try {
+        	log.debug("Send Start");
             outbound.sendMessage(data);
+        	log.debug("Send End");
         } catch (IOException e) {
             e.printStackTrace();
         }
