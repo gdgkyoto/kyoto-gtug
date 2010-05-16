@@ -5,7 +5,8 @@
 var geo = google.gears.factory.create('beta.geolocation');
 
 function updatePosition(position) {
-	document.getElementById('location').innerHTML += position.latitude + ',' + position.longitude + '<br>';
+	document.getElementById('location').innerHTML = position.latitude + ',' + position.longitude;
+	window.localStorage.setItem(new Date().getTime(), position.latitude + ',' + position.longitude);
 }
 
 function handleError(positionError) {
@@ -13,10 +14,29 @@ function handleError(positionError) {
 }
 
 setInterval('geo.getCurrentPosition(updatePosition, handleError)', 5000);
+
+function printPositions(){
+	var text = '';
+	var date = new Date();
+	for(var i=0; i< window.localStorage.length; i++){
+		var key = localStorage.key(i);
+		var item = localStorage.getItem(key);
+		text += date.setTime(key).toString() + ':' + item + '<br>';
+	}
+	document.getElementById('history').innerHTML = text;
+}
+
+function clearPositions(){
+	localStorage.clear();
+}
+
 </script>
 </head>
 <body>
 åªç›ín
 <div id="location"></div>
+<a href="javascript:;" onclick="printPositions();">à⁄ìÆóöó</a>
+<a href="javascript:;" onclick="clearPositions();">ÉNÉäÉA</a>
+<div id="history"></div>
 </body>
 </html>
