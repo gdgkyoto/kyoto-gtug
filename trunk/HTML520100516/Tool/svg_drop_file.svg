@@ -1,0 +1,23 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg"  onload="load();" xmlns:xlink="http://www.w3.org/1999/xlink"  id="svg" style="-moz-box-shadow: 3px 3px 3px #666;z-index:1;">
+	<!--
+	<text x="10" y="25">クリックするとそこに「hoge」を追加します</text>
+	<text x="10" y="50">画像をドラッグアンドドロップすると、その画像を読み込みます。ドラッグで移動も可能です。(firefox3.6x以上のみ)</text>
+	-->
+	<foreignObject id="html_parts" width="800px" height="600px">
+		<html xmlns="http://www.w3.org/1999/xhtml">
+		<script type="text/ecmascript" src="lib.js">
+	</script>
+		<body style="width:800px;height:600px;">
+		<div id="textsetting" style="z-index:2;background-color:#000000;opacity:0.5;width:1000px;height:720px;display:none;">
+		</div>
+			<div style="display:none;text-align:center;opacity:1.0;margin: 0 auto;width:500px;height:150px;background-color:#FFFFFF;z-index:3;top:100px;left:200px;position:fixed;" id="textform">
+				<h1>テキスト設定</h1>
+				<form onsubmit="textMake();">
+				<input type="text" size="30" id="inputtext" />
+				<input type="submit" value="決定" style="width:100px;height:30px;" id="entertext"/>
+				</form>
+			</div>
+		</body>
+		</html>
+	</foreignObject>
+</svg>
