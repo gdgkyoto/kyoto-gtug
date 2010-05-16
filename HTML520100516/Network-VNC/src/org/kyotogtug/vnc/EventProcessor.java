@@ -5,17 +5,22 @@ import java.awt.Robot;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.commons.codec.binary.Base64;
+import org.eclipse.jetty.websocket.WebSocket.Outbound;
 import org.kyotogtug.vnc.events.Event;
 import org.kyotogtug.vnc.events.FileEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
+import org.kyotogtug.vnc.events.ImageRequestEvent;
 import org.kyotogtug.vnc.events.KeyEvent;
 import org.kyotogtug.vnc.events.MouseMoveEvent;
+import org.kyotogtug.vnc.events.ScreenCapturer;
 
 public class EventProcessor {
     
     static private Robot robot;
+    static private ScreenCapturer capturer;
     
     static {
         try {
@@ -23,7 +28,20 @@ public class EventProcessor {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+        startCapturing();
     }
+    
+    private static void startCapturing() {
+        capturer = new ScreenCapturer(100);
+        capturer.start();
+    }
+    
+    private Outbound outbound;
+    
+    public void setOutbound(Outbound outbound) {
+        this.outbound = outbound;
+    }
+    
     
 	public void handleEvent(Event event ){
 	    if (event instanceof FileEvent) {
@@ -49,6 +67,11 @@ public class EventProcessor {
 	        }
 	    } else if (event instanceof ImageEvent) {
 	        // Respond screen image?
+        } else if (event instanceof ImageRequestEvent) {
+            // 
+            if (capturer.isAlive()) {
+                sendScreenImage();
+            }
 	    } else if (event instanceof KeyEvent) {
 	        Integer keyCode = Integer.parseInt(event.getData());
 	        robot.keyPress(keyCode);
@@ -60,5 +83,15 @@ public class EventProcessor {
 	        robot.mouseMove(x, y);
 	    }
 	}
+
+    private void sendScreenImage() {
+        String base64Image = capturer.getBase64ImageData();
+        String data = String.format("IMAGE|0|%d|%s", new Date().getTime(), base64Image);
+        try {
+            outbound.sendMessage(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
