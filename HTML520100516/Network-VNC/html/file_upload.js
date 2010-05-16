@@ -1,9 +1,9 @@
-function initFileUpload() {
-	console.log('initFileUp');
-	var dest = document.getElementById("text");
-	dest.addEventListener("dragover", onDragOver, false);
-	dest.addEventListener("drop", onDrop, false);
-}
+//function initFileUpload() {
+//	console.log('initFileUp');
+//	var dest = document.getElementById("text");
+//	dest.addEventListener("dragover", onDragOver, false);
+//	dest.addEventListener("drop", onDrop, false);
+//}
 function onDragOver(ev) {
 	ev.preventDefault();
 	var dt = ev.dataTransfer;
