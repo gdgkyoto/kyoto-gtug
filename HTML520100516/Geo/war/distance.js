@@ -12,7 +12,11 @@ function getDistance(longitudeFrom, latitudeFrom, longitudeTo, latitudeTo) {
 	to_y = latitudeTo * Math.PI / 180;
 	deg = Math.sin(from_y) * Math.sin(to_y) + Math.cos(from_y) * Math.cos(to_y) * Math.cos(to_x-from_x);
 	var distance = 6378140 * (Math.atan( -deg / Math.sqrt(-deg * deg + 	1)) + Math.PI / 2);
-	distance = distance * 100;
-	distance =  Math.round(distance);
-	return distance / 100;	// 単位はX.XXメートル
+	return round(distance);
+}
+
+function round(value){
+	value = value * 100;
+	value =  Math.round(value);
+	return value / 100;	// 単位はX.XXメートル
 }
