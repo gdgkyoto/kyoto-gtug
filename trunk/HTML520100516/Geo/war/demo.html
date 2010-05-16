@@ -1,0 +1,40 @@
+<html>
+<head><title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript">
+function savePosition() {
+	window.localStorage.setItem(new Date().getTime(), document.getElementById('keido').value+ ',' + document.getElementById('ido').value);
+}
+
+setInterval('geo.getCurrentPosition(updatePosition, handleError)', 5000);
+
+function printPositions(){
+	var text = '';
+	var date = new Date();
+	for(var i=0; i< window.localStorage.length; i++){
+		var key = localStorage.key(i);
+		var item = localStorage.getItem(key);
+		text += date.setTime(key).toString() + ':' + item + '<br>';
+	}
+	document.getElementById('history').innerHTML = text;
+}
+
+function clearPositions(){
+	localStorage.clear();
+}
+
+</script>
+</head>
+<body>
+<form>
+<input type="text" id="keido">経度</input>
+<input type="text" id="ido">緯度</input>
+<input type="button" value="保存" onclick="savePosition()"/>
+<br/>
+<hr style="width:100%"/>
+<a href="javascript:;" onclick="printPositions();">移動履歴</a>
+<a href="javascript:;" onclick="clearPositions();">クリア</a>
+<div id="history"></div>
+</form>
+</body>
+</html>
