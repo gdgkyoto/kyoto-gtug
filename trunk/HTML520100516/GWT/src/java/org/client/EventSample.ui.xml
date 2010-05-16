@@ -1,0 +1,21 @@
+<!--
+Uncomment this for XHTML entities
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+-->
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <g:HorizontalPanel>
+            <g:VerticalPanel>
+                <g:Button ui:field="btnCircle" >○</g:Button>
+                <g:Button ui:field="btnSquare">□</g:Button>
+                <g:Button ui:field="btnTriangle">△</g:Button>
+                <g:Button ui:field="btnSort">ソート</g:Button>
+            </g:VerticalPanel>
+            <g:HTML ui:field="svgContainer"></g:HTML>
+ 
+        </g:HorizontalPanel>
+
+    </g:HTMLPanel>
+
+</ui:UiBinder>
