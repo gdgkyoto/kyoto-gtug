@@ -27,7 +27,7 @@ function updatePosition(position){
 		var message = getMessage(totalDistance);
 		document.getElementById('message').innerHTML = message;
 	}
-	
+
 	googleMap(position);
 }
 
@@ -56,6 +56,8 @@ function googleMap(position){
 </script>
 </head>
 <body onload="initialize()">
+	<table>
+	<tr><td>
 	現在地
 	<div id="location"></div>
 	<br/>
@@ -65,6 +67,11 @@ function googleMap(position){
 	<br/>
 	現在のメッセージは<br />
 	<div id="message"></div>
+	</td><td>
+	<img src="../image/man.png"/>
+	</td>
+	</tr>
+	</table>
 	<br />
 	<div id="map" style="width : 200px; height : 200px"></div>
 </body>
