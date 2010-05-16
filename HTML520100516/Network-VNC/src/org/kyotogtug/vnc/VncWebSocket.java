@@ -51,12 +51,12 @@ public class VncWebSocket implements WebSocket{
 		// Outbountの設定
 		eventProcessor.setOutbound(outbound);
 		
-		try {
-			outbound.sendMessage((byte)0, "Connected!!");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			outbound.sendMessage((byte)0, "Connected!!");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
