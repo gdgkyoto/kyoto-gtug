@@ -6,13 +6,13 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
 
 public class ScreenCapturer extends Thread {
 
@@ -51,9 +51,9 @@ public class ScreenCapturer extends Thread {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         BufferedImage img = robot
                 .createScreenCapture(new Rectangle(screenSize));
-        ImageIO.write(img, "jpg", file);
-        byte[] bytes = FileUtils.readFileToByteArray(file);
-        return bytes;
+        ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
+        ImageIO.write(img, "JPEG", byteOutStream);
+        return byteOutStream.toByteArray();
     }
 
     synchronized public byte[] getImageData() {
