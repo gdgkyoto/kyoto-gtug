@@ -7,6 +7,8 @@ function getPosition(func) {
 		getPositionFF(func);
 	}else if(navigator.userAgent.indexOf('Chrome') != -1){
 		getPositionChrome(func);
+	}else if(navigator.userAgent.indexOf('Android') != -1){
+		getPositionChrome(func);
 	}else{
 		getPositionDemo(func);
 	}
@@ -23,12 +25,10 @@ function getPositionFF(func){
 
 var geo = null;
 function getPositionChrome(func){
-	if(geo === null){
+	if(geo===null){
 		geo = google.gears.factory.create('beta.geolocation');
 	}
-	geo.getCurrentPosition(function(position){
-		func(position);
-	});
+	geo.getCurrentPosition(func);
 }
 
 function getPositionDemo(func){
