@@ -46,7 +46,7 @@ public class Event {
 	 *  ダイアログからファイルを選択すると、Webサーバとして見える位置にファイルをコピーし、
 	 *  そのパスをFILE_DOWNLOAD_RESPONSEでクライアントに通知する。
 	 */
-	public static final String HEADER_FILE_DOWNLOAD = "FILE_DOWNLOAD_REQUEST";
+	public static final String HEADER_FILE_DOWNLOAD_REQUEST = "FILE_DOWNLOAD_REQUEST";
 	
 	/**
 	 * ファイルダウンロードのレスポンスイベント

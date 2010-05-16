@@ -2,6 +2,7 @@ package org.kyotogtug.vnc;
 
 import org.apache.commons.codec.binary.Base64;
 import org.kyotogtug.vnc.events.Event;
+import org.kyotogtug.vnc.events.FileDownloadRequestEvent;
 import org.kyotogtug.vnc.events.FileUploadEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
@@ -124,8 +125,9 @@ public class EventBuilder {
 			FileUploadEvent fileUploadEvent = (FileUploadEvent)event;
 			String base64 = data[3];
 			
-		}else if( eventType.equals(Event.HEADER_FILE_DOWNLOAD) ){
-			//event = new Filedo
+		// ファイルダウンロードリクエストイベント
+		}else if( eventType.equals(Event.HEADER_FILE_DOWNLOAD_REQUEST) ){
+			event = new FileDownloadRequestEvent();
 			
 		// その他のイベント ここに来たときは未知のイベントなので注意!
 		}else{

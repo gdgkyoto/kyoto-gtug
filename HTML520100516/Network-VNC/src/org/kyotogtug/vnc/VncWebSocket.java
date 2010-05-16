@@ -81,7 +81,7 @@ public class VncWebSocket implements WebSocket{
 //		try {
 //
 //			// 画面をキャプチャし、Jpegのバイト配列を取得する
-//			byte[] bytes = capture();
+//			byte[] bytes = capture();a
 //
 //			// Base64でエンコードし、クライアントに送信する
 //			outbound.sendMessage((byte)0, Base64.encodeBase64(bytes));
