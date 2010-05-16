@@ -59,6 +59,9 @@
           var type = content[0];
           if(type == 'IMAGE'){
               onImage(content[3]);
+          } else if (type == 'FILE_DOWNLOAD_RESPONSE') {
+              console.log(content[3]);
+              onFileDownloadResponse(host, content[3]);
           }
 //          screenImage.setAttribute("src","data:image/jpg;base64,"+m.data);
         };

@@ -1,7 +1,7 @@
-// �t�@�C���_�E�����[�h
-function file_download(url) {
-	//url = "http://localhost:8090/Book1.xls";
-	//window.location.href = url;
+function onFileDownloadResponse(host, path) {
+	url = "http://"+ host + path.replace("/html", "");
+	
+	window.location.href = url;
 }
 
 function fileDownloadRequest() {
