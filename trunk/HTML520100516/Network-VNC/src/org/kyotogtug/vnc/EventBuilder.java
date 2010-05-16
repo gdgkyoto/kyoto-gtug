@@ -35,7 +35,7 @@ public class EventBuilder {
 	public Event parseEvent( String str ){
 		Event event = null;
 		String[] data = str.split("\\|");
-		if( data.length < 4 ){
+		if( data.length < 3 ){
 			throw new IllegalArgumentException("invalid format!");
 		}
 		
