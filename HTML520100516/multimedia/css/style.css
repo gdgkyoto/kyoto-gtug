@@ -1,7 +1,23 @@
 
+/* CLEARFIX
+-----------------------------------------------------------*/
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0px;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix { 
+	display: inline-block;/*IE7・Mac版IE向け */
+}
+.clearfix { 
+	display: block;/*Opera、Safari向け */
+}
 .clear {
 	clear:both;
 }
+
 
 #content { 
   width: 800px;
@@ -31,7 +47,12 @@
 #audience {
 }
 
+
+#logo {
+	float:left;
+
+}
 #mirrorBall {
-	text-align:right;
+	float:right;
 
 }
