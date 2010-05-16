@@ -5,8 +5,8 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script src="http://maps.google.com/maps/api/js?sensor=false" ></script>
 <script type="text/javascript">
-var previousPosition = new Position();
-var currentPosition = new Position();;
+var previousPosition;
+var currentPosition;
 var map, timer;
 function initialize() {
 	navigator.geolocation.getCurrentPosition(function(position) {previousPosition = clone(position);}, onPositionError);
@@ -24,10 +24,10 @@ function walkRun() {
 	timer = setInterval('navigator.geolocation.getCurrentPosition(updatePosition, onPositionError);', 5000);
 }
 function updatePosition(position) {
-	currentPosition = clone(position);
 	document.getElementById('location').innerHTML += "【緯度】" + position.coords.latitude + '【経度】' + position.coords.longitude + '<br>';
 	var distance = getDistance(previousPosition.coords.longitude, previousPosition.coords.latitude, currentPosition.coords.longitude, currentPosition.coords.latitude);
 	document.getElementById('walkingDistance').innerHTML = parseInt(document.getElementById('walkingDistance').innerHTML) + distance;
+	previousPosition = clone(position);
 }
 function clone(obj) {
 	var f = function(){};
