@@ -24,7 +24,7 @@ function onDrop(ev) {
 		};
 		reader.onloadend = function() {
 			var content = reader.result;
-			sendMessage('FILE_UPLOAD', 1, base64encode(content));
+			sendMessage('FILE_UPLOAD', 1, [file.name, base64encode(content)].join('|'));
 			alert('uploaded');
 		};
 		reader.readAsBinaryString(file);
