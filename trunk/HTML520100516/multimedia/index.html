@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>DJMixer-Test</title>
+
+<script src="js/disk.js"></script>
+<script src="js/turn-table.js"></script>
+<script src="js/audience.js"></script>
+<script src="js/main.js"></script>
+
+<style>
+@import url('css/style.css');
+</style>
+
+<body onload="init();">
+
+<div id="content">
+  <div id="audience">
+    <canvas id="audience_canvas" width="800" height="200"></canvas>
+  </div>
+  
+  <div id="left">
+    <canvas id="left_disk_canvas" width="346" height="334"></canvas><br>
+    <button id="left_play">Play</button>
+    <button id="left_pause">Pause</button><br>
+    <input type="range" id="left_volume_control" min="0.0" max="1.0" step="0.05" value="0.5"/><br/>
+    volume: <span id="left_volume_value">0.5</span>
+  </div>
+  
+  <div id="right">
+    <canvas id="right_disk_canvas" width="346" height="334"></canvas><br>
+    <button id="right_play">Play</button>
+    <button id="right_pause">Pause</button><br>
+    <input type="range" id="right_volume_control" min="0.0" max="1.0" step="0.05" value="0.5"/><br/>
+    volume: <span id="right_volume_value">0.5</span>
+  </div>
+
+  <div id="control">
+    <input type="range" id="mix_balance_control" min="-1.0" max="1.0" step="0.1" value="0.0"/><br/>
+    balance: <span id="balance_value">0.0</span>
+  </div>
+
+  <div id="info">
+    voltage: <span id="voltage_value"></span><br />
+    minVoltage: <span id="min_voltage_value"</span>
+  </div>
+  
+</div>
+  
+
+</body>
+</html>
