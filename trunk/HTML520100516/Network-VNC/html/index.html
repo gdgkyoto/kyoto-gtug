@@ -68,11 +68,12 @@
         screenImage.addEventListener("keydown", onKeyPress, false);
         screenImage.addEventListener("keyup", onKeyRelease, false);
         screenImage.addEventListener("mousemove", onMouseMoveScreen, false);
+        screenImage.addEventListener("dragover", onDragOver, false);
+        screenImage.addEventListener("drop", onDrop, false);
 
         setImageRequestTimer(500);
 
         console.log("onLoad end");
-        initFileUpload();
     });
 
     // 画面更新
@@ -111,7 +112,6 @@
 <input type="button" onClick="debugSend()", value="debug send"/>
 <input type="text" id="debug_type" />
 <input type="text" id="debug_data" />
-<div id="text" style="width:200px; height:200px; border:1px solid gray;"></div>
 <img id="screen" src="gtug210x85.png" />
 </body>
 </html>
