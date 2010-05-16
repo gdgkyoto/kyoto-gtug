@@ -25,6 +25,11 @@
   position:relative;
 }
 
+#turnTable {
+	background:#333;
+}
+
+
 #left { 
   text-align:center;
   width:400px;
