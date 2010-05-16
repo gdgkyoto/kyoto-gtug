@@ -14,6 +14,7 @@ import org.kyotogtug.vnc.events.FileEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
 import org.kyotogtug.vnc.events.KeyEvent;
+import org.kyotogtug.vnc.events.MouseClickEvent;
 import org.kyotogtug.vnc.events.MouseMoveEvent;
 import org.kyotogtug.vnc.events.ScreenCapturer;
 
@@ -31,9 +32,13 @@ public class EventProcessor {
         startCapturing();
     }
     
-    private static void startCapturing() {
-        capturer = new ScreenCapturer(100);
-        capturer.start();
+    public static void startCapturing() {
+        if (capturer == null) {
+            capturer = new ScreenCapturer(100);
+        }
+        if (!capturer.isAlive()) {
+            capturer.start();
+        }
     }
     
     private Outbound outbound;
@@ -45,6 +50,7 @@ public class EventProcessor {
     
 	public void handleEvent(Event event ){
 	    if (event instanceof FileEvent) {
+	        //FileEvent ev = (FileEvent)event;
 	        if (event.getEventType().equals("FILE_DOWNLOAD")) {
 	            
 	        } else if (event.getEventType().equals("FILE_UPLOAD")) {
@@ -73,14 +79,15 @@ public class EventProcessor {
                 sendScreenImage();
             }
 	    } else if (event instanceof KeyEvent) {
-	        Integer keyCode = Integer.parseInt(event.getData());
+	        KeyEvent ev = (KeyEvent)event;
+	        Integer keyCode = Integer.parseInt(ev.getData());
 	        robot.keyPress(keyCode);
+	    } else if (event instanceof MouseClickEvent) {
+	        MouseClickEvent e = (MouseClickEvent)event;
+	        robot.mouseMove(e.getX(), e.getY());
 	    } else if (event instanceof MouseMoveEvent) {
-	        String[] params = event.getData().split(",");
-	        int x = Integer.parseInt(params[0]);
-	        int y = Integer.parseInt(params[1]);
-	        //int buttonId = Integer.parseInt(params[2]);
-	        robot.mouseMove(x, y);
+	        MouseMoveEvent ev = (MouseMoveEvent)event;
+	        robot.mouseMove(ev.getX(), ev.getY());
 	    }
 	}
 
