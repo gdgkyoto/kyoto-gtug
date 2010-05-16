@@ -3,15 +3,20 @@ package org.kyotogtug.vnc;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import javax.swing.JFileChooser;
+
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.websocket.WebSocket.Outbound;
 import org.kyotogtug.vnc.events.Event;
+import org.kyotogtug.vnc.events.FileDownloadRequestEvent;
 import org.kyotogtug.vnc.events.FileEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
@@ -100,6 +105,10 @@ public class EventProcessor {
 	    } else if (event instanceof MouseMoveEvent) {
 	        MouseMoveEvent ev = (MouseMoveEvent)event;
 	        robot.mouseMove(ev.getX(), ev.getY());
+	    } else if (event instanceof FileDownloadRequestEvent){ 
+	    	fileDownload();
+	    } else{
+	    	log.error("処理対象外のイベントを受信しました。");
 	    }
 	}
 	
@@ -131,6 +140,39 @@ public class EventProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void fileDownload(){
+    	
+    	Thread thread = new Thread(){
+    		public void run() {
+    			try{
+	    	    	JFileChooser fileChooser = new JFileChooser();
+	    	    	File selectedFile ;
+	    	        int ret = fileChooser.showOpenDialog(null);
+	    	        if (ret == JFileChooser.APPROVE_OPTION) {
+	    	            selectedFile = fileChooser.getSelectedFile();
+	    	            
+	    	            File file = new File("html"+File.separator+selectedFile.getName());
+	    	            
+	    	            try {
+	    					FileUtils.copyFile(selectedFile, file);
+	    					
+	    					String data = String.format("FILE_DOWNLOAD_RESPONSE|0|%d|%s", new Date().getTime() , "/html/"+selectedFile.getName());
+	    					outbound.sendMessage(data);
+	    				} catch (IOException e) {
+	    					log.error("ファイルのコピーに失敗しました。",e);
+	    				}
+	    	        }
+    			}catch( Exception e){
+    				log.error("ダウンロードファイルの選択中にエラーが発生しました。",e);
+    			}
+    		};
+    	};
+    	
+    	thread.start();
+        
+        
     }
 
 }
