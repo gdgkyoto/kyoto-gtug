@@ -1,15 +1,20 @@
+<!doctype html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Proxy</title>
+    <script type="text/javascript" src="/static/jquery-1.4.2.min.js"></script>
+  </head>
 <body>
-	<div id="content">
-	</div>
-	
-	<textarea id="senddata"></textarea>
-	
-	<input type="button" onclick="send()" value="send">
-	<script type="text/javascript">
-	var ws = new WebSocket("ws://localhost:8080/socket");
+  <div id="content">
+  </div>
+  <textarea id="senddata"></textarea>
+  <input type="button" onclick="send()" value="send">
+  <script type="text/javascript">
+    var ws = new WebSocket("ws://localhost:8080/socket");
     ws.onmessage = function(m) {
-      document.getElementById('content').innerHTML= m.data;
+      //document.getElementById('content').innerHTML= m.data;
+      get(m.data);
     };
     function send(){
       ws.send(document.getElementById("senddata").value);
@@ -17,6 +22,31 @@
     $(window).unload(function(){
       ws.close();
     });
-	</script>
+    var get = function(api) {
+      $.ajax({
+        type: 'GET',
+        url : api,
+        data: {
+          'q': word,
+          'rpp': 100
+        },
+        dataType: "jsonp",
+        success: function(data) {
+          $.each(data, function(k, v) {
+            if (typeof(v) == 'object') {
+              var response = '';
+              $.each(v, function(key, data) {
+                var text = data.text.split('。').join('にゃーー。');
+
+                response += data.from_user + '__DELIMITER__' + data.profile_image_url + '__DELIMITER__' + text + '__LF__';
+              });
+
+              ws.send(response);
+            }
+          });
+        }
+      });
+
+  </script>
 </body>
 </html>
