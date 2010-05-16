@@ -1,6 +1,7 @@
 package org.kyotogtug.proxy;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -23,7 +24,6 @@ public class SocketManager {
 		while(clientSockets.size() > 0) {
 			ProxyClientSocket socket = clientSockets.remove(0);
 			if(socket.isConnecting()) {
-				clientSockets.add(socket);
 				return socket;
 			}
 		}
@@ -57,12 +57,13 @@ public class SocketManager {
 		private Outbound bound;
 
 		private boolean connected = false;
-
+		
+		String responseData = null;
+		
 		@Override
 		public void onConnect(Outbound arg0) {
 			this.bound = arg0;
 			this.connected = true;
-			onMessage((byte) 0, "WebSocket is success!!!");
 		}
 
 		@Override
@@ -71,13 +72,14 @@ public class SocketManager {
 		}
 
 		@Override
+		/*
+		 * Proxyクライアントからのレスポンスイベント
+		 */
 		public void onMessage(byte frame, String data) {
-			try {
-				System.out.println("receive message:" + data);
-				this.bound.sendMessage(frame, data);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			System.out.println(data);
+			System.out.println(frame);
+			responseData = data;
+			SocketManager.getInstance().clientSockets.add(this);
 		}
 
 		@Override
@@ -89,10 +91,24 @@ public class SocketManager {
 			return connected;
 		}
 
-		public String forwardRequest(Map headers, String bodyText) {
+		public Map<String, Object> forwardRequest(Map<String, String> headers, String bodyText, final String url) throws IOException {
+			this.bound.sendMessage((byte)0 , url);
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 
-			// bound.sendMessage("");
-			return "";
+			Map <String, String>rheaders = new HashMap<String, String>();
+			rheaders.put("Location", url);
+			rheaders.put("Content-Type", "Content-Type: text/html; charset=UTF-8");
+			rheaders.put("Content-Length", responseData.length() + "");
+			
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("HEADERS", rheaders);
+			response.put("BODY", responseData);
+			return response;
 		}
 
 		private String hashToJson(Map<String, String> headers) {
