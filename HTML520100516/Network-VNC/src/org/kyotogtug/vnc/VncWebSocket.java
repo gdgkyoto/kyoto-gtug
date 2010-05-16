@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.websocket.WebSocket;
+import org.kyotogtug.vnc.events.Event;
 
 public class VncWebSocket implements WebSocket{
 
@@ -24,15 +25,28 @@ public class VncWebSocket implements WebSocket{
 
 	/** TCPで言うSocket的なやつ */
 	private Outbound outbound ;
+	
+	/** 送信するイベントを作成したり、受信した文字列からイベントのインスタンスを生成する。 */
+	private EventBuilder eventBuilder;
+	
+	/** 受信したイベントを処理するクラス
+	 *  マウスカーソルの同期などなど */
+	private EventProcessor eventProcessor;
 
 	public VncWebSocket(){
 		file = new File("screen.jpg");
+		eventBuilder = new EventBuilder();
+		eventProcessor = new EventProcessor();
 	}
 
 	@Override
 	public void onConnect(Outbound outbound) {
 		System.out.println("onConnect!");
 		this.outbound = outbound;
+		
+		// Outbountの設定
+		eventProcessor.setOutbound(outbound);
+		
 		try {
 			outbound.sendMessage((byte)0, "Connected!!");
 		} catch (IOException e) {
@@ -54,20 +68,28 @@ public class VncWebSocket implements WebSocket{
 		System.out.println("onMessage!");
 		System.out.println(arg0);
 		System.out.println(data);
-		try {
-
-			// 画面をキャプチャし、Jpegのバイト配列を取得する
-			byte[] bytes = capture();
-
-			// Base64でエンコードし、クライアントに送信する
-			outbound.sendMessage((byte)0, Base64.encodeBase64(bytes));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		// 受信したデータをパース
+		Event event = eventBuilder.parseEvent(data);
+		
+		// 受信したイベントを実行
+		eventProcessor.handleEvent(event);
+//		
+//		
+//		try {
+//
+//			// 画面をキャプチャし、Jpegのバイト配列を取得する
+//			byte[] bytes = capture();
+//
+//			// Base64でエンコードし、クライアントに送信する
+//			outbound.sendMessage((byte)0, Base64.encodeBase64(bytes));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (AWTException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	/**

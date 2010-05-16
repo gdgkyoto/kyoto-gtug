@@ -15,6 +15,19 @@ public class Event {
 	 *  画面を更新したいタイミングでクライアントからサーバに子のイベントを送信する
 	 *  このイベントをサーバが受け取ると、画面をキャプチャしてその画像データをIMAGEイベントでクライアントに送信する */
 	public static final String HEADER_IMAGE_REQUEST = "IMAGE_REQUEST";
+
+	/** マウスカーソル同期イベント
+	 *  クライアントからサーバに対して送信する。 */
+	public static final String HEADER_CURSOR_MOVE = "CURSOR_MOVE";
+	
+	
+	/**
+	 * マウスクリック同期イベント
+	 * クライアントでクリックしたイベントを、サーバに反映させるために送信する。
+	 * data=X|Y|BUTTON
+	 * data=123|456|0 
+	 *  */
+	public static final String HEADER_MOUSE_CLICK = "MOUSE_CLICK";
 	
 	/** データの種類を示す文字列 IMAGE=画像データなど */
 	protected String eventType;
