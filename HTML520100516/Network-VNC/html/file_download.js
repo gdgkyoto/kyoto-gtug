@@ -1,7 +1,8 @@
 function onFileDownloadResponse(host, path) {
 	url = "http://"+ host + path.replace("/html", "");
 	
-	window.location.href = url;
+	//window.location.href = url;
+	window.open(url);
 }
 
 function fileDownloadRequest() {
