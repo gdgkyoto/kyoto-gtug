@@ -38,8 +38,11 @@ TurnTable.prototype.setVolume = function (volume) {
     this.audio.volume = volume;
 }
 // ディスクのセット
-TurnTable.prototype.setDisk = function (imagePath) {
+TurnTable.prototype.setDisk = function (imagePath, mp3Path) {
+    this.pause();
     this.disk.setDisk(imagePath);
+    this.audio.src = mp3Path;
+    this.audio.load();
 }
 
 // ディスク上でマウスボタンが押された時
