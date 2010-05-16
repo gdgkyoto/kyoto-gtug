@@ -9,13 +9,13 @@ function TurnTable (mp3Path, diskCanvas) {
     this.audio.controls = false;
 
     this.scratch = new Audio();
-    this.scratch.src = "mp3/scratch_01.mp3";
+    this.scratch.src = "mp3/sc.wav";
     this.scratch.loop = true;
 
     this.disk = new Disk(diskCanvas);
 
     this.isKeyDown = false;
-    
+    this.nowPlaying = false;
     this.point1;
     this.point2;
     this.p0 = {x:diskCanvas.width/2, y:diskCanvas.height/2};
@@ -25,14 +25,21 @@ function TurnTable (mp3Path, diskCanvas) {
 
 // 再生
 TurnTable.prototype.play = function() {
-    this.audio.play();
-    this.disk.startRotation();
+    if (!this.nowPlaying) {
+	this.audio.play();
+	this.disk.startRotation();
+	
+	this.nowPlaying = true;
+    }
 }
 
 // 一時停止
 TurnTable.prototype.pause = function() {
-    this.audio.pause();
-    this.disk.stopRotation();
+    if (this.nowPlaying) {
+	this.audio.pause();
+	this.disk.stopRotation();
+	this.nowPlaying = false;
+    }
 }
 
 // ボリュームの変更
@@ -53,7 +60,10 @@ TurnTable.prototype.keydown = function(e) {
     var mouseX = e.offsetX;
     var mouseY = e.offsetY;
     this.point1 = {x:mouseX, y:mouseY};
-    this.pause();
+    if (this.nowPlaying) {
+	this.pause();
+	this.nowPlaying = true;
+    }
 }
 
 // ディスク上でマウスボタンが押されてからポインタが移動したとき
@@ -75,7 +85,10 @@ TurnTable.prototype.drag = function(e) {
 TurnTable.prototype.keyup = function() {
     if(this.isKeyDown) {
 	this.isKeyDown = false;
-	this.play();
+	if (this.nowPlaying) {
+	    this.nowPlaying = false;
+	    this.play();
+	}
     }
 }
 

@@ -41,7 +41,7 @@ Audience.prototype.displayPerson = function () {
 
 Audience.prototype.schedule = function (num) {
     var interval;
-    if (50 > this.voltage && this.voltage >= 0) { // 8秒前後で画像変更
+    if (50 > this.voltage) { // 8秒前後で画像変更
 	interval = Math.random() * 8 * 0.4 + 8 * 0.8;
     } else if (100 > this.voltage && this.voltage >= 50) { // 4秒前後で画像変更
 	interval = Math.random() * 4 * 0.4 + 4 * 0.8;
@@ -73,26 +73,30 @@ Audience.prototype.dance = function (num) {
 }
 
 Audience.prototype.changeVoltageByPlay = function () {
-    this.minVoltage += 50;
+    if (this.minVoltage <= 50)this.minVoltage += 50;
     this.voltage += 50;
 }
 
 Audience.prototype.changeVoltageByPause = function () {
-    this.minVoltage -= 50;
+    if (this.minVoltage >= 50) this.minVoltage -= 50;
     this.voltage = this.voltage > 50 ? this.voltage - 50 : 0;
 }
 
 Audience.prototype.changeVoltageByVolumeControl = function () {
-    this.voltage += 2;
+    this.voltage += 1;
 }
 
 Audience.prototype.changeVoltageByBalanceControl = function () {
-    this.voltage += 4;
+    this.voltage += 2;
+}
+
+Audience.prototype.changeVoltageByMusicChange = function () {
+    this.voltage += 20;
 }
 
 Audience.prototype.voltageDown = function () {
     if(this.voltage > this.minVoltage) {
-	this.voltage--;
+	this.voltage -= 2;
     }
     var _this = this;
     setTimeout(function () {_this.voltageDown();}, 250);
