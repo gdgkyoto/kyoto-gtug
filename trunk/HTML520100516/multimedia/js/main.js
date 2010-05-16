@@ -133,10 +133,12 @@ var songs = [
     leftSelect.onchange = function() {
 	var i = leftSelect.selectedIndex;
 	leftTurnTable.setDisk("img/" + songs[i].img, "mp3/" + songs[i].mp3 );
+	audience.changeVoltageByMusicChange();
     }
     rightSelect.onchange = function () {
 	var i = rightSelect.selectedIndex;
 	rightTurnTable.setDisk("img/" + songs[i].img, "mp3/" + songs[i].mp3 );
+	audience.changeVoltageByMusicChange();
     }
     
     function leftVolumeChange() {
