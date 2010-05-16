@@ -48,6 +48,7 @@ TurnTable.prototype.keydown = function(e) {
     var mouseX = e.offsetX;
     var mouseY = e.offsetY;
     this.point1 = {x:mouseX, y:mouseY};
+    this.pause();
 }
 
 // ディスク上でマウスボタンが押されてからポインタが移動したとき
@@ -59,6 +60,7 @@ TurnTable.prototype.drag = function(e) {
 	this.point1 = {x:mouseX, y:mouseY}
 
 	var angle = this.calcRad(this.point1, this.point2);
+	this.audio.currentTime += angle/20;
 	this.disk.rotate(angle);
     }
 }
@@ -67,7 +69,7 @@ TurnTable.prototype.drag = function(e) {
 TurnTable.prototype.keyup = function() {
     if(this.isKeyDown) {
 	this.isKeyDown = false;
-//	this.play();
+	this.play();
     }
 }
 

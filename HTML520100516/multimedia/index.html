@@ -26,14 +26,19 @@
     <button id="left_pause">Pause</button><br>
     <input type="range" id="left_volume_control" min="0.0" max="1.0" step="0.05" value="0.5"/><br/>
     volume: <span id="left_volume_value">0.5</span>
+    <select name="left_select">
+    </select>
   </div>
   
   <div id="right">
+
     <canvas id="right_disk_canvas" width="346" height="334"></canvas><br>
     <button id="right_play">Play</button>
     <button id="right_pause">Pause</button><br>
     <input type="range" id="right_volume_control" min="0.0" max="1.0" step="0.05" value="0.5"/><br/>
     volume: <span id="right_volume_value">0.5</span>
+    <select name="right_select">
+    </select>
   </div>
 
   <div id="control">
@@ -44,7 +49,6 @@
   <div id="info">
     voltage: <span id="voltage_value"></span><br />
     minVoltage: <span id="min_voltage_value"</span>
-    
   </div>
 
   <img src="img/b.gif"/>

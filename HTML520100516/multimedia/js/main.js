@@ -1,4 +1,21 @@
-// 初期化
+var songs = [
+    {mp3: "music_01_dstm.mp3", img: "record_01_dstm.png"},
+    {mp3: "music_02_onemoretime.mp3", img: "record_02_onemoretime.png"},
+    {mp3: "music_03_loveforever.mp3", img: "record_03_loveforever.png"},
+    {mp3: "music_04_thriller.mp3", img: "record_04_thriller.png"},
+    {mp3: "music_05_mip.mp3", img: "record_05_mip.png"},
+    {mp3: "music_06_juju.mp3", img: "record_06_juju.png"},
+    {mp3: "music_07_keion0op.mp3", img: "record_07_keion0op.png"},
+    {mp3: "music_08_doragonquest.mp3", img: "record_08_doragonquest.png"},
+    {mp3: "music_09_hatsune.mp3", img: "record_09_hatsune.png"},
+    {mp3: "music_10_yodobashi.mp3", img: "record_10_yodobashi.png"},
+    {mp3: "music_11_iichiko.mp3", img: "record_11_iichiko.png"},
+    {mp3: "music_12_persona.mp3", img: "record_12_persona.png"},
+    {mp3: "music_13_bakemono.mp3", img: "record_13_bakemono.png"},
+    {mp3: "music_14_keioned.mp3", img: "record_14_keioned.png"}
+];
+
+
 function init() {
     
     // ディスク表示用キャンバスの取得
@@ -20,7 +37,11 @@ function init() {
     var leftPauseButton = document.getElementById("left_pause");
     var rightPlayButton = document.getElementById("right_play");
     var rightPauseButton = document.getElementById("right_pause");
-
+    
+    // プルダウンメニューの取得
+    var rightSelect = document.getElementsByName("right_select")[0];
+    var leftSelect = document.getElementsByName("left_select")[0];
+    
     // 観客の定義
     var audience = new Audience(audienceCanvas);
 
@@ -36,6 +57,11 @@ function init() {
     var leftTurnTable = new TurnTable("mp3/1.mp3", leftDiskCanvas);
     var rightTurnTable = new TurnTable("mp3/3.mp3", rightDiskCanvas);
     
+    for (var i = 0; i < songs.length; i++ ) {
+	rightSelect.options[i] = new Option(songs[i].mp3, i);
+	leftSelect.options[i] = new Option(songs[i].mp3, i);
+    }
+
     // ディスクのセット
     leftTurnTable.setDisk("img/record_keion01_img.png");
     rightTurnTable.setDisk("img/record_keion01_img.png");
