@@ -182,6 +182,7 @@
 			localStorage[("svgpresentation_"+(CurrentPage-1))]=svg;
 		}
 		function Go2Page(move){
+			save();
 			if(move==="next"){
 				CurrentPage=CurrentPage+1;
 			}else if(move==="prev"){
