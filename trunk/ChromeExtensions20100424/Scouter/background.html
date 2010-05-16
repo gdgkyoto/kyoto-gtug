@@ -5,14 +5,17 @@
 	</head>
 	<body>
 		<script>
-			// localStorageへアクセス
+			// Access localStorage
 			function numOfRes(){
 				return localStorage["numberOfResults"] |= 3;				
 			}
 
-			// 参考コード
+			// Reference code
 			// http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/howto/contentscript_xhr/
-
+			
+			
+			
+			// Bing Search
 			function bingSearch(response, query, callback){
 				var params = {
 					Appid: 'F86569E3A5245BCD131B9E5A90939CFCF65E92CC',
@@ -48,16 +51,15 @@
 				})				
 			}
 
-			// http://search.yahooapis.jp/WebSearchService/V1/webSearch?appid=zdksqkOxg65uC2CemuYVRiO7QhAbtJUTt9JsIBxADGnXNK0cKPf2FO0dcdTbpD_zqWau&query=YAHOO&results=2&output=json
-			// Yahoo! 検索
-			// data: APIで取得した検索結果
+			// Yahoo! Search
+			// res: Results of google search API
 			var yahooSearchCallback = function(res) {
 				console.log("yahooSearchCallback");
 				console.log(res);
 				if (!yahooSearchCallback.response)
-					throw { error: "yahooSearchCallbackにresonseがセットされていません" }
+					throw { error: "response is not set to yahooSearchCallback" }
 				if (!yahooSearchCallback.callback)
-					throw { error: "yahooSearchCallbackにcallbackがセットされていません" }
+					throw { error: "callback is not set to yahooSearchCallback" }
 
 				var results = res.ResultSet.Result;
 				var data = [];
@@ -94,16 +96,16 @@
 				document.body.appendChild(script);
 			}
 			
-			// Google 検索			
-			// data: APIで取得した検索結果
+			// Google Search			
+			// res: Results of google search API
 			function googleSearchCallback(res)
 			{
 				console.log("googleSearchCallback");
 				console.log(res);
 				if (!googleSearchCallback.response)
-					throw { error: "googleSearchCallbackにresonseがセットされていません" }
+					throw { error: "response is not set to googleSearchCallback" }
 				if (!googleSearchCallback.callback)
-					throw { error: "googleSearchCallbackにcallbackがセットされていません" }
+					throw { error: "callback is not set to googleSearchCallback" }
 
 				var results = res.responseData.results;
 				var data = [];
@@ -140,9 +142,9 @@
 				document.body.appendChild(script);
 			}
 			
-			// 複数の検索エンジンに対して検索を行い、結果を返す。
-			// query: 検索クエリ
-			// callback: コールバック
+			// Do search many search engines, and return resuls
+			// query: search query
+			// callback: 
 			function fetchSearchResult(query, callback) {
 				console.log('fetchSearchResult');
 				console.log('localStorage["numberOfResults"]=' + numOfRes());
@@ -156,17 +158,17 @@
 					});
 				});
 			};
-			// message passing のハンドラ
-			// 引数
-			// action: 実行する命令の名前
-			//         命令についてはそれぞれの関数を参照
+			// handler of message passing
+			// Argument
+			// action: name of command
+			//         refer to each function for the command
 			function onRequest(request, sender, callback) {
 				console.log('onRequest');
 				if (request.action == 'fetchSearchResult') {
 					fetchSearchResult(request.query, callback);
 				}
 			};
-			// onResultをmessage passingのハンドラとして登録
+			// regist onResult as message passing
 			chrome.extension.onRequest.addListener(onRequest);
 		</script>
 	</body>
