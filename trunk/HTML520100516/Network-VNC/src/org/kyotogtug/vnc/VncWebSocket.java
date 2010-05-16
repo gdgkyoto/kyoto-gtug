@@ -33,6 +33,10 @@ public class VncWebSocket implements WebSocket{
 	 *  マウスカーソルの同期などなど */
 	private EventProcessor eventProcessor;
 
+	/** get log instance */
+	private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+			.getLog(VncWebSocket.class);
+	
 	public VncWebSocket(){
 		file = new File("screen.jpg");
 		eventBuilder = new EventBuilder();
@@ -41,7 +45,7 @@ public class VncWebSocket implements WebSocket{
 
 	@Override
 	public void onConnect(Outbound outbound) {
-		System.out.println("onConnect!");
+		log.info("onConnect!!");
 		this.outbound = outbound;
 		
 		// Outbountの設定
@@ -57,7 +61,7 @@ public class VncWebSocket implements WebSocket{
 
 	@Override
 	public void onDisconnect() {
-		System.out.println("onDisconnect!");
+		log.info("onDisconnect!!");
 	}
 
 	/**
@@ -65,10 +69,8 @@ public class VncWebSocket implements WebSocket{
 	 */
 	@Override
 	public void onMessage(byte arg0, String data) {
-		System.out.println("onMessage!");
-		System.out.println(arg0);
-		System.out.println(data);
-		
+		log.debug("onMessage! 第1引数="+arg0+" データ="+data);
+
 		// 受信したデータをパース
 		Event event = eventBuilder.parseEvent(data);
 		
@@ -109,7 +111,6 @@ public class VncWebSocket implements WebSocket{
 
 	@Override
 	public void onMessage(byte arg0, byte[] arg1, int arg2, int arg3) {
-		System.out.println("onMessage2!");
+		log.info("onMessage2!");
 	}
-
 }

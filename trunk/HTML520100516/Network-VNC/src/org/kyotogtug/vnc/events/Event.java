@@ -20,14 +20,38 @@ public class Event {
 	 *  クライアントからサーバに対して送信する。 */
 	public static final String HEADER_CURSOR_MOVE = "CURSOR_MOVE";
 	
+
+	/**
+	 * マウスボタンのプレス
+	 * */
+	public static final String HEADER_MOUSE_PRESS  = "MOUSE_PRESS";
+
+	/** ファイルアップロードのイベント
+	 *  クライアントからサーバに対してファイルをアップロードするときに使用する */
+	public static final String HEADER_FILE_UPDATE = "FILE_UPLOAD";
+	
+	/** ファイルダウンロードリクエストのイベント
+	 *  このイベントはクライアントからサーバに対して送信する。
+	 *  このイベントを受け取ると、サーバはファイル選択ダイアログを表示する。
+	 *  ダイアログからファイルを選択すると、Webサーバとして見える位置にファイルをコピーし、
+	 *  そのパスをFILE_DOWNLOAD_RESPONSEでクライアントに通知する。
+	 */
+	public static final String HEADER_FILE_DOWNLOAD = "FILE_DOWNLOAD_REQUEST";
 	
 	/**
-	 * マウスクリック同期イベント
-	 * クライアントでクリックしたイベントを、サーバに反映させるために送信する。
+	 * ファイルダウンロードのレスポンスイベント
+	 * ダウンロード用URLをサーバからクライアントに対し通知する。
+	 */
+	public static final String HEADER_FILE_DOWNLOAD_RESPONSE = "FILE_DOWNLOAD_RESPONSE";
+	
+	
+	/**
+	 * マウスリリースイベント
+	 * クライアントでクリックし、リリースしたイベントを、サーバに反映させるために送信する。
 	 * data=X|Y|BUTTON
 	 * data=123|456|0 
 	 *  */
-	public static final String HEADER_MOUSE_CLICK = "MOUSE_CLICK";
+	public static final String HEADER_MOUSE_RELEASE = "MOUSE_RELEASE";
 	
 	/** データの種類を示す文字列 IMAGE=画像データなど */
 	protected String eventType;

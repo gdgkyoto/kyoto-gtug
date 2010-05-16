@@ -1,6 +1,8 @@
 package org.kyotogtug.vnc;
 
 
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jetty.server.Connector;
@@ -21,6 +23,11 @@ import org.kyotogtug.vnc.ui.SystemTrayIcon;
  *
  */
 public class WebServer extends WebSocketServlet{
+	
+	/** get log instance */
+	private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+			.getLog(WebServer.class);
+	
 	@Override
 	  protected WebSocket doWebSocketConnect(HttpServletRequest req, String protocol) {
 	    return new VncWebSocket();
@@ -33,23 +40,26 @@ public class WebServer extends WebSocketServlet{
 		  SystemTrayIcon icon = new SystemTrayIcon();
 	  }
 
-	  public void start() throws Exception{
+	public void start() throws Exception {
+		log.debug("サーバスタート");
 
-		    Server server = new Server(8090);
-		    VncServlet servlet = new VncServlet();
+		Server server = new Server(8090);
+		VncServlet servlet = new VncServlet();
 
-		    ResourceHandler resourceHandler = new ResourceHandler();
-		    resourceHandler.setResourceBase("./html");
+		ResourceHandler resourceHandler = new ResourceHandler();
+		resourceHandler.setResourceBase("./html");
 
-		    ServletHolder wsServletHolder = new ServletHolder(servlet);
-		    wsServletHolder.setInitParameter("bufferSize", Integer.toString(8192*256,10));
-		    ServletContextHandler wsServletContextHandler = new ServletContextHandler();
-		    wsServletContextHandler.addServlet(wsServletHolder, "/ws/*");
+		ServletHolder wsServletHolder = new ServletHolder(servlet);
+		wsServletHolder.setInitParameter("bufferSize", Integer.toString(
+				8192 * 256, 10));
+		ServletContextHandler wsServletContextHandler = new ServletContextHandler();
+		wsServletContextHandler.addServlet(wsServletHolder, "/ws/*");
 
-		    HandlerList handlerList = new HandlerList();
-		    handlerList.setHandlers(new Handler[] {resourceHandler, wsServletContextHandler});
-		    server.setHandler(handlerList);
-		    server.start();
-	  }
+		HandlerList handlerList = new HandlerList();
+		handlerList.setHandlers(new Handler[] { resourceHandler,
+				wsServletContextHandler });
+		server.setHandler(handlerList);
+		server.start();
+	}
 
 }
