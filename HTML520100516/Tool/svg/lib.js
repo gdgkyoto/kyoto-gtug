@@ -3,9 +3,8 @@
 	var dblClick=false;
 	var TextMode="make";
 	var CurrentPage=1;
-	var storage=localStorage.svgpresentation;
-		function load(){
-			
+	
+		function load(){			
 			document.getElementsByTagName("option")[25].selected=true;
 			var svg=document.getElementById("svg");
 			var _body=document.getElementsByTagName("body")[0];
@@ -179,5 +178,12 @@
 	            setLocalStorage(svgtext);
 		}
 		function setLocalStorage(svg){
-			storage[(CurrentPage-1)]=svg;
+			localStorage[("svgpresentation_"+(CurrentPage-1))]=svg;
+		}
+		function Go2Prev(){
+			
+		}
+		function Go2Next(){
+			
+		}
 		}
