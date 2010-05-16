@@ -2,6 +2,8 @@ var dropbox0;
 var dropbox1;
 var dropbox;
 
+var dropfiles;
+var filehash = new Array(3);
 
 function init() {
 //    window.addEventListener("dragenter", dragenter, true);
@@ -9,6 +11,7 @@ function init() {
     dropbox = document.getElementById("box1");
     dropbox.addEventListener("dragover", dragover, true);
     dropbox.addEventListener("drop", doMyDrop, true);
+	files = 0;
 }
 
 function dragenter(e) {
@@ -25,9 +28,17 @@ function dragover(e) {
 
 function doMyDrop(e) {
 	var cx = dropbox.getContext('2d');
+	var files = e.dataTransfer.files;
+	if( files.length > 1) return;
 	
 	cx.strokeRect(20,20,200,50);
 	cx.fillRect(20,20,200,50);
+
+	
+	filehash[dropfiles] = CybozuLabs.MD5.calc(files[0].name + files[0].size.tostring)
+	dropfiles = dropfiles + 1;
+	
+	
 	e.stopPropagation();
 }
 
