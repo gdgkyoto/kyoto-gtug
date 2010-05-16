@@ -1,26 +1,82 @@
-var dropbox0;
 var dropbox1;
+var dropbox2;
+var dropbox3;
 
-
+var dropfiles;
+var filehash = new Array(3);
 
 function init() {
-#    window.addEventListener("dragenter", dragenter, true);
-#    window.addEventListener("dragleave", dragleave, true);
-    dropbox = document.getElementById("dropbox");
-    dropbox.addEventListener("dragover", dragover, true);
-    dropbox.addEventListener("drop", drop, true);
+//    window.addEventListener("dragenter", dragenter, true);
+//    window.addEventListener("dragleave", dragleave, true);
+    dropbox1 = document.getElementById("box1");
+    dropbox1.addEventListener("dragover", dragover, true);
+    dropbox1.addEventListener("drop", doMyDrop, true);
+    dropbox2 = document.getElementById("box2");
+    dropbox2.addEventListener("dragover", dragover, true);
+    dropbox2.addEventListener("drop", doMyDrop, true);
+    dropbox3 = document.getElementById("box3");
+    dropbox3.addEventListener("dragover", dragover, true);
+    dropbox3.addEventListener("drop", doMyDrop, true);
+	files = 0;
+	filehash[0] = null;
+	filehash[1] = null;
+	filehash[2] = null;
+	
 }
 
 function dragenter(e) {
-    dropbox.setAttribute("dragenter", true);
+    e.target.setAttribute("dragenter", true);
 }
 
 function dragleave(e) {
-    dropbox.removeAttribute("dragenter");
+    e.target.removeAttribute("dragenter");
 }
 
 function dragover(e) {
     e.preventDefault();
+}
+
+function doMyDrop(e) {
+	var cx = e.target.getContext('2d');
+	var files = e.dataTransfer.files;
+	if( files.length > 1) return;
+	
+
+	var fileNo = 255;
+	if (e.target == document.getElementById("box1")) {
+		fileNo = 0;
+	} else if (e.target == document.getElementById("box2")) {
+		fileNo = 1;
+	} else if (e.target == document.getElementById("box3")) {
+		fileNo = 2;
+	}
+
+	if (fileNo == 255) return;
+	filehash[fileNo] = CybozuLabs.MD5.calc(files[0].name + files[0].size.tostring)
+	
+	dropfiles = 0;
+	for (var i = 0; i < 3; i++) {
+		if (filehash[i] != null) {
+			dropfiles++;
+		}
+	}
+	if (dropfiles == 3) {
+		dispResult();
+	}
+	cx.strokeRect(0,0,100,100);
+	cx.fillRect(0,0,100,100);
+	
+	e.stopPropagation();
+}
+
+function dispResult() {
+	var canvas = document.getElementById("box4");
+	var cx = canvas.getContext('2d');
+	cx.strokeRect(0,0,100,100);
+	var image = new Image();
+	
+	image.src = "image/encount.jpg";
+	cx.drawImage(image, 0, 0, canvas.width, canvas.height);
 }
 
 function drop(e) {
