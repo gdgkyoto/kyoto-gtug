@@ -5,9 +5,10 @@
 <!-- <script src="websocket.js" type="text/javascript"></script> -->
 <script src="file_upload.js" type="text/javascript"></script>
 <script src="image.js" type="text/javascript"></script>
-<script src="file_download.js" type="text/javascript"></script>
 <script src="mouse.js" type="text/javascript"></script>
 <script src = 'jquery-1.4.2.js' type = 'text/javascript'></script>
+<script src="file_download.js" type="text/javascript"></script>
+<script src="mouse_move.js" type="text/javascript"></script>
 
 <script type="text/javascript"><!--
 
@@ -62,6 +63,7 @@
         screenImage = document.getElementById("screen");
         screenImage.addEventListener("mousedown", onMousePress, false);
         screenImage.addEventListener("mouseup", onMouseRelease, false);
+        screenImage.addEventListener("mousemove", onMouseMoveScreen, false);
 
         setImageRequestTimer(500);
 
