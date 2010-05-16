@@ -90,15 +90,7 @@
     }
 
     function parseMessage(message){
-        var from = 0;
-        var data = [];
-        for(var i=0; i<3; i++){
-            var index = message.indexOf('|', from);
-            data[i] = message.substring(from, index);
-            from = index + 1;
-        }
-        data[3] = message.substring(from);
-        return data
+        return message.split('|', 4);
     }
 --></script>
 
