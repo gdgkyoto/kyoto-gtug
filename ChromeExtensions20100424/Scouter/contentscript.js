@@ -1,4 +1,4 @@
-// SVGの描画にRaphaelというライブラリを使用しています。
+// The library named Raphael is used to draw about SVG. 
 // Raphael Reference: http://raphaeljs.com/reference.html
 
 function onResult(result) {
