@@ -101,26 +101,32 @@ var songs = [
 
     leftDiskCanvas.onmousedown = function (e) {
 	leftTurnTable.keydown(e);
+	leftTurnTable.scratch.play();
     }
     leftDiskCanvas.onmousemove = function (e) {
 	leftTurnTable.drag(e);
     }
     leftDiskCanvas.onmouseup = function () {
+	leftTurnTable.scratch.pause();
 	leftTurnTable.keyup();
     }
     leftDiskCanvas.onmouseout = function () {
+	leftTurnTable.scratch.pause();
 	leftTurnTable.keyup();
     }
     rightDiskCanvas.onmousedown = function (e) {
 	rightTurnTable.keydown(e);
+	rightTurnTable.scratch.play();
     }
     rightDiskCanvas.onmousemove = function (e) {
 	rightTurnTable.drag(e);
     }
     rightDiskCanvas.onmouseup = function () {
+	rightTurnTable.scratch.pause();
 	rightTurnTable.keyup();
     }
     rightDiskCanvas.onmouseout = function () {
+	rightTurnTable.scratch.pause();
 	rightTurnTable.keyup();
     }
     
@@ -129,7 +135,8 @@ var songs = [
 	leftTurnTable.setDisk("img/" + songs[i].img, "mp3/" + songs[i].mp3 );
     }
     rightSelect.onchange = function () {
-
+	var i = rightSelect.selectedIndex;
+	rightTurnTable.setDisk("img/" + songs[i].img, "mp3/" + songs[i].mp3 );
     }
     
     function leftVolumeChange() {

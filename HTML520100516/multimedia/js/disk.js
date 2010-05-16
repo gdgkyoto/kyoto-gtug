@@ -15,7 +15,7 @@ function Disk(diskCanvas) {
 // ディスクセット
 Disk.prototype.setDisk = function (imagePath) {
     this.angle = 0;
-
+	
     var ctx = this.diskCanvas.getContext('2d');
     this.img.src = imagePath + "?" + new Date().getTime();
     var img = this.img;
@@ -31,6 +31,7 @@ Disk.prototype.startRotation = function() {
     var ctx = this.diskCanvas.getContext('2d');
 
     ctx.fillStyle = 'rgba(255,255,255,1)';
+    ctx.fillStyle = 'rgba(255,255,255,0)';
     ctx.fillRect(0, 0, this.diskCanvas.width, this.diskCanvas.height);
 
     ctx.save();
@@ -57,6 +58,7 @@ Disk.prototype.rotate = function(diff) {
     
     var ctx = this.diskCanvas.getContext('2d');
     ctx.fillStyle = 'rgba(255,255,255,1)';
+    ctx.fillStyle = 'rgba(255,255,255,0)';
     ctx.fillRect(0, 0, this.diskCanvas.width, this.diskCanvas.height);
 
     ctx.save();
