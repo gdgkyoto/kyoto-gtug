@@ -66,8 +66,8 @@
         screenImage = document.getElementById("screen");
         screenImage.addEventListener("mousedown", onMousePress, false);
         screenImage.addEventListener("mouseup", onMouseRelease, false);
-        window.addEventListener("keydown", onKeyPress, false);
-        window.addEventListener("keyup", onKeyRelease, false);
+        document.addEventListener("keydown", onKeyPress, false);
+        document.addEventListener("keyup", onKeyRelease, false);
         screenImage.addEventListener("mousemove", onMouseMoveScreen, false);
         screenImage.addEventListener("dragover", onDragOver, false);
         screenImage.addEventListener("drop", onDrop, false);
