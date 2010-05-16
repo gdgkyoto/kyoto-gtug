@@ -20,7 +20,7 @@ function getPositionFF(func){
 
 var geo = null;
 function getPositionChrome(func){
-	if(geo===null){
+	if(geo === null){
 		geo = google.gears.factory.create('beta.geolocation');
 	}
 	geo.getCurrentPosition(func);
@@ -40,5 +40,5 @@ function getPositionDemo(func){
 }
 
 var index = 0;
-var latitudes=[34.996257, 34.996267, 34.996277, 34.996267];
-var longitudes=[135.739085, 135.739095, 135.739085, 135.739075];
+var latitudes=[34.985706, 34.995973, 35.010315, 35.037305, 35.088591, 35.037305, 35.010315, 34.995973];
+var longitudes=[135.757885, 135.759258, 135.75943, 135.75943, 135.707417, 135.75943, 135.75943, 135.759258];

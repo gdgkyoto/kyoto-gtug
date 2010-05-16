@@ -22,12 +22,12 @@ function updatePosition(position){
 	document.getElementById('location').innerHTML = "【緯度】" + currentPosition.latitude + '【経度】' + currentPosition.longitude;
 	if(previousPosition != null){
 		var distance = getDistance(previousPosition.longitude, previousPosition.latitude, currentPosition.longitude, currentPosition.latitude);
-		totalDistance += distance;
+		totalDistance = round(totalDistance + distance);
 		document.getElementById('distance').innerHTML = totalDistance + "メートル";
 		var message = getMessage(totalDistance);
 		document.getElementById('message').innerHTML = message;
 	}
-
+	
 	googleMap(position);
 }
 
@@ -39,7 +39,7 @@ function googleMap(position){
 		map = new google.maps.Map(document.getElementById('map'), {
 			center : mapCenter,
 			mapTypeId : google.maps.MapTypeId.ROADMAP,
-			zoom : 14
+			zoom : 12
 		});
 	}
 	var time = new Date();
@@ -52,6 +52,7 @@ function googleMap(position){
 		title : title,
 		map : map
 	});
+	map.setCenter(mapCenter);
 }
 </script>
 </head>
