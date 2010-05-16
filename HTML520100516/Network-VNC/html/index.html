@@ -11,7 +11,7 @@
 <script src = 'jquery-1.4.2.js' type = 'text/javascript'></script>
 <script src="file_download.js" type="text/javascript"></script>
 <script src="mouse_move.js" type="text/javascript"></script>
-<script src="base64.js" type="text/javascript" />
+<script src="base64.js" type="text/javascript" ></script>
 
 <script type="text/javascript"><!--
 
@@ -20,6 +20,7 @@
     var protocol=(location.protocol=="https:")?"wss":"ws";
     var host=location.host;
     var ws;
+    var sendCount = 0;
 
     // 初期化
     var screenImage ;
@@ -54,15 +55,23 @@
     	ws = new WebSocket(protocol+"://"+host+"/ws/");
         // データ受信時の処理
         ws.onmessage = function(m) {
+            console.log('onmessage start');
+            //console.log(m.data);
           // 受信データをimgタグに反映
           var content = parseMessage(m.data);
           var type = content[0];
           if(type == 'IMAGE'){
               onImage(content[3]);
+              console.log('image request');
+              sendMessage('IMAGE_REQUEST', 0, '');
+              console.log('image request end');
           } else if (type == 'FILE_DOWNLOAD_RESPONSE') {
               console.log(content[3]);
               onFileDownloadResponse(host, content[3]);
+          } else {
+              alert('onmessage error?');
           }
+          console.log('onmessage end');
 //          screenImage.setAttribute("src","data:image/jpg;base64,"+m.data);
         };
     	
@@ -77,9 +86,11 @@
 
         setImageRequestTimer(500);
 
+//        sendMessage('IMAGE_REQUEST', 0, '');
         console.log("onLoad end");
     });
 
+    
     // 画面更新
     function updateImage(){
     	console.log("updateImage start "+ws.send);
@@ -87,11 +98,15 @@
     	sendMessage('IMAGE_REQUEST', 0, '');
 
     	// 500ミリ秒後に再度画面更新
-    	setImageRequestTimer(500);
+    	//setImageRequestTimer(500);
     	console.log("updateImage end");
     }
 
     function sendMessage(type, seq, data) {
+        if( type == 'IMAGE_REQUEST'){
+            console.log(sendCount);
+            sendCount++;
+        }
         ws.send([type, seq, new Date().getTime(), data].join('|'));
     }
     function debugSend(){
