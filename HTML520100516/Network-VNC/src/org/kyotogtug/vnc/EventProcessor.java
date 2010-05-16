@@ -14,7 +14,7 @@ import org.kyotogtug.vnc.events.FileEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
 import org.kyotogtug.vnc.events.KeyEvent;
-import org.kyotogtug.vnc.events.MouseClickEvent;
+import org.kyotogtug.vnc.events.MouseReleaseEvent;
 import org.kyotogtug.vnc.events.MouseMoveEvent;
 import org.kyotogtug.vnc.events.ScreenCapturer;
 
@@ -82,8 +82,8 @@ public class EventProcessor {
 	        KeyEvent ev = (KeyEvent)event;
 	        Integer keyCode = Integer.parseInt(ev.getData());
 	        robot.keyPress(keyCode);
-	    } else if (event instanceof MouseClickEvent) {
-	        MouseClickEvent e = (MouseClickEvent)event;
+	    } else if (event instanceof MouseReleaseEvent) {
+	        MouseReleaseEvent e = (MouseReleaseEvent)event;
 	        robot.mouseMove(e.getX(), e.getY());
 	    } else if (event instanceof MouseMoveEvent) {
 	        MouseMoveEvent ev = (MouseMoveEvent)event;

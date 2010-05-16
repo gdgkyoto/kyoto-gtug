@@ -1,10 +1,14 @@
 package org.kyotogtug.vnc;
 
+import java.util.logging.Logger;
+
 import org.apache.commons.codec.binary.Base64;
 import org.kyotogtug.vnc.events.Event;
+import org.kyotogtug.vnc.events.FileUploadEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
-import org.kyotogtug.vnc.events.MouseClickEvent;
+import org.kyotogtug.vnc.events.MousePressEvent;
+import org.kyotogtug.vnc.events.MouseReleaseEvent;
 import org.kyotogtug.vnc.events.MouseMoveEvent;
 
 /**
@@ -13,6 +17,10 @@ import org.kyotogtug.vnc.events.MouseMoveEvent;
  *
  */
 public class EventBuilder {
+	
+	/** get log instance */
+	private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+			.getLog(EventBuilder.class);
 	
 	/**
 	 * 画像データ送信用イベントを生成するメソッド
@@ -33,8 +41,11 @@ public class EventBuilder {
 	 * @return
 	 */
 	public Event parseEvent( String str ){
+		log.debug("parseEvent start data="+str);
 		Event event = null;
 		String[] data = str.split("\\|");
+		
+		// 
 		if( data.length < 3 ){
 			throw new IllegalArgumentException("invalid format!");
 		}
@@ -61,10 +72,10 @@ public class EventBuilder {
 			mouseMoveEvent.setX(x);
 			mouseMoveEvent.setY(y);
 			
-		// マウスクリックイベント
-		}else if( eventType.equals(Event.HEADER_MOUSE_CLICK ) ){
-			event = new MouseClickEvent();
-			MouseClickEvent mouseClickEvent = (MouseClickEvent)event;
+		// マウスリリースイベント
+		}else if( eventType.equals(Event.HEADER_MOUSE_RELEASE ) ){
+			event = new MouseReleaseEvent();
+			MouseReleaseEvent mouseClickEvent = (MouseReleaseEvent)event;
 			
 			String mouseMoveData = data[3];
 			String[] split = mouseMoveData.split(",");
@@ -75,7 +86,34 @@ public class EventBuilder {
 			mouseClickEvent.setX(x);
 			mouseClickEvent.setY(y);
 			mouseClickEvent.setButton(button);
+			
+		// マウスプレスイベント
+		}else if( eventType.equals(Event.HEADER_MOUSE_PRESS) ){
+			event = new MousePressEvent();
+			MousePressEvent mousePressEvent = (MousePressEvent)event;
+			
+			String mouseMoveData = data[3];
+			String[] split = mouseMoveData.split(",");
+			int i = 0;
+			int x = Integer.parseInt(split[ i++ ]);
+			int y = Integer.parseInt(split[ i++ ]);
+			int button = Integer.parseInt(split[ i++ ]);
+			mousePressEvent.setX(x);
+			mousePressEvent.setY(y);
+			mousePressEvent.setButton(button);
+			
+		// ファイルアップロードイベント
+		}else if( eventType.equals(Event.HEADER_FILE_UPDATE)){
+			event = new FileUploadEvent();
+			FileUploadEvent fileUploadEvent = (FileUploadEvent)event;
+			String base64 = data[3];
+			
+		}else if( eventType.equals(Event.HEADER_FILE_DOWNLOAD) ){
+			//event = new Filedo
+			
+		// その他のイベント ここに来たときは未知のイベントなので注意!
 		}else{
+			log.warn("UNKOWN EVENT!! EventType="+eventType);
 			event = new Event();
 		}
 		

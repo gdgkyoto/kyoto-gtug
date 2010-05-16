@@ -1,6 +1,6 @@
 package org.kyotogtug.vnc.events;
 
-public class MouseClickEvent extends Event {
+public class MousePressEvent extends Event{
 	
 	private int x;
 	private int y;

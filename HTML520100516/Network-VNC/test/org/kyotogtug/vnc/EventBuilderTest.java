@@ -3,7 +3,8 @@ package org.kyotogtug.vnc;
 import org.junit.Before;
 import org.junit.Test;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
-import org.kyotogtug.vnc.events.MouseClickEvent;
+import org.kyotogtug.vnc.events.MousePressEvent;
+import org.kyotogtug.vnc.events.MouseReleaseEvent;
 import org.kyotogtug.vnc.events.MouseMoveEvent;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -33,12 +34,26 @@ public class EventBuilderTest {
 	}
 	
 	@Test
-	public void testマウスクリックイベントのパース(){
-		String data = "MOUSE_CLICK|6|123456789011|666,777,2";
+	public void testマウスリリースイベントのパース(){
+		String data = "MOUSE_RELEASE|6|123456789011|666,777,2";
 		
-		MouseClickEvent event = (MouseClickEvent) eventBuilder.parseEvent(data);
+		MouseReleaseEvent event = (MouseReleaseEvent) eventBuilder.parseEvent(data);
 		
-		assertThat(event.getEventType(), is("MOUSE_CLICK"));
+		assertThat(event.getEventType(), is("MOUSE_RELEASE"));
+		assertThat(event.getSequence(), is(6));
+		assertThat(event.getTimestamp(), is(123456789011L));
+		assertThat(event.getX(), is(666));
+		assertThat(event.getY(), is(777));
+		assertThat(event.getButton(), is(2));
+	}
+	
+	@Test
+	public void testマウスプレスイベントのパース(){
+		String data = "MOUSE_PRESS|6|123456789011|666,777,2";
+		
+		MousePressEvent event = (MousePressEvent) eventBuilder.parseEvent(data);
+		
+		assertThat(event.getEventType(), is("MOUSE_PRESS"));
 		assertThat(event.getSequence(), is(6));
 		assertThat(event.getTimestamp(), is(123456789011L));
 		assertThat(event.getX(), is(666));
