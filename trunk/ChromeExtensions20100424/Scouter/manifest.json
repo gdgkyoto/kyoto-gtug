@@ -8,8 +8,8 @@
 		"http://ajax.googleapis.com/*"
 	],
 	"icons": {
-		"48": "sample-48.png",
-		"128": "sample-128.png"
+		"48": "scouter-48.png",
+		"128": "scouter-128.png"
 	},
 	"background_page": "background.html",
 	"options_page": "options.html",
