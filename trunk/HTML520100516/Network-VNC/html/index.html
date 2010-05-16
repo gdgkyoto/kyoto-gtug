@@ -20,7 +20,7 @@
     var protocol=(location.protocol=="https:")?"wss":"ws";
     var host=location.host;
     var ws;
-    var sendCount = 0;
+//    var sendCount = 0;
 
     // 初期化
     var screenImage ;
@@ -103,10 +103,10 @@
     }
 
     function sendMessage(type, seq, data) {
-        if( type == 'IMAGE_REQUEST'){
-            console.log(sendCount);
-            sendCount++;
-        }
+//        if( type == 'IMAGE_REQUEST'){
+//            console.log(sendCount);
+//            sendCount++;
+//        }
         ws.send([type, seq, new Date().getTime(), data].join('|'));
     }
     function debugSend(){
@@ -123,15 +123,15 @@
 <title>Html5 Remote Computing</title>
 </head>
 <body style="height:1000px;">
-<div id="content">AAA</div>
-<div id="hashtag">BBB</div>
 <input type="button" onClick="refresh()" value="refresh"/>
-<input type="text" id="in" />
+<!-- <input type="text" id="in" />
 <br/>
+<!--
 <input type="button" onClick="debugSend()", value="debug send"/>
 <input type="text" id="debug_type" />
 <input type="text" id="debug_data" />
 <br/>
+-->
 <input type="button" onClick="fileDownloadRequest()", value="file download"/>
 <br/>
 <img id="screen" src="gtug210x85.png" />
