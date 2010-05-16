@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Proxy</title>
+    <style type="text/css">
+    <!--
+      body {
+        text-align: center;
+        background-color: #006699;
+      }
+      #wrap {
+        width: 780px;
+        text-align: left;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding:10px;
+      }
+      #inner {
+        margin: 0 10px;
+      }
+      #content {
+        list-style-type: none;
+      }
+      #content div {
+        margin: 0 0 1px 0;
+        padding: 5px 25px 5px 0;
+        line-height: 120%;
+      }
+      #inner textarea#log {
+        width: 750px;
+        height: 100px;
+        margin: 0 auto;
+      }
+    -->
+    </style>
+    <script type="text/javascript" src="/static/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript">
+      var ws;
+      var uri;
+      var log = function(value) {
+        document.getElementById('log').value += value + "\n";
+      };
+      window.onload = function() {
+        if ('WebSocket' in window) {
+          $(function() {
+            var user     = '';
+            var password = '';
+            var get = function(api, word) {
+              $.ajax({
+                type: 'GET',
+                url : api,
+                data: {
+                  'q': word,
+                  'rpp': 100
+                },
+                dataType: "jsonp",
+                success: function(data) {
+                  $.each(data, function(k, v) {
+                    if (typeof(v) == 'object') {
+                      var response = '';
+                      $.each(v, function(key, data) {
+                        var text = data.text.split('。').join('にゃーー。');
+
+                        log(data.from_user + ':' + text);
+                        response += data.from_user + '__DELIMITER__' + data.profile_image_url + '__DELIMITER__' + text + '__LF__';
+                      });
+
+                      ws.send(response);
+                    }
+                  });
+                }
+              });
+            }
+
+            ws = new WebSocket('ws://localhost:8888/proxyserver');
+            ws.onopen = function() {
+              log('Connection is now open.');
+            };
+            ws.onmessage = function(message) {
+              uri = message;
+              get('http://search.twitter.com/search.json', '#kyotogtug');
+            };
+
+            ws.onclose = function() {
+              console.log('close');
+            };
+
+            $('#config').click(function() {
+              user     = $('#user').val();
+              password = $('#password').val();
+              if (user != '' && password != '') {
+                log('User id and password is set.');
+                get('search.json', '#kyotogtug');
+              }
+            });
+          });
+
+
+        } else {
+          alert('You have no web sockets');
+        };
+      };
+      window.onunload = function() {
+        ws.close();
+      };
+    </script>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="inner">
+        <div id="content"></div>
+        <input type="text" id="user" name="user" value="" /><br />
+        <input type="password" id="password" name="password" value="" />
+        <input type="button" id="config" name="config" value="config" />
+        <textarea id="log"></textarea>
+      </div>
+    </div>
+  </body>
+</html>
