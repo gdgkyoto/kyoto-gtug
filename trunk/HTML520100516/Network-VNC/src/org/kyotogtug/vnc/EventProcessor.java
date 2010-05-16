@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
@@ -18,12 +17,13 @@ import org.eclipse.jetty.websocket.WebSocket.Outbound;
 import org.kyotogtug.vnc.events.Event;
 import org.kyotogtug.vnc.events.FileDownloadRequestEvent;
 import org.kyotogtug.vnc.events.FileEvent;
+import org.kyotogtug.vnc.events.FileUploadEvent;
 import org.kyotogtug.vnc.events.ImageEvent;
 import org.kyotogtug.vnc.events.ImageRequestEvent;
 import org.kyotogtug.vnc.events.KeyPressEvent;
+import org.kyotogtug.vnc.events.MouseMoveEvent;
 import org.kyotogtug.vnc.events.MousePressEvent;
 import org.kyotogtug.vnc.events.MouseReleaseEvent;
-import org.kyotogtug.vnc.events.MouseMoveEvent;
 import org.kyotogtug.vnc.events.ScreenCapturer;
 
 public class EventProcessor {
@@ -86,7 +86,6 @@ public class EventProcessor {
 	    } else if (event instanceof ImageEvent) {
 	        // Respond screen image?
         } else if (event instanceof ImageRequestEvent) {
-            // 
             if (capturer.isAlive()) {
                 sendScreenImage();
             }
@@ -105,6 +104,9 @@ public class EventProcessor {
 	    } else if (event instanceof MouseMoveEvent) {
 	        MouseMoveEvent ev = (MouseMoveEvent)event;
 	        robot.mouseMove(ev.getX(), ev.getY());
+	    } else if (event instanceof FileUploadEvent) {
+	        FileUploadEvent ev = (FileUploadEvent)event;
+	        ev.save(ev.getFileName());
 	    } else if (event instanceof FileDownloadRequestEvent){ 
 	    	fileDownload();
 	    } else{
@@ -112,7 +114,6 @@ public class EventProcessor {
 	    }
 	}
 	
-
     private int toRobotButtonId(int button) {
 		switch( button ){
 		case 0: // 左クリック 
@@ -130,7 +131,6 @@ public class EventProcessor {
 		}
 		return -1;
     }
-
 
     private void sendScreenImage() {
         String base64Image = capturer.getBase64ImageData();

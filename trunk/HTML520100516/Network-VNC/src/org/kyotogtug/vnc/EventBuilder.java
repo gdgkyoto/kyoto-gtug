@@ -120,11 +120,13 @@ public class EventBuilder {
 			keyReleaseEvent.setKeyCode(keyCode);
 			
 		// ファイルアップロードイベント
-		}else if( eventType.equals(Event.HEADER_FILE_UPDATE)){
+		}else if( eventType.equals(Event.HEADER_FILE_UPLOAD)){
 			event = new FileUploadEvent();
 			FileUploadEvent fileUploadEvent = (FileUploadEvent)event;
-			String base64 = data[3];
-			
+			data = str.split("\\|", 5);
+			fileUploadEvent.setFileName(data[3]);
+			String content = data[4];
+			fileUploadEvent.setBase64data(content);
 		// ファイルダウンロードリクエストイベント
 		}else if( eventType.equals(Event.HEADER_FILE_DOWNLOAD_REQUEST) ){
 			event = new FileDownloadRequestEvent();

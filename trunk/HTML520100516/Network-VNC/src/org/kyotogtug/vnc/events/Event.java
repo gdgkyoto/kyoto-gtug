@@ -38,7 +38,7 @@ public class Event {
 
 	/** ファイルアップロードのイベント
 	 *  クライアントからサーバに対してファイルをアップロードするときに使用する */
-	public static final String HEADER_FILE_UPDATE = "FILE_UPLOAD";
+	public static final String HEADER_FILE_UPLOAD = "FILE_UPLOAD";
 	
 	/** ファイルダウンロードリクエストのイベント
 	 *  このイベントはクライアントからサーバに対して送信する。
