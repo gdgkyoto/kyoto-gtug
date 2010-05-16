@@ -1,5 +1,9 @@
-// ƒtƒ@ƒCƒ‹ƒ_ƒEƒ“ƒ[ƒh
+// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½_ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½h
 function file_download(url) {
 	//url = "http://localhost:8090/Book1.xls";
 	//window.location.href = url;
+}
+
+function fileDownloadRequest() {
+	sendMessage('FILE_DOWNLOAD_REQUEST', 0, 'dummy');
 }
