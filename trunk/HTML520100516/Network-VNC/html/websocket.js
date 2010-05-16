@@ -1,18 +1,18 @@
-var imageRequestTimer = null;
+//var imageRequestTimer = null;
 var browser;
 var remote;
 //var webSocket;
 var receiveIndexes = [];
 var receiveData = {};
-function requestImage() {
-	sendMessage("image", 0, '');
-}
-function setImageRequestTimer(milliseconds) {
-	if (imageRequestTimer != null) {
-		clearTimeout(imageRequestTimer);
-	}
-	imageRequestTimer = setTimeout(requestImage, milliseconds);
-}
+//function requestImage() {
+//	sendMessage("image", 0, '');
+//}
+//function setImageRequestTimer(milliseconds) {
+//	if (imageRequestTimer != null) {
+//		clearTimeout(imageRequestTimer);
+//	}
+//	imageRequestTimer = setTimeout(requestImage, milliseconds);
+//}
 function onMouseMoveBrowser(eve) {	// TODO
 	var x = eve.clientX / browser.clientWidth
 			* (remote.offsetWidth - browser.clientWidth);
@@ -92,8 +92,8 @@ function initial(eve) {
 //	webSocket.addEventListener("open", onOpenWebSocket, false);
 //	webSocket.addEventListener("close", onCloseWebSocket, false);
 //	webSocket.addEventListener("message", onMessageWebSocket, false);
-	window.addEventListener("unload", onUnloadWindow, false);
+//	window.addEventListener("unload", onUnloadWindow, false);
 	browser.addEventListener("contextmenu", onContextMenuBrowser, false);
 	browser.addEventListener("contextmenu", onContextMenuBrowser, true);
 }
-window.addEventListener("load", initial, false);
+//window.addEventListener("load", initial, false);
