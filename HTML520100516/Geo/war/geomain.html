@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8" >
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script src="http://maps.google.com/maps/api/js?sensor=false" ></script>
+<script type="text/javascript">
+var previousPosition = new Position();
+var currentPosition = new Position();;
+var map, timer;
+function initialize() {
+	navigator.geolocation.getCurrentPosition(function(position) {previousPosition = clone(position);}, onPositionError);
+	//document.getElementById('location').innerHTML += "【緯度】" + previousPosition.coords.latitude + '【経度】' + previousPosition.coords.longitude + '<br>';
+//	previousPosition.coords.longitude = 35.000000;
+//	previousPosition.coords.latitude = 135.000000;
+	var buttons = document.getElementsByTagName("button");
+	buttons[0].disabled = false, buttons[1].disabled = true;
+	document.getElementById('walkingDistance').innerHTML = "0";
+}
+function walkRun() {
+	var buttons = document.getElementsByTagName("button");
+	buttons[0].disabled = true, buttons[1].disabled = false;
+	//document.getElementById('map').innerHTML += "マップを初期化中です。しばらくお待ちください．．．";
+	timer = setInterval('navigator.geolocation.getCurrentPosition(updatePosition, onPositionError);', 5000);
+}
+function updatePosition(position) {
+	currentPosition = clone(position);
+	document.getElementById('location').innerHTML += "【緯度】" + position.coords.latitude + '【経度】' + position.coords.longitude + '<br>';
+	var distance = getDistance(previousPosition.coords.longitude, previousPosition.coords.latitude, currentPosition.coords.longitude, currentPosition.coords.latitude);
+	document.getElementById('walkingDistance').innerHTML = parseInt(document.getElementById('walkingDistance').innerHTML) + distance;
+}
+function clone(obj) {
+	var f = function(){};
+	f.prototype = obj;
+	return new f;
+}
+//function updatePosition(position) {
+//	var coords = position.coords;
+//	var mapCenter = new google.maps.LatLng(coords.latitude, coords.longitude);
+//	if (!map) {
+//		map = new google.maps.Map(document.getElementById("map"), {
+//			center : mapCenter,
+//			mapTypeId : google.maps.MapTypeId.ROADMAP,
+//			zoom : 14
+//		});
+//	}
+//	var time = new Date();
+//	time.setTime(position.timestamp);
+//	var title = time.getHours() + "時" +
+//				time.getMinutes() + "分" +
+//				time.getSeconds() + "秒の位置情報";
+//	var marker = new google.maps.Marker({
+//		position : mapCenter,
+//		title : title,
+//		map : map
+//	});
+//	map.setCenter(mapCenter);
+//	currentPosition = position;
+//	document.getElementById('location').innerHTML += "【緯度】" + position.latitude + '【経度】' + position.longitude + '<br>';
+//	var distance = getDistance(previousPosition.longitude, previousPosition.latitude, currentPosition.longitude, currentPosition.latitude);
+//	document.getElementById('walkingDistance').innerHTML = parseInt(document.getElementById('walkingDistance').innerHTML) + distance;
+//}
+function walkStop() {
+	clearInterval(timer);
+	var buttons = document.getElementsByTagName("button");
+	buttons[0].disabled = false, buttons[1].disabled = true;
+	alert("位置情報の取得を停止しました。");
+}
+function onPositionError(error) {
+	alert("位置情報を取得できません。" + error.message);
+}
+
+//2点間の距離算出
+function getDistance(longitudeFrom, latitudeFrom, longitudeTo, latitudeTo) {
+	alert("getDistance start");
+	var from_x;	//A地点の経度（ラジアン）
+	var from_y;	//A地点の緯度（ラジアン）
+	var to_x;	//B地点の経度（ラジアン）
+	var to_y;	//B地点の緯度（ラジアン）
+	var deg;
+	var distance; //2地点の距離
+	from_x = longitudeFrom * Math.PI / 180;
+	from_y = latitudeFrom * Math.PI / 180;
+	to_x = longitudeTo * Math.PI / 180;
+	to_y = latitudeTo * Math.PI / 180;
+	deg = Math.sin(from_y) * Math.sin(to_y) + Math.cos(from_y) * Math.cos(to_y) * Math.cos(to_x-from_x);
+	var distance = 6378140 * (Math.atan( -deg / Math.sqrt(-deg * deg + 1)) + Math.PI / 2);
+	alert("return distance = " + distance + "getDistance end");
+	return Math.round(distance);
+}
+</script>
+</head>
+<body onload="initialize()">
+<!-- 	<div id="map" style="width : 400px; height : 400px"></div> -->
+	<button onclick="walkRun()">歩く</button>
+	<button onclick="walkStop()" disabled>止める</button><br/><br/>
+	現在地
+	<div id="location"></div>
+	<br/>
+	現在の歩行距離は<br/>
+	<div id="walkingDistance"></div>
+	です。
+</body>
+</html>
