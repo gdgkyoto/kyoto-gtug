@@ -8,7 +8,9 @@ function TurnTable (mp3Path, diskCanvas) {
     this.audio.src = mp3Path;
     this.audio.controls = false;
 
-    this.audio.controls = 0.5;
+    this.scratch = new Audio();
+    this.scratch.src = "mp3/scratch_01.mp3";
+    this.scratch.loop = true;
 
     this.disk = new Disk(diskCanvas);
 
@@ -65,6 +67,7 @@ TurnTable.prototype.drag = function(e) {
 	var angle = this.calcRad(this.point1, this.point2);
 	this.audio.currentTime += angle/20;
 	this.disk.rotate(angle);
+
     }
 }
 
