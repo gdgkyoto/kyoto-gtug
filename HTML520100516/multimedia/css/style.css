@@ -22,6 +22,10 @@ body {
 	background:#000;
 }
 
+span {
+	color:#FFF;
+}
+
 #content { 
   width: 800px;
   margin:0 auto;
