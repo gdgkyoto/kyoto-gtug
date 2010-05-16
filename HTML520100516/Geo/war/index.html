@@ -2,11 +2,11 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8" >
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script src="gears_init.js"></script>
 	<script src="position.js"></script>
 	<script src="distance.js"></script>
 	<script src="message.js"></script>
-	<!-- <script src="http://maps.google.com/maps/api/js?sensor=false" ></script> -->
+	<script src="http://maps.google.com/maps/api/js?sensor=false" ></script>
 <script type="text/javascript">
 var previousPosition = null;
 var currentPosition = null;
@@ -27,6 +27,29 @@ function updatePosition(position){
 		var message = getMessage(totalDistance);
 		document.getElementById('message').innerHTML = message;
 	}
+	
+	googleMap(position);
+}
+
+var map = null;
+function googleMap(position){
+	var mapCenter = new google.maps.LatLng(position.latitude, position.longitude);
+	if (map === null) {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center : mapCenter,
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			zoom : 14
+		});
+	}
+	var time = new Date();
+	var title = time.getHours() + ':' +
+				time.getMinutes() + ':' +
+				time.getSeconds();
+	var marker = new google.maps.Marker({
+		position : mapCenter,
+		title : '現在地',
+		map : map
+	});
 }
 </script>
 </head>
@@ -40,5 +63,7 @@ function updatePosition(position){
 	<br/>
 	現在のメッセージは<br />
 	<div id="message"></div>
+	<br />
+	<div id="map" style="width : 200px; height : 200px"></div>
 </body>
 </html>
