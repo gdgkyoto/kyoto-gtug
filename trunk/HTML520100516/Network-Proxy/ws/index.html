@@ -6,7 +6,7 @@
 	<input type="text" id="senddata" value="aaaaa">
 	<input type="button" onclick="send()" value="send">
 	<script type="text/javascript">
-	var ws = new WebSocket("ws://localhost:8080/ws/ws");
+	var ws = new WebSocket("ws://localhost:8080/ws/socket");
     ws.onmessage = function(m) {
       document.getElementById('content').innerHTML= m.data;
     };
