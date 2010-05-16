@@ -7,14 +7,16 @@
 
 <link rel="stylesheet" type="text/css" href="css.css" />
 
-<script type="text/javascript" src=""></script>
+<script type="text/javascript" src="dragdrop.js"></script>
 <script type="text/javascript" src=""></script>
 <script type="text/javascript">
 window.onload = function() {
 	var canvas = document.getElementById("box1");
 	var cx = canvas.getContext('2d');
 	
-	cx.strokeRect(0,0,300,100);
+//	cx.strokeRect(0,0,300,100);
+	cx.strokeRect(20,20,100,50);
+	cx.fillRect(20,20,100,50);
 
 };
 </script>
@@ -26,14 +28,15 @@ window.onload = function() {
 
 <body>
 
-<div id="sound">♪sound:<span class="lnk">on</span></div>
-<audio src="nos1.wav" loop="loop" autoplay>	
+
 
 <h1>HTML5ファーム</h1>
 <p>下の四角にファイルをドラッグ＆ドロップしてください。</p>
 
 <canvas id="box1" class="box1" width="300" height="300"></canvas>
 
+<div id="sound">♪sound:<span class="lnk">on</span></div>
+<audio src="nos1.wav" loop="loop" autoplay>	
 
 </body>
 
