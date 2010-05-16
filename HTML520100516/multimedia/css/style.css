@@ -1,8 +1,12 @@
 
+.clear {
+	clear:both;
+}
 
 #content { 
   width: 800px;
   background-color: black;
+  position:relative;
 }
 
 #left { 
@@ -23,3 +27,11 @@
   text-align:center;
   margin: 10px auto 0px auto;
  }
+
+#audience {
+}
+
+#mirrorBall {
+	text-align:right;
+
+}
