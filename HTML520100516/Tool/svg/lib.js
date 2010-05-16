@@ -2,7 +2,11 @@
 	var SelectedTextID="";
 	var dblClick=false;
 	var TextMode="make";
+	var CurrentPage=1;
+	var storage=localStorage.svgpresentation;
 		function load(){
+			
+			document.getElementsByTagName("option")[25].selected=true;
 			var svg=document.getElementById("svg");
 			var _body=document.getElementsByTagName("body")[0];
 			with(svg){
@@ -24,6 +28,9 @@
 				text.id=SelectedTextID;
 				TextMode='make';
 				svg.appendChild(text);
+			}else{
+				document.getElementById("textform").style.display="none";
+				svg.style.backgroundColor="white";
 			}
 			},false);
 			svg.addEventListener("dragover",function(ev){
@@ -133,7 +140,6 @@
 			return false;
 		}
 		function changeText(){
-			//console.log(document.getElementById(SelectedTextID).textContent);
 			document.getElementById("inputtext").value=document.getElementById(SelectedTextID).textContent;
 			document.getElementById("textform").style.display="table-cell";
 			document.getElementById("inputtext").focus();
@@ -141,4 +147,37 @@
 			TextMode="change";
 			var svg=document.getElementById("svg");
 			svg.style.backgroundColor="gray";
+		}
+		function save(){
+				var svg  = document.getElementById("svg");
+			 	var childs = svg.childNodes;
+			 	var tagname;
+			 	var svgtext="";
+			 	svgtext+='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">';
+	            for(var i=0;i< childs.length;i++){
+	            	tagname=childs[i].tagName;
+	            	if(tagname==="image"){
+	            		svgtext+=('<'+tagname);
+	            		var atts=childs[i].attributes;
+	            		for(var f=0;f<atts.length;f++){
+	            			svgtext+=(" "+childs[i].attributes[f].nodeName+"="+"'"+childs[i].attributes[f].nodeValue+"'");
+	            		}
+	            		svgtext+=' /> ';
+	            	}else if(tagname==="text"){
+	            		svgtext+=('<'+tagname);
+	            		var text=childs[i].textContent;
+	            		var atts=childs[i].attributes;
+	            		for(var f=0;f<atts.length;f++){
+	            			svgtext+=(" "+childs[i].attributes[f].nodeName+"="+"'"+childs[i].attributes[f].nodeValue+"'");
+	            		}
+	            		svgtext+=">";
+	            		svgtext+=text;
+	            		svgtext+=("</text> ");
+	            	}
+	            }
+	            svgtext=("data:image/svg+xml;charset=utf-8,"+svgtext+"</svg>");
+	            setLocalStorage(svgtext);
+		}
+		function setLocalStorage(svg){
+			storage[(CurrentPage-1)]=svg;
 		}
