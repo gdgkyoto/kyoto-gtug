@@ -1,3 +1,6 @@
+
+
+function init() {
 var songs = [
     {mp3: "music_01_dstm.mp3", img: "record_01_dstm.png"},
     {mp3: "music_02_onemoretime.mp3", img: "record_02_onemoretime.png"},
@@ -15,8 +18,6 @@ var songs = [
     {mp3: "music_14_keioned.mp3", img: "record_14_keioned.png"}
 ];
 
-
-function init() {
     
     // ディスク表示用キャンバスの取得
     var leftDiskCanvas = document.getElementById("left_disk_canvas");
@@ -63,8 +64,8 @@ function init() {
     }
 
     // ディスクのセット
-    leftTurnTable.setDisk("img/record_keion01_img.png");
-    rightTurnTable.setDisk("img/record_keion01_img.png");
+    leftTurnTable.setDisk("img/" + songs[0].img, "mp3/" + songs[0].mp3 );
+    rightTurnTable.setDisk("img/" + songs[0].img, "mp3/" + songs[0].mp3 );
 
     // 各ボタンのイベントハンドラの設定
     leftPlayButton.onclick = function () {
@@ -121,6 +122,14 @@ function init() {
     }
     rightDiskCanvas.onmouseout = function () {
 	rightTurnTable.keyup();
+    }
+    
+    leftSelect.onchange = function() {
+	var i = leftSelect.selectedIndex;
+	leftTurnTable.setDisk("img/" + songs[i].img, "mp3/" + songs[i].mp3 );
+    }
+    rightSelect.onchange = function () {
+
     }
     
     function leftVolumeChange() {

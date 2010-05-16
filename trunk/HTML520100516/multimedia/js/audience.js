@@ -62,7 +62,7 @@ Audience.prototype.schedule = function (num) {
 Audience.prototype.dance = function (num) {
     var ctx = this.audienceCanvas.getContext('2d');
 
-    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0)';
     ctx.fillRect(num*141, 0, 141, 200);
 
     ctx.save();
