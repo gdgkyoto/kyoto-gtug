@@ -5,7 +5,8 @@
 	"permissions": [
 		"http://api.search.live.net/*",
 		"http://search.yahooapis.jp/*",
-		"http://ajax.googleapis.com/*"
+		"http://ajax.googleapis.com/*",
+		"http://www.google.com/search*"
 	],
 	"icons": {
 		"48": "scouter-48.png",
