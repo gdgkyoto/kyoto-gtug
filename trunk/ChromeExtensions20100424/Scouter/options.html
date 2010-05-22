@@ -8,25 +8,39 @@
 			}
 		</style>
 		<script>
+			const MAX_RESULTS = 8;
+			const NUM_OF_RESULTS = "numberOfResults";
+
 			function loadOptions() {
-				var numberOfResults = localStorage["numberOfResults"];
+				var numberOfResults = localStorage[NUM_OF_RESULTS];
 				if (numberOfResults == undefined) {
 					numberOfResults = 3;
 				}
-				document.getElementById("numberOfResults").value = numberOfResults;
+				document.getElementById(NUM_OF_RESULTS).value = numberOfResults;
 			}
 			function saveOptions() {
-				localStorage["numberOfResults"] = document.getElementById("numberOfResults").value;
+				var value = document.getElementById(NUM_OF_RESULTS).value;
+				if (value == null || value == undefined)
+					return;
+				if (value < 0) {
+					alert('Input positive value!');
+					return;
+				}
+				if (MAX_RESULTS < value) {
+					alert('The maximum is 8.');
+					return;
+				}
+				localStorage[NUM_OF_RESULTS] = value;
 			}
 			function eraseOptions() {
-				localStorage.removeItem("numberOfResults");
+				localStorage.removeItem(NUM_OF_RESULTS);
 				location.reload();
 			}
 		</script>
 	</head>
 	<body onload="loadOptions()">
 		<h1>Scouter Options</h1>
-		Number of results: <input type="text" id="numberOfResults"></input><br/>
+		Number of results: <input type="text" id="numberOfResults" /> The maximum value is 8.<br/>
 
 		<button onclick="saveOptions()">Save</button>
 		<button onclick="eraseOptions()">Restore default</button>
