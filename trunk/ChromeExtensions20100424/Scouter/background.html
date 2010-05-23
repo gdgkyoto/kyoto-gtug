@@ -99,136 +99,132 @@
 			
 			// Bing Search
 			function bingSearch(response, query, callback){
-				var params = {
-					Appid: 'F86569E3A5245BCD131B9E5A90939CFCF65E92CC',
-					query: query,
-					sources: 'web',
-					'web.count': numOfRes()
-//					'web.offset': 100
-				}
-				$.ajax({
-					type: 'GET',
-					url: "http://api.search.live.net/json.aspx",
-					data: params,
-					dataType: 'json',
-					success: function(res){
-						var results = res.SearchResponse.Web.Results;
-						var data = [];
-						for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
-							data.push({
-								title: results[i].Title, 
-								url: results[i].Url
-							})
-						}
-						response.push({
-							'engine': 'Bing',
-							'icon': 'bing.png',
-							'url': 'http://www.bing.com/search?q=' + query,
-							'total': res.SearchResponse.Web.Total,
-							'data': data
+				
+				const Appid = 'F86569E3A5245BCD131B9E5A90939CFCF65E92CC';
+
+				var script = document.createElement('script');
+				script.setAttribute('type', 'text/javascript');
+				script.setAttribute('src', [
+					'http://api.search.live.net/json.aspx',
+					'?Appid=', encodeURIComponent(Appid),
+					'&Version=2.0',
+					'&Market=ja-JP',
+					'&Query=', encodeURIComponent(query),
+					'&Sources=Web',
+					'&Web.Count=', numOfRes(),
+					'&JsonType=callback',
+					'&JsonCallback=bingSeachCallback'
+					].join(''));
+				script.setAttribute('charset', 'UTF-8');
+				
+				// callback
+				window['bingSeachCallback'] = function(res) {
+					var results = res.SearchResponse.Web.Results;
+					var data = [];
+					for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+						data.push({
+							title: results[i].Title, 
+							url: results[i].Url
 						})
-						callback();
-					},
-					error: function(xhr, textStatus, errorThrown){
-						console.log(errorThrown);
 					}
-				})				
+					response.push({
+						'engine': 'Bing',
+						'icon': 'bing.png',
+						'url': 'http://www.bing.com/search?q=' + query,
+						'total': res.SearchResponse.Web.Total,
+						'data': data
+					})
+
+					callback();
+
+					window['bingSeachCallback'] = undefined;
+					delete window['bingSeachCallback'];
+				}
+				document.body.appendChild(script);
 			}
 
 			// Yahoo! Search
-			// res: Results of google search API
-			var yahooSearchCallback = function(res) {
-				console.log("yahooSearchCallback");
-				console.log(res);
-				if (!yahooSearchCallback.response)
-					throw { error: "response is not set to yahooSearchCallback" }
-				if (!yahooSearchCallback.callback)
-					throw { error: "callback is not set to yahooSearchCallback" }
+			function yahooSearch(response, query, callback){				
+				const appid = 'zdksqkOxg65uC2CemuYVRiO7QhAbtJUTt9JsIBxADGnXNK0cKPf2FO0dcdTbpD_zqWau';
 
-				var results = res.ResultSet.Result;
-				var data = [];
-				for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
-					data.push({
-						title: results[i].Title, 
-						url: results[i].Url
-					})
-				}
-				yahooSearchCallback.response.push({
-					'engine': 'Yahoo!',
-					'icon': 'yahoo.png',
-					'url': 'http://search.yahoo.co.jp/search?p=' + yahooSearchCallback.query,
-					'total': res.ResultSet.totalResultsAvailable,
-					'data': data
-				})
-
-				yahooSearchCallback.callback();
-			}
-			function yahooSearch(response, query, callback){
-				yahooSearchCallback.response = response;
-				yahooSearchCallback.query = query;
-				yahooSearchCallback.callback = callback;
-				
-				var appid = 'zdksqkOxg65uC2CemuYVRiO7QhAbtJUTt9JsIBxADGnXNK0cKPf2FO0dcdTbpD_zqWau';
 				var script = document.createElement('script');
 				script.setAttribute('type', 'text/javascript');
 				script.setAttribute('src', [
 					'http://search.yahooapis.jp/WebSearchService/V1/webSearch',
 					'?appid=', encodeURIComponent(appid),
+					'&language=ja',
 					'&query=', encodeURIComponent(query),
 					'&results=', numOfRes(),
 					'&output=json',
 					'&callback=yahooSearchCallback'
 					].join(''));
 				script.setAttribute('charset', 'UTF-8');
+				
+				// callback
+				window['yahooSearchCallback'] = function(res) {
+					var results = res.ResultSet.Result;
+					var data = [];
+					for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+						data.push({
+							title: results[i].Title, 
+							url: results[i].Url
+						})
+					}
+					response.push({
+						'engine': 'Yahoo!',
+						'icon': 'yahoo.png',
+						'url': 'http://search.yahoo.co.jp/search?p=' + query,
+						'total': res.ResultSet.totalResultsAvailable,
+						'data': data
+					})
+
+					callback();
+
+					window['yahooSearchCallback'] = undefined;
+					delete window['yahooSearchCallback'];
+				}
 				document.body.appendChild(script);
 			}
 			
 			// Google Search			
-			// res: Results of google search API
-			function googleSearchCallback(res)
-			{
-				console.log("googleSearchCallback");
-				console.log(res);
-				if (!googleSearchCallback.response)
-					throw { error: "response is not set to googleSearchCallback" }
-				if (!googleSearchCallback.callback)
-					throw { error: "callback is not set to googleSearchCallback" }
-
-				var results = res.responseData.results;
-				var data = [];
-				for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
-					data.push({
-						title: results[i].title, 
-						url: results[i].url
-					})
-				}
-				googleSearchCallback.response.push({
-					'engine': 'Google',
-					'icon': 'google.png',
-					'url': 'http://www.google.co.jp/search?q=' + googleSearchCallback.query,
-					'total': res.responseData.cursor.estimatedResultCount,
-					'data': data
-				})
-				googleSearchCallback.callback();
-			}
 			function googleSearch(response, query, callback)
 			{
-				googleSearchCallback.response = response;
-				googleSearchCallback.query = query;
-				googleSearchCallback.callback = callback;
-
-				var appid = 'ABQIAAAAIWerzbncqqoIPMsGqlPItRQMvVaHn46sKFEB-9OpdaAgTkqXtBQQ_iLPa_Kues42K0wHkoyq-cFdUw';
+				const appid = 'ABQIAAAAIWerzbncqqoIPMsGqlPItRQMvVaHn46sKFEB-9OpdaAgTkqXtBQQ_iLPa_Kues42K0wHkoyq-cFdUw';
 				var script = document.createElement('script');
 				script.setAttribute('type', 'text/javascript');
 				script.setAttribute('src', [
 					'http://ajax.googleapis.com/ajax/services/search/web',
 					'?key=', encodeURIComponent(appid),
+					'&hl=ja',
+//					'&lr=lang_ja',
 					'&q=', encodeURIComponent(query),
 					'&v=1.0',
 					'&rsz=large',
 					'&callback=googleSearchCallback'
 				].join(''));
 				script.setAttribute('charset', 'UTF-8');
+				
+				window['googleSearchCallback'] = function(res){
+					var results = res.responseData.results;
+					var data = [];
+					for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+						data.push({
+							title: results[i].title, 
+							url: results[i].url
+						})
+					}
+					response.push({
+						'engine': 'Google',
+						'icon': 'google.png',
+						'url': 'http://www.google.co.jp/search?q=' + query,
+						'total': res.responseData.cursor.estimatedResultCount,
+						'data': data
+					})
+					callback();
+					
+					window['googleSearchCallback'] = undefined;
+					delete window['googleSearchCallback'];
+				}
 				document.body.appendChild(script);
 			}
 			
