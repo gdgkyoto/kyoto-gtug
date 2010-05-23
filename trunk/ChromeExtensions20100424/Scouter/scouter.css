@@ -24,6 +24,7 @@ a.engine-title {
 }
 span.hit {
 	float: right;
+	font-size: 12px !important;
 }
 
 
