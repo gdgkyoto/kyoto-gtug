@@ -112,6 +112,6 @@ chrome.extension.sendRequest({
 		console.log(response);
 		if (response.value != 'true')
 			return;
-		showPageRank('li.g.w0 > h3 > a');
+		showPageRank('li.g > h3 > a');
 	}
 );
