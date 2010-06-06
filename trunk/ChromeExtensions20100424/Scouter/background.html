@@ -2,14 +2,29 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-	</head>
-	<body>
-		<script>
+		<script type="text/javascript">
 			// Access localStorage
-			function numOfRes(){
-				if (localStorage["numberOfResults"] == undefined)
-					localStorage["numberOfResults"] = 3;
-				return localStorage["numberOfResults"];
+			var Config = {
+				getNumberOfResults: function(){
+					return storageOrDefault("numberOfResults", 3);
+				},
+				setNumberOfResults: function(num) {
+					localStorage["numberOfResults"] = num;
+				},
+				removeNumberOfResults: function(){
+					localStorage.removeItem("numberOfResults");
+				},
+				isPageRankDisplayed: function(){
+					return storageOrDefault("pagerank", "true");
+				},
+				setPageRankDisplayed: function(flg){
+					localStorage["pagerank"] = flg;
+				}
+			}
+			function storageOrDefault(key, init){
+				if (localStorage[key] == undefined)
+					localStorage[key] = init;
+				return localStorage[key];
 			}
 
 			function makehash(u) {
@@ -72,11 +87,11 @@
 			    };
 			    return GoogleCH(strord('info:'+u));
 			}
-			
+
 			function fetchPageRank(url, callback){
 			    url =  'http://www.google.com/search?client=navclient-auto&ch=6' + makehash(url) + '&features=Rank&q=info:' + url;
 			    var xhr = new XMLHttpRequest();
-			    xhr.open('GET', url, false);
+			    xhr.open('GET', url, true);
 				xhr.onreadystatechange = function(){
 					if (xhr.readyState == 4) {
 						var rank = xhr.responseText.substr(9, 2).replace(/\s$/,'');
@@ -94,12 +109,11 @@
 
 			// Reference code
 			// http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/howto/contentscript_xhr/
-			
-			
-			
+
+
+
 			// Bing Search
 			function bingSearch(response, query, callback){
-				
 				const Appid = 'F86569E3A5245BCD131B9E5A90939CFCF65E92CC';
 
 				var script = document.createElement('script');
@@ -111,17 +125,17 @@
 					'&Market=ja-JP',
 					'&Query=', encodeURIComponent(query),
 					'&Sources=Web',
-					'&Web.Count=', numOfRes(),
+					'&Web.Count=', Config.getNumberOfResults(),
 					'&JsonType=callback',
 					'&JsonCallback=bingSeachCallback'
 					].join(''));
 				script.setAttribute('charset', 'UTF-8');
-				
+
 				// callback
 				window['bingSeachCallback'] = function(res) {
 					var results = res.SearchResponse.Web.Results;
 					var data = [];
-					for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+					for (var i=0; i < Math.min(Config.getNumberOfResults(), results.length); i++) {
 						data.push({
 							title: results[i].Title, 
 							url: results[i].Url
@@ -154,17 +168,17 @@
 					'?appid=', encodeURIComponent(appid),
 					'&language=ja',
 					'&query=', encodeURIComponent(query),
-					'&results=', numOfRes(),
+					'&results=', Config.getNumberOfResults(),
 					'&output=json',
 					'&callback=yahooSearchCallback'
 					].join(''));
 				script.setAttribute('charset', 'UTF-8');
-				
+
 				// callback
 				window['yahooSearchCallback'] = function(res) {
 					var results = res.ResultSet.Result;
 					var data = [];
-					for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+					for (var i=0; i < Math.min(Config.getNumberOfResults(), results.length); i++) {
 						data.push({
 							title: results[i].Title, 
 							url: results[i].Url
@@ -185,11 +199,12 @@
 				}
 				document.body.appendChild(script);
 			}
-			
+
 			// Google Search			
 			function googleSearch(response, query, callback)
 			{
 				const appid = 'ABQIAAAAIWerzbncqqoIPMsGqlPItRQMvVaHn46sKFEB-9OpdaAgTkqXtBQQ_iLPa_Kues42K0wHkoyq-cFdUw';
+
 				var script = document.createElement('script');
 				script.setAttribute('type', 'text/javascript');
 				script.setAttribute('src', [
@@ -204,11 +219,11 @@
 					'&callback=googleSearchCallback'
 				].join(''));
 				script.setAttribute('charset', 'UTF-8');
-				
+
 				window['googleSearchCallback'] = function(res){
 					var results = res.responseData.results;
 					var data = [];
-					for (var i=0; i < Math.min(numOfRes(), results.length); i++) {
+					for (var i=0; i < Math.min(Config.getNumberOfResults(), results.length); i++) {
 						data.push({
 							title: results[i].title, 
 							url: results[i].url
@@ -222,19 +237,19 @@
 						'data': data
 					})
 					callback();
-					
+
 					window['googleSearchCallback'] = undefined;
 					delete window['googleSearchCallback'];
 				}
 				document.body.appendChild(script);
 			}
-			
+
 			// Do search many search engines, and return resuls
 			// query: search query
 			// callback: 
 			function fetchSearchResult(query, callback) {
 				console.log('fetchSearchResult');
-				
+
 				var results = [];
 				bingSearch(results, query, function(){
 					yahooSearch(results, query, function(){
@@ -255,11 +270,17 @@
 					fetchSearchResult(request.query, callback);
 				} else if (request.action == 'fetchPageRank') {
 					fetchPageRank(request.url, callback);
+				} else if (request.action == 'isPageRankDisplayed') {
+					callback({
+						value: localStorage['pagerank']
+					});
 				}
 			};
 			// regist onResult as message passing
 			chrome.extension.onRequest.addListener(onRequest);
 		</script>
+	</head>
+	<body>
 	</body>
 </html>
 
