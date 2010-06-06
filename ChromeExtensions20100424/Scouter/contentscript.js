@@ -24,14 +24,13 @@ function onResult(result) {
 
 	showAsText(result, container);
 	//showAsSvg(result, container);
-	showPageRank();
+	showPageRank('div.engine > ol > li > a');
 
 	var mbEnd = document.getElementById("mbEnd");
 	if (mbEnd) {
 		container.appendChild(mbEnd);
 	}
 }
-
 function numberFormat(n) {
 	if (isNaN(n))	return "";
 	
@@ -73,8 +72,8 @@ function showAsSvg(data, container) {
 	paper.text(100, 80, data[2].data[2].title);
 }
 
-function showPageRank() {
-	var links = document.querySelectorAll('div.engine > ol > li > a');
+function showPageRank(selector) {
+	var links = document.querySelectorAll(selector);
 	for (var i=0; i<links.length; i++) {
 		var link = links[i];
 		chrome.extension.sendRequest({
@@ -105,3 +104,14 @@ chrome.extension.sendRequest({
 		'action': 'fetchSearchResult',
 		'query': document.forms.gs.q.value
 		}, onResult);
+
+chrome.extension.sendRequest({
+	'action': 'isPageRankDisplayed'
+	},
+	function(response){
+		console.log(response);
+		if (response.value != 'true')
+			return;
+		showPageRank('li.g.w0 > h3 > a');
+	}
+);

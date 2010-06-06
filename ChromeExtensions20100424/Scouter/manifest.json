@@ -1,6 +1,6 @@
 {
 	"name": "Scouter",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Cross search engine for google.",
 	"permissions": [
 		"http://api.search.live.net/*",

@@ -10,13 +10,13 @@
 		<script>
 			const MAX_RESULTS = 8;
 			const NUM_OF_RESULTS = "numberOfResults";
+			const PAGERANK = "pagerank";
+			const bgPage = chrome.extension.getBackgroundPage();
+			const config = bgPage.Config;
 
 			function loadOptions() {
-				var numberOfResults = localStorage[NUM_OF_RESULTS];
-				if (numberOfResults == undefined) {
-					numberOfResults = 3;
-				}
-				document.getElementById(NUM_OF_RESULTS).value = numberOfResults;
+				document.getElementById(NUM_OF_RESULTS).value = config.getNumberOfResults();
+				document.getElementById(PAGERANK).checked = config.isPageRankDisplayed()=='true' ? true : false;
 			}
 			function saveOptions() {
 				var value = document.getElementById(NUM_OF_RESULTS).value;
@@ -30,11 +30,14 @@
 					alert('The maximum is 8.');
 					return;
 				}
-				localStorage[NUM_OF_RESULTS] = value;
+				config.setNumberOfResults(value);
 			}
 			function eraseOptions() {
-				localStorage.removeItem(NUM_OF_RESULTS);
+				config.removeNumberOfResults();
 				location.reload();
+			}
+			function switchPageRank() {
+				config.setPageRankDisplayed(document.getElementById(PAGERANK).checked);
 			}
 		</script>
 	</head>
@@ -44,6 +47,8 @@
 
 		<button onclick="saveOptions()">Save</button>
 		<button onclick="eraseOptions()">Restore default</button>
+		<hr>
+		<input type="checkbox" id="pagerank" onchange="switchPageRank()"/><label for="pagerank">Show PageRank</label>
 	</body>
 </html>
 
