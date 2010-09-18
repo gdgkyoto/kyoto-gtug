@@ -21,8 +21,8 @@ public class VoiceRecognitionActivity extends Activity {
 		setContentView(R.layout.voice);
 
 		Intent intent=getIntent();
-		String lat=intent.getStringExtra("lat");
-		String lon = intent.getStringExtra("lon");
+		final String lat=intent.getStringExtra("lat");
+		final String lon = intent.getStringExtra("lon");
 		
 		Toast.makeText(VoiceRecognitionActivity.this, lat+":"+lon, Toast.LENGTH_LONG);
 
@@ -39,6 +39,9 @@ public class VoiceRecognitionActivity extends Activity {
 							RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 					intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 							RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+					intent.putExtra("lat", lat);
+					intent.putExtra("lon", lon);
+					
 					intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
 							"VoiceRecognition");
 					startActivityForResult(intent, REQUEST_CODE);
@@ -66,7 +69,14 @@ public class VoiceRecognitionActivity extends Activity {
 				resultsString += results.get(i);
 			}
 
-			Intent intent = new Intent();
+	        Intent i = new Intent(getApplicationContext(), ViewMapActivity.class);
+	        String lat = data.getStringExtra("lat");
+	        String lon = data.getStringExtra("lon");
+	        i.putExtra("voice", resultsString);
+	        i.putExtra("lat",lat);
+	        i.putExtra("lon",lon);
+	        startActivity(i);
+
 			
 			
 		}
