@@ -15,7 +15,6 @@
 <p class="back"><img src="images/480/btn_go.png"id="buttom" width="63" height="42" alt="再生する" onclick="showImage()"></p>
 <p class="play"><img src="images/480/btn_stop.png"id="buttom" width="63" height="42" alt="再生する" onclick="stop()"></p>
 <p class="close"><img src="images/480/btn_close.png" width="32" height="42" alt="閉じる" onClick="window.close();"></p>
-<span id="strID" style="color:white">文字をフェードイン</span>
 <script>
 var canvas, ctx, image, fadeTimer, alphaBar;
 
@@ -112,10 +111,7 @@ function stopAnimation() {
   }
 }
 
-function start() {
 
-
-}
 function stop() {
   stopAnimation();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
