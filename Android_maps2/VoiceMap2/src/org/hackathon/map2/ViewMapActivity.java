@@ -53,7 +53,9 @@ public class ViewMapActivity extends MapActivity {
 		Log.d("lat=======",""+lat);
 		Log.d("lon=======",""+lon);
 		Log.d("voice=======",voice);
-		Toast.makeText(getApplicationContext(), voice,Toast.LENGTH_LONG).show();
+		Converter con = new Converter(voice);
+		String outputStr = con.getConvertedString();
+		Toast.makeText(getApplicationContext(), outputStr,Toast.LENGTH_LONG).show();
 		
 
 	}
