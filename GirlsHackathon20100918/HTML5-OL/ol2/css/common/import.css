@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+/*
+======== table of content. =================================
+
+summary:全てのcssを読み込み
+
+- import reset.css
+- import global.css
+
+============================================================
+*/
+
+@import "reset.css";
+
+@import "style.css";

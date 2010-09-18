@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+
+/*-----------------------------------------------------
+HTML
+-------------------------------------------------------*/
+
+/*-----------------------------------------------------
+BODY
+-------------------------------------------------------*/
+body {
+	font-size: 12px;
+	color:#666;
+	line-height: 1.6;
+	font-family: "ＭＳ Ｐゴシック","MS PGothic","ヒラギノ角ゴ Pro
+W3","Hiragino Kaku Gothic Pro",Osaka,Sans-Serif;
+	text-align: center;
+	background:url(../../images/common/bg_body_pt1.jpg) repeat;
+}
+
+
+/*-----------------------------------------------------
+CONTENT
+-------------------------------------------------------*/
+div#content {
+	width:480px;
+	margin:20px auto 0 auto;
+}
+div#content div.flame{
+	width:480px;
+	height:320px;
+	position:relative;
+
+}
+div#content div.flame canvas{
+	width:396px;
+	height:297px;
+	display:block;
+	background:url(../../images/480/bg_canvas.png) repeat;
+	position:absolute;
+	top:10px;
+	left:40px;
+	z-index:1;
+
+}
+div#content div.flame p.flame-image{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:2;
+}
+
+/* navigation */
+div#content div.navigation p.back{
+	position:absolute;
+	bottom:0;
+	left:100px;
+	z-index:3;
+}
+div#content div.navigation p.play{
+	position:absolute;
+	bottom:0;
+	left:210px;
+	z-index:4;
+}
+div#content div.navigation p.close{
+	position:absolute;
+	bottom:5px;
+	right:10px;
+	z-index:5;
+}
+
+
+/*-----------------------------------------------------
+CLEARFIX
+-------------------------------------------------------*/
+
+/* clearfix (Firefox)
+------------------------------- */
+.clearfix:after{
+   content:".";
+   display:block;
+   height:0px;
+   clear:both;
+   visibility:hidden;
+}
+
+/* WinIE7
+------------------------------- */
+.clearfix{
+   display:inline-block;
+}
+
+/* WinIE5,6
+------------------------------- */
+/* Hides from IE-mac \*/
+* html .clearfix{
+   height:1px;
+}
+
+.clearfix{
+   display:block;
+}
