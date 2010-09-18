@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>事務員のいやし</title>
+<link rel="stylesheet" type="text/css" href="css/common/import.css" media="all" />
+</head>
+
+<body onload="init()">
+<div id="content">
+<div class="flame">
+<p class="flame-image"><img src="images/480/img_flame.png" width="480" height="320" alt=""></p>
+<canvas id="example_canvas" width="396" height="297"></canvas>
+<div class="navigation">
+<p class="play"><img src="images/480/btn_go.png"id="buttom" width="63" height="42" alt="再生する" onclick="fadeOut(),bun()"></p>
+<p class="back"><img src="images/480/btn_back.png" width="66" height="42" alt="戻る"></p>
+<p class="close"><img src="images/480/btn_close.png" width="32" height="42" alt="閉じる"></p>
+<input type="hidden" id=alphaBar type=range step=0.1 value=1 max=1 min=0 onchange="changeAlpha()">
+<script>
+var canvas, ctx, image, fadeTimer, alphaBar;
+var canvas_buttom = true;
+//ページ初期化
+function init() {
+  canvas = document.getElementById("example_canvas");
+  ctx = canvas.getContext("2d");
+  // 画像読み込み
+  image = new Image();
+  // 読み込み完了後、書き出す
+  image.onload = function() {
+    showImage();
+  };
+  image.src = "http://www.rakuten.ne.jp/gold/hibiyakadan/item-image/tf1074.jpg";
+  alphaBar = document.getElementById("alphaBar");
+}
+// キャンバスに画像書き出し
+function showImage() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(image, 0, 0);
+  if (document.getElementById("alphaBar").value > 0 && document.getElementById("alphaBar").value < 0.1 ) {
+    fadeIn();
+  }
+}
+// フェードイン
+function fadeIn() {
+  stopAnimation();
+  // 2000ミリ秒で再描画
+  fadeTimer = setInterval(function() {
+    if (ctx.globalAlpha > 0.9) {
+      ctx.globalAlpha = 1;
+      stopAnimation();
+    } else {
+      ctx.globalAlpha += 0.1;
+    }
+    showImage();
+    alphaBar.value = ctx.globalAlpha;
+  }, 2000);
+}
+// フェードアウト
+function fadeOut() {
+
+  stopAnimation();
+  // 2000ミリ秒で再描画
+  fadeTimer = setInterval(function() {
+    if (ctx.globalAlpha < 0.1) {
+      ctx.globalAlpha = 0;
+      stopAnimation();
+    } else {
+      ctx.globalAlpha -= 0.1;
+    }
+    showImage();
+    alphaBar.value = ctx.globalAlpha;
+  }, 1000);
+}
+//停止
+function stopAnimation() {
+  if (fadeTimer) {
+    clearInterval(fadeTimer);
+    fadeTimer = null;
+  }
+}
+
+//ボタン切り替え
+function bun() {
+  if (canvas_buttom == true) {
+     canvas_buttom == false; 
+     document.getElementById("buttom").src = 'images/480/btn_stop.png';
+     } else {
+     canvas_buttom == true; 
+     document.getElementById("buttom").src = 'images/480/btn_go.png';
+     }
+}
+
+</script>
+<!-- .navigation // --></div>
+<!-- .flame // --></div>
+<!-- #content // --></div>
+</body>
+</html> 

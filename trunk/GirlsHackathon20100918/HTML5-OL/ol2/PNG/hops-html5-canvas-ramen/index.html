@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>HTML5の canvasを使って醤油ラーメンを描いてみた！！ | HOPS Laboratory</title>
+<!--[if IE]>
+<script type="text/javascript" src="html5.js"></script>
+<script type="text/javascript" src="excanvas.compiled.js"></script>
+<![endif]-->
+</head>
+<body>
+<article>
+<canvas id="ramen" width="560" height="450"></canvas>
+<script type="text/javascript">
+onload = function() {
+	ramen(); //ラーメンどんぶりを読み込む
+	men(); //麺や具を読み込む
+};
+
+//ラーメンどんぶりここから
+function ramen() {
+	var canvas = document.getElementById('ramen');
+	if ( ! canvas || ! canvas.getContext ) {return false;}
+	var rmn = canvas.getContext('2d');
+	rmn.save();
+
+	//どんぶりの土台（陰付き）
+	rmn.scale(1, 0.60);
+	rmn.beginPath();
+	rmn.shadowOffsetX = -15;
+	rmn.shadowOffsetY = 30;
+	rmn.shadowColor = 'rgb(230, 230, 230)';
+	rmn.shadowBlur = 70;
+	rmn.fillStyle = 'rgb(210, 210, 210)';
+	rmn.arc(270, 560, 120, 0, Math.PI*2, false);
+	rmn.fill();
+	rmn.closePath();
+
+	rmn.restore();
+	rmn.save();
+
+	//どんぶりの外側（赤い部分ね）
+	rmn.beginPath();
+	rmn.fillStyle = 'rgb(167, 78, 70)';
+	rmn.moveTo(75,270);
+	rmn.quadraticCurveTo(270,490,470,270);
+	rmn.fill();
+
+	rmn.restore();
+	rmn.save();
+
+	//どんぶりの中身（具とか入る所ね）
+	rmn.beginPath();
+	rmn.scale(1, 0.60);
+	rmn.fillStyle = 'rgb(230, 230, 230)';
+	rmn.arc(270, 320, 240, 0, Math.PI*2, false);
+	rmn.fill();
+	rmn.closePath();
+
+	rmn.restore();
+	rmn.save();
+
+	//スープ（下の層）
+	rmn.beginPath();
+	rmn.scale(1, 0.55);
+	rmn.fillStyle = 'rgb(143, 37, 26)';
+	rmn.globalAlpha = 0.6;
+	rmn.arc(270,375, 200, 0, Math.PI*2, false);
+	rmn.fill();
+	rmn.closePath();
+
+	rmn.restore();
+	rmn.save();
+
+	//スープ（上の層）
+	rmn.beginPath();
+	rmn.scale(1, 0.55);
+	rmn.fillStyle = 'rgb(191, 91, 11)';
+	rmn.globalAlpha = 0.2;
+	rmn.arc(270,380, 210, 0, Math.PI*2, false);
+	rmn.fill();
+	rmn.closePath();
+
+	rmn.restore();
+}
+
+//麺と具ここから
+function men() {
+	var canvas = document.getElementById('ramen');
+	if ( ! canvas || ! canvas.getContext ) {return false;}
+	var m = canvas.getContext('2d');
+
+	//麺（ハイパー手抜きタイム）
+	var men2 = new Image();
+	men2.onload = function() {
+	m.drawImage(men2, 65, 90);
+	}
+	men2.src = "men.png";
+}
+</script>
+</article>
+</body>
+</html>
