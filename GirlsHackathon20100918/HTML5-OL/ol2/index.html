@@ -14,7 +14,7 @@
 <div class="navigation">
 <p class="play"><img src="images/480/btn_go.png"id="buttom" width="63" height="42" alt="再生する" onclick="fadeOut(),bun()"></p>
 <p class="back"><img src="images/480/btn_back.png" width="66" height="42" alt="戻る"></p>
-<p class="close"><img src="images/480/btn_close.png" width="32" height="42" alt="閉じる"></p>
+<p class="close"><img src="images/480/btn_close.png" width="32" height="42" alt="閉じる" onClick="window.close();"></p>
 <input type="hidden" id=alphaBar type=range step=0.1 value=1 max=1 min=0 onchange="changeAlpha()">
 <script>
 var canvas, ctx, image, fadeTimer, alphaBar;
@@ -79,9 +79,25 @@ function stopAnimation() {
   }
 }
 
+function start() {
+
+
+}
+function stop() {
+
+}
+
 //ボタン切り替え
 function bun() {
- canvas_buttom == true;
+  if (canvas_buttom == true) {
+     start();
+     canvas_buttom = false; 
+     document.getElementById("buttom").src = 'images/480/btn_stop.png';
+     } else {
+     stop();
+     canvas_buttom = true; 
+     document.getElementById("buttom").src = 'images/480/btn_go.png';
+     }
 }
 
 </script>
