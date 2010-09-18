@@ -42,7 +42,7 @@ public class ViewMapActivity extends MapActivity {
 		map.setClickable(true);
 		map.setBuiltInZoomControls(true);
 		
-		GeoPoint gp = new GeoPoint((int)lat,(int)lon);
+		GeoPoint gp = new GeoPoint((int)lat*1000000,(int)lon*1000000);
 		
 		mMyLocation = new MyLocation(this,map,gp);
 		mMyLocation.enableMyLocation();
@@ -53,7 +53,7 @@ public class ViewMapActivity extends MapActivity {
 		Log.d("lat=======",""+lat);
 		Log.d("lon=======",""+lon);
 		Log.d("voice=======",voice);
-		Toast.makeText(getApplicationContext(), voice,Toast.LENGTH_LONG);
+		Toast.makeText(getApplicationContext(), voice,Toast.LENGTH_LONG).show();
 		
 
 	}
@@ -83,7 +83,7 @@ public class ViewMapActivity extends MapActivity {
 			super.onLocationChanged(location);
 			mv.getController().setCenter(gp);
 		}
-		
+
 	}
 
 }
