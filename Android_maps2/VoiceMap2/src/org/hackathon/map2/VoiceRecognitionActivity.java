@@ -15,9 +15,9 @@ public class VoiceRecognitionActivity extends Activity {
 
 	private static final int REQUEST_CODE = 0;
 
-	private String lat;
+	private Double lat;
 
-	private String lon;
+	private Double lon;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,8 +25,8 @@ public class VoiceRecognitionActivity extends Activity {
 		setContentView(R.layout.voice);
 
 		Intent intent = getIntent();
-		lat = intent.getStringExtra("lat");
-		lon = intent.getStringExtra("lon");
+		lat = intent.getDoubleExtra("lat",0.0);
+		lon = intent.getDoubleExtra("lon",0.0);
 
 		Toast.makeText(VoiceRecognitionActivity.this, lat + ":" + lon,
 				Toast.LENGTH_LONG);
