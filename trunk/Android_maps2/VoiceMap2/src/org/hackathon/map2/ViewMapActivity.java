@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ViewMapActivity extends MapActivity {
 
@@ -32,9 +33,9 @@ public class ViewMapActivity extends MapActivity {
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 
-		lat = Double.parseDouble(extras.getString("lat"));
-		lon = Double.parseDouble(extras.getString("lon"));
-		voice = extras.getString("lon");
+		lat = extras.getDouble("lat");
+		lon = extras.getDouble("lon");
+		voice = extras.getString("voice");
 
 		map = (MapView) findViewById(R.id.myMap);
 		map.setEnabled(true);
@@ -48,6 +49,11 @@ public class ViewMapActivity extends MapActivity {
 		
 		overlayList=map.getOverlays();
 		overlayList.add(mMyLocation);
+
+		Log.d("lat=======",""+lat);
+		Log.d("lon=======",""+lon);
+		Log.d("voice=======",voice);
+		Toast.makeText(getApplicationContext(), voice,Toast.LENGTH_LONG);
 		
 
 	}

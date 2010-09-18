@@ -50,8 +50,8 @@ public class LoadingActivity  extends Activity implements LocationListener{
         Log.v("Lat", String.valueOf(location.getLatitude()));
         Log.v("Lon", String.valueOf(location.getLongitude()));
         Intent i = new Intent(getApplicationContext(), VoiceRecognitionActivity.class);
-        i.putExtra("lat",String.valueOf(location.getLatitude()));
-        i.putExtra("lan",String.valueOf(location.getLongitude()));
+        i.putExtra("lat",location.getLatitude());
+        i.putExtra("lon",location.getLongitude());
         startActivity(i);
     
     }
