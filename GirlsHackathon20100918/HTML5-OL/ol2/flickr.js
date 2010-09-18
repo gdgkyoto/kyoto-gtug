@@ -3,15 +3,20 @@
 //eb1291d3420e78f1
 
 // 画像検索を行う関数
-function photo_search ( param ) {
+//function photo_search ( param ) {
+//function photo_search () {
+function getFlickr () {
     // APIリクエストパラメタの設定
+		var param = {};
     param.api_key  = 'f5f7f352859ffcd156d8feb974aa6619';
-//    param.method   = 'flickr.photos.search';
-    param.method   = 'flickr.photosets.getPhotos';
-    param.per_page = 1;
-    param.sort     = 'date-posted-desc';
+		param.user_id = '54049510@N06';
+    param.method   = 'flickr.favorites.getPublicList';
+//    param.method   = 'flickr.photosets.getPhotos';
+    //param.per_page = 1;
+    //param.sort     = 'date-posted-desc';
     param.format   = 'json';
     param.jsoncallback = 'jsonFlickrApi';
+		param.extras = 'url_m';
 
     // APIリクエストURLの生成(GETメソッド)
     var url = 'http://www.flickr.com/services/rest/?'+
@@ -48,33 +53,12 @@ function obj2query ( obj ) {
 function jsonFlickrApi ( data ) {
     // データが取得できているかチェック
     if ( ! data ) return;
-//    if ( ! data.photos ) return;
-//    var list = data.photos.photo;
-    if ( ! data.photoset ) return;
-    var list = data.photoset.photo;
-    if ( ! list ) return;
-    if ( ! list.length ) return;
 
-    // 現在の表示内容（Loading...）をクリアする
-    remove_children( 'photos_here' );
-
-    // 各画像を表示する
-    var div = document.getElementById( 'photos_here' );
+		var list = data.photos.photo;
+		var urls = new Array();
     for( var i=0; i<list.length; i++ ) {
-        var photo = list[i];
-
-        // a 要素の生成
-        var atag = document.createElement( 'a' );
-        atag.href = 'http://www.flickr.com/photos/'+
-                    photo.owner+'/'+photo.id+'/';
-
-        // img 要素の生成
-        var img = document.createElement( 'img' );
-        img.src = 'http://static.flickr.com/'+photo.server+
-                  '/'+photo.id+'_'+photo.secret+'.jpg';
-//                  '/'+photo.id+'_'+photo.secret+'_s.jpg';
-        img.style.border = '0';
-        atag.appendChild( img );
-        div.appendChild( atag );
+				var photo = list[i].url_m;
+				urls.push(photo);
     }
+		return urls;
 }
