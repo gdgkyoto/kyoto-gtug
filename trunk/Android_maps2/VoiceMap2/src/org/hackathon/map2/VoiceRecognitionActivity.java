@@ -15,16 +15,21 @@ public class VoiceRecognitionActivity extends Activity {
 
 	private static final int REQUEST_CODE = 0;
 
+	private String lat;
+
+	private String lon;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.voice);
 
-		Intent intent=getIntent();
-		final String lat=intent.getStringExtra("lat");
-		final String lon = intent.getStringExtra("lon");
-		
-		Toast.makeText(VoiceRecognitionActivity.this, lat+":"+lon, Toast.LENGTH_LONG);
+		Intent intent = getIntent();
+		lat = intent.getStringExtra("lat");
+		lon = intent.getStringExtra("lon");
+
+		Toast.makeText(VoiceRecognitionActivity.this, lat + ":" + lon,
+				Toast.LENGTH_LONG);
 
 		Button button = (Button) findViewById(R.id.Button01);
 
@@ -39,9 +44,7 @@ public class VoiceRecognitionActivity extends Activity {
 							RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 					intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 							RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-					intent.putExtra("lat", lat);
-					intent.putExtra("lon", lon);
-					
+
 					intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
 							"VoiceRecognition");
 					startActivityForResult(intent, REQUEST_CODE);
@@ -69,16 +72,13 @@ public class VoiceRecognitionActivity extends Activity {
 				resultsString += results.get(i);
 			}
 
-	        Intent i = new Intent(getApplicationContext(), ViewMapActivity.class);
-	        String lat = data.getStringExtra("lat");
-	        String lon = data.getStringExtra("lon");
-	        i.putExtra("voice", resultsString);
-	        i.putExtra("lat",lat);
-	        i.putExtra("lon",lon);
-	        startActivity(i);
+			Intent i = new Intent(getApplicationContext(),
+					ViewMapActivity.class);
+			i.putExtra("voice", resultsString);
+			i.putExtra("lat", lat);
+			i.putExtra("lon", lon);
+			startActivity(i);
 
-			
-			
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
