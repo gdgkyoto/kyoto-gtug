@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Google Maps JavaScript API v3 Example: Common Loader</title>
+		<style type="text/css">
+			html, body{
+				margin:0;
+				width:100%;
+				height:100%;
+			}
+		</style>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
+        </script>
+        <script type="text/javascript" src="util.js">
+        </script>
+        <script type="text/javascript">
+            var currentInfoWindow = null;
+            var map;
+			var marker_list = [];
+            
+            function initialize(){
+                //var myLatlng = new google.maps.LatLng(34.37347867263908, 135.7034683227539);
+                var myLatlng = new google.maps.LatLng(34.37347867263908, 135.7034683227539);
+                var myOptions = {
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    zoom: 14
+                };
+                map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                downloadUrl("moredata2.xml", function(data){
+                    //var markers = data.documentElement.getElementsByTagName("marker");
+                    var markers = data.documentElement.getElementsByTagName("mail");
+                    var beforeMarker = null;
+                    for (var i = 0; i < markers.length ; i++) {
+                        var latlng = new google.maps.LatLng(parseFloat(markers[i].getAttribute("lat")), parseFloat(markers[i].getAttribute("lng")));
+                        
+                        var num = markers[i].getAttribute("no");
+                        var sub = markers[i].getAttribute("subject");
+                        var photo = "images/" + markers[i].getAttribute("file");
+                        var icon = "images/" + markers[i].getAttribute("icon");
+                        var date = markers[i].getAttribute("date");
+                        var time = markers[i].getAttribute("time");
+                        
+                        var next = null;
+                        //var marker = createMarker(markers[i].getAttribute("name"), latlng);
+						
+                        var marker = createMarker(markers[i].getAttribute("body"), latlng, photo, sub, i, icon, date, time);
+                        
+                        if (i == 0) {
+							map.setCenter(latlng);
+							google.maps.event.trigger(marker, "click");
+						}
+                        
+                    }
+					
+                });
+            }
+            
+            function createMarker(body, latlng, photo, sub, index, icon, date, time){
+                var html = "<div style='min-height:200px;min-width:300px;'><Table>"
+						+"<tr><td rowspan='5'><img src=" + photo + " ></td><th><h3>" + sub + "</h3></th></tr>"
+						+"<tr><td valign='top'>" + body + "</td></tr>"
+						+"<tr><td valign='top'><br></td></tr>"
+						+"<tr><td valign='top'>日時： " + date + "&nbsp; " + time + "</td></tr>"
+						+"<tr><td valign='top'>位置： " + latlng.toUrlValue() + "</td></tr>"
+						+"</table></div>";
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+					icon : icon
+                });
+				marker_list[index] = marker;
+                var infoWindow = new google.maps.InfoWindow({
+                    content: html
+                });
+                google.maps.event.addListener(marker, "click", function(){
+                    if (currentInfoWindow) {
+                        currentInfoWindow.close();
+                    }
+                    currentInfoWindow = infoWindow;
+                    infoWindow.open(map, marker);
+                });
+                
+                if (index < 5) {
+                    google.maps.event.addListener(infoWindow, "closeclick", function(){
+                        map.panTo(marker_list[index + 1].getPosition());
+						setTimeout(function(){
+							google.maps.event.trigger(marker_list[index + 1], "click");
+						}, 1000);
+                    });
+                }
+                return marker;
+            }
+            
+        </script>
+    </head>
+    <body onload="initialize()">
+        <div id="map_canvas" style="width:100%; height:100%">
+        </div>
+		<div style="display:none">
+		<img src="images/hune.png" >
+		<img src="images/fujioka-ke.png" >
+		<img src="images/shiyakusyo.png" >
+		<img src="images/mt_kongoh.png" >
+		</div>
+    </body>
+</html>
