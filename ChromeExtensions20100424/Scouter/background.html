@@ -252,11 +252,11 @@
 
 				var results = [];
 				bingSearch(results, query, function(){
-					yahooSearch(results, query, function(){
+//					yahooSearch(results, query, function(){
 						googleSearch(results, query, function(){
 							callback(results);							
-						})
-					});
+						});
+//					});
 				});
 			};
 			// handler of message passing
