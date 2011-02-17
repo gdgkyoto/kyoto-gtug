@@ -5,19 +5,30 @@
 <head>
 <title>Help!</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/json/json2.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		//alert("hello");
 	});
 
 	function buttonPressed() {
 		var msg = $("#message").attr("value");
+		var data = {message:msg, lat:34.9, lng:134.9};
 		$.post('<%= request.getContextPath() %>/api/help',
-			{message:msg, lat:34.9, lng:134.9},
+			data,
 			function (data, textStatus) {
 				alert("Please wait a minute!");
 			}
 		);
+		var ws = new WebSocket("ws://localhost:8080/ws/help");
+		ws.onopen = function(event) {
+			var result = ws.send(JSON.stringify(data));
+			if (result) {
+				alert("Wow!");
+			}
+		}
+		ws.onclose = function(event) {
+			alert("Close!");
+		};
 	}
 
 </script>

@@ -25,15 +25,14 @@
 	</listener>
 
 	<servlet>
-		<servlet-name>H2Console</servlet-name>
-		<servlet-class>org.h2.server.web.WebServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<servlet-name>ws-help</servlet-name>
+		<servlet-class>org.kyoto_gtug.savetheworld.ws.HelpWebSocketServlet</servlet-class>
 	</servlet>
+
 	<servlet-mapping>
-		<servlet-name>H2Console</servlet-name>
-		<url-pattern>/console/*</url-pattern>
+		<servlet-name>ws-help</servlet-name>
+		<url-pattern>/ws/help</url-pattern>
 	</servlet-mapping>
-	
 
 	<servlet>
 		<servlet-name>savetheworld</servlet-name>
