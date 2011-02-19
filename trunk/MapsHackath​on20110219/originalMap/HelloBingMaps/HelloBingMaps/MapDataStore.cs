@@ -21,6 +21,8 @@ namespace HelloBingMaps
     public class MapDataStore
     {
         private List<MapLine> mapLines = new List<MapLine>();
+        private List<MapVideo> mapVideos = new List<MapVideo>();
+        private List<MapImage> mapImages = new List<MapImage>();
 
         public void addAndDraw(MapData mapData, Map mainMap) {
             if (mapData != null)
@@ -31,20 +33,38 @@ namespace HelloBingMaps
                     mapLines.Add((MapLine)mapData);
                     store();
                 }
+                if (mapData is MapVideo)
+                {
+                    mapData.draw(mainMap);
+                    mapVideos.Add((MapVideo)mapData);
+                    store();
+                    
+                }
+                if (mapData is MapImage)
+                {
+                    mapData.draw(mainMap);
+                    mapImages.Add((MapImage)mapData);
+                    store();
+                }
             }
         }
 
         private void store() {
-            MemoryStream mapLinesMS = new MemoryStream();
-            DataContractSerializer serializer = new DataContractSerializer(typeof(List<MapLine>));
+            IsolatedStorageSettings.ApplicationSettings["mapLines"] = returnSerializedString<List<MapLine>>(this.mapLines);
+            IsolatedStorageSettings.ApplicationSettings["mapVideos"] = returnSerializedString<List<MapVideo>>(this.mapVideos);
+            Debug.WriteLine("Number of images : " + this.mapImages.Count);
+            IsolatedStorageSettings.ApplicationSettings["mapImages"] = returnSerializedString<List<MapImage>>(this.mapImages);
+        }
 
-            serializer.WriteObject(mapLinesMS, this.mapLines);
-            String mapLinesString = byteToString(mapLinesMS.ToArray());
-            mapLinesMS.Close();
+        private String returnSerializedString<Type>(Type list) {
+            MemoryStream ms = new MemoryStream();
+            DataContractSerializer serializer = new DataContractSerializer(typeof(Type));
 
-            Debug.WriteLine("Serialized : " + mapLines.Count + "\n" + mapLinesString);
+            serializer.WriteObject(ms, list);
+            String serializedString = byteToString(ms.ToArray());
+            ms.Close();
 
-            IsolatedStorageSettings.ApplicationSettings["mapLines"] = mapLinesString;
+            return serializedString;
         }
 
         private String byteToString(byte[] array)
@@ -69,10 +89,49 @@ namespace HelloBingMaps
                     mapData.draw(mainMap);
                 }
             }
+
+            if (IsolatedStorageSettings.ApplicationSettings.Contains("mapVideos"))
+            {
+                String mapVideosString = IsolatedStorageSettings.ApplicationSettings["mapVideos"] as String;
+
+                DataContractSerializer serializer = new DataContractSerializer(typeof(List<MapVideo>));
+                MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(mapVideosString));
+                this.mapVideos = serializer.ReadObject(ms) as List<MapVideo>;
+                ms.Close();
+
+                /* Draw */
+                foreach (MapData mapData in mapVideos)
+                {
+                    mapData.draw(mainMap);
+                }
+            }
+
+            if (IsolatedStorageSettings.ApplicationSettings.Contains("mapImages"))
+            {
+                String mapImageString = IsolatedStorageSettings.ApplicationSettings["mapImages"] as String;
+                Debug.WriteLine("An image has found.");
+
+                DataContractSerializer serializer = new DataContractSerializer(typeof(List<MapImage>));
+                MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(mapImageString));
+                this.mapImages = serializer.ReadObject(ms) as List<MapImage>;
+                ms.Close();
+
+                Debug.WriteLine("Number " + mapImages.Count);
+
+                /* Draw */
+                foreach (MapData mapData in mapImages)
+                {
+                    mapData.draw(mainMap);
+                }
+            }
         }
+
 
         public void resetData() {
             IsolatedStorageSettings.ApplicationSettings.Remove("mapLines");
+            IsolatedStorageSettings.ApplicationSettings.Remove("mapVideos");
+            IsolatedStorageSettings.ApplicationSettings.Remove("mapImages");
+
 
             Debug.WriteLine("Deleted datas");
         }

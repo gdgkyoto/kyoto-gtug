@@ -31,8 +31,7 @@ namespace HelloBingMaps
                 if (value != this.CurrentMode)
                 {
                     /* Quit the previous mode */
-                    MapData mapData = this.currentMapMode.end(this);
-                    mapDataStore.addAndDraw(mapData, mainMap);
+                    mapDataStore.addAndDraw(this.currentMapMode.end(this), mainMap);
                     
                     /* Change to the new mode */
                     this.currentMapMode = createNewMode(value);
