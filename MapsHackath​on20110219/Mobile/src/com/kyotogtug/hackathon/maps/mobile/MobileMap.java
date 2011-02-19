@@ -6,8 +6,15 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.Projection;
 
 //import android.app.Activity;
+import android.R;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -49,7 +56,7 @@ public class MobileMap extends MapActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        view = new MapView(this, "0_wFaNb-8qM4sN6adtqdMqa-jlrBNvVuIdW1UQQ");
+        view = new MapView(this, "0jYwRrkrj9pvB9wHd37l0OXz0T3o9-FHROuKdSA");
         view.setClickable(true);
         
         view.setBuiltInZoomControls(true);
@@ -59,11 +66,47 @@ public class MobileMap extends MapActivity implements SensorEventListener {
         int ido = (int)(34.996465 * 1E6);
         int keido = (int)(135.740032*1E6); 
         mc = view.getController();
-        mc.animateTo(new GeoPoint(ido, keido));
+        mc.animateTo(new GeoPoint(ido + 1500, keido));
 	    
 	    /* センサ・マネージャを取得する */
 	    mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+	    
+	    
+	    // 画像を地図上に配置するオーバーレイ
+	    Bitmap bmp = BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_myplaces);
+	    MyOverlay overlay = new MyOverlay(bmp, new GeoPoint(ido, keido));
+	    List<Overlay> list = view.getOverlays();
+	    list.add(overlay);
+	    
+	    
 	}
+	
+	
+	public class MyOverlay extends Overlay {
+		  private final Bitmap bmp;
+		  private final GeoPoint gpoint;
+		 
+		  public MyOverlay(Bitmap bmp, GeoPoint gp) {
+		    this.bmp = bmp;
+		    this.gpoint = gp;
+		  }
+		 
+		  public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+		    Projection pro = mapView.getProjection();//Mapと画面の位置を計算するオブジェクト
+		    Point p = pro.toPixels(gpoint, null);    //ロケーションから、表示する位置を計算する
+		    canvas.drawBitmap(bmp, p.x, p.y, null);  //表示する場所へ画像を配置する。
+		  }
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	private boolean mIsMagSensor;
