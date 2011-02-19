@@ -83,6 +83,16 @@ namespace HelloBingMaps
             }
         }
 
+        private void putAVideo_Click(object sender, RoutedEventArgs e)
+        {
+            this.CurrentMode = DrawingMode.Video;
+        }
+
+        private void putAnImage_Click(object sender, RoutedEventArgs e)
+        {
+            this.CurrentMode = DrawingMode.Image;
+        }
+
         private void mainMap_MouseClick(object sender, MapMouseEventArgs e)
         {
             this.currentMapMode.onClick(this, sender, e);
@@ -92,5 +102,6 @@ namespace HelloBingMaps
         {
             this.currentMapMode.onMouseMove(this, sender, e);
         }
+
     }
 }
