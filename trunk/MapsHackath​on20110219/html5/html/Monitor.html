@@ -17,7 +17,7 @@ google.load("jquery", "1.5");
 	var directionsService;
 	var directionsDisplay;
 	var map;
-	
+
 	if(!window.webkitNotifications){ //対応ブラウザチェック
 		alert('デスクトップ通知も使えないようなブラウザ使ってんじゃねぇよこのクソムシが!!');
 		alert('Chrome使え!!Chrome!!');
@@ -28,7 +28,7 @@ google.load("jquery", "1.5");
 		navigator.geolocation.getCurrentPosition(
 			function(position){
 				directionsService = new google.maps.DirectionsService();
-				
+
 				var latlng = new google.maps.LatLng(
 									position.coords.latitude,
 									position.coords.longitude
@@ -42,12 +42,12 @@ google.load("jquery", "1.5");
 
 				directionsDisplay = new google.maps.DirectionsRenderer();
 				directionsDisplay.setMap(map);
-				
+
 				ws_init();
 			}
 		);
 	}
-	
+
 	var ws_init = function(){
 		var ws = new WebSocket(ws_url);
 		var wn = window.webkitNotifications;
@@ -75,16 +75,8 @@ google.load("jquery", "1.5");
 			var data = $.evalJSON(event.data);
 
 			//dataを地図表示に投げる
-			
-			navigator.geolocation.getCurrentPosition(
-				function(position){
-					var latlng = new google.maps.LatLng(
-										position.coords.latitude,
-										position.coords.longitude
-									);
-
-				}
-			);
+            // "lat":34.9,"lng":134.9,"message":"Help!","id":83,"date":1298097618049
+            kx.displayRoute(data);
 
 			var popup = wn.createHTMLNotification('Alert.html');
 	        popup.show();
@@ -100,7 +92,7 @@ google.load("jquery", "1.5");
 	  this.value = '';
 	});
 	*/
-	
+
 	$(document).ready(function() {
 
 		if(!window.webkitNotifications.checkPermission()){ //通知許可チェック
@@ -127,7 +119,7 @@ google.load("jquery", "1.5");
 			for (var i = 0; i < json.length; i++) {
 				console.log( help.lat );
 				console.log( help.lng );
-				
+
 				var help = json[i];
 				helpList.append("<p>" + help.id + ":" + help.message + ":(" + help.lat + "," + help.lng + ")</p>");
 			}
@@ -153,10 +145,58 @@ google.load("jquery", "1.5");
 					directionsDisplay.setDirections(response);
 				}
 		});
-				
+
 	}
 	//ここまで　yusuke arakawa
 
+//ここからkwixilvr:くいっくしるばー
+var kx = {};
+kx.getDummyPos = function(){
+    return {
+        coords: {
+            latitude: 34.9 + Math.random()
+            , longitude: 134.9 + Math.random()
+        }
+    };
+};
+kx.pos2LatLng = function(pos){
+    return new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+};
+kx.setMarker = function(latLng){
+    return new google.maps.Marker({
+        position: latLng
+        , map: map
+    });
+};
+kx.getCurrentPos = function(callback){// callbackには引数としてgoogle.maps.LatLngオブジェクトが渡される
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            function(pos){
+                callback(kx.pos2LatLng(pos));
+            }
+            , function(error){
+                callback(kx.pos2LatLng(kx.getDummyPos()));
+            }
+            , {
+                enableHighAccuracy: false
+                // 5秒以内に取得できなかったらエラー
+                , timeout: 5000
+                // 1分以内に取得した位置情報のみ使用する
+                , maximumAge: 60 * 1000
+            }
+        );
+    }
+    else{
+        alert("Geolocation API disabled");
+    }
+};
+//"lat":34.9,"lng":134.9,"message":"Help!","id":83,"date":1298097618049
+kx.displayRoute = function(data){
+    kx.getCurrentPos(function(currentLatLng){
+        calcRoute(currentLatLng, new google.maps.LatLng(data.lat, data.lng));
+    })
+}
+//ここまでkwixilvr
 </script>
 <style type="text/css">
 #start_wrapper {
