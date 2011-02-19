@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 public class HelpWebSocket implements WebSocket {
 	
 	private static Logger logger = LoggerFactory.getLogger(HelpWebSocket.class);
+	private static HelperManager manager = HelperManager.getInstance();
 
 	private Outbound outbound;
 	
@@ -40,6 +41,8 @@ public class HelpWebSocket implements WebSocket {
 		try {
 			Help help = mapper.readValue(message, Help.class);
 			System.out.println(help.getMessage());
+			
+			manager.notifyHelp(help);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
