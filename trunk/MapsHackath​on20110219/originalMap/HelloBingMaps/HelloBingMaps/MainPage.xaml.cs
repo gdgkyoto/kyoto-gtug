@@ -36,6 +36,23 @@ namespace HelloBingMaps
                     /* Change to the new mode */
                     this.currentMapMode = createNewMode(value);
                     this.currentMapMode.start(this);
+
+                    /* Set label text */
+                    switch(this.currentMapMode.getDrawingMode())
+                    {
+                        case DrawingMode.None:
+                            StatusLabel.Content = "None";
+                            break;
+                        case DrawingMode.Line:
+                            StatusLabel.Content = "Line";
+                            break;
+                        case DrawingMode.Image:
+                            StatusLabel.Content = "Image";
+                            break;
+                        case DrawingMode.Video:
+                            StatusLabel.Content = "Video";
+                            break;
+                    } 
                 }
             }
             get {
