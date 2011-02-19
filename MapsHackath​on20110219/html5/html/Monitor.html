@@ -4,17 +4,111 @@
 <title>Welcome</title>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript">
+<script src="http://www.google.com/jsapi"></script>
+<script>
+google.load("maps", "3", {"other_params":"sensor=true"});
+google.load("jquery", "1.3")
+</script>
+<script src="http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js"></script>
+<script src="http://jquery-websocket.googlecode.com/files/jquery.websocket-0.0.1.js"></script>
+<script>
+	var icon_normal = "http://mail.google.com/mail/help/images/icons/cell.gif";
+	var icon_alert = "http://mail.google.com/mail/help/images/icons/m_blue.gif";
+
+	if(!window.webkitNotifications){ //対応ブラウザチェック
+		alert('デスクトップ通知も使えないようなブラウザ使ってんじゃねぇよこのクソムシが!!');
+		alert('Chrome使え!!Chrome!!');
+		location.href = 'http://www.google.co.jp/chrome/';
+	}
+
+	function start(){
+		var ws = new WebSocket("ws://www.smkw.jp:8080/savetheworld/ws/standby");
+		var wn = window.webkitNotifications;
+		
+		ws.onopen = function(event) {
+			var result = ws.send('standby start');
+			if (result) {
+				var popup = wn.createNotification(icon_normal,"接続通知","サーバに接続しました");
+			}else{
+				var popup = wn.createNotification(icon_normal,"接続通知","サーバとの接続に失敗しました");
+			}
+	        popup.show();
+	        setTimeout(function(){
+	            popup.cancel();
+	        },5000);
+		}
+		ws.onclose = function(event) {
+			var popup = wn.createNotification(icon_normal,"接続通知","サーバとの接続が切断されました");
+	        popup.show();
+	        setTimeout(function(){
+	            popup.cancel();
+	        },5000);
+		};
+		ws.onmessage = function(event) {
+			var popup = wn.createNotification(icon_alert,"ヘルプ!!",event.data);
+	        popup.show();
+	        setTimeout(function(){
+	            popup.cancel();
+	        },10000);
+		}
+/*
+		var ws = $.websocket("ws://www.smkw.jp:8080/savetheworld/ws/standby", {
+			events: {
+				message: function(e) {
+					alert();
+					//ここにメッセージ受け取った時の処理を書く
+					var wn = window.webkitNotifications;
+					var popup = notity.createNotification(img_url,"ヘルプ!!","ヘルプ!!");
+			        popup.show();
+				},
+				close: function(e){
+					alert('切断されました');
+				}
+			}
+		});
+*/
+	}
+
+	/*
+	$('#message').change(function(){
+	  ws.send('message', this.value);
+	  this.value = '';
+	});
+	*/
+
+	
 	$(document).ready(function() {
+
+		if(!window.webkitNotifications.checkPermission()){ //通知許可チェック
+			start();
+		}else{ //許可されていない場合
+			//許可ボタンを追記
+			$('body').prepend('<div id="start_wrapper" style="text-align:center;"><input type="button" id="start_button" value="／人◕ ‿‿ ◕人＼僕と契約して自宅警備員になってよ!!" style="font-size:200%;" /></div>');
+			//イベント設定
+			$('#start_button').live('click', function(e){
+				//許可リクエスト
+				window.webkitNotifications.requestPermission(function(){
+					//許可された場合
+					if(!window.webkitNotifications.checkPermission()){
+						$('#start_wrapper').remove();
+						start();
+					}
+				});
+			});
+	    };
+
+		/*
 		$.getJSON("http://www.smkw.jp/savetheworld/api/helps.json", function(json){
 			var helpList = $("#help-list");
 			for (var i = 0; i < json.length; i++) {
+				console.log( help.lat );
+				console.log( help.lng );
+				
 				var help = json[i];
 				helpList.append("<p>" + help.id + ":" + help.message + ":(" + help.lat + "," + help.lng + ")</p>");
 			}
 		});
-		
+		*/
 		var latlng = new google.maps.LatLng(34.995, 135.74);
 		var options = {
 			center: latlng,
@@ -25,13 +119,8 @@
 	});
 </script>
 </head>
-<body>
-
-<h2>People are waiting for our help!</h2>
-<div id="map" style="width:100%;height:500px;background-color: gray;"></div>
-<div>Today's help calls: 20</div>
-<div id="help-list"></div>
-<div id="sound"></div>
-
+<body style="margin:0;padding:0;">
+<div id="map" style="width:100%;height:500px; margin:0;background-color: gray;"></div>
+<div id="sound" style="display:none;"></div>
 </body>
 </html>
