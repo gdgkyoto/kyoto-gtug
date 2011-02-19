@@ -44,13 +44,13 @@ function mapSelfPos(){
 }
 
 $(document).ready(function(){
-    $.getJSON("/savetheworld/api/helps.json", function(json){
+    /*$.getJSON("http://www.smkw.jp/savetheworld/api/helps.json", function(json){
         var helpList = $("#help-list");
         for( var i = 0; i < json.length; i++){
             var help = json[i];
             helpList.append("<p>" + help.id + ":" + help.message + ":(" + help.lat + "," + help.lng + ")</p>");
         }
-    });
+    });*/
 
     var latlng = new google.maps.LatLng(startPos.lat, startPos.lng);
     var options = {
