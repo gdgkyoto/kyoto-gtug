@@ -9,12 +9,15 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl;
+using System.Runtime.Serialization;
 
 namespace HelloBingMaps
 {
+    [DataContract]
     public class MapLine: MapData
     {
-        private LocationCollection locationCollection = new LocationCollection();
+        [DataMember]
+        public LocationCollection locationCollection = new LocationCollection();
 
         public void setLocationCollection(LocationCollection locationCollection)
         {
