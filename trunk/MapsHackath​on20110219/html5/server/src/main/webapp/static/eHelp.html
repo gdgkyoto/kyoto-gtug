@@ -1,3 +1,6 @@
+
+
+
 <html>
 <head>
 <title>Help!</title>
@@ -6,26 +9,28 @@
 	$(document).ready(function() {
 		//alert("hello");
 	});
-	
+
 	function buttonPressed() {
-		$.post('/api/help',
-			{message:"Help me!", lat:34.9, lng:134.9},
+		var msg = $("#message").attr("value");
+		$.post('http://www.smkw.jp/savetheworld/api/help',
+			{message:msg, lat:34.9, lng:134.9},
 			function (data, textStatus) {
-				alert(data);
+				alert("Please wait a minute!");
 			}
 		);
 	}
+
 </script>
 </head>
 <body>
 <div>
-<p>Do you need help?"</p>
+Press this button in an emergency.
 <form action="help" method="post">
 <div id="help-button" style="height:300px;">
-<img alt="button" src="/images/button.png" onclick="buttonPressed();">
+<img alt="button" src="http://www.smkw.jp/savetheworld/images/button.png" onclick="buttonPressed();">
 </div>
 <div>
-<input type="text" name="message" value="Help!">
+<input id="message" type="text" name="message" value="Help!">
 <input id="lat" type="hidden" name="lat" value="35" />
 <input id="lng" type="hidden" name="lng" value="135" />
 </div>

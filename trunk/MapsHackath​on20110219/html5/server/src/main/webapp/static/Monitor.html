@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%; margin:0;">
+<head>
+<title>正義のヒーロー用モニタリングシステム</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="http://www.google.com/jsapi"></script>
+<script>
+google.load("maps", "3", {"other_params":"sensor=true"});
+google.load("jquery", "1.5");
+</script>
+<script src="http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js"></script>
+<script src="http://jquery-websocket.googlecode.com/files/jquery.websocket-0.0.1.js"></script>
+<script>
+	var ws_url = "ws://www.smkw.jp:8080/savetheworld/ws/standby";
+	var icon_normal = "http://mail.google.com/mail/help/images/icons/cell.gif";
+	var directionsService;
+	var directionsDisplay;
+	var map;
+	
+	if(!window.webkitNotifications){ //対応ブラウザチェック
+		alert('デスクトップ通知も使えないようなブラウザ使ってんじゃねぇよこのクソムシが!!');
+		alert('Chrome使え!!Chrome!!');
+		location.href = 'http://www.google.co.jp/chrome/';
+	}
+
+	var start = function(){
+		navigator.geolocation.getCurrentPosition(
+			function(position){
+				directionsService = new google.maps.DirectionsService();
+				
+				var latlng = new google.maps.LatLng(
+									position.coords.latitude,
+									position.coords.longitude
+								);
+				var options = {
+					center: latlng,
+					zoom: 15,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				map = new google.maps.Map($("#map")[0], options);
+
+				directionsDisplay = new google.maps.DirectionsRenderer();
+				directionsDisplay.setMap(map);
+				
+				ws_init();
+			}
+		);
+	}
+	
+	var ws_init = function(){
+		var ws = new WebSocket(ws_url);
+		var wn = window.webkitNotifications;
+		ws.onopen = function(event) {
+			var result = ws.send('standby start');
+			if (result) {
+				var popup = wn.createNotification(icon_normal,window.document.title,"サーバに接続しました");
+			}else{
+				var popup = wn.createNotification(icon_normal,window.document.title,"サーバとの接続に失敗しました");
+			}
+	        popup.show();
+	        setTimeout(function(){
+	            popup.cancel();
+	        },5000);
+		}
+		ws.onclose = function(event) {
+			var popup = wn.createNotification(icon_normal,window.document.title,"サーバとの接続が切断されました");
+	        popup.show();
+	        setTimeout(function(){
+	            popup.cancel();
+	            ws_init();
+	        },5000);
+		};
+		ws.onmessage = function(event) {
+			var data = $.evalJSON(event.data);
+
+			//dataを地図表示に投げる
+			
+			navigator.geolocation.getCurrentPosition(
+				function(position){
+					var latlng = new google.maps.LatLng(
+										position.coords.latitude,
+										position.coords.longitude
+									);
+
+				}
+			);
+
+			var popup = wn.createHTMLNotification('Alert.html');
+	        popup.show();
+	        setTimeout(function(){
+	            popup.cancel();
+	        },5000);
+		}
+	}
+
+	/*
+	$('#message').change(function(){
+	  ws.send('message', this.value);
+	  this.value = '';
+	});
+	*/
+	
+	$(document).ready(function() {
+
+		if(!window.webkitNotifications.checkPermission()){ //通知許可チェック
+			start();
+		}else{ //許可されていない場合
+			//許可ボタンを追記
+			$('body').prepend('<div id="start_wrapper"><input type="button" id="start_button" value="／人◕ ‿‿ ◕人＼\n僕と契約して正義のヒーローになってよ!!" /></div>');
+			//イベント設定
+			$('#start_button').live('click', function(e){
+				//許可リクエスト
+				window.webkitNotifications.requestPermission(function(){
+					//許可された場合
+					if(!window.webkitNotifications.checkPermission()){
+						$('#start_wrapper').remove();
+						start();
+					}
+				});
+			});
+	    };
+
+		/*
+		$.getJSON("http://www.smkw.jp/savetheworld/api/helps.json", function(json){
+			var helpList = $("#help-list");
+			for (var i = 0; i < json.length; i++) {
+				console.log( help.lat );
+				console.log( help.lng );
+				
+				var help = json[i];
+				helpList.append("<p>" + help.id + ":" + help.message + ":(" + help.lat + "," + help.lng + ")</p>");
+			}
+		});
+		*/
+
+	});
+
+	//ここから　yusuke arakawa
+	//経路表示する関数
+	function calcRoute(start,end){
+			//var start=document.getElementById("start").value;
+			//var end=document.getElementById("end").value;
+			var start;
+			var end;
+			var request={
+				origin:start,
+				destination:end,
+				travelMode:google.maps.DirectionsTravelMode.DRIVING
+			}
+			directionsService.route(request,function(response,status){
+				if(status==google.maps.DirectionsStatus.OK){
+					directionsDisplay.setDirections(response);
+				}
+		});
+				
+	}
+	//ここまで　yusuke arakawa
+
+</script>
+<style type="text/css">
+#start_wrapper {
+	height:100%;
+	width:100%;
+	background-color: white;
+	z-index:2;
+	position:absolute;
+	text-align:center;
+}
+#start_button{
+	font-size:300%;
+}
+</style>
+</head>
+<body style="width:100%; height:100%; margin:0;">
+<div id="map" style="width:100%;height:100%; margin:0;background-color: gray;"></div>
+</body>
+</html>
