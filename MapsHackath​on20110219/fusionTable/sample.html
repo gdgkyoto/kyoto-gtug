@@ -28,8 +28,8 @@
 	//-----------------------------------------------------------------
 
 	var DELETE_LIST = new Array();
-	DELETE_LIST.push(1000);
-	DELETE_LIST.push(53);
+	//DELETE_LIST.push(1000);
+	//DELETE_LIST.push(53);
 
 	var MAP_CANVAS_SELECTOR = "#map_canvas";
 	var MAP_COUNT_SELECTOR = "#map_count";
@@ -145,7 +145,24 @@
 
 		google.maps.event.addListener(layer,'click',function(obj){
 			DELETE_LIST.push(obj.row['番号'].value);
-			alert(obj.row['番号'].columnName+':'+obj.row['番号'].value);
+			//alert(obj.row['番号'].columnName+':'+obj.row['番号'].value);
+			var html ="";
+			html += "<font size =+2>"+obj.row['名称'].value +"</font><br>";
+	if(obj.row['別名'].value!='')
+			html += "<font size =-1>別名:"+obj.row['別名'].value +"</font><br>";
+	if(obj.row['予備2'].value!='')
+			html += "<img src=\"" + obj.row['予備2'].value + "\" alt=\"image\" width=200><br>";
+	if(obj.row['建築年'].value!='')
+			html += "建築年:"+obj.row['建築年'].value +"<br>";
+if(obj.row['天守閣'].value!='')
+			html += "天守閣:"+obj.row['天守閣'].value +"<br>";
+
+
+if(obj.row['予備1'].value!='')
+			html += "<a href=\""+ obj.row['予備1'].value + "\" TARGET=\"_blank\">ホームページ</a><br>";
+			html += "<a href=\"http://ja.wikipedia.org/wiki/"+ obj.row['名称'].value + "\" TARGET=\"_blank\">wikipedia</a><br>";
+
+			obj.infoWindowHtml = html;
 		});
 	});
 })();
