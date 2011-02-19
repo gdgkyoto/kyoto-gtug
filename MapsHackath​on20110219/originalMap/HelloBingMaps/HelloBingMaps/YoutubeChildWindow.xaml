@@ -1,0 +1,8 @@
+﻿<controls:ChildWindow x:Class="HelloBingMaps.YoutubeChildWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           Width="560" Height="350" 
+           Title="YoutubeChildWindow">
+        <WebBrowser Height="350" HorizontalAlignment="Center" Name="youtubeBrowser" VerticalAlignment="Top" Width="560" />
+</controls:ChildWindow>
