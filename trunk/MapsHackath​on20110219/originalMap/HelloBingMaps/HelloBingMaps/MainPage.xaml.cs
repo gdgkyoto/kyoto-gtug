@@ -36,13 +36,14 @@ namespace HelloBingMaps
         private void drawALineButton_Click(object sender, RoutedEventArgs e)
         {
             drawingLineMode = true;
+            System.Console.WriteLine("Start drawing lines");
         }
 
         private void mainMap_MouseClick(object sender, MapMouseEventArgs e)
         {
             if (drawingLineMode) {
+
             }
         }
-
     }
 }
