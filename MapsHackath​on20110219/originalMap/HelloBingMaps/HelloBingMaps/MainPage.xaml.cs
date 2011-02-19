@@ -22,6 +22,7 @@ namespace HelloBingMaps
 
     public partial class MainPage : UserControl
     {
+        private MapDataStore mapDataStore = new MapDataStore();
         private MapModeImplementation currentMapMode = createNewMode(DrawingMode.None);
 
         public DrawingMode CurrentMode {
@@ -30,7 +31,8 @@ namespace HelloBingMaps
                 if (value != this.CurrentMode)
                 {
                     /* Quit the previous mode */
-                    this.currentMapMode.end(this);
+                    MapData mapData = this.currentMapMode.end(this);
+                    mapDataStore.addAndDraw(mapData, mainMap);
                     
                     /* Change to the new mode */
                     this.currentMapMode = createNewMode(value);
@@ -58,6 +60,7 @@ namespace HelloBingMaps
         public MainPage()
         {
             InitializeComponent();
+            mapDataStore.restoreAndDraw(mainMap);
         }
 
         private void changeToMercatorlModeButton_Click(object sender, RoutedEventArgs e)
@@ -101,6 +104,11 @@ namespace HelloBingMaps
         private void mainMap_MouseMove(object sender, MouseEventArgs e)
         {
             this.currentMapMode.onMouseMove(this, sender, e);
+        }
+
+        private void resetButton_Click(object sender, RoutedEventArgs e)
+        {
+            mapDataStore.resetData();
         }
 
     }

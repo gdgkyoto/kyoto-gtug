@@ -33,7 +33,7 @@ namespace HelloBingMaps.MapModes
             /* Create a layer and add to the map */
             MapLine mapLine = new MapLine();
             mapLine.setLocationCollection(this.locationCollection);
-            mapLine.draw(mainPage.mainMap);
+            //mapLine.draw(mainPage.mainMap);
 
             Debug.WriteLine("Stopped drawing a line");
 
