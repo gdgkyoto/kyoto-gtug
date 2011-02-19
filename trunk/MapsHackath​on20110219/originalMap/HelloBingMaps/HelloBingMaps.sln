@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Web Developer Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloBingMaps", "HelloBingMaps\HelloBingMaps.csproj", "{CEBA4065-C830-4B7E-B08B-A3F7CE548933}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloBingMaps.Web", "HelloBingMaps.Web\HelloBingMaps.Web.csproj", "{E9D63CE1-C32D-40F5-9E28-B41A587DC9D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEBA4065-C830-4B7E-B08B-A3F7CE548933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBA4065-C830-4B7E-B08B-A3F7CE548933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBA4065-C830-4B7E-B08B-A3F7CE548933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBA4065-C830-4B7E-B08B-A3F7CE548933}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D63CE1-C32D-40F5-9E28-B41A587DC9D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D63CE1-C32D-40F5-9E28-B41A587DC9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D63CE1-C32D-40F5-9E28-B41A587DC9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D63CE1-C32D-40F5-9E28-B41A587DC9D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

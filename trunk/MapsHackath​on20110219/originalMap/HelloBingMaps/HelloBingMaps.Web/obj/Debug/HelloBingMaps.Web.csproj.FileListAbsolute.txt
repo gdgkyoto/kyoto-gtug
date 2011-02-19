@@ -1,0 +1,5 @@
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps.Web\bin\HelloBingMaps.Web.dll
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps.Web\bin\HelloBingMaps.Web.pdb
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps.Web\obj\Debug\ResolveAssemblyReference.cache
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps.Web\obj\Debug\HelloBingMaps.Web.dll
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps.Web\obj\Debug\HelloBingMaps.Web.pdb
