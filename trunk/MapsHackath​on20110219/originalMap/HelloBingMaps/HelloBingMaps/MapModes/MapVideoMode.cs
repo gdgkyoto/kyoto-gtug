@@ -24,7 +24,7 @@ namespace HelloBingMaps.MapModes
             throw new NotImplementedException();
         }
 
-        public void end(MainPage mainPage)
+        public MapData end(MainPage mainPage)
         {
             throw new NotImplementedException();
         }

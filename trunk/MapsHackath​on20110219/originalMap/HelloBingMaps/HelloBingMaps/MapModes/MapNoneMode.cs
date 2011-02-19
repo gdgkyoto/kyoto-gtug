@@ -24,9 +24,10 @@ namespace HelloBingMaps.MapModes
             // Do nothing
         }
 
-        public void end(MainPage mainPage)
+        public MapData end(MainPage mainPage)
         {
             // Do nothing
+            return null;
         }
 
         public void onClick(MainPage mainPage, object sender, Microsoft.Maps.MapControl.MapMouseEventArgs e)

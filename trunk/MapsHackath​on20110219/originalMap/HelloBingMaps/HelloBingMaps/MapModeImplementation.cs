@@ -16,7 +16,7 @@ namespace HelloBingMaps
     {
         DrawingMode getDrawingMode();
         void start(MainPage mainPage);
-        void end(MainPage mainPage);
+        MapData end(MainPage mainPage);
         void onClick(MainPage mainPage, object sender, MapMouseEventArgs e);
         void onMouseMove(MainPage mainPage, object sender, MouseEventArgs e);
     }
