@@ -1,0 +1,18 @@
+﻿<controls:ChildWindow x:Class="HelloBingMaps.URLWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           Width="370" Height="147" 
+           Title="URLWindow" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+    <Grid x:Name="LayoutRoot" Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="CancelButton" Content="キャンセル" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
+        <Button x:Name="OKButton" Content="OK" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,79,0" Grid.Row="1" />
+        <TextBox Height="30" HorizontalAlignment="Left" Margin="28,36,0,0" Name="textBox1" VerticalAlignment="Top" Width="234" />
+        <sdk:Label Height="27" HorizontalAlignment="Left" Margin="28,12,0,0" Name="label1" VerticalAlignment="Top" Width="192" Content="画像のURLを指定してください。" />
+    </Grid>
+</controls:ChildWindow>
