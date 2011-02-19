@@ -28,6 +28,7 @@
 	//-----------------------------------------------------------------
 
 	var DELETE_LIST = new Array();
+	var DELETE_MAP = {};
 
 	var MAP_CANVAS_SELECTOR = "#map_canvas";
 	var MAP_COUNT_SELECTOR = "#map_count";
@@ -101,7 +102,7 @@
 	var showDelete = function(row){
 		var value = row['番号'].value;
 		var name = row['名称'].value;
-		var $a = $('<a href="javascript:void(0);">じゅうぶんに理解したので<span style="font-weight:bold;font-size:1.2em;">「'+name+'」</span>を非表示にする</a><br/>');
+		var $a = $('<a href="javascript:void(0);"><span style="font-weight:bold;font-size:1.2em;">「'+name+'」</span>は理解した</a><br/>');
 		$a.click(function(){
 			$a.remove();
 			DELETE_LIST.push(value);
@@ -153,15 +154,22 @@
 		timeSlider.slider("option","slide")();
 
 		google.maps.event.addListener(layer,'click',function(obj){
-			showDelete(obj.row);
+			if(!DELETE_MAP[obj.row['番号'].value]){
+				showDelete(obj.row);
+				DELETE_MAP[obj.row['番号'].value] = 'true';
+			}
 
 			var html ="";
 			html += "<font size =+2>"+obj.row['名称'].value +"</font><br>";
 	if(obj.row['別名'].value!='')
 			html += "<font size =-1>別名:"+obj.row['別名'].value +"</font><br>";
-	if(obj.row['予備2'].value!='')
+	if(obj.row['予備2'].value!=''){
 			html += "<img src=\"" + obj.row['予備2'].value + "\" alt=\"image\" width=200><br>";
-	if(obj.row['建築年'].value!='')
+	}else{
+		var id = obj.row['番号'].value;
+		html += '<div style="height:100px;" id="infoWindowImage-'+id + '"></div>';
+	}
+			if(obj.row['建築年'].value!='')
 			html += "建築年:"+obj.row['建築年'].value +"<br>";
 	if(obj.row['天守閣'].value!='')
 			html += "天守閣:"+obj.row['天守閣'].value +"<br>";
@@ -169,9 +177,26 @@
 			html += "<a href=\""+ obj.row['予備1'].value + "\" TARGET=\"_blank\">ホームページ</a><br>";
 			html += "<a href=\"http://ja.wikipedia.org/wiki/"+ obj.row['名称'].value + "\" TARGET=\"_blank\">wikipedia</a><br>";
 
+			addImage(obj.row);
+
 			obj.infoWindowHtml = html;
 		});
 	});
+
+	var addImage = function(row){
+		var id = row['番号'].value;
+		var name = row['名称'].value;
+		var is = new google.search.ImageSearch();
+		is.setSearchCompleteCallback(document, function(searcher){
+			var results = searcher.results;
+			if(results && (0<results.length)){
+				var src = results[0].tbUrl;
+				$('#infoWindowImage-'+id).append($('<img style="height:100px;" src="'+ src + '" />'));
+			}
+		},[ is ]);
+		is.execute(name);
+	}
+	google.load("search", "1");
 })();
 </script>
 </head>
