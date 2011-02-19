@@ -77,11 +77,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MapModeImplementation.cs" />
     <Compile Include="MapLine.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MapData.cs" />
+    <Compile Include="MapModes\MapNoneMode.cs" />
+    <Compile Include="MapModes\MapVideoMode.cs" />
+    <Compile Include="MapModes\MapImageMode.cs" />
+    <Compile Include="MapModes\MapLineMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
