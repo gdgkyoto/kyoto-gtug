@@ -15,6 +15,12 @@ namespace HelloBingMaps
     public class MapImage : MapData
     {
         private Location location = new Location();
+        private String URL;
+
+        public MapImage(String URL)
+        {
+            this.URL = URL;
+        }
 
         public void setLocation(Location location){
             this.location = location;
@@ -25,13 +31,13 @@ namespace HelloBingMaps
             MapLayer imageLayer = new MapLayer();
 
             Image image = new Image();
-            //Define the URI location of the image
-            image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("image.jpg", UriKind.Relative));
+            Uri uri = new Uri(this.URL);
+            image.Source = new System.Windows.Media.Imaging.BitmapImage(uri);
+
             //Define the image display properties
             image.Opacity = 0.8;
             image.Stretch = System.Windows.Media.Stretch.None;
-            //The map location to place the image at
-            // location = new Location() { Latitude = -45, Longitude = 122 };
+
             //Center the image around the location specified
             PositionOrigin position = PositionOrigin.Center;
 
