@@ -72,7 +72,9 @@ google.load("jquery", "1.5");
 	        },5000);
 		};
 		ws.onmessage = function(event) {
-			//var data = $.evalJSON(event.data);
+			var data = $.evalJSON(event.data);
+
+			//dataを地図表示に投げる
 			
 			navigator.geolocation.getCurrentPosition(
 				function(position){
@@ -98,7 +100,6 @@ google.load("jquery", "1.5");
 	  this.value = '';
 	});
 	*/
-
 	
 	$(document).ready(function() {
 
