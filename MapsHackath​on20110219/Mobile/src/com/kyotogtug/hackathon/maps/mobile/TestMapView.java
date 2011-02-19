@@ -5,6 +5,7 @@ import com.google.android.maps.MapView;
 
 //import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 public class TestMapView extends MapActivity {
@@ -22,6 +23,9 @@ public class TestMapView extends MapActivity {
         view.setBuiltInZoomControls(true);
         setContentView(view);
 
+        
+    	Log.d( "aaa", "onPause");
+        
         doZoom(view, 18);
     }
 
