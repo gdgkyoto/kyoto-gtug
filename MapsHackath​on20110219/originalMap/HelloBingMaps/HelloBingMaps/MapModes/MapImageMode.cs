@@ -18,7 +18,9 @@ namespace HelloBingMaps.MapModes
 
         private URLWindow window = new URLWindow();
         private MainPage mainPage;
-        private MapMouseEventArgs mouseEvent; 
+        private MapMouseEventArgs mouseEvent;
+
+        private MapData mapData;
 
         public MapImageMode()
         {
@@ -41,6 +43,8 @@ namespace HelloBingMaps.MapModes
                 Debug.WriteLine("yabai: " + URL);
                 image.setLocation(location);
                 image.draw(mainPage.mainMap);
+
+                this.mapData = image;
             }
             else
             {
@@ -61,8 +65,8 @@ namespace HelloBingMaps.MapModes
 
         public MapData end(MainPage mainPage)
         {
-            // do nothing
-            return null;
+            //return null;
+            return this.mapData;
         }
 
         
