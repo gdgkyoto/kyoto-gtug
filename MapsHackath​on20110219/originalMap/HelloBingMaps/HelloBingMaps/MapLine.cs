@@ -14,16 +14,29 @@ namespace HelloBingMaps
 {
     public class MapLine: MapData
     {
-        private LocationCollection vertex = new LocationCollection();
+        private LocationCollection locationCollection = new LocationCollection();
 
-        void setVertex(LocationCollection locationCollection)
+        public void setLocationCollection(LocationCollection locationCollection)
         {
-            this.vertex = locationCollection;
+            this.locationCollection = locationCollection;
+        }
+
+        public MapPolyline getMapPolyline() { 
+            return new MapPolyline() {
+                Locations = this.locationCollection,
+                Stroke = new SolidColorBrush(Colors.Blue),
+                StrokeThickness = 4
+            };
         }
 
         public void draw(Map map)
         {
-            System.Console.WriteLine("Draw a line : Number of vertexes " + this.vertex.Count);
+            MapLayer mapLayer = new MapLayer();
+            mapLayer.Children.Add(getMapPolyline());
+
+            map.Children.Add(mapLayer);
+
+            System.Console.WriteLine("Draw a line : Number of vertexes " + this.locationCollection.Count);
         }
     }
 }

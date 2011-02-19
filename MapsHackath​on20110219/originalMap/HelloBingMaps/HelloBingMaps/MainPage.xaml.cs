@@ -37,10 +37,28 @@ namespace HelloBingMaps
 
         private void drawALineButton_Click(object sender, RoutedEventArgs e)
         {
-            this.drawingLineMode = true;
-            this.locationCollection = new LocationCollection();
+            if (this.drawingLineMode)
+            {
+                /* Turn off drawing line mode */
+                this.drawingLineMode = false;
+                drawALineButton.Content = "Draw a line";
 
-            Debug.WriteLine("Line button is clicked.");
+                /* Create a layer and add to the map */
+                MapLine mapLine = new MapLine();
+                mapLine.setLocationCollection(this.locationCollection);
+                mapLine.draw(mainMap);
+
+                Debug.WriteLine("Stopped drawing a line");
+            }
+            else { 
+                /* Turn on drawing line mode */
+                this.drawingLineMode = true;
+                drawALineButton.Content = "Turn off drawing line mode";
+
+                this.locationCollection = new LocationCollection();
+
+                Debug.WriteLine("Start drawing a line");
+            }
         }
 
         private void mainMap_MouseClick(object sender, MapMouseEventArgs e)
@@ -50,6 +68,7 @@ namespace HelloBingMaps
                 if (mainMap.TryViewportPointToLocation(e.ViewportPoint, out location))
                 {
                     /* Success */
+                    this.locationCollection.Add(location);
                     Debug.WriteLine("Point (" + location.Longitude + "," + location.Latitude + ")");
                 }
                 else { 
