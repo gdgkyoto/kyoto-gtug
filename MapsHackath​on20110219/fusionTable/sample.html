@@ -71,10 +71,10 @@
 		//-----------------------------------------------------------------
 		// このあたりに処理を書いてみるといいかも。
 		// クエリとか．．．
-	             var str = "SELECT '経度' FROM "+tableid+" WHERE '開始' < " + timeSlider.slider("value");
-		　　  str = deleteQuery(str);
-	    layer.setQuery(str);
-	    checkCount();
+		var str = "SELECT '経度' FROM "+tableid+" WHERE '開始' < " + timeSlider.slider("value");
+		str = deleteQuery(str);
+		layer.setQuery(str);
+		checkCount();
 		//
 		//-----------------------------------------------------------------
 	};
@@ -94,9 +94,9 @@
 
 	var deleteQuery = function(str){
 		for(var i =0; i < DELETE_LIST.length;i++){
-		str +=" AND '番号' not equal to " + DELETE_LIST[i];
+			str +=" AND '番号' not equal to " + DELETE_LIST[i];
 		}
-	   return str;
+		return str;
 	};
 
 
@@ -142,6 +142,11 @@
 		$(TIMER_SLIDER_END_SELECTOR).text(timeSlider.slider("option","max")+'年');
 
 		timeSlider.slider("option","slide")();
+
+		google.maps.event.addListener(layer,'click',function(obj){
+			DELETE_LIST.push(obj.row['番号'].value);
+			alert(obj.row['番号'].columnName+':'+obj.row['番号'].value);
+		});
 	});
 })();
 </script>
