@@ -6,6 +6,7 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.Projection;
 
@@ -19,6 +20,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -62,22 +64,41 @@ public class MobileMap extends MapActivity implements SensorEventListener {
         view.setBuiltInZoomControls(true);
         setContentView(view);
         
-        
+/*        
         int ido = (int)(34.996465 * 1E6);
         int keido = (int)(135.740032*1E6); 
-        mc = view.getController();
-        mc.animateTo(new GeoPoint(ido + 1500, keido));
-	    
+*/
+        final MyLocationOverlay overlay =
+            new MyLocationOverlay(getApplicationContext(), view);
+        overlay.onProviderEnabled(LocationManager.GPS_PROVIDER); // GPS を使用する
+        overlay.enableMyLocation();
+        overlay.runOnFirstFix(new Runnable() {
+            @Override
+            public void run() {
+                view.getController().animateTo(
+                    new GeoPoint(overlay.getMyLocation().getLatitudeE6() + 1500, overlay.getMyLocation().getLongitudeE6())); // 現在位置を自動追尾する
+//                view.getController().animateTo(
+//                        overlay.getMyLocation()); // 現在位置を自動追尾する
+            }
+        });
+        view.getOverlays().add(overlay);
+        view.invalidate();
+        
+        
+//        mc = view.getController();
+//        mc.animateTo(new GeoPoint(ido + 1500, keido))
+//        mc.animateTo(overlay.getMyLocation());
+        
 	    /* センサ・マネージャを取得する */
 	    mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 	    
-	    
+/*	    
 	    // 画像を地図上に配置するオーバーレイ
 	    Bitmap bmp = BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_myplaces);
 	    MyOverlay overlay = new MyOverlay(bmp, new GeoPoint(ido, keido));
 	    List<Overlay> list = view.getOverlays();
 	    list.add(overlay);
-	    
+*/
 	    
 	}
 	
