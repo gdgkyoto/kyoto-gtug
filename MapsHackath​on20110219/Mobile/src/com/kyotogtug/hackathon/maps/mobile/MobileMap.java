@@ -16,7 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 
-public class TestMapView extends MapActivity implements SensorEventListener {
+public class MobileMap extends MapActivity implements SensorEventListener {
 	
 	private MapView view;
 
