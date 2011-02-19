@@ -4,22 +4,72 @@
 <html>
 <head>
 <title>Help!</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="http://www.google.com/jsapi"></script>
+<script>
+google.load("maps", "3", {"other_params":"sensor=true"});
+google.load("jquery", "1.5");
+</script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		//alert("hello");
 	});
 
+	
 	function buttonPressed() {
-		var msg = $("#message").attr("value");
-		$.post('http://www.smkw.jp/savetheworld/api/help',
-			{message:msg, lat:34.9, lng:134.9},
-			function (data, textStatus) {
-				alert("Please wait a minute!");
+		kx.getCurrentLatLng(
+			function(latLng){
+				var msg = $("#message").attr("value");
+				$.post('http://www.smkw.jp/savetheworld/api/help',
+					{message:msg, lat:latLng.lat(), lng:latLng.lng()},
+					function (data, textStatus) {
+						alert("Please wait a minute!");
+					}
+				);
 			}
 		);
 	}
-
+//ここからkwixilvr:くいっくしるばー
+var kx = {};
+kx.getDummyPos = function(){
+    return {
+        coords: {
+            latitude: 34.9 + Math.random()
+            , longitude: 134.9 + Math.random()
+        }
+    };
+};
+kx.pos2LatLng = function(pos){
+    return new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+};
+kx.getCurrentLatLng = function(callback){// callbackには引数としてgoogle.maps.LatLngオブジェクトが渡される
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            function(pos){
+                callback(kx.pos2LatLng(pos));
+            }
+            , function(error){
+                callback(kx.pos2LatLng(kx.getDummyPos()));
+            }
+            , {
+                enableHighAccuracy: false
+                // 5秒以内に取得できなかったらエラー
+                , timeout: 5000
+                // 1分以内に取得した位置情報のみ使用する
+                , maximumAge: 60 * 1000
+            }
+        );
+    }
+    else{
+        alert("Geolocation API disabled");
+    }
+};
+//"lat":34.9,"lng":134.9,"message":"Help!","id":83,"date":1298097618049
+kx.displayRoute = function(data){
+    kx.getCurrentLatLng(function(currentLatLng){
+        calcRoute(currentLatLng, new google.maps.LatLng(data.lat, data.lng));
+    })
+}
+//ここまでkwixilvr
 </script>
 </head>
 <body>
