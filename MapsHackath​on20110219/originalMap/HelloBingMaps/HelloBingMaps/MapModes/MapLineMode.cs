@@ -25,7 +25,7 @@ namespace HelloBingMaps.MapModes
             Debug.WriteLine("Start drawing a line");
         }
 
-        public void end(MainPage mainPage)
+        public MapData end(MainPage mainPage)
         {
             /* Turn off drawing line mode */
             mainPage.drawALineButton.Content = "Draw a line";
@@ -36,6 +36,8 @@ namespace HelloBingMaps.MapModes
             mapLine.draw(mainPage.mainMap);
 
             Debug.WriteLine("Stopped drawing a line");
+
+            return mapLine;
         }
 
         public void onClick(MainPage mainPage, object sender, MapMouseEventArgs e)

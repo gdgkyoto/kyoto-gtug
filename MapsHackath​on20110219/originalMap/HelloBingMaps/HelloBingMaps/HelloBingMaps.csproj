@@ -24,7 +24,7 @@
     <TestPageFileName>HelloBingMapsTestPage.html</TestPageFileName>
     <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>
-    <EnableOutOfBrowser>false</EnableOutOfBrowser>
+    <EnableOutOfBrowser>true</EnableOutOfBrowser>
     <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
     <UsePlatformExtensions>false</UsePlatformExtensions>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
@@ -66,6 +66,7 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Bing Maps Silverlight Control\V1\Libraries\Microsoft.Maps.MapControl.Common.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -77,6 +78,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MapDataStore.cs" />
     <Compile Include="MapImage.cs" />
     <Compile Include="MapModeImplementation.cs" />
     <Compile Include="MapLine.cs" />
@@ -105,6 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
