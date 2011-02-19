@@ -168,7 +168,7 @@ kx.setMarker = function(latLng){
         , map: map
     });
 };
-kx.getCurrentPos = function(callback){// callbackには引数としてgoogle.maps.LatLngオブジェクトが渡される
+kx.getCurrentLatLng = function(callback){// callbackには引数としてgoogle.maps.LatLngオブジェクトが渡される
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(
             function(pos){
@@ -192,7 +192,7 @@ kx.getCurrentPos = function(callback){// callbackには引数としてgoogle.map
 };
 //"lat":34.9,"lng":134.9,"message":"Help!","id":83,"date":1298097618049
 kx.displayRoute = function(data){
-    kx.getCurrentPos(function(currentLatLng){
+    kx.getCurrentLatLng(function(currentLatLng){
         calcRoute(currentLatLng, new google.maps.LatLng(data.lat, data.lng));
     })
 }
