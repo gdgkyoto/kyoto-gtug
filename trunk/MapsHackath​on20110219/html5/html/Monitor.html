@@ -16,6 +16,7 @@ google.load("jquery", "1.5");
 	var icon_normal = "http://mail.google.com/mail/help/images/icons/cell.gif";
 	var directionsService;
 	var directionsDisplay;
+	var infoWindow;
 	var map;
 
 	if(!window.webkitNotifications){ //対応ブラウザチェック
@@ -28,6 +29,7 @@ google.load("jquery", "1.5");
 		navigator.geolocation.getCurrentPosition(
 			function(position){
 				directionsService = new google.maps.DirectionsService();
+				infoWindow = new google.maps.InfoWindow();
 
 				var latlng = new google.maps.LatLng(
 									position.coords.latitude,
@@ -35,14 +37,14 @@ google.load("jquery", "1.5");
 								);
 				var options = {
 					center: latlng,
-					zoom: 15,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
+					zoom: 2,
+					mapTypeId: google.maps.MapTypeId.HYBRID
 				};
 				map = new google.maps.Map($("#map")[0], options);
 
 				directionsDisplay = new google.maps.DirectionsRenderer();
 				directionsDisplay.setMap(map);
-
+				
 				ws_init();
 			}
 		);
@@ -64,7 +66,7 @@ google.load("jquery", "1.5");
 	        },5000);
 		}
 		ws.onclose = function(event) {
-			var popup = wn.createNotification(icon_normal,window.document.title,"サーバとの接続が切断されました");
+			var popup = wn.createNotification(icon_normal,window.document.title,"サーバとの接続が切断されました<br />再接続を試行します");
 	        popup.show();
 	        setTimeout(function(){
 	            popup.cancel();
@@ -138,7 +140,7 @@ google.load("jquery", "1.5");
 			var request={
 				origin:start,
 				destination:end,
-				travelMode:google.maps.DirectionsTravelMode.DRIVING
+				travelMode:google.maps.DirectionsTravelMode.WALKING
 			}
 			directionsService.route(request,function(response,status){
 				if(status==google.maps.DirectionsStatus.OK){
@@ -193,7 +195,12 @@ kx.getCurrentLatLng = function(callback){// callbackには引数としてgoogle.
 //"lat":34.9,"lng":134.9,"message":"Help!","id":83,"date":1298097618049
 kx.displayRoute = function(data){
     kx.getCurrentLatLng(function(currentLatLng){
-        calcRoute(currentLatLng, new google.maps.LatLng(data.lat, data.lng));
+        var target = new google.maps.LatLng(data.lat, data.lng);
+        calcRoute(currentLatLng, target);
+        infoWindow.content = data.message;
+        infoWindow.setPosition(target);
+		infoWindow.open(map);
+//        directionsService.
     })
 }
 //ここまでkwixilvr
