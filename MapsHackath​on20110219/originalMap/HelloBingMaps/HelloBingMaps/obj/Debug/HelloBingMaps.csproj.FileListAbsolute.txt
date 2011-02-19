@@ -1,0 +1,16 @@
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\HelloBingMaps.dll
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\HelloBingMaps.pdb
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\AppManifest.xaml
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\HelloBingMaps.xap
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\HelloBingMapsTestPage.html
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\Microsoft.Maps.MapControl.Common.dll
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\Microsoft.Maps.MapControl.dll
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\Microsoft.Maps.MapControl.xml
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\Bin\Debug\Microsoft.Maps.MapControl.Common.xml
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\obj\Debug\ResolveAssemblyReference.cache
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\obj\Debug\App.g.i.cs
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\obj\Debug\MainPage.g.i.cs
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\obj\Debug\HelloBingMaps.g.resources
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\obj\Debug\HelloBingMaps.dll
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\obj\Debug\HelloBingMaps.pdb
+c:\users\yuki\documents\visual studio 2010\Projects\HelloBingMaps\HelloBingMaps\obj\Debug\XapCacheFile.xml
