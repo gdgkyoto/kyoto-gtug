@@ -158,7 +158,7 @@
 				<log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
 				-->
 				<verbose>true</verbose>
-				<props>${basedir}/db/datanucleus.properties</props>
+				<props>${basedir}/src/main/config/datanucleus.properties</props>
 			</configuration>
 			<executions>
 				<execution>
