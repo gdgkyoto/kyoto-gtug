@@ -71,20 +71,31 @@ kx.displayRoute = function(data){
 }
 //ここまでkwixilvr
 </script>
+<style>
+body {background-image:url(img/bg_big_map.png); text-align:center;}
+div.white { background-image:url(img/bg_big_white.png); width:100%; height:100%}
+input.txt_box {width: 250px; border:2px solid #333333;}
+
+</style>
 </head>
 <body>
 <div>
-Press this button in an emergency.
-<form action="help" method="post">
-<div id="help-button" style="height:300px;">
-<img alt="button" src="http://www.smkw.jp/savetheworld/images/button.png" onclick="buttonPressed();">
+<div class="white">
+    <div class="top"><img src="img/tit_seigi.png"></div>
+    Press this button in your emergency.
+    <form action="help" method="post">
+    <div id="help-button" style="height:300px;">
+    <img alt="button" src="img/help_bun.png" onClick="buttonPressed();" onmouseover="this.src='img/help_bun_blue.png';" 
+    onmouseout="this.src='img/help_bun.png';" />
+    </div>
+    <div class="txt"><img src="img/txt_tellme.png" /></div>
+    <div>
+    <input id="message" type="text" name="message" value="I need a toilet paper now!!" class="txt_box">
+    <input id="lat" type="hidden" name="lat" value="35" />
+    <input id="lng" type="hidden" name="lng" value="135" />
+    </div>
+    </form>
 </div>
-<div>
-<input id="message" type="text" name="message" value="Help!">
-<input id="lat" type="hidden" name="lat" value="35" />
-<input id="lng" type="hidden" name="lng" value="135" />
-</div>
-</form>
 </div>
 </body>
 </html>
