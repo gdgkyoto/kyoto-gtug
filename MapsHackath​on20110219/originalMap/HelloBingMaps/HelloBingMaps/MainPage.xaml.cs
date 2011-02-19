@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.Core;
 using Microsoft.Maps.MapControl;
 using System.Diagnostics;
+using HelloBingMaps.MapModes;
 
 namespace HelloBingMaps
 {
@@ -21,43 +22,38 @@ namespace HelloBingMaps
 
     public partial class MainPage : UserControl
     {
-        private DrawingMode currentMode = DrawingMode.None;
+        private MapModeImplementation currentMapMode = createNewMode(DrawingMode.None);
+
         public DrawingMode CurrentMode {
             set { 
                 /* Do nothing when the current drawing mode and the value is same. */
-                if (value != this.currentMode)
+                if (value != this.CurrentMode)
                 {
                     /* Quit the previous mode */
-                    switch (this.currentMode)
-                    {
-                        case DrawingMode.Line:
-                            quitDrawingLine();
-                            break;
-                        case DrawingMode.Image:
-                            break;
-                        case DrawingMode.Video:
-                            break;
-                    }
-
-                    this.currentMode = value;
-
-                    /* Start the next mode */
-                    switch (value)
-                    { 
-                        case DrawingMode.Line:
-                            startDrawingLine();
-                            break;
-                        case DrawingMode.Image:
-                            break;
-                        case DrawingMode.Video:
-                            break;
-                    }
+                    this.currentMapMode.end(this);
+                    
+                    /* Change to the new mode */
+                    this.currentMapMode = createNewMode(value);
+                    this.currentMapMode.start(this);
                 }
             }
-            get { return this.currentMode; }
+            get {
+                return this.currentMapMode.getDrawingMode();
+            }
         }
 
-        private LocationCollection locationCollection = new LocationCollection();
+        private static MapModeImplementation createNewMode(DrawingMode mode) {
+            switch (mode) { 
+                case DrawingMode.Line:
+                    return new MapLineMode();
+                case DrawingMode.Image:
+                    return new MapImageMode();
+                case DrawingMode.Video:
+                    return new MapVideoMode();
+                default:
+                    return new MapNoneMode();
+            }
+        }
 
         public MainPage()
         {
@@ -87,59 +83,14 @@ namespace HelloBingMaps
             }
         }
 
-        private void startDrawingLine()
-        {
-            // DO NOT change drawing mode in this method.
-            drawALineButton.Content = "Turn off drawing line mode";
-
-            this.locationCollection = new LocationCollection();
-
-            Debug.WriteLine("Start drawing a line");
-        }
-
-        private void quitDrawingLine()
-        {
-            // DO NOT change drawing mode in this method.
-
-            /* Turn off drawing line mode */
-            drawALineButton.Content = "Draw a line";
-
-            /* Create a layer and add to the map */
-            MapLine mapLine = new MapLine();
-            mapLine.setLocationCollection(this.locationCollection);
-            mapLine.draw(mainMap);
-
-            Debug.WriteLine("Stopped drawing a line");
-        }
-
-        private void mapClickedInLineMode(object sender, MapMouseEventArgs e)
-        {
-
-            Location location = new Location();
-            if (mainMap.TryViewportPointToLocation(e.ViewportPoint, out location))
-            {
-                /* Success */
-                this.locationCollection.Add(location);
-                Debug.WriteLine("Point (" + location.Longitude + "," + location.Latitude + ")");
-            }
-            else
-            {
-                /* Fails */
-                Debug.WriteLine("Something wrong has happened in converting viewport to location.");
-            }
-        }
-
         private void mainMap_MouseClick(object sender, MapMouseEventArgs e)
         {
-            switch (this.CurrentMode) { 
-                case DrawingMode.Line:
-                    mapClickedInLineMode(sender,e);
-                    break;
-                case DrawingMode.Video:
-                    break;
-                case DrawingMode.Image:
-                    break;
-            }
+            this.currentMapMode.onClick(this, sender, e);
+        }
+
+        private void mainMap_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.currentMapMode.onMouseMove(this, sender, e);
         }
     }
 }

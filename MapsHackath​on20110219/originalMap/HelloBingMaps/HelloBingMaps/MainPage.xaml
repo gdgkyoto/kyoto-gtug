@@ -10,7 +10,7 @@
     <Grid x:Name="LayoutRoot" Background="White">
         <m:Map
             x:Name="mainMap"
-            CredentialsProvider="AnxfEXTVtdqUmIwwXnPWuXfhCtswqcP4uEkXNmYQmHnRvxkaLzSrdQ3zgEeWy1v9" Margin="0,0,0,23" MouseClick="mainMap_MouseClick" />
+            CredentialsProvider="AnxfEXTVtdqUmIwwXnPWuXfhCtswqcP4uEkXNmYQmHnRvxkaLzSrdQ3zgEeWy1v9" Margin="0,0,0,23" MouseClick="mainMap_MouseClick" MouseMove="mainMap_MouseMove" />
         <Button Content="Mercatrol mode" Height="23" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Name="changeToMercatorlModeButton" Click="changeToMercatorlModeButton_Click" />
         <Button Content="Aerial mode" Height="23" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="120,0,0,0" Name="changeToAerialModeButton" Click="changeToAerialModeButton_Click" />
         <Button Content="Line" Height="23" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="240,0,0,0" Name="drawALineButton" Click="drawALineButton_Click"/>
