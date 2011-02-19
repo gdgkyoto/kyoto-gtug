@@ -16,14 +16,20 @@ public class TestMapView extends MapActivity {
         super.onCreate(savedInstanceState);
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        view = new MapView(this, "0_wFaNb-8qM4sN6adtqdMqa-jlrBNvVuIdW1UQQ");
-        view.setClickable(true);
-        
+        view = new MapView(this, "0jYwRrkrj9pvB9wHd37l0OXz0T3o9-FHROuKdSA");
+//        view = new MapView(this, "0_wFaNb-8qM4sN6adtqdMqa-jlrBNvVuIdW1UQQ");
+        view.setClickable(true);        
         view.setBuiltInZoomControls(true);
         setContentView(view);
-        
+
+        doZoom(view, 18);
     }
 
+    protected boolean doZoom(MapView myMap, int zm) {
+        myMap.getController().setZoom(zm);
+        return true;
+    }
+    
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
