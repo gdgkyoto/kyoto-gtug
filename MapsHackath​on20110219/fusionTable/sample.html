@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/jquery-timers.js"></script>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<!-- Initialize visualization -->
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+<script type="text/javascript">
+  google.load('visualization', '1', {});
+</script>
+
+
+<script>
+(function(){
+
+	//-----------------------------------------------------------------
+	// Google Map with Fusion Tables
+	var map;
+	var tableid = 477222; 
+	var layer = new google.maps.FusionTablesLayer(tableid); 
+	//-----------------------------------------------------------------
+
+	var DELETE_LIST = new Array();
+	DELETE_LIST.push(1000);
+	DELETE_LIST.push(53);
+
+	var MAP_CANVAS_SELECTOR = "#map_canvas";
+	var MAP_COUNT_SELECTOR = "#map_count";
+	var BUTTON_TOP_SELECTOR = "#buttonTop";
+	var BUTTON_END_SELECTOR = "#buttonEnd";
+	var BUTTON_PLAY_SELECTOR = "#buttonPlay";
+	var TIMER_SLIDER_SELECTOR = "#timeSlider";
+	var TIMER_SLIDER_VALUE_SELECTOR = "#timeSlider_value";
+	var TIMER_SLIDER_START_SELECTOR = "#timeSlider_start";
+	var TIMER_SLIDER_END_SELECTOR = "#timeSlider_end";
+	var LABEL_WAITING = "△";
+	var LABEL_RUNNING = "□";
+	var TIMER_INTERVAL = 1000;
+	var TIMER_NAME = "autoslider";
+	var AUTO_START = true;
+	var timeSliding = false;
+	var timeSlider;
+
+	var stopTimeSlider = function(){
+		$(document).stopTime(TIMER_NAME);
+		timeSliding = false;
+		$(BUTTON_PLAY_SELECTOR).attr("value",LABEL_WAITING);
+	};
+	var startTimeSlider = function(){
+		$(document).everyTime(TIMER_INTERVAL,TIMER_NAME,function(){
+			stepupTimeSlider();
+		});
+		timeSliding = true;
+		$(BUTTON_PLAY_SELECTOR).attr("value",LABEL_RUNNING);
+	};
+	var stepupTimeSlider = function(){
+		var nextValue = timeSlider.slider("value")+timeSlider.slider("option","step");
+		timeSlider.slider("value", nextValue);
+		timeSlider.slider("option","slide")();
+	};
+	var onChangeTimerSlider = function(){
+		showTimeSliderValue();
+
+		//-----------------------------------------------------------------
+		// このあたりに処理を書いてみるといいかも。
+		// クエリとか．．．
+	             var str = "SELECT '経度' FROM "+tableid+" WHERE '開始' < " + timeSlider.slider("value");
+		　　  str = deleteQuery(str);
+	    layer.setQuery(str);
+	    checkCount();
+		//
+		//-----------------------------------------------------------------
+	};
+	var showTimeSliderValue = function(){
+		$(TIMER_SLIDER_VALUE_SELECTOR).text(timeSlider.slider("value")+'年');
+	};
+
+	var checkCount = function(){
+		var str = "SELECT COUNT('番号') FROM "+tableid+" WHERE '開始' < " + timeSlider.slider("value");
+		str = deleteQuery(str);
+		var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + encodeURIComponent(str));
+		query.send(function(res){
+			var crtCount = res.getDataTable().getValue(0,0);
+			$(MAP_COUNT_SELECTOR).text(crtCount);
+		});
+	};
+
+	var deleteQuery = function(str){
+		for(var i =0; i < DELETE_LIST.length;i++){
+		str +=" AND '番号' not equal to " + DELETE_LIST[i];
+		}
+	   return str;
+	};
+
+
+	$(document).ready(function(){
+		map = new google.maps.Map($(MAP_CANVAS_SELECTOR).get(0), {
+			center: new google.maps.LatLng(36.4, 136.1),
+			zoom: 6,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		layer.setMap(map);
+	});
+
+	$(document).ready(function(){
+		timeSlider = $(TIMER_SLIDER_SELECTOR).slider({
+			value: 1300,
+			min: 1000,
+			max: 2000,
+			step: 10,
+			slide: function(event,ui){
+				onChangeTimerSlider();
+			}
+		});
+		$(BUTTON_PLAY_SELECTOR).click(function(){
+			if(timeSliding){
+				stopTimeSlider();
+			}else{
+				startTimeSlider();
+			}
+		});
+		$(BUTTON_TOP_SELECTOR).click(function(){
+			timeSlider.slider("value", timeSlider.slider("option","min"));
+			timeSlider.slider("option","slide")();
+		});
+		$(BUTTON_END_SELECTOR).click(function(){
+			timeSlider.slider("value", timeSlider.slider("option","max"));
+			timeSlider.slider("option","slide")();
+		});
+
+		if(AUTO_START){
+			startTimeSlider();
+		}
+		$(TIMER_SLIDER_START_SELECTOR).text(timeSlider.slider("option","min")+'年');
+		$(TIMER_SLIDER_END_SELECTOR).text(timeSlider.slider("option","max")+'年');
+
+		timeSlider.slider("option","slide")();
+	});
+})();
+</script>
+</head>
+
+<body style="margin:0;padding:0;width:100%;height:100%;">
+
+<table style="margin:0 2%;border:0;width:96%;">
+	<tr>
+		<td style="border:0;padding:0;width:70%;"><div style="width:100%;height:600px;" id="map_canvas"></div></td>
+		<td style="border:0;padding:0;width:30%;">
+			<div style="padding:10px 2%;width:96%;height:580px;" id="map_content">
+				<h1 style="margin:0 2% 0.5em 2%;text-align:center;text-shadow:3px 3px 3px rgba(255,65,65,0.9);">その時<br />歴史は動いた。</h1>
+				<span style="font-size:1.2em;">総数 <span style="font-weight:bold;" id="map_count"></span></span>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<table style="margin:10px 5%;border:0;width:90%;">
+	<tr>
+		<td style="width:33%;text-align:left;font-size:1.1em;text-shadow:1px 1px 1px #999;" id="timeSlider_start"></td>
+		<td style="width:34%;text-align:center;font-size:1.3em;font-weight:bold;text-shadow:1px 1px 1px #999;" id="timeSlider_value"></td>
+		<td style="width:33%;text-align:right;font-size:1.1em;text-shadow:1px 1px 1px #999;" id="timeSlider_end"></td>
+	</tr>
+</table>
+
+<div style="margin:10px 5%;" id="timeSlider"></div>
+
+<div style="text-align:center;" id="buttons">
+	<input type="button" value="<<" id="buttonTop" />
+	<input type="button" value="" id="buttonPlay" />
+	<input type="button" value=">>" id="buttonEnd" />
+</div>
+
+<div id="debug"></div>
+
+</body>
+
+</html>
