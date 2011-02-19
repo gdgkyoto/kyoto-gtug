@@ -9,13 +9,18 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl;
+using System.Runtime.Serialization;
 
 namespace HelloBingMaps
 {
+    [DataContract]
     public class MapImage : MapData
     {
-        private Location location = new Location();
-        private String URL;
+        [DataMember]
+        public Location location = new Location();
+
+        [DataMember]
+        public String URL;
 
         public MapImage(String URL)
         {
