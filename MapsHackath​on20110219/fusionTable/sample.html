@@ -33,6 +33,7 @@
 
 	var MAP_CANVAS_SELECTOR = "#map_canvas";
 	var MAP_COUNT_SELECTOR = "#map_count";
+	var MAP_DELETE_SELECTOR = "#map_delete";
 	var BUTTON_TOP_SELECTOR = "#buttonTop";
 	var BUTTON_END_SELECTOR = "#buttonEnd";
 	var BUTTON_PLAY_SELECTOR = "#buttonPlay";
@@ -99,6 +100,16 @@
 		return str;
 	};
 
+	var showDelete = function(row){
+		var value = row['番号'].value;
+		var name = row['名称'].value;
+		var $a = $('<a href="javascript:void(0);">じゅうぶんに理解したので<span style="font-weight:bold;font-size:1.2em;">「'+name+'」</span>を非表示にする</a><br/>');
+		$a.click(function(){
+			$a.remove();
+			DELETE_LIST.push(value);
+		});
+		$(MAP_DELETE_SELECTOR).append($a);
+	};
 
 	$(document).ready(function(){
 		map = new google.maps.Map($(MAP_CANVAS_SELECTOR).get(0), {
@@ -178,6 +189,8 @@ if(obj.row['予備1'].value!='')
 			<div style="padding:10px 2%;width:96%;height:580px;" id="map_content">
 				<h1 style="margin:0 2% 0.5em 2%;text-align:center;text-shadow:3px 3px 3px rgba(255,65,65,0.9);">その時<br />歴史は動いた。</h1>
 				<span style="font-size:1.2em;">総数 <span style="font-weight:bold;" id="map_count"></span></span>
+				<div style="margin:1em 0;" id="map_delete">
+				</div>
 			</div>
 		</td>
 	</tr>
