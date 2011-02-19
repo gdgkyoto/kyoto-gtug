@@ -12,17 +12,18 @@ using Microsoft.Maps.MapControl;
 
 namespace HelloBingMaps
 {
-    public class MapLine : MapData
+    public class MapLine: MapData
     {
         private LocationCollection vertex = new LocationCollection();
 
-        void draw()
+        void setVertex(LocationCollection locationCollection)
         {
-            System.Console.WriteLine("Draw a line : Number of vertexes " + this.vertex.Count);
+            this.vertex = locationCollection;
         }
 
-        void setVertex(LocationCollection locationCollection) {
-            this.vertex = locationCollection;
+        public void draw(Map map)
+        {
+            System.Console.WriteLine("Draw a line : Number of vertexes " + this.vertex.Count);
         }
     }
 }
