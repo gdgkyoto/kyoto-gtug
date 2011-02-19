@@ -35,6 +35,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>ws-standby</servlet-name>
+		<servlet-class>org.kyoto_gtug.savetheworld.ws.HelpStandByWebSocketServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ws-standby</servlet-name>
+		<url-pattern>/ws/standby</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>savetheworld</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet </servlet-class>
 		<load-on-startup>1</load-on-startup>

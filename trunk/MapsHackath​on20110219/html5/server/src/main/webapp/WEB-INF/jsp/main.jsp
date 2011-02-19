@@ -1,17 +1,16 @@
+<!doctype html>
 <html>
 <head>
 <title>Welcome</title>
+<meta charset="UTF-8">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript">
 
 	var buzzer = new Audio("<%= request.getContextPath() %>/static/beep.mp3");
 	buzzer.loop = true;
-	buzzer.addEventListener('ended', function(e){
-		this.currentTime = 0;
-		this.play();
-	}, false);
 	
+	// ページロード直後に呼ばれる
 	$(document).ready(function() {
 		$.getJSON("<%= request.getContextPath() %>/api/helps.json", function(json){
 			var helpList = $("#help-list");
@@ -29,9 +28,21 @@
 		};
 		var map = new google.maps.Map($("#map")[0], options);
 
-		buzzer.load();	// 音声ファイルをロードする
-		buzzer.autoplay = true;
-		$("#sound").append(buzzer);
+		var ws = new WebSocket("ws://www.smkw.jp:8080/savetheworld/ws/standby");
+		ws.onopen = function(event) {
+			var result = ws.send(JSON.stringify("hello"));
+			if (result) {
+				//alert("Wow!");
+			}
+		}
+		ws.onclose = function(event) {
+			alert("Close!");
+		};
+		ws.onmessage = function(event) {
+			alert(event.data);
+		}
+
+		//buzzer.load();	// 音声ファイルをロードする
 	});
 	
 	function toggleBuzzer() {
@@ -51,5 +62,9 @@
 <div>Today's help calls: 20</div>
 <div id="help-list"></div>
 <div id="sound"></div>
+
+<!-- 
+<audio src="<%= request.getContextPath() %>/static/beep.mp3" autoplay autobuffer loop="loop" ></audio>
+ -->
 </body>
 </html>

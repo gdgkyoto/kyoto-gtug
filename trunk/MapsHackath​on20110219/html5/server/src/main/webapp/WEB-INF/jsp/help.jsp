@@ -16,14 +16,14 @@
 		$.post('<%= request.getContextPath() %>/api/help',
 			data,
 			function (data, textStatus) {
-				alert("Please wait a minute!");
+				//alert("Please wait a minute!");
 			}
 		);
-		var ws = new WebSocket("ws://localhost:8080/ws/help");
+		var ws = new WebSocket("ws://www.smkw.jp:8080/savetheworld/ws/help");
 		ws.onopen = function(event) {
 			var result = ws.send(JSON.stringify(data));
 			if (result) {
-				alert("Wow!");
+				//alert("Wow!");
 			}
 		}
 		ws.onclose = function(event) {
