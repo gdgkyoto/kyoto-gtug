@@ -1,8 +1,14 @@
 package org.kyoto_gtug.savetheworld.ws;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.kyoto_gtug.savetheworld.domain.Help;
 import org.kyoto_gtug.savetheworld.domain.Helper;
 import org.slf4j.Logger;
@@ -27,11 +33,14 @@ public class HelperManager {
 	}
 	
 	public void notifyHelp(Help help) {
+		if (help == null) {
+			return;
+		}
 		for (Helper helper : helpers) {
 			helper.notifyHelp(help);
 		}
 	}
-
+	
 	public void removeHelper(Helper helper) {
 		logger.info("HelperManager.removeHelper");
 		if (helper == null) {

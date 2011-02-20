@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.kyoto_gtug.savetheworld.dao.HelpDao;
 import org.kyoto_gtug.savetheworld.domain.Help;
+import org.kyoto_gtug.savetheworld.ws.HelperManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api/*")
 public class ApiController {
     
+	private static Logger logger = LoggerFactory.getLogger(ApiController.class);
     private static Map<String, Object> OK;
     private static Map<String, Object> NG;
     
@@ -50,9 +54,18 @@ public class ApiController {
                 help.setDate(new Date().getTime());
             }
             helpDao.save(help);
+            Help savedHelp = helpDao.getById(help.getId());
+            HelperManager.getInstance().notifyHelp(savedHelp);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
+        return OK;
+    }
+
+    @RequestMapping(value="accept", method=RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> acceptHelp(Long id) {
+    	logger.info("Help " + id + " was accepted.");
         return OK;
     }
 

@@ -10,7 +10,7 @@ public class HelpWebSocketServlet extends WebSocketServlet {
 
 	@Override
 	protected WebSocket doWebSocketConnect(HttpServletRequest arg0, String arg1) {
-		return new HelpWebSocket();
+		return new HelpWebSocket(getServletContext());
 	}
 
 }

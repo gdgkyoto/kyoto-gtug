@@ -20,6 +20,7 @@
 			}
 		);
 		var ws = new WebSocket("ws://www.smkw.jp:8080/savetheworld/ws/help");
+		//var ws = new WebSocket("ws://localhost:8080/ws/help");
 		ws.onopen = function(event) {
 			var result = ws.send(JSON.stringify(data));
 			if (result) {

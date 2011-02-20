@@ -5,12 +5,18 @@
 --     org.kyoto_gtug.savetheworld.domain.Help
 --
 -- Table `HELP` for classes [org.kyoto_gtug.savetheworld.domain.Help]
+
+CREATE DATABASE worldrescue;
+
+GRANT ALL PRIVILEGES ON worldrescue.* TO worldrescue IDENTIFIED BY 'worldrescue';
+
 CREATE TABLE `HELP`
 (
     `ID` BIGINT NOT NULL AUTO_INCREMENT,
     `LAT` DOUBLE NULL,
     `LNG` DOUBLE NULL,
     `MESSAGE` VARCHAR(256) BINARY NULL,
+    `DATE` BIGINT NULL,
     CONSTRAINT `HELP_PK` PRIMARY KEY (`ID`)
 ) ENGINE=INNODB;
 
