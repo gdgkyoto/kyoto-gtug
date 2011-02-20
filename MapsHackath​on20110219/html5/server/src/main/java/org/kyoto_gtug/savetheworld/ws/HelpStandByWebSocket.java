@@ -48,7 +48,8 @@ public class HelpStandByWebSocket implements WebSocket {
 
 	public void notifyHelp(Help help) {
 		try {
-			outbound.sendMessage("Hey!");
+			String helpJSON = JSONHelper.toJSON(help);
+			outbound.sendMessage(helpJSON);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

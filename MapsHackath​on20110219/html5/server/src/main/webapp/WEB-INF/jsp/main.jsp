@@ -29,6 +29,7 @@
 		var map = new google.maps.Map($("#map")[0], options);
 
 		var ws = new WebSocket("ws://www.smkw.jp:8080/savetheworld/ws/standby");
+		//var ws = new WebSocket("ws://localhost:8080/ws/standby");
 		ws.onopen = function(event) {
 			var result = ws.send(JSON.stringify("hello"));
 			if (result) {
