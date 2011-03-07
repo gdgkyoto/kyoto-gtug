@@ -9,6 +9,8 @@ public class CardsControllerTest extends ControllerTestCase {
 
     @Test
     public void run() throws Exception {
+        tester.environment.setEmail( "tester@gmail.com" );
+
         tester.start("/hiy/cards");
         CardsController controller = tester.getController();
         assertThat(controller, is(notNullValue()));

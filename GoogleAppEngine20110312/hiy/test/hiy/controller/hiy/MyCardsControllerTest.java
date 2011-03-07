@@ -5,6 +5,9 @@ import hiy.model.Card;
 import org.slim3.datastore.Datastore;
 import org.slim3.tester.ControllerTestCase;
 import org.junit.Test;
+
+import com.google.appengine.api.datastore.Blob;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -13,11 +16,11 @@ public class MyCardsControllerTest extends ControllerTestCase {
     @Test
     public void run() throws Exception {
 
+        tester.environment.setEmail( "tester@gmail.com" );
+
         Card card = new Card();
         card.setUser("test1");
-
-        Datastore.put(card);
-
+         Datastore.put(card);
         tester.param("key", Datastore.keyToString( card.getKey() ) );
 
         tester.start("/hiy/myCards");
