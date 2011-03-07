@@ -1,5 +1,8 @@
 package hiy.controller.hiy;
 
+import hiy.model.Card;
+
+import org.slim3.datastore.Datastore;
 import org.slim3.tester.ControllerTestCase;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -10,7 +13,12 @@ public class MyCardsControllerTest extends ControllerTestCase {
     @Test
     public void run() throws Exception {
 
-        tester.param("key", "abc");
+        Card card = new Card();
+        card.setUser("test1");
+
+        Datastore.put(card);
+
+        tester.param("key", Datastore.keyToString( card.getKey() ) );
 
         tester.start("/hiy/myCards");
         MyCardsController controller = tester.getController();
@@ -19,7 +27,9 @@ public class MyCardsControllerTest extends ControllerTestCase {
         assertThat(tester.getDestinationPath(), is("/hiy/myCards.jsp"));
 
         assertThat(tester.requestScope("enemy"), is(notNullValue()));
-        assertThat((String) tester.requestScope("enemy"), is("abc"));
+
+        Card enemy = (Card) tester.requestScope("enemy");
+        assertThat( enemy.getUser(), is( "test1" ) );
 
         assertThat(tester.requestScope("myCards"), is(notNullValue()));
     }
