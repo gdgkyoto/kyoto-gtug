@@ -10,6 +10,7 @@ import org.slim3.controller.upload.FileItem;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 
 
@@ -35,6 +36,11 @@ public class CardService {
     public List<Card> getCards() {
         return Datastore.query(meta).asList();
     }
+
+    public Card getCard( Key key ) {
+        return Datastore.get(meta, key);
+    }
+
 
     private CardMeta meta = new CardMeta();
 }
