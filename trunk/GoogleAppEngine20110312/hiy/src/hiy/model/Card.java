@@ -11,6 +11,14 @@ import org.slim3.datastore.Model;
 @Model(schemaVersion = 1)
 public class Card implements Serializable {
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -46,6 +54,7 @@ public class Card implements Serializable {
     private String userID;
     private String userName;
     private int power;
+    private String color;
     private Blob image;
 
     private static final long serialVersionUID = 1L;

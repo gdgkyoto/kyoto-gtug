@@ -23,6 +23,7 @@ public class CardService {
         card.setUserID( (String) input.get("userID") );
         card.setUserName( (String) input.get("userName") );
         card.setPower( Integer.parseInt( (String) input.get("power") ) );
+        card.setColor( (String) input.get( "color" ) );
         FileItem imageFile = (FileItem) input.get("image");
         if ( imageFile != null ) {
             card.setImage( new Blob( imageFile.getData() ) );

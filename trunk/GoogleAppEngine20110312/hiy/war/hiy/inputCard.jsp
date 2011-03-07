@@ -17,6 +17,13 @@
 			<input type="text" name="userName" value="${f:h(userName)}"> <br/>
 			パワー : <input type="text" name="power" value="100"/> <br/>
 			画像ファイル : <input type="file" name="image" /><br />
+			色 :
+			<select name="color">
+				<option value="R">赤</option>
+				<option value="G">緑</option>
+				<option value="B">青</option>
+				<option value="O">オレンジ</option>
+			</select> <br/>
 			<input type="submit" value="送信"/><br/>
 		</form>
 	</p>
