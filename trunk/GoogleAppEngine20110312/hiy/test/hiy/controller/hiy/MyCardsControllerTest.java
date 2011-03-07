@@ -6,8 +6,6 @@ import org.slim3.datastore.Datastore;
 import org.slim3.tester.ControllerTestCase;
 import org.junit.Test;
 
-import com.google.appengine.api.datastore.Blob;
-
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
