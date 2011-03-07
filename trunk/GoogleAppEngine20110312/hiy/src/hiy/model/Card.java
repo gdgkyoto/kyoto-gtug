@@ -11,12 +11,20 @@ import org.slim3.datastore.Model;
 @Model(schemaVersion = 1)
 public class Card implements Serializable {
 
-    public String getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public int getPower() {
@@ -35,7 +43,8 @@ public class Card implements Serializable {
         this.image = image;
     }
 
-    private String user;
+    private String userID;
+    private String userName;
     private int power;
     private Blob image;
 

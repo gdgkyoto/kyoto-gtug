@@ -15,7 +15,7 @@ public class BattleControllerTest extends ControllerTestCase {
     public void run() throws Exception {
 
         Card card = new Card();
-        card.setUser("test1");
+        card.setUserID("test1");
 
         Datastore.put(card);
 

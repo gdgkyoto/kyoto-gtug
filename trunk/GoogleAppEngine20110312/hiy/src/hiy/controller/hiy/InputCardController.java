@@ -14,7 +14,8 @@ public class InputCardController extends Controller {
 
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
-        requestScope( "user", user.getNickname() );
+        requestScope( "userID", user.getUserId() );
+        requestScope( "userName", user.getNickname() );
 
         return forward("inputCard.jsp");
     }

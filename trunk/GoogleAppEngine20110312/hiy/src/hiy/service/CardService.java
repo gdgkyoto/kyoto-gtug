@@ -20,7 +20,8 @@ public class CardService {
     public Card newCard(Map<String, Object> input) {
         Card card = new Card();
 
-        card.setUser( (String) input.get("user") );
+        card.setUserID( (String) input.get("userID") );
+        card.setUserName( (String) input.get("userName") );
         card.setPower( Integer.parseInt( (String) input.get("power") ) );
         FileItem imageFile = (FileItem) input.get("image");
         if ( imageFile != null ) {
@@ -38,12 +39,12 @@ public class CardService {
         return Datastore.query(meta).asList();
     }
 
-    public List<Card> getCardsWith( String user ) {
+    public List<Card> getCardsWith( String userID ) {
         List<Card> cardsAll = Datastore.query(meta).asList();
 
         List<Card> cards = new ArrayList<Card>();
         for ( Card card : cardsAll ) {
-            if ( card.getUser().equals( user ) ) {
+            if ( card.getUserID().equals( userID ) ) {
                 cards.add( card );
             }
         }
@@ -51,12 +52,12 @@ public class CardService {
         return cards;
     }
 
-    public List<Card> getCardsWithout( String user ) {
+    public List<Card> getCardsWithout( String userID ) {
         List<Card> cardsAll = Datastore.query(meta).asList();
 
         List<Card> cards = new ArrayList<Card>();
         for ( Card card : cardsAll ) {
-            if ( !card.getUser().equals( user ) ) {
+            if ( !card.getUserID().equals( userID ) ) {
                 cards.add( card );
             }
         }

@@ -14,7 +14,7 @@ public class UploadControllerTest extends ControllerTestCase {
 
     @Test
     public void run() throws Exception {
-        tester.param("user", "ctrlertest@gmail.com");
+        tester.param("userID", "ctrlertest@gmail.com");
         tester.param("power", "123");
         byte[] bytes = new byte[5];
         FileItem imageFile = new FileItem( "test.png", "image/png", bytes);
@@ -29,7 +29,7 @@ public class UploadControllerTest extends ControllerTestCase {
 
         Card stored = Datastore.query(Card.class).asSingle();
         assertThat(stored, is(notNullValue()));
-        assertThat(stored.getUser(), is("ctrlertest@gmail.com"));
+        assertThat(stored.getUserID(), is("ctrlertest@gmail.com"));
         assertThat(stored.getPower(), is(123));
         assertThat(stored.getImage(), is(notNullValue()));
 

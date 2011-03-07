@@ -25,7 +25,8 @@ public class CardServiceTest extends AppEngineTestCase {
         assertThat(service, is(notNullValue()));
 
         Map<String, Object> input = new HashMap<String, Object>();
-        input.put("user", "test@gmail.com");
+        input.put("userID", "1231234");
+        input.put("userName", "test@gmail.com");
         input.put("power", "110");
         byte[] bytes = { 1, 2, 3, 4, 5 };
         FileItem imageFile = new FileItem( "test.png", "image/png", bytes);
@@ -35,7 +36,8 @@ public class CardServiceTest extends AppEngineTestCase {
         assertThat(card, is(notNullValue()));
         Card stored = Datastore.get(Card.class, card.getKey());
 
-        assertThat(stored.getUser(), is("test@gmail.com"));
+        assertThat(stored.getUserID(), is("1231234"));
+        assertThat(stored.getUserName(), is("test@gmail.com"));
         assertThat(stored.getPower(), is(110));
         assertThat(stored.getImage(), is(notNullValue()));
 
@@ -50,20 +52,20 @@ public class CardServiceTest extends AppEngineTestCase {
     @Test
     public void testGetCards() throws Exception {
         Card card = new Card();
-        card.setUser("test1");
+        card.setUserID("test1");
 
         Datastore.put(card);
         List<Card> cards = service.getCards();
 
         assertThat(cards.size(), is(1));
-        assertThat(cards.get(0).getUser(), is("test1"));
+        assertThat(cards.get(0).getUserID(), is("test1"));
 
     }
 
     @Test
     public void testGetCard() throws Exception {
         Card card = new Card();
-        card.setUser("test2");
+        card.setUserID("test2");
 
         byte[] bytes = { 1, 3, 5, 9, 12 };
         card.setImage( new Blob( bytes ) );
@@ -72,7 +74,7 @@ public class CardServiceTest extends AppEngineTestCase {
         Card stored = service.getCard( card.getKey() );
 
         assertThat(stored, is(notNullValue()));
-        assertThat(stored.getUser(), is("test2"));
+        assertThat(stored.getUserID(), is("test2"));
 
         byte[] storedBytes = stored.getImage().getBytes();
         assertThat(storedBytes, is(notNullValue()));

@@ -17,7 +17,7 @@ public class CardImageControllerTest extends ControllerTestCase {
     public void run() throws Exception {
 
         Card card = new Card();
-        card.setUser("test1");
+        card.setUserID("test1");
         card.setImage( new Blob( new byte[] { 1, 2, 3 } ) );
         Datastore.put(card);
         tester.param("key", Datastore.keyToString( card.getKey() ) );

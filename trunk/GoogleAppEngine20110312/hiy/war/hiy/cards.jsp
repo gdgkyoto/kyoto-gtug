@@ -16,7 +16,7 @@
 		<c:forEach var="e" items="${cards}">
 			<a href="myCards?key=${f:h(e.key)}">
 				<img src="cardImage?key=${f:h(e.key)}" width="100" />
-				ユーザー : ${f:h(e.user)}
+				ユーザー : ${f:h(e.userName)}
 				パワー : ${f:h(e.power)}
 			</a>
 			<hr />
