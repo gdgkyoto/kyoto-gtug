@@ -10,6 +10,9 @@ import org.slim3.controller.upload.FileItem;
 import org.slim3.datastore.Datastore;
 import org.slim3.tester.AppEngineTestCase;
 import org.junit.Test;
+
+import com.google.appengine.api.datastore.Blob;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -46,14 +49,33 @@ public class CardServiceTest extends AppEngineTestCase {
 
     @Test
     public void testGetCards() throws Exception {
-        Card tweet = new Card();
-        tweet.setUser("test1");
+        Card card = new Card();
+        card.setUser("test1");
 
-        Datastore.put(tweet);
+        Datastore.put(card);
         List<Card> cards = service.getCards();
 
         assertThat(cards.size(), is(1));
         assertThat(cards.get(0).getUser(), is("test1"));
 
+    }
+
+    @Test
+    public void testGetCard() throws Exception {
+        Card card = new Card();
+        card.setUser("test2");
+
+        byte[] bytes = { 1, 3, 5, 9, 12 };
+        card.setImage( new Blob( bytes ) );
+
+        Datastore.put(card);
+        Card stored = service.getCard( card.getKey() );
+
+        assertThat(stored, is(notNullValue()));
+        assertThat(stored.getUser(), is("test2"));
+
+        byte[] storedBytes = stored.getImage().getBytes();
+        assertThat(storedBytes, is(notNullValue()));
+        assertThat(storedBytes.length, is(5));
     }
 }
