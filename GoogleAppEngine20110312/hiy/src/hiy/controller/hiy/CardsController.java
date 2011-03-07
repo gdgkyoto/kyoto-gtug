@@ -19,7 +19,7 @@ public class CardsController extends Controller {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
 
-        List<Card> cards = service.getCardsWithout( user.getNickname() );
+        List<Card> cards = service.getCardsWithout( user.getUserId() );
         requestScope("cards", cards);
 
         return forward("cards.jsp");

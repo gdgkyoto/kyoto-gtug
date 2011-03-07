@@ -17,7 +17,7 @@ public class MyCardsControllerTest extends ControllerTestCase {
         tester.environment.setEmail( "tester@gmail.com" );
 
         Card card = new Card();
-        card.setUser("test1");
+        card.setUserID("test1");
          Datastore.put(card);
         tester.param("key", Datastore.keyToString( card.getKey() ) );
 
@@ -30,7 +30,7 @@ public class MyCardsControllerTest extends ControllerTestCase {
         assertThat(tester.requestScope("enemy"), is(notNullValue()));
 
         Card enemy = (Card) tester.requestScope("enemy");
-        assertThat( enemy.getUser(), is( "test1" ) );
+        assertThat( enemy.getUserID(), is( "test1" ) );
 
         assertThat(tester.requestScope("myCards"), is(notNullValue()));
     }

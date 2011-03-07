@@ -14,14 +14,14 @@
 	<p>
 		<h2>自分</h2>
 		<img src="cardImage?key=${f:h(myCard.key)}" width="100" />
-		ユーザー : ${f:h(myCard.user)}
+		ユーザー : ${f:h(myCard.userName)}
 		パワー : ${f:h(myCard.power)}
 	</p>
 
 	<p>
 		<h2>相手</h2>
 		<img src="cardImage?key=${f:h(enemy.key)}" width="100" />
-		ユーザー : ${f:h(enemy.user)}
+		ユーザー : ${f:h(enemy.userName)}
 		パワー : ${f:h(enemy.power)}
 	</p>
 

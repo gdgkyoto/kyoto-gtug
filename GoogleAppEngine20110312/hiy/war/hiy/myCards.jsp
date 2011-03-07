@@ -14,7 +14,7 @@
 	<p>
 		<h2>対戦相手</h2>
 		<img src="cardImage?key=${f:h(enemy.key)}" width="100" />
-		ユーザー : ${f:h(enemy.user)}
+		ユーザー : ${f:h(enemy.userName)}
 		パワー : ${f:h(enemy.power)}
 	</p>
 

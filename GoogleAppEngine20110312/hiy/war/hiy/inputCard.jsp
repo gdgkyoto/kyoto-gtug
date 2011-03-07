@@ -13,7 +13,8 @@
 
 	<p>
 		<form action="upload" method="post" enctype="multipart/form-data">
-			ユーザー : <input type="text" name="user"/ value="${f:h(user)}"> <br/>
+			ユーザー : <input type="text" name="userID" value="${f:h(userID)}">
+			<input type="text" name="userName" value="${f:h(userName)}"> <br/>
 			パワー : <input type="text" name="power" value="100"/> <br/>
 			画像ファイル : <input type="file" name="image" /><br />
 			<input type="submit" value="送信"/><br/>

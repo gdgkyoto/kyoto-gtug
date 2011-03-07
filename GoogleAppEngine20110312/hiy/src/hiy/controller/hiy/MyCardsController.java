@@ -22,7 +22,7 @@ public class MyCardsController extends Controller {
 
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
-        List<Card> cards = service.getCardsWith( user.getNickname() );
+        List<Card> cards = service.getCardsWith( user.getUserId() );
         requestScope("myCards", cards);
 
 
