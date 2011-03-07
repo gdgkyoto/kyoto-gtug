@@ -12,8 +12,12 @@ public class CardImageController extends Controller {
     @Override
     public Navigation run() throws Exception {
 
-        Card card = this.service.getCard( asKey( meta.key ) );
-        show( "card.png", card.getImage().getBytes() );
+        try {
+            Card card = this.service.getCard( asKey( meta.key ) );
+            show( "card.png", card.getImage().getBytes() );
+        } catch ( Exception ex ) {
+            ex.printStackTrace();
+        }
 
         return null;
     }
