@@ -16,6 +16,7 @@
 		<img src="cardImage?key=${f:h(myCard.key)}" width="100" />
 		ユーザー : ${f:h(myCard.userName)}
 		パワー : ${f:h(myCard.power)}
+		色 : ${f:h(myCard.color)}
 	</p>
 
 	<p>
@@ -23,6 +24,7 @@
 		<img src="cardImage?key=${f:h(enemy.key)}" width="100" />
 		ユーザー : ${f:h(enemy.userName)}
 		パワー : ${f:h(enemy.power)}
+		色 : ${f:h(enemy.color)}
 	</p>
 
 	<p>
