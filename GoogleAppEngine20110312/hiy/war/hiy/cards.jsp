@@ -13,8 +13,9 @@
 	<p>
 		<h1>対戦カード</h1>
 		<c:forEach var="e" items="${cards}">
-			${f:h(e.user)}
-			${f:h(e.power)}
+			<img src="cardImage?key=${f:h(e.key)}" width="100" />
+			ユーザー : ${f:h(e.user)}
+			パワー : ${f:h(e.power)}
 			<hr />
 		</c:forEach>
 	</p>
