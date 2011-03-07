@@ -3,6 +3,7 @@ package hiy.service;
 import hiy.model.Card;
 import hiy.meta.CardMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +38,35 @@ public class CardService {
         return Datastore.query(meta).asList();
     }
 
+    public List<Card> getCardsWith( Key key ) {
+        List<Card> cardsAll = Datastore.query(meta).asList();
+
+        List<Card> cards = new ArrayList<Card>();
+        for ( Card card : cardsAll ) {
+            if ( card.getKey().equals( key ) ) {
+                cards.add( card );
+            }
+        }
+
+        return cards;
+    }
+
+    public List<Card> getCardsWithout( Key key ) {
+        List<Card> cardsAll = Datastore.query(meta).asList();
+
+        List<Card> cards = new ArrayList<Card>();
+        for ( Card card : cardsAll ) {
+            if ( !card.getKey().equals( key ) ) {
+                cards.add( card );
+            }
+        }
+
+        return cards;
+    }
+
     public Card getCard( Key key ) {
         return Datastore.get(meta, key);
     }
-
 
     private CardMeta meta = new CardMeta();
 }

@@ -28,5 +28,9 @@
 			<hr />
 		</c:forEach>
 	</p>
+
+	<p>
+		<a href="./">天下一武道会 トップ</a>
+	</p>
 </body>
 </html>

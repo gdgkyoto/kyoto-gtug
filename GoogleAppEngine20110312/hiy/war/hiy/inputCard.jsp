@@ -9,7 +9,7 @@
 <title>天下一武道会</title>
 </head>
 <body>
-	<p>天下一武道会</p>
+	<h1>天下一武道会</h1>
 
 	<p>
 		<form action="upload" method="post" enctype="multipart/form-data">
@@ -18,7 +18,10 @@
 			画像ファイル : <input type="file" name="image" /><br />
 			<input type="submit" value="送信"/><br/>
 		</form>
-		<a href="./">キャンセル</a>
+	</p>
+
+	<p>
+		<a href="./">天下一武道会 トップ</a>
 	</p>
 </body>
 </html>
