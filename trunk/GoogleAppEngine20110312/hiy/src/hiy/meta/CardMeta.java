@@ -1,6 +1,6 @@
 package hiy.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-07 11:26:58")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-07 13:26:56")
 /** */
 public final class CardMeta extends org.slim3.datastore.ModelMeta<hiy.model.Card> {
 
