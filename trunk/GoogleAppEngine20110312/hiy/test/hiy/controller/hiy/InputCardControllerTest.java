@@ -2,6 +2,7 @@ package hiy.controller.hiy;
 
 import org.slim3.tester.ControllerTestCase;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -9,6 +10,9 @@ public class InputCardControllerTest extends ControllerTestCase {
 
     @Test
     public void run() throws Exception {
+
+        tester.environment.setEmail( "tester@gmail.com" );
+
         tester.start("/hiy/inputCard");
         InputCardController controller = tester.getController();
         assertThat(controller, is(notNullValue()));
