@@ -14,5 +14,7 @@ public class CardsControllerTest extends ControllerTestCase {
         assertThat(controller, is(notNullValue()));
         assertThat(tester.isRedirect(), is(false));
         assertThat(tester.getDestinationPath(), is("/hiy/cards.jsp"));
+
+        assertThat(tester.requestScope("cards"), is(notNullValue()));
     }
 }

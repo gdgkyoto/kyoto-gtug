@@ -6,9 +6,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>hiy Cards</title>
+<title>天下一武道会</title>
 </head>
 <body>
-<p>Hello hiy Cards !!!</p>
+	<p>天下一武道会</p>
+	<p>
+		<h1>対戦カード</h1>
+		<c:forEach var="e" items="${cards}">
+			${f:h(e.user)}
+			${f:h(e.power)}
+			<hr />
+		</c:forEach>
+	</p>
+
+	<p>
+		<a href="inputCard">カード追加</a>
+	</p>
 </body>
 </html>
