@@ -9,7 +9,8 @@
 <title>天下一武道会</title>
 </head>
 <body>
-	<p>天下一武道会</p>
+	<h1>天下一武道会</h1>
+
 	<p>
 		<h1>対戦カード</h1>
 		<c:forEach var="e" items="${cards}">

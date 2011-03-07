@@ -1,6 +1,5 @@
 package hiy.controller.hiy;
 
-import hiy.meta.CardMeta;
 import hiy.model.Card;
 import hiy.service.CardService;
 
@@ -14,9 +13,9 @@ public class MyCardsController extends Controller {
     @Override
     public Navigation run() throws Exception {
 
-        requestScope("enemy", service.getCard( asKey( meta.key )));
+        requestScope("enemy", service.getCard( asKey( "key" )));
 
-        List<Card> cards = service.getCards();
+        List<Card> cards = service.getCardsWithout( asKey( "key" ) );
         requestScope("myCards", cards);
 
 
@@ -24,5 +23,4 @@ public class MyCardsController extends Controller {
     }
 
     private CardService service = new CardService();
-    private CardMeta meta = new CardMeta();
 }
