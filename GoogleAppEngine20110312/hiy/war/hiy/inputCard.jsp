@@ -10,17 +10,15 @@
 </head>
 <body>
 	<p>天下一武道会</p>
-	<p>
-		<h1>対戦カード</h1>
-		<c:forEach var="e" items="${cards}">
-			${f:h(e.user)}
-			${f:h(e.power)}
-			<hr />
-		</c:forEach>
-	</p>
 
 	<p>
-		<a href="inputCard">カード追加</a>
+		<form action="upload" method="post" enctype="multipart/form-data">
+			ユーザー : <input type="text" name="user"/> <br/>
+			パワー : <input type="text" name="power" value="100"/> <br/>
+			画像ファイル : <input type="file" name="image" /><br />
+			<input type="submit" value="送信"/><br/>
+		</form>
+		<a href="./">キャンセル</a>
 	</p>
 </body>
 </html>

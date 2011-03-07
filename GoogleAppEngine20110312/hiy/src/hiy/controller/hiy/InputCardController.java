@@ -3,10 +3,10 @@ package hiy.controller.hiy;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
-public class IndexController extends Controller {
+public class InputCardController extends Controller {
 
     @Override
     public Navigation run() throws Exception {
-        return this.forward("cards");
+        return forward("inputCard.jsp");
     }
 }
