@@ -38,12 +38,12 @@ public class CardService {
         return Datastore.query(meta).asList();
     }
 
-    public List<Card> getCardsWith( Key key ) {
+    public List<Card> getCardsWith( String user ) {
         List<Card> cardsAll = Datastore.query(meta).asList();
 
         List<Card> cards = new ArrayList<Card>();
         for ( Card card : cardsAll ) {
-            if ( card.getKey().equals( key ) ) {
+            if ( card.getUser().equals( user ) ) {
                 cards.add( card );
             }
         }
@@ -51,12 +51,12 @@ public class CardService {
         return cards;
     }
 
-    public List<Card> getCardsWithout( Key key ) {
+    public List<Card> getCardsWithout( String user ) {
         List<Card> cardsAll = Datastore.query(meta).asList();
 
         List<Card> cards = new ArrayList<Card>();
         for ( Card card : cardsAll ) {
-            if ( !card.getKey().equals( key ) ) {
+            if ( !card.getUser().equals( user ) ) {
                 cards.add( card );
             }
         }

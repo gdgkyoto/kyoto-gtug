@@ -8,14 +8,21 @@ import java.util.List;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 public class MyCardsController extends Controller {
 
     @Override
     public Navigation run() throws Exception {
 
-        requestScope("enemy", service.getCard( asKey( "key" )));
+        Card enemy = service.getCard( asKey( "key" ) );
+        requestScope( "enemy", enemy );
 
-        List<Card> cards = service.getCardsWithout( asKey( "key" ) );
+        UserService userService = UserServiceFactory.getUserService();
+        User user = userService.getCurrentUser();
+        List<Card> cards = service.getCardsWith( user.getNickname() );
         requestScope("myCards", cards);
 
 
