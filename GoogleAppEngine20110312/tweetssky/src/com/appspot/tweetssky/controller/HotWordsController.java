@@ -2,11 +2,20 @@ package com.appspot.tweetssky.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.arnx.jsonic.JSON;
 
 import org.slim3.controller.Navigation;
 import org.slim3.util.RequestLocator;
+
+import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.BasicAuthorization;
 
 import com.appspot.tweetssky.model.HotWord;
 
@@ -59,14 +68,14 @@ public class HotWordsController extends RestfulWebServiceController {
 	private void getHotWords() {
 		List<HotWord> hotWords = new ArrayList<HotWord>();
 		
-		HotWord hotWord = new HotWord();
-		hotWord.setWord("AKB");
-		hotWord.setRank(56);
-		hotWords.add(hotWord);
-		HotWord hotWord2 = new HotWord();
-		hotWord2.setWord("Sabaeee");
-		hotWord2.setRank(32);
-		hotWords.add(hotWord2);
+		List<String> words = getHotWordsFromX();
+		Random rondom = new Random();
+		for (String string : words) {
+			HotWord hotWord = new HotWord();
+			hotWord.setWord(string);
+			hotWord.setRank((int)(rondom.nextDouble() * 100 + 1));
+			hotWords.add(hotWord);
+		}
 		
 		String strict = RequestLocator.get().getParameter("strict");
 		
@@ -76,4 +85,43 @@ public class HotWordsController extends RestfulWebServiceController {
 		
 		responseWriter(ret, CONTENT_TYPE_JSON);
 	}
+	
+	private List<String> getHotWordsFromX() {
+		List<String> words = new ArrayList<String>();
+		words.add("AKB");
+		words.add("Sabae");
+		words.add("Fukui");
+		words.add("Fitea");
+		words.add("jig");
+		words.add("Echizen");
+		words.add("Egypt");
+		return words;
+	}
+//	private List<String> getHotWordsFromX() {
+//		List<String> words = new ArrayList<String>();
+//		
+//		String screenname = "tweetssky";
+//		String password = "yoy0312";
+//		TwitterFactory factory = new TwitterFactory();
+//		Twitter twitter = factory.getInstance(new BasicAuthorization(screenname, password));
+//
+//		final int count = 20;
+//		Paging paging = new Paging(1, count);
+//
+//		ResponseList<Status> statusList = null;
+//		try {
+//			statusList = twitter.getUserTimeline("buzztter", paging);
+//		} catch (TwitterException e) {
+//			e.printStackTrace();
+//			return words;
+//		}
+//		
+//		for (Status status : statusList) {
+//			String text = status.getText();
+//			if (text.startsWith("HOT:")) {
+//				words.add(text);
+//			}
+//		}
+//		return words;
+//	}
 }
