@@ -1,0 +1,131 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	min-width: 600px;
+	min-height: 400px;
+}
+ul, ol, dl {
+	margin: 0;
+	padding: 0;
+}
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+a:visited {
+	color: #6E6C64;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus {
+	color: #999999;
+	text-decoration: none;
+}
+#headerline {
+	background: #0953A7; 
+	height: 2px;
+}
+#footer {
+	font-size: smaller;
+	text-align: right;
+	padding: 0;
+	float: left;
+	height: 21px;
+	position: fixed;
+	clear: both;
+	bottom: 0;
+	left: 10px;
+	right: 10px;
+	z-index: 10;
+}
+#footer li {
+	float: left;
+	display: inline;
+}
+#footer li a {
+	padding: 0 5px;
+}
+#appmenu {
+	float: right;
+	font-weight: bold;
+}
+#drop {
+	background-color: #fff;
+	height: 100%;
+}
+
+#drop.drag {
+	background-color: #333;
+}
+
+#center {
+	z-index: 1;
+	position: relative;
+	height: 100%;
+	margin-top: -72px;
+    display: -moz-box;
+    display: -webkit-box;
+    -moz-box-align: center;
+    -webkit-box-align: center;
+    -moz-box-pack: center;
+    -webkit-box-pack: center;
+}
+
+#centerBox {
+	position: absolute;
+	z-index: 2;
+	height: 235px;
+	width: 380px;
+	top: 50%;
+	left: 50%;
+	margin-top: -120px;
+	margin-left: -190px;
+	border:dotted 12px #333;
+	-moz-border-radius-topleft: 32px;
+	-moz-border-radius-topright:32px;
+	-moz-border-radius-bottomleft:32px;
+	-moz-border-radius-bottomright:32px;
+	-webkit-border-top-left-radius:32px;
+	-webkit-border-top-right-radius:32px;
+	-webkit-border-bottom-left-radius:32px;
+	-webkit-border-bottom-right-radius:32px;
+	border-top-left-radius:32px;
+	border-top-right-radius:32px;
+	border-bottom-left-radius:32px;
+	border-bottom-right-radius:32px;
+
+	display: -moz-box;
+    display: -webkit-box;
+    -moz-box-align: center;
+    -webkit-box-align: center;
+    -moz-box-pack: center;
+    -webkit-box-pack: center;
+
+    color: #ccc;
+    font-size: xx-large;
+	font-weight: bold;
+}
+
+#formBox {
+	position: absolute;
+	z-index: 3;
+	height: 100%;
+	width: 100%;
+}
+
+#dropMessage {
+	z-index: 100;
+	position: absolute;
+	margin-top: -10px;
+	margin-left: -100px; 
+	top: 50%;
+	left: 50%;
+	color: #fff;
+	font-size: xx-large;
+	font-weight: bold;
+	display: none;
+}

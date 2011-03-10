@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TweetSky</title>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+<link type="text/css" href="css/jquery-ui-1.8.10.custom.css"
+	rel="stylesheet" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+<script>
+<!--
+function loadJson() {
+	$.ajax({
+		url: "src"
+		success: function(result) {
+			$("#tweets").text(result);
+		}
+	});
+//	document.getElementById("tweets").innerHTML = "helloX";
+}
+// -->
+</script>
+</head>
+<body onload="loadJson()">
+	<div id="header">
+		<h1>TweetSky</h1>
+	</div>
+	<div id="tweets"></div>
+	<div id="footer">
+	</div>
+</body>
+</html>
