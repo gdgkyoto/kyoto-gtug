@@ -1,8 +1,16 @@
 package com.appspot.tweetssky.controller;
 
-import org.slim3.controller.Navigation;
+import java.util.ArrayList;
+import java.util.List;
 
-public class HotTweetsController extends RestfulWebServiceController {	
+import net.arnx.jsonic.JSON;
+
+import org.slim3.controller.Navigation;
+import org.slim3.util.RequestLocator;
+
+import com.appspot.tweetssky.model.HotWord;
+
+public class HotWordsController extends RestfulWebServiceController {	
 	@Override
 	public Navigation setUp() {
 		return super.setUp();
@@ -10,7 +18,7 @@ public class HotTweetsController extends RestfulWebServiceController {
 
 	@Override
 	public void doGet() {
-		hello();
+		getHotWords();
 //		String paramUrl = RequestLocator.get().getParameter("url");
 //		if (StringUtils.isBlank(paramUrl)) {
 //			responseWriter(SC_BAD_REQUEST);
@@ -48,15 +56,24 @@ public class HotTweetsController extends RestfulWebServiceController {
     public void doPost() {
     }
 
-	private void hello() {
-//		ClassInfo classInfo = new ClassInfo();
-//		classInfo.setName("Hello TweetSky");
-//		String strict = RequestLocator.get().getParameter("strict");
-//		
-//		JSON json = new JSON(JSON.Mode.STRICT);
-//		json.setPrettyPrint("true".equals(strict));
-//		String ret = json.format(classInfo);
-//		
-//		responseWriter(ret, CONTENT_TYPE_JSON);
+	private void getHotWords() {
+		List<HotWord> hotWords = new ArrayList<HotWord>();
+		
+		HotWord hotWord = new HotWord();
+		hotWord.setWord("AKB");
+		hotWord.setRank(56);
+		hotWords.add(hotWord);
+		HotWord hotWord2 = new HotWord();
+		hotWord2.setWord("Sabaeee");
+		hotWord2.setRank(32);
+		hotWords.add(hotWord2);
+		
+		String strict = RequestLocator.get().getParameter("strict");
+		
+		JSON json = new JSON(JSON.Mode.STRICT);
+		json.setPrettyPrint("true".equals(strict));
+		String ret = json.format(hotWords);
+		
+		responseWriter(ret, CONTENT_TYPE_JSON);
 	}
 }
