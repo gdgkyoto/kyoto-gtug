@@ -12,24 +12,39 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
 <script>
-<!--
-function loadJson() {
-	$.ajax({
-		url: "src"
-		success: function(result) {
-			$("#tweets").text(result);
-		}
-	});
-//	document.getElementById("tweets").innerHTML = "helloX";
-}
-// -->
+window.onload = function() {
+//	$('#header').hide().fadeIn(3000);
+	
+	$.getJSON("hotWords",
+			function(json) {
+				$("#hotwords").text(JSON.stringify(json));
+			}
+		);
+	$.getJSON("hotTweets?hot=AKB&count=5",
+			function(json) {
+				$("#hottweets").text(JSON.stringify(json));
+			}
+		);
+};     
+/* 	  	$.ajax({
+			url: "/hotWords"
+			success: function(result) {
+				$("#tweets").text(result);
+			}
+	  	});
+	  	}
+ */
 </script>
 </head>
-<body onload="loadJson()">
+
+<body>
 	<div id="header">
 		<h1>TweetSky</h1>
 	</div>
-	<div id="tweets"></div>
+	<h2>Hot Words</h2>
+	<div id="hotwords"></div>
+	<h2>Hot Tweets</h2>
+	<div id="hottweets"></div>
 	<div id="footer">
 	</div>
 </body>
