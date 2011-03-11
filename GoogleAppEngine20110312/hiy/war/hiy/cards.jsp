@@ -7,23 +7,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>天下一武道会</title>
+<style type="text/css">
+	body {
+		background-image: url(images/tenga1.jpg);
+		background-repeat: no-repeat;
+		padding-left: 130px;
+		height: 1477px;
+	}
+
+	div.cards {
+		margin-top: 300px;
+	}
+
+	div.card {
+		float: left;
+		margin-left: 20px;
+	}
+
+	div.cardImage {
+		width: 100px;
+		height: 100px;
+	}
+
+	p {
+		clear: left;
+	}
+</style>
 </head>
 <body>
-	<h1>天下一武道会</h1>
-
-	<p>
-		<h1>対戦カード</h1>
+	<div class="cards">
 		<c:forEach var="e" items="${cards}">
-			<a href="myCards?key=${f:h(e.key)}">
-				<img src="cardImage?key=${f:h(e.key)}" width="100" />
-				ユーザー : ${f:h(e.userName)}
-				パワー : ${f:h(e.power)}
-			</a>
-			<hr />
+			<div class="card">
+				<a href="myCards?key=${f:h(e.key)}">
+					<div class="cardImage">
+						<img src="cardImage?key=${f:h(e.key)}" width="100" />
+					</div>
+					${f:h(e.userName)}
+				</a>
+			</div>
 		</c:forEach>
-	</p>
+		<br/>
+	</div>
 
 	<p>
+		<br/>
 		<a href="inputCard">カード追加</a>
 	</p>
 </body>
