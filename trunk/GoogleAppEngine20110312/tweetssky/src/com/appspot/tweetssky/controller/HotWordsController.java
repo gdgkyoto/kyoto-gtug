@@ -5,17 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 import net.arnx.jsonic.JSON;
+import net.reduls.gomoku.Morpheme;
+import net.reduls.gomoku.Tagger;
 
 import org.slim3.controller.Navigation;
 import org.slim3.util.RequestLocator;
-
-import twitter4j.Paging;
-import twitter4j.ResponseList;
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.auth.BasicAuthorization;
 
 import com.appspot.tweetssky.model.HotWord;
 
@@ -97,6 +91,9 @@ public class HotWordsController extends RestfulWebServiceController {
 		words.add("Egypt");
 		return words;
 	}
+	
+	
+	
 //	private List<String> getHotWordsFromX() {
 //		List<String> words = new ArrayList<String>();
 //		

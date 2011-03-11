@@ -22,6 +22,8 @@
 	    <property name="slim3.uploadFileSizeMax" value="100000"/>
 	    -->
 	    <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
-	</system-properties>
+		<property name="oauth.consumerKey" value="9OR8xWelnLnG7OJYuQWUVQ" />
+		<property name="oauth.consumerSecret" value="Xjh2dk9TAJl9h66cY7feyDRNitEWtbIISqyvwyKAis" />
+  	</system-properties>
 	<sessions-enabled>true</sessions-enabled>
 </appengine-web-app>
