@@ -8,7 +8,7 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 
 @Model(schemaVersion = 1)
-public class HotWord implements Serializable {
+public class HotWord implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,20 @@ public class HotWord implements Serializable {
     
     private String word;
     private int rank;
+    private int count = 1;
+    
+    public HotWord() {
+    }
+    
+    public HotWord(String word, int rank) {
+    	this.word = word;
+    	this.rank = rank;
+    }
 
+    public HotWord(String word) {
+    	this.word = word;
+    }
+    
     /**
      * Returns the key.
      *
@@ -103,5 +116,27 @@ public class HotWord implements Serializable {
 
 	public int getRank() {
 		return rank;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getCount() {
+		return count;
+	}
+	public void countUp() {
+		this.count++;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		HotWord w = (HotWord)o;
+		if (w.getCount() == this.getCount()) {
+			return 0;
+		} else if (w.getCount() > this.getCount()) {
+			return -1;
+		}
+		return 1;
 	}
 }

@@ -8,6 +8,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slim3.controller.Navigation;
 import org.slim3.util.RequestLocator;
 
+import com.appspot.tweetssky.service.MorphologicalAnalysis;
+
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Tweet;
@@ -92,6 +94,11 @@ public class HotTweetsController extends RestfulWebServiceController {
 			return;
 		}
 	    List<Tweet> tweets = result.getTweets();
+
+	    //TODO
+//	    for (Tweet tweet : tweets) {
+//			List<String> nouns = MorphologicalAnalysis.getNouns(tweet.getText());
+//		}
 	    
 		String strict = RequestLocator.get().getParameter("strict");
 		JSON json = new JSON(JSON.Mode.STRICT);
