@@ -26,6 +26,7 @@ view_groups = [
   ViewGroup(
     Rule('/', endpoint='index', view='myone.views.index'),
     Rule('/challenge_list/', endpoint='challenge_list', view='myone.views.challenge_list'),
+    Rule('/test', endpoint='test', view='myone.views.test'),
  )
 ]
 

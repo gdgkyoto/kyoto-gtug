@@ -8,11 +8,14 @@ from kay.auth.models import GoogleUser
 import kay.db
 
 class MyUser(GoogleUser):
-  name = db.TextProperty
+  myname = db.TextProperty
+
 
 class Competition(db.Model):
   name = db.TextProperty(required=True)
   detail = db.TextProperty(required=True)
+  def __unicode__(self):
+    return self.name
 
 class Record(db.Model):
   user = kay.db.OwnerProperty()
