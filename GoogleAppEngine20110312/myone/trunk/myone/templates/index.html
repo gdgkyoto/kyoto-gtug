@@ -13,8 +13,12 @@
 <body>
 
 <header>
-	<p>挑戦者名：{{ username }}</p>
-	<p><a href="">ログイン</a></p>
+  {% if request.user.is_anonymous() %}
+    <p>&nbsp;</p><p><a href="{{ create_login_url() }}">ログイン</a></p>
+  {% else %}
+    <p>挑戦者名：{{ request.user }}</p><p><a href="{{ create_logout_url() }}">ログアウト</a></p>
+  {% endif %}
+
 </header>
 
 <section id="main">
@@ -88,20 +92,6 @@
 				</div>
 			</li>
 			{% endfor %}
-<!--			<li class="end">
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/XzUILaTGA5k" allowfullscreen></iframe>
-				<div>
-					<h3>パン早食い</h3>
-					<p class="time">
-						<img src="img/i_time.png" style="padding-right: 5px;">00:01:20
-						<span>
-							<img src="img/star_0.png"><img src="img/star_0.5.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png">					
-						</span>
-					</p>
-					<p class="data">1週間前<span>再生回数：200,000回</span></p>
-				</div>
-			</li>
-			-->
 		</ul>
 	</div>
 </section>
