@@ -34,4 +34,3 @@ class MeasuredResult(db.Model):
     address = db.StringProperty()
     comment = db.StringProperty()
 
-
