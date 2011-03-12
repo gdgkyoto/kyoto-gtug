@@ -132,3 +132,18 @@ a {
 	font-size: 36px;
 	font-weight: bold;
 }
+
+table#environment {
+	margin: 0 10px 10px;
+	width: 100%;
+}
+table#environment th {
+	text-align: right;
+	vertical-align: top;
+}
+table#environment td {
+	text-align: left;
+}
+.formFull {
+	width: 200px;
+}
