@@ -27,9 +27,9 @@
 	<div class="bg">
 		<p><a href="">
 		{% if request.user.is_anonymous() %}
-			<a href="./challenge_list"><img src="{{media_url}}/img/b_challenge.png"></a>
+			<a href="{{ create_login_url() }}"><img src="{{media_url}}/img/b_challenge.png"></a>
 		{% else %}
-			<a href="./challenge_list"><img src="{{media_url}}/img/b_challenge2.png"></a>
+			<a href="./test"><img src="{{media_url}}/img/b_challenge2.png"></a>
 		{% endif %}
 		
 		</a></p>
