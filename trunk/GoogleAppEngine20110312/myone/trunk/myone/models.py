@@ -7,15 +7,14 @@ from google.appengine.ext import db
 from kay.auth.models import GoogleUser
 import kay.db
 
-
 class MyUser(GoogleUser):
   pass
 
-class Competition
+class Competition(db.Model):
   name = db.TextProperty(required=True)
   detail = db.TextProperty(required=True)
 
-class RecordLine(db.Model):
+class Record(db.Model):
   user = kay.db.OwnerProperty()
   competition = db.ReferenceProperty(Competition,collection_name='competitions')
   time = db.IntegerProperty(required=True)
@@ -23,3 +22,4 @@ class RecordLine(db.Model):
   respect = db.IntegerProperty(required=True)
   comment = db.TextProperty(required=True)
   created = db.DateTimeProperty(auto_now_add=True)
+
