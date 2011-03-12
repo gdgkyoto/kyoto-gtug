@@ -22,6 +22,9 @@ from kay.routing import (
   ViewGroup, Rule
 )
 
+all_views = {
+  'myone/test': 'myone.views.test',
+}
 view_groups = [
   ViewGroup(
     Rule('/', endpoint='index', view='myone.views.index'),

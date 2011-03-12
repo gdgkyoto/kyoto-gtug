@@ -25,6 +25,11 @@ from kay.auth.decorators import login_required
 
 """
 
+from werkzeug import redirect
+from kay.utils import (
+  render_to_response, url_for
+)
+
 from kay.utils import render_to_response
 from myone.forms import RecordForm
 from myone.models import Competition
@@ -45,6 +50,9 @@ def index(request):
   
 def test(request):
   form = RecordForm()
+  if request.method == "POST" and form.validate(request.form):
+    competition = form.save()
+    return redirect(url_for('myone/test'))
   return render_to_response('myone/test.html'	, {'form': form.as_widget()})
 
 def challenge_list(request):
