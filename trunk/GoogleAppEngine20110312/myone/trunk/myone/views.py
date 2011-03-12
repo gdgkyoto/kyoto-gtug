@@ -44,7 +44,9 @@ def index(request):
 
   ranking = []
   for competition in competitions:
-    ranking.append(Record.all().filter('competition =', competition).order('-time').fetch(3))
+    ranking.append(Record.all().filter('competition =', competition).order('-time').fetch(1))
+
+  respect_runkings = Record.all().order('respect').fetch(3)
 
   return render_to_response('myone/index.html' , {'scrolls': [u'牛乳早飲み 挑戦者挑む - ハッカソン - ', u'タイヤ早交換 挑戦者挑む - ハッカソン - ', u'カップ麺早食い 挑戦者挑む - ハッカソン - ']
 												, 'challenges': competitions
