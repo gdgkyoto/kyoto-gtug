@@ -17,15 +17,28 @@ window.onload = function() {
 	
 	$.getJSON("hotWords",
 			function(json) {
-				$("#hotwords").text(JSON.stringify(json));
+				var tweets = $("#hotwords");
+				for(var i=0; i < json.length; i++) {
+					//console.log(json[i]);
+					tweets.append("<div id='word" + i + "'>" + json[i].word + "</div>");
+				}
+				updateTweets(json);
 			}
 		);
-	$.getJSON("hotTweets?hot=AKB&count=5",
+	
+	function updateTweets(words) {
+		for(var i=0; i < words.length; i++) {
+	 	$.getJSON("hotTweets?hot=" + words[i] + "&count=1&hot_index=" + i,
 			function(json) {
-				$("#hottweets").text(JSON.stringify(json));
+				//for(var j=0; j < json.length; j++) {
+					var j=0;
+					console.log(json.hot_index);
+					$("#word" + json.hot_index).append(json.tweets[0].text);
+				//}
 			}
 		);
-};     
+	}}
+ };     
 /* 	  	$.ajax({
 			url: "/hotWords"
 			success: function(result) {

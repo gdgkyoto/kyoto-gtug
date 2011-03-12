@@ -4,8 +4,8 @@
 	<cron>
 		<url>/getStream</url>
 		<description>get twitter stream and analyze</description>
-		<schedule>every 1 minutes</schedule>
+		<schedule>every 30 minutes</schedule>
 		<timezone>Asia/Tokyo</timezone>
 	</cron>
--->
-</cronentries>
+ -->
+ </cronentries>
