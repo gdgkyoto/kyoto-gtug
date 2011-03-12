@@ -3,55 +3,132 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="f" uri="http://www.slim3.org/functions"%>
 
+<!DOCTYPE html>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>天下一武道会</title>
-<style type="text/css">
-	body {
-		background-image: url(images/tenga1.jpg);
-		background-repeat: no-repeat;
-		padding-left: 130px;
-		height: 1477px;
-	}
+	<meta charset="utf-8">
+	<title>天下一武道会</title>
 
-	div.cards {
-		margin-top: 300px;
-	}
+     <link href="./style.css" rel="stylesheet" type="text/css" />
 
-	div.card {
-		float: left;
-		margin-left: 20px;
-	}
 
-	div.cardImage {
-		width: 100px;
-		height: 100px;
-	}
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	 <script type="text/javascript" src="./jquery.infieldlabel.min.js"></script>
+	 <script type="text/javascript" src="http://gadgetparty.jp/js/main.js"></script>
 
-	p {
-		clear: left;
-	}
-</style>
 </head>
 <body>
-	<div class="cards">
-		<c:forEach var="e" items="${cards}">
-			<div class="card">
-				<a href="myCards?key=${f:h(e.key)}">
-					<div class="cardImage">
-						<img src="cardImage?key=${f:h(e.key)}" width="100" />
-					</div>
-					${f:h(e.userName)}
-				</a>
-			</div>
-		</c:forEach>
-		<br/>
-	</div>
+	<div id="container">
+        <div id="header">
+            <div class="inner"><a href="/hiy/"><img src="./images/logo.png" alt="" /></a></div>
+        </div>
 
-	<p>
-		<br/>
-		<a href="inputCard">カード追加</a>
-	</p>
+        <div id="contents">
+
+            <div id="stage">
+                <p class="catch"><img src="./images/catch_choice.gif" alt="" /></p>
+                <div id="gadget_wrap">
+                    <div id="slide-back"><a><img src="./images/arw_left.gif" alt="" /></a></div>
+                    <div id="field">
+                        <div id="slide-inner">
+                  			<c:forEach var="e" items="${cards}">
+								<div class="card">
+                         		   <div class="player">
+                             		   <dl>
+                             		       <dt><a href="myCards?key=${f:h(e.key)}"><img src="cardImage?key=${f:h(e.key)}" alt="" width="150"/></a></dt>
+                             		       <dd><a href="myCards?key=${f:h(e.key)}">${f:h(e.userName)}</a><br />
+                            		        勝率：60% 　○戦×勝△負</dd>
+                           		     </dl>
+                           		     <p><a href="myCards?key=${f:h(e.key)}"><img src="./images/b_battle.gif" alt="" /></a></p>
+                        		    </div>
+								</div>
+							</c:forEach>
+
+                        </div>
+                    </div>
+                    <div id="slide-next"><a><img src="./images/arw_right.gif" alt="" /></a></div>
+                </div>
+            </div>
+
+            <div id="wrapper">
+                <div id="ranking">
+                    <dl class="one">
+                        <dt><a href="#"><img src="./images/player04.jpg" alt="" /></a></dt>
+                        <dd><a href="#">ねこぺろぺろ</a><br />
+                        勝率：60% 　○戦×勝△負
+                        </dd>
+                    </dl>
+                    <dl class="two">
+                        <dt><a href="#"><img src="./images/player05.jpg" alt="" /></a></dt>
+                        <dd><a href="#">ベストキッドきどり</a><br />
+                        勝率：60% 　○戦×勝△負
+                        </dd>
+                    </dl>
+                    <dl class="three">
+                        <dt><a href="#"><img src="./images/player06.jpg" alt="" /></a></dt>
+                        <dd><a href="#">ネタぎれ逆ギレアイウォンチュー</a><br />
+                        勝率：60% 　○戦×勝△負
+                        </dd>
+                    </dl>
+
+                </div>
+                <div id="about">
+                    <dl>
+                        <dt><img src="./images/t_about.gif" alt="" /></dt>
+                        <dd>天下一武道会はKINECTを使って、カメハメ波の完成度を競い合うWebサービスです。勝敗の要素はポージング以外にもあるかも？<br>
+                    最強のカメハメ波をキメてアメリカの大会でニューヨーカーのド肝を抜いて抜いてヌキまくろう！</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="footer">
+    	<div class="inner">
+        	<div class="left">
+            	<p>★ チーム #hiy</p>
+                <div>
+                	<dl>
+                    	<dt><a href="#"><img src="./images/icon_nakanishi.jpg" alt="" /></a></dt>
+                        <dd><a href="#">@hIDDEN_xv</a><br>
+                        Nakanishi Takayuki</dd>
+                    </dl>
+                    <dl>
+                    	<dt><a href="#"><img src="./images/icon_tobita.jpg" alt="" /></a></dt>
+                        <dd><a href="#">@tobitobita</a><br>
+                        Manabe Kaorinofan</dd>
+                    </dl>
+                    <dl>
+                    	<dt><a href="#"><img src="./images/icon_nishino.jpg" alt="" /></a></dt>
+                        <dd><a href="#">@idkqh7</a><br>
+                        Nishino Takuya</dd>
+                    </dl>
+                    <dl>
+                    	<dt><a href="#"><img src="./images/icon_sasaki.jpg" alt="" /></a></dt>
+                        <dd><a href="#">@shirokuro331</a><br>
+                        Sasaki Toshiaki</dd>
+                    </dl>
+                </div>
+                <ul>
+                	<li><a href="#">TOP</a> |</li>
+                    <li> <a href="#">遊び方</a> |</li>
+                    <li> <a href="#">twitter</a> |</li>
+                    <li> <a href="#">利用規約</a> |</li>
+                    <li> <a href="#">お問い合わせ</a></li>
+                </ul>
+
+            </div>
+            <div class="right"><img src="./images/twitter.jpg" alt="" /></div>
+        </div>
+        <p id="copyright">Copyright (c) #hiy</p>
+    </div>
+
+
+
 </body>
+
 </html>
+
+
