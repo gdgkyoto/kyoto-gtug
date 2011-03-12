@@ -23,7 +23,14 @@
 
 <section id="main">
 	<div class="bg">
-		<p><a href=""><img src="{{media_url}}/img/b_challenge.png"></a></p>
+		<p><a href="">
+		{% if request.user.is_anonymous() %}
+			<a href="./challenge_list"><img src="{{media_url}}/img/b_challenge.png"></a>
+		{% else %}
+			<a href="./challenge_list"><img src="{{media_url}}/img/b_challenge2.png"></a>
+		{% endif %}
+		
+		</a></p>
 		<div class="clearfix">
 			<ul id="ticker01">
 				{% for scroll in scrolls %}
@@ -81,7 +88,7 @@
 				<div>
 					<h3>{{ top_runking.title }}</h3>
 					<p class="time">
-						<img src="{{media_url}}img/i_time.png" style="padding-right: 5px;">00:01:20
+						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">00:01:20
 						<span>
 							{% for i in range(top_runking.rank) %}
 								<img src="{{media_url}}/img/star_1.png">
