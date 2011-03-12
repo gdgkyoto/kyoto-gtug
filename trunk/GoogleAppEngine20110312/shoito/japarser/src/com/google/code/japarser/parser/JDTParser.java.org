@@ -1,0 +1,103 @@
+package com.google.code.japarser.parser;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+import com.google.code.japarser.model.ClassInfo;
+import com.google.code.japarser.model.FieldInfo;
+import com.google.code.japarser.model.MethodInfo;
+
+public class JDTParser {
+	private static final Logger logger = Logger.getLogger(JDTParser.class.getName());
+	
+	public ClassInfo parse(String srcUrl) {
+		final ClassInfo classInfo;
+		try {
+			URL url = new URL(srcUrl);
+			URLConnection conn = url.openConnection();
+			StringBuffer sb = new StringBuffer();
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			
+			String line;
+			while ((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+
+			ASTParser parser = ASTParser.newParser(AST.JLS3);
+			parser.setSource(sb.toString().toCharArray());
+			final CompilationUnit unit = (CompilationUnit) parser.createAST(new NullProgressMonitor());
+
+			final List<FieldInfo> fields = new ArrayList<FieldInfo>();
+			final List<MethodInfo> methods = new ArrayList<MethodInfo>();
+			classInfo = new ClassInfo("", fields, methods);
+			
+			unit.accept(new ASTVisitor() {
+				public boolean visit(TypeDeclaration node) {
+					classInfo.setLine(unit.getLineNumber(node.getStartPosition()));
+					classInfo.setQualifiedTypeName(unit.getPackage().getName() + "." + node.getName().toString());
+					classInfo.setName(node.getName().toString());
+					
+					return super.visit(node);
+				}
+				
+				@Override
+				public boolean visit(FieldDeclaration node) {
+					FieldInfo fieldInfo = new FieldInfo();
+					fieldInfo.setLine(unit.getLineNumber(node.getStartPosition()));
+					fieldInfo.setModifiersName(StringUtils.join(node.modifiers(), " "));
+					fieldInfo.setSimpleTypeName(node.getType().toString());
+					fieldInfo.setQualifiedTypeName(node.getType().toString()); // TODO QualifiedTypeNameの取得
+					VariableDeclarationFragment variableNode = (VariableDeclarationFragment) node.fragments().get(0);
+					fieldInfo.setName(variableNode.getName().toString());
+					fields.add(fieldInfo);
+					
+					return super.visit(node);
+				}
+
+				@Override
+				public boolean visit(MethodDeclaration node) {
+					MethodInfo methodInfo = new MethodInfo();
+					methodInfo.setLine(unit.getLineNumber(node.getStartPosition()));
+					methodInfo.setModifiersName(StringUtils.join(node.modifiers(), " "));
+					String returnName = "";
+					if (!node.isConstructor() && node.getReturnType2() != null) {
+					    node.getReturnType2().toString();
+				    }
+					methodInfo.setReturnName(returnName);
+					methodInfo.setName(node.getName().toString());
+					methodInfo.setParamName(StringUtils.join(node.parameters(), ", "));
+					methods.add(methodInfo);
+					
+					return super.visit(node);
+				}
+			});
+		} catch (IOException e) {
+			logger.log(Level.WARNING, "Can't parse " + srcUrl, e);
+			return null;
+		}
+		
+		return classInfo;
+	}
+	
+	public static void main(String[] args) {
+		new JDTParser().parse(args[0]);
+	}
+}
