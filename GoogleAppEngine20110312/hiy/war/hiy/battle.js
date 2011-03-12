@@ -109,6 +109,7 @@ function displayLose() {
 		display:'block'
 		,'top' : '-300px'
 		,left : left
+		,color : '#808080'
 		, '-webkit-transform': 'scale(1)'
 	});
 	$('#result').animate( {
