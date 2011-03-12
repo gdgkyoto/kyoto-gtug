@@ -50,6 +50,12 @@ body {
   width: 230px;
 }
 
+.keyword {
+  font-weight:bold;
+  font-size:16px;
+  padding-left:80px;
+}
+
 
 
 #tw0 .text {
