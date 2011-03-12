@@ -13,7 +13,7 @@
 <body>
 
 <header>
-	<p>挑戦者名：ハッカソン</p>
+	<p>挑戦者名：{{ username }}</p>
 	<p><a href="">ログイン</a></p>
 </header>
 
@@ -30,81 +30,39 @@
 		</div>
 	</div>
 </section>
-<!--
+
 <nav>
 	<p>MY-1 メニュー</p>
 	<table cellspacing="0">
+		{% for event in events %}
 		<tr>
-			<td><a href="" class="select"><img src="img/i_nav1.png">パン早食い</a></td>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
+			<td><a href="" class="select"><img src="{{media_url}}/img/i_nav1.png">{{ event }}</a></td>
 		</tr>
-		<tr>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-		</tr>
-		<tr>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-		</tr>
+		{% endfor %}
 	</table>
 </nav>
 
 <section id="youtube">
-	<h2><img src="img/i_my1.png">MY-1　ランキング</h2>
+	<h2><img src="{{media_url}}/img/i_my1.png">MY-1　ランキング</h2>
 	<div id="space10">
 		<ul>
+			{% for top_runking in top_runkings %}
 			<li>
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/XzUILaTGA5k" allowfullscreen></iframe>
+				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking.movie_id }}" allowfullscreen></iframe>
 				<div>
-					<h3>パン早食い</h3>
+					<h3>{{ top_runking.event_title }}</h3>
 					<p class="time">
-						<img src="img/i_time.png" style="padding-right: 5px;">00:01:20
+						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">00:01:20
 						<span>
-							<img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png">					
+							{% for i in range(top_runking.rank) %}
+								<img src="{{media_url}}/img/star_1.png">
+							{% endfor %}
 						</span>
 					</p>
 					<p class="data">1週間前<span>再生回数：200,000回</span></p>
 				</div>
 			</li>
-			<li>
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/XzUILaTGA5k" allowfullscreen></iframe>
-				<div>
-					<h3>パン早食い</h3>
-					<p class="time">
-						<img src="img/i_time.png" style="padding-right: 5px;">00:01:20
-						<span>
-							<img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png">					
-						</span>
-					</p>
-					<p class="data">1週間前<span>再生回数：200,000回</span></p>
-				</div>
-			</li>
-			<li>
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/XzUILaTGA5k" allowfullscreen></iframe>
-				<div>
-					<h3>パン早食い</h3>
-					<p class="time">
-						<img src="img/i_time.png" style="padding-right: 5px;">00:01:20
-						<span>
-							<img src="img/star_0.5.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png">					
-						</span>
-					</p>
-					<p class="data">1週間前<span>再生回数：200,000回</span></p>
-				</div>
-			</li>
-			<li class="end">
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/XzUILaTGA5k" allowfullscreen></iframe>
-				<div>
-					<h3>パン早食い</h3>
-					<p class="time">
-						<img src="img/i_time.png" style="padding-right: 5px;">00:01:20
-						<span>
-							<img src="img/star_0.png"><img src="img/star_0.5.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png">					
-						</span>
-					</p>
-					<p class="data">1週間前<span>再生回数：200,000回</span></p>
-				</div>
-			</li>
+			{% endfor %}
 		</ul>
 	</div>
 </section>
@@ -113,20 +71,24 @@
 	<h2>★ リスペクト動画ランキング</h2>
 	<div id="space10">
 		<ul>
+			{% for top_runking in top_runkings %}
 			<li>
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/XzUILaTGA5k" allowfullscreen></iframe>
+				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking.movie_id }}" allowfullscreen></iframe>
 				<div>
-					<h3>パン早食い</h3>
+					<h3>{{ top_runking.event_title }}</h3>
 					<p class="time">
-						<img src="img/i_time.png" style="padding-right: 5px;">00:01:20
+						<img src="{{media_url}}img/i_time.png" style="padding-right: 5px;">00:01:20
 						<span>
-							<img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png"><img src="img/star_1.png">					
+							{% for i in range(top_runking.rank) %}
+								<img src="{{media_url}}/img/star_1.png">
+							{% endfor %}
 						</span>
 					</p>
 					<p class="data">1週間前<span>再生回数：200,000回</span></p>
 				</div>
 			</li>
-			<li class="end">
+			{% endfor %}
+<!--			<li class="end">
 				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/XzUILaTGA5k" allowfullscreen></iframe>
 				<div>
 					<h3>パン早食い</h3>
@@ -139,6 +101,7 @@
 					<p class="data">1週間前<span>再生回数：200,000回</span></p>
 				</div>
 			</li>
+			-->
 		</ul>
 	</div>
 </section>
@@ -147,18 +110,11 @@
 <nav>
 	<p>MY-1 メニュー</p>
 	<table cellspacing="0">
+		{% for event in events %}
 		<tr>
-			<td><a href="" class="select"><img src="img/i_nav1.png">パン早食い</a></td>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
+			<td><a href="" class="select"><img src="{{media_url}}/img/i_nav1.png">{{ event }}</a></td>
 		</tr>
-		<tr>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-		</tr>
-		<tr>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-			<td><a href=""><img src="img/i_nav1.png">パン早食い</a></td>
-		</tr>
+		{% endfor %}
 	</table>
 </nav>
 
@@ -170,6 +126,6 @@
 	</ul>
 	<p>&copy; 2011 MY-1</p>
 </footer>
--->
+
 </body>
 </html>
