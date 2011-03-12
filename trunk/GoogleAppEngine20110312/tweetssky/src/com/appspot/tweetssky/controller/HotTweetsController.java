@@ -1,14 +1,14 @@
 package com.appspot.tweetssky.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.arnx.jsonic.JSON;
 
 import org.apache.commons.lang.StringUtils;
 import org.slim3.controller.Navigation;
 import org.slim3.util.RequestLocator;
-
-import com.appspot.tweetssky.service.MorphologicalAnalysis;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -41,33 +41,10 @@ public class HotTweetsController extends RestfulWebServiceController {
 			responseWriter(SC_BAD_REQUEST);
 		}
 		
-		getHotTweets(paramHotWord, count);
+		String hotIndex = RequestLocator.get().getParameter("hot_index");
+		
+		getHotTweets(paramHotWord, count, hotIndex);
 
-//		for (String urlString : lookup(paramUrl)) {
-//			try {
-//				URL url = new URL(urlString);
-//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//				conn.setRequestMethod("GET");
-//				conn.setConnectTimeout(5 * 1000);
-//				conn.setReadTimeout(30 * 1000);
-//				conn.connect();
-//				
-//				// ローカル環境ではhttps://への接続は証明書の絡みで失敗する
-//				// App Engineにデプロイ後は問題なく動作する
-//				int responseCode = conn.getResponseCode();
-//				if (responseCode == HttpURLConnection.HTTP_OK) {
-//					parse(conn.getInputStream());
-//				}
-//			} catch (MalformedURLException e) {
-//				responseWriter(SC_BAD_REQUEST);
-//			} catch (IOException e) {
-//				responseWriter(SC_INTERNAL_SERVER_ERROR);
-//			} catch (ParseException e) {
-//				responseWriter(SC_INTERNAL_SERVER_ERROR);
-//			} 
-//		}
-//
-//		responseWriter(SC_NOT_FOUND);
 		return;
     }
 	
@@ -75,7 +52,7 @@ public class HotTweetsController extends RestfulWebServiceController {
     public void doPost() {
     }
 
-	private void getHotTweets(String paramHotWord, int count) {
+	private void getHotTweets(String paramHotWord, int count, String hotIndex) {
 		Twitter twitter = new TwitterFactory().getInstance();
 		Query query = new Query(paramHotWord);
 		query.setLocale("ja");
@@ -94,6 +71,10 @@ public class HotTweetsController extends RestfulWebServiceController {
 			return;
 		}
 	    List<Tweet> tweets = result.getTweets();
+	    Map map = new HashMap();
+	    map.put("tweets", tweets);
+	    map.put("hot_index", hotIndex);
+	    
 
 	    //TODO
 //	    for (Tweet tweet : tweets) {
@@ -103,7 +84,7 @@ public class HotTweetsController extends RestfulWebServiceController {
 		String strict = RequestLocator.get().getParameter("strict");
 		JSON json = new JSON(JSON.Mode.STRICT);
 		json.setPrettyPrint("true".equals(strict));
-		String ret = json.format(tweets);
+		String ret = json.format(map);
 		responseWriter(ret, CONTENT_TYPE_JSON);
 	}
 }
