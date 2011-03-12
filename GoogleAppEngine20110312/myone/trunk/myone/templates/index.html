@@ -65,7 +65,7 @@
 				<div>
 					<h3>{{ top_runking[0].competition.name }}</h3>
 					<p class="time">
-						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">
+						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">{{ top_runking[0].time }}秒
 						<span>
 							{% for i in range(top_runking[0].respect) %}
 								<img src="{{media_url}}/img/star_1.png">
@@ -86,18 +86,18 @@
 		<ul>
 			{% for respect_runking in respect_runkings %}
 			<li>
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ respect_runking.movie_id }}" allowfullscreen></iframe>
+				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ respect_runking.youtubeurl }}" allowfullscreen></iframe>
 				<div>
-					<h3>{{ respect_runking.title }}</h3>
+					<h3>{{ respect_runking.competition.name }}</h3>
 					<p class="time">
-						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">00:01:20
+						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">{{ respect_runking.time }}秒
 						<span>
-							{% for i in range(respect_runking.rank) %}
+							{% for i in range(respect_runking.respect) %}
 								<img src="{{media_url}}/img/star_1.png">
 							{% endfor %}
 						</span>
 					</p>
-					<p class="data">{{ respect_runking.update_time }}<span>再生回数：{{ respect_runking.play_count }}回</span></p>
+					<p class="data">{{ respect_runking.created }}<span>再生回数：{{ respect_runking.play_count }}回</span></p>
 				</div>
 			</li>
 			{% endfor %}

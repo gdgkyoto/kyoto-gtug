@@ -46,15 +46,12 @@ def index(request):
   for competition in competitions:
     ranking.append(Record.all().filter('competition =', competition).order('-time').fetch(1))
 
-  respect_runkings = Record.all().order('respect').fetch(3)
+  respect_runkings = Record.all().order('-respect').fetch(3)
 
   return render_to_response('myone/index.html' , {'scrolls': [u'牛乳早飲み 挑戦者挑む - ハッカソン - ', u'タイヤ早交換 挑戦者挑む - ハッカソン - ', u'カップ麺早食い 挑戦者挑む - ハッカソン - ']
 												, 'challenges': competitions
 												, 'top_runkings': ranking
-												, 'respect_runkings': [{ 'movie_id': 'XzUILaTGA5k' , 'title': u'パン早食い11' , 'rank': 5 , 'update_time': u'1日前', 'play_count': 100000}
-																	,{ 'movie_id': 'XzUILaTGA5k' , 'title': u'早食いパン222' , 'rank': 3, 'update_time': u'3日前', 'play_count': 400000}
-																	,{ 'movie_id': 'XzUILaTGA5k' , 'title': u'早食いパン222' , 'rank': 1, 'update_time': u'5日前', 'play_count': 600000}]
-												, 'len': ''})
+												, 'respect_runkings': respect_runkings })
 				
   
 def test(request):
