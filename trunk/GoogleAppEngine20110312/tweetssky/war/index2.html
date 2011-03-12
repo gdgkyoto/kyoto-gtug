@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TweetSky</title>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+<link type="text/css" href="css/common.css" rel="stylesheet" />
+<link type="text/css" href="css/jquery-ui-1.8.10.custom.css"
+	rel="stylesheet" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+<script>
+window.onload = function() {
+//	$('#header').hide().fadeIn(3000);
+	
+	$.getJSON("http://tweetssky.appspot.com/hotWords",
+			function(json) {
+				$("#hotwords").text(JSON.stringify(json));
+				
+				$.each(json, function(index){
+				  $("#hotwords").append("<div>" + this.rank + ": " + this.word + "</div>");
+				  }
+				);
+			}
+		);
+	  
+	
+		
+	$.getJSON("http://tweetssky.appspot.com/hotTweets?hot=AKB&count=5",
+			function(json) {
+				$("#hottweets").text(JSON.stringify(json));
+			}
+		);
+};     
+/* 	  	$.ajax({
+			url: "/hotWords"
+			success: function(result) {
+				$("#tweets").text(result);
+			}
+	  	});
+	  	}
+ */
+</script>
+</head>
+
+<body>
+	<div id="container">
+	  <div id="header">
+		  <h1><img src="images/logo.png" alt="TweetSky" /></h1>
+	  </div>
+	  <div id="content">
+	    <div id ="tw0" class="tweet">
+	      <div class="profileImageUrl"><a href="http://twitter.com/#!/da1kun_o3o_k44"><img src="http://a2.twimg.com/profile_images/1188894557/logo.akb48bloglist_normal.png" alt="" /></a></div>
+	      <div class="text">RT @cobayasu: AKBの篠田さんが、一生懸命に貴重な情報や救助依頼をリツイートしてる。フォロワー35万人超の意味を、ある種の使命に変えるその姿こそがアイドルか。素晴らしいことだ。一方で下劣極まりないデマや、大の大人同士のしょーもない罵り合いツイートも流れる。こういう時に人間性って出るな。</div>
+	      <div class="tweet-footer">
+	        <span class="fromUser">@da1kun_o3o_K44</span>
+	        <span class="createdAt"><a href="http://twitter.com/#!/4seasons_RL/status/46179707615592448">about 4 hours ago</a></span>
+	      </div>
+	    </div>
+	    <div id ="tw1" class="tweet">
+	      <div class="profileImageUrl"><a href="http://twitter.com/#!/da1kun_o3o_k44"><img src="http://a2.twimg.com/profile_images/1188894557/logo.akb48bloglist_normal.png" alt="" /></a></div>
+	      <div class="text">RT @cobayasu: AKBの篠田さんが、一生懸命に貴重な情報や救助依頼をリツイートしてる。フォロワー35万人超の意味を、ある種の使命に変えるその姿こそがアイドルか。素晴らしいことだ。一方で下劣極まりないデマや、大の大人同士のしょーもない罵り合いツイートも流れる。こういう時に人間性って出るな。</div>
+	      <div class="tweet-footer">
+	        <span class="fromUser">@da1kun_o3o_K44</span>
+	        <span class="createdAt"><a href="http://twitter.com/#!/4seasons_RL/status/46179707615592448">about 4 hours ago</a></span>
+	      </div>
+	    </div>
+	    <div id ="tw2" class="tweet">
+	      <div class="profileImageUrl"><a href="http://twitter.com/#!/da1kun_o3o_k44"><img src="http://a2.twimg.com/profile_images/1188894557/logo.akb48bloglist_normal.png" alt="" /></a></div>
+	      <div class="text">RT @cobayasu: AKBの篠田さんが、一生懸命に貴重な情報や救助依頼をリツイートしてる。フォロワー35万人超の意味を、ある種の使命に変えるその姿こそがアイドルか。素晴らしいことだ。一方で下劣極まりないデマや、大の大人同士のしょーもない罵り合いツイートも流れる。こういう時に人間性って出るな。</div>
+	      <div class="tweet-footer">
+	        <span class="fromUser">@da1kun_o3o_K44</span>
+	        <span class="createdAt"><a href="http://twitter.com/#!/4seasons_RL/status/46179707615592448">about 4 hours ago</a></span>
+	      </div>
+	    </div>
+	  </div>
+	  
+	  
+	  <div id="footer">
+	    
+	  </div>
+	  <h2>Hot Words</h2>
+	  <div id="hotwords"></div>
+	  <h2>Hot Tweets</h2>
+	  <div id="hottweets"></div>
+	</div>
+</body>
+</html>

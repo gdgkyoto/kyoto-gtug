@@ -1,0 +1,60 @@
+body {
+  color: #444;
+  margin: 0;
+  padding: 0;
+  font-family: serif;
+}
+
+#container {
+
+}
+
+#header {
+  background: #fff url("../images/logo-bg.png") repeat-x;
+  margin-bottom: 20px;
+}
+
+.tweet {
+  border-bottom: 1px solid #E2F2FF;
+  padding: 10px 0;
+  width: 400px;
+  float: left;
+}
+
+.profileImageUrl {
+  float: left;
+  padding: 0 20px;
+}
+
+.text {
+  padding-left: 80px;
+  padding-right: 20px;
+}
+
+.tweet-footer {
+  clear: both;
+  padding: 10px 0 10px 80px;
+  font-size: 10px;
+}
+
+
+#tw0 {
+  width: 45%;
+}
+#tw1 {
+  width: 30%;
+}
+#tw2 {
+  width: 25%;
+}
+
+
+#tw0 .text {
+  font-size: 32px;
+}
+#tw1 .text {
+  font-size: 24px;
+}
+#tw2 .text {
+  font-size: 18px;
+}
