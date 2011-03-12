@@ -2,17 +2,13 @@ package com.appspot.tweetssky.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import net.arnx.jsonic.JSON;
-import net.reduls.gomoku.Morpheme;
-import net.reduls.gomoku.Tagger;
 
 import org.slim3.controller.Navigation;
 import org.slim3.util.RequestLocator;
 
 import com.appspot.tweetssky.model.HotWord;
-import com.appspot.tweetssky.service.TweetStreamReader;
 
 public class HotWordsController extends RestfulWebServiceController {	
 	@Override
@@ -23,36 +19,6 @@ public class HotWordsController extends RestfulWebServiceController {
 	@Override
 	public void doGet() {
 		getHotWords();
-//		String paramUrl = RequestLocator.get().getParameter("url");
-//		if (StringUtils.isBlank(paramUrl)) {
-//			responseWriter(SC_BAD_REQUEST);
-//		}
-//		
-//		for (String urlString : lookup(paramUrl)) {
-//			try {
-//				URL url = new URL(urlString);
-//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//				conn.setRequestMethod("GET");
-//				conn.setConnectTimeout(5 * 1000);
-//				conn.setReadTimeout(30 * 1000);
-//				conn.connect();
-//				
-//				// ローカル環境ではhttps://への接続は証明書の絡みで失敗する
-//				// App Engineにデプロイ後は問題なく動作する
-//				int responseCode = conn.getResponseCode();
-//				if (responseCode == HttpURLConnection.HTTP_OK) {
-//					parse(conn.getInputStream());
-//				}
-//			} catch (MalformedURLException e) {
-//				responseWriter(SC_BAD_REQUEST);
-//			} catch (IOException e) {
-//				responseWriter(SC_INTERNAL_SERVER_ERROR);
-//			} catch (ParseException e) {
-//				responseWriter(SC_INTERNAL_SERVER_ERROR);
-//			} 
-//		}
-//
-//		responseWriter(SC_NOT_FOUND);
 		return;
     }
 	
@@ -61,17 +27,7 @@ public class HotWordsController extends RestfulWebServiceController {
     }
 
 	private void getHotWords() {
-		List<HotWord> hotWords = new ArrayList<HotWord>();
-		
-		List<String> words = getHotWordsFromX();
-		Random rondom = new Random();
-		for (String string : words) {
-			HotWord hotWord = new HotWord();
-			hotWord.setWord(string);
-			hotWord.setRank((int)(rondom.nextDouble() * 100 + 1));
-			hotWords.add(hotWord);
-		}
-		
+		List<HotWord> hotWords = getDummyHotWords();		
 		String strict = RequestLocator.get().getParameter("strict");
 		
 		JSON json = new JSON(JSON.Mode.STRICT);
@@ -81,19 +37,20 @@ public class HotWordsController extends RestfulWebServiceController {
 		responseWriter(ret, CONTENT_TYPE_JSON);
 	}
 	
-	private List<String> getHotWordsFromX() {
-		List<String> words = new ArrayList<String>();
-		words.add("AKB");
-		words.add("Sabae");
-		words.add("Fukui");
-		words.add("Fitea");
-		words.add("jig");
-		words.add("Echizen");
-		words.add("Egypt");
-		return words;
-	}
-	
-	
+	private List<HotWord> getDummyHotWords() {
+		List<HotWord> list = new ArrayList<HotWord>();
+		list.add(new HotWord("地震", 40));
+		list.add(new HotWord("津波", 25));
+		list.add(new HotWord("AKB", 12));
+		list.add(new HotWord("東京", 12));
+		list.add(new HotWord("ハッカソン", 5));
+		list.add(new HotWord("デモ", 4));
+		list.add(new HotWord("昼食", 3));
+		list.add(new HotWord("リラックマ", 2));
+		list.add(new HotWord("開発", 2));
+		list.add(new HotWord("鯖江", 1));
+		return list;
+	}	
 	
 //	private List<String> getHotWordsFromX() {
 //		List<String> words = new ArrayList<String>();
