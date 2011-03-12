@@ -30,6 +30,7 @@ from kokodoya.models import MeasuredResult
 from kokodoya.forms import MeasuredResultForm
 from werkzeug import Response, redirect
 import simplejson as json
+import datetime
 
 # Create your views here.
 
@@ -67,7 +68,14 @@ def result(request):
 
     render_params = {}
     render_params['form'] = form.as_widget()
-    render_params
+
+    current = datetime.datetime.now()
+    render_params['measured_time'] = current.strftime("%Y/%m/%d %H:%M")
+    # todo : ちゃんとした奴に直す
+    import random
+    render_params['speed'] = random.randrange(5, 50) / 10.0
+    render_params['address'] = u"福井県鯖江市新横江"
+
     return render_to_response('kokodoya/result.html', render_params)
 
 def measure(request):
@@ -82,6 +90,21 @@ def measure(request):
 
     """
     return render_to_response('kokodoya/measure.html')
+
+
+def progressing(request):
+    """速度測定中に表示するページ
+
+    Args:
+        request:
+            リクエストオブジェクト
+
+    Return:
+        レンダリングされたテンプレートデータ
+
+    """
+    return render_to_response('kokodoya/progressing.html')
+
 
 def map(request):
     """電波状態のマップ表示するページ

@@ -20,12 +20,11 @@
     </header>
   <div id="content">
 
-<!--
-    <p class="boldtext">000.00 Mbps</p>
+    <p class="boldtext">{{ speed }} Mbps</p>
     <table summary="計測環境" id="environment">
       <tr>
 	<th>計測時間：</th>
-	<td>2011-3-12 00:00:00</td>
+	<td>{{ measured_time }}</td>
 	</tr>
       <tr>
 
@@ -42,18 +41,16 @@
 	</tr>
       <tr>
 	<th>住所：</th>
-	<td>福井県福井市中央１丁目</td>
+	<td>{{ address }}</td>
 
 	</tr>
       <tr>
 	<th>備考：</th>
-	<td><textarea name="" id="" cols="30" rows="6"></textarea></td>
+	<td><textarea name="comment" id="" cols="30" rows="6"></textarea></td>
 	</tr>
       </table>
     </div>
--->
 
-     {{ form()|safe }}
 </div>
 
 </body>
