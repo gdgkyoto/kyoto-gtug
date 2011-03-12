@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+	<title>MY-1 JAPAN GP 2011</title>
+	<link rel="stylesheet" href="{{media_url}}/css/import.css">
+	<link rel="stylesheet" href="{{media_url}}/css/challeng_list.css">
+	<script type="text/javascript" src="{{media_url}}/js/jquery.js"></script>
+	<script type="text/javascript" src="{{media_url}}/js/liscroll.js"></script>
+	<script type="text/javascript" src="{{media_url}}/js/index.js"></script>
+</head>
+
+<body>
+
+<header>
+  {% if request.user.is_anonymous() %}
+    <p>&nbsp;</p><p><a href="{{ create_login_url() }}">ログイン</a></p>
+  {% else %}
+    <p>挑戦者名：{{ request.user }}</p><p><a href="{{ create_logout_url() }}">ログアウト</a></p>
+  {% endif %}
+
+</header>
+
+<section id="main">
+	<div class="bg">
+		<p></p>
+		<div class="clearfix"></div>
+	</div>
+</section>
+
+<section id="youtube">
+	<h2><img src="{{media_url}}/img/i_my1.png">挑戦一覧</h2>
+	<div id="space10">
+		<ul>
+			{% for challeng_list in challeng_lists %}
+			<li>
+				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ challeng_list.movie_id }}" allowfullscreen></iframe>
+				<div>
+					<h3>{{ challeng_list.title }}</h3>
+					<p class="time">
+						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">00:01:20
+						<span>
+							{% for i in range(challeng_list.rank) %}
+								<img src="{{media_url}}/img/star_1.png">
+							{% endfor %}
+						</span>
+					</p>
+					<p class="data">{{ challeng_list.update_time }}<span>再生回数：{{ challeng_list.play_count }}回</span></p>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</section>
+
+<footer>
+	<ul>
+		<li><a href="">競技ルール</a></li>
+		<li><a href="">ご利用ガイド</a></li>
+		<li><a href="">違反者報告</a></li>
+	</ul>
+	<p>&copy; 2011 MY-1</p>
+</footer>
+
+</body>
+</html>

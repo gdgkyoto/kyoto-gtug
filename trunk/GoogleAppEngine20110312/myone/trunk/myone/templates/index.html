@@ -12,6 +12,8 @@
 
 <body>
 
+{{ len }}
+
 <header>
   {% if request.user.is_anonymous() %}
     <p>&nbsp;</p><p><a href="{{ create_login_url() }}">ログイン</a></p>
@@ -59,18 +61,18 @@
 		<ul>
 			{% for top_runking in top_runkings %}
 			<li>
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking.movie_id }}" allowfullscreen></iframe>
+				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking.youtubeurl }}" allowfullscreen></iframe>
 				<div>
-					<h3>{{ top_runking.title }}</h3>
+					<h3>{{ top_runking.competition.name }}</h3>
 					<p class="time">
-						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">00:01:20
+						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">
 						<span>
-							{% for i in range(top_runking.rank) %}
+							{% for i in range(top_runking.respect) %}
 								<img src="{{media_url}}/img/star_1.png">
 							{% endfor %}
 						</span>
 					</p>
-					<p class="data">{{ top_runking.update_time }}<span>再生回数：{{ top_runking.play_count }}回</span></p>
+					<p class="data">{{ top_runking.created }}<span>再生回数：{{ top_runking.play_count }}回</span></p>
 				</div>
 			</li>
 			{% endfor %}
