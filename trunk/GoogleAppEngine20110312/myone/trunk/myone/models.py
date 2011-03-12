@@ -8,7 +8,7 @@ from kay.auth.models import GoogleUser
 import kay.db
 
 class MyUser(GoogleUser):
-  pass
+  name = db.TextProperty
 
 class Competition(db.Model):
   name = db.TextProperty(required=True)
