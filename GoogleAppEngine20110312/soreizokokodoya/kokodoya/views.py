@@ -29,7 +29,7 @@ from kay.utils import render_to_response, url_for
 from kokodoya.models import MeasuredResult
 from kokodoya.forms import MeasuredResultForm
 from werkzeug import Response, redirect
-import simplejson
+import simplejson as json
 
 # Create your views here.
 
@@ -105,7 +105,39 @@ def add(request):
     Return:
         追加処理実行結果(JSONフォーマット)
     """
-    measured_result = MeasuredResult(carrier="test", speed=1.1)
+    post_data = request.args
+    measured_result = MeasuredResult(post_data)
     measured_result.put()
-    return Response(simplejson.dumps({"result":"OK"}))
+    return Response(json.dumps({"result":"OK"}))
 
+
+def get_data(request):
+    """測定結果のデータを返す
+
+    Args:
+        request:
+            リクエストオブジェクト
+
+    Return;
+        測定結果データ(JSON)
+
+    """
+    response_msg = ""
+    url_params = request.args
+
+    north_bound = url_params.get('n')
+    south_bound = url_params.get('s')
+    east_bound  = url_params.get('e')
+    west_bound  = url_params.get('w')
+
+    query = MeasuredResult.all()
+    query.filter("latitude <= ",  north_bound)
+    query.filter("latitude >= ",  south_bound)
+    query.filter("longitude <= ", west_bound)
+    query.filter("longitude >= ", east_bound)
+    resuts = query.fetch(20)
+
+    json = json.dumps([dbutils.to_dict(result) for result in results])
+    callback_func_name = url_params.get("callback")
+    jsonp = "%s(%s)" % (callback_func_name, json)
+    return Response(jsonp, content_type="application/json")

@@ -29,6 +29,7 @@ view_groups = [
     Rule('/add', endpoint='add', view='kokodoya.views.add'),
     Rule('/map', endpoint='map', view='kokodoya.views.map'),
     Rule('/measure', endpoint='measure', view='kokodoya.views.measure'),
+    Rule('/get_data', endpoint='get_data', view='kokodoya.views.get_data'),
   )
 ]
 
