@@ -26,13 +26,15 @@ function displayGatagata() {
 		});
 	}
 	++gatagataCount;
-	if(10 < gatagataCount) {
+	if(60 < gatagataCount) {
 		clearInterval(timerId);
 		$('.player').css({
 			'-webkit-transform':'rotate(0deg)'
 			, '-moz-transform':'rotate(0deg)'
 		});
-		if(meWin($('#me_power').val(), $('#me_color').val(), $('#enemy_power').val(), $('#enemy_color').val())) {
+		var win = meWin($('#me_power').val(), $('#me_color').val(), $('#enemy_power').val(), $('#enemy_color').val());
+		console.log(win);
+		if(win) {
 			displayResult('.me', 'win');
 		} else {
 			displayResult('.enemy', 'lose');
@@ -41,15 +43,18 @@ function displayGatagata() {
 }
 
 function meWin(mePower, meColor, enemyPower, enemyColor) {
+	/*
 	console.log(mePower + ',' + meColor + ',' +  enemyPower + ',' + enemyColor);
 	if(!(meColor == enemyColor || ('O' == enemyColor && 'O' == meColor))) {
 		if(('R' == meColor && 'B' == enemyColor) || ('G' == meColor && 'R' == enemyColor) || ('B' == meColor && 'G' == enemyColor)) {
 			enemyPower = 2 * enemyPower;
-		} else if(('R' == meColor && 'G' == enemyPower) || ('G' == meColor && 'B' == enemyPower) || ('B' == meColor && 'R' == enemyPower)) {
+		}
+		if(('R' == meColor && 'G' == enemyPower) || ('G' == meColor && 'B' == enemyPower) || ('B' == meColor && 'R' == enemyPower)) {
 			meColor = 2 * meColor;
 		}
 	}
-	if(mePower > enemyPower) {
+	*/
+	if(Number(mePower) > Number(enemyPower)) {
 		return true;
 	}
 	return false;
@@ -86,6 +91,12 @@ function displayWin() {
 		,scale : [4.0, 4.0]
 	});
 	$('#result').animate( {
+		scale: [0.7, 0.7]
+	}, 400);
+	$('#result').animate( {
+		scale: [1.5, 1.5]
+	}, 400);
+	$('#result').animate( {
 		scale: [1.0, 1.0]
 	}, 400);
 }
@@ -101,12 +112,14 @@ function displayLose() {
 		, '-webkit-transform': 'scale(1)'
 	});
 	$('#result').animate( {
+		top: top + 50
+	}, 500);
+	$('#result').animate( {
+		top: top - 30
+	}, 500);
+	$('#result').animate( {
 		top: top
 	}, 500);
-	/*
-	$('#result').animate( {
-	}, 500);
-	*/
 }
 
 function displayResult(id, result){
