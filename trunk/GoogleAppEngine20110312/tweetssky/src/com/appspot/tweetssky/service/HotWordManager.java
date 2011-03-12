@@ -26,6 +26,16 @@ public class HotWordManager {
 				wordsMap.put(word, new HotWord(word));
 			} else {
 				hotWord.countUp();
+				
+				//TODO debug
+				if (hotWord.getCount() == 10) {
+					List<HotWord> hots = getTop(10);
+					System.out.println("hot rank----------");
+					for (HotWord h : hots) {
+						System.out.println("hot = " + h.getWord() + ", c = " + h.getCount());
+					}
+					break;
+				}
 			}
 		}
 	}

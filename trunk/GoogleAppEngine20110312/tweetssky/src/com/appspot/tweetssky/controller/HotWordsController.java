@@ -12,6 +12,7 @@ import org.slim3.controller.Navigation;
 import org.slim3.util.RequestLocator;
 
 import com.appspot.tweetssky.model.HotWord;
+import com.appspot.tweetssky.service.TweetStreamReader;
 
 public class HotWordsController extends RestfulWebServiceController {	
 	@Override

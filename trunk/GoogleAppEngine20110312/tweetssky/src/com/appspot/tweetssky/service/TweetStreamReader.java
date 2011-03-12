@@ -15,6 +15,7 @@ public class TweetStreamReader implements StatusListener {
 	private String userName;
 	private String password;
 	private TwitterStream streamTwitter;
+	private static boolean hasStarted = false;
 
 	public TweetStreamReader(String userName, String password) {
 		super();
@@ -28,6 +29,9 @@ public class TweetStreamReader implements StatusListener {
 	}
 
 	public void start() {
+		if (hasStarted) {
+			return;
+		}
 		TwitterStreamFactory factory = new TwitterStreamFactory();
 		// TODO AccessTokenを指定してTwitterStreamを取得するほうがよいか
 		// streamTwitter = factory.getInstance(accessToken); //TODO
@@ -35,6 +39,7 @@ public class TweetStreamReader implements StatusListener {
 				new BasicAuthorization(userName, password));
 		streamTwitter.addListener(this);
 		streamTwitter.sample();
+		hasStarted = true;
 	}
 
 	@Override
