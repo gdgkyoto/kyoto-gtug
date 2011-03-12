@@ -30,16 +30,16 @@
 
         <div class="player me">
             <dl>
-                <dt><a href="#"><img src="cardImage?key=${f:h(myCard.key)}" alt="" /></a></dt>
-                <dd><a href="#">${f:h(myCard.userName)}</a><br />
+                <dt><img src="cardImage?key=${f:h(myCard.key)}" alt="" width="150"  /></dt>
+                <dd>${f:h(myCard.userName)}<br />
                 勝率：60% 　○戦×勝△負</dd>
             </dl>
         </div>
 
         <div class="player enemy">
             <dl>
-                <dt><a href="#"><img src="cardImage?key=${f:h(enemy.key)}" alt="" /></a></dt>
-                <dd><a href="#">${f:h(enemy.userName)}</a><br />
+                <dt><img src="cardImage?key=${f:h(enemy.key)}" alt="" width="150" /></dt>
+                <dd>${f:h(enemy.userName)}<br />
                 勝率：60% 　○戦×勝△負</dd>
             </dl>
         </div>
