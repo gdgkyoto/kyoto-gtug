@@ -10,7 +10,7 @@
 	<meta charset="utf-8">
 	<title>天下一武道会</title>
 
-     <link href="./style.css" rel="stylesheet" type="text/css" />
+     <link href="./style_select.css" rel="stylesheet" type="text/css" />
 
 
      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
@@ -21,13 +21,13 @@
 <body>
 	<div id="container">
         <div id="header">
-            <div class="inner"><a href="/hiy/"><img src="./images/logo.png" alt="" /></a></div>
+            <div class="inner"><a href="./"><img src="./images/logo.png" alt="" /></a></div>
         </div>
 
         <div id="contents">
 
             <div id="stage">
-                <p class="catch">自分のカードを選ぼう！</p>
+                <p class="catch"><img src="./images/catch_mycards.gif" alt="" /></p>
                 <div id="gadget_wrap">
                     <div id="slide-back"><a><img src="./images/arw_left.gif" alt="" /></a></div>
                     <div id="field">
@@ -44,16 +44,15 @@
                         		    </div>
 								</div>
 							</c:forEach>
-
                         </div>
                     </div>
                     <div id="slide-next"><a><img src="./images/arw_right.gif" alt="" /></a></div>
                 </div>
             </div>
 
-            <div id="stage">
-            	<div id="field">
-					<div class="card">
+            <div id="wrapper">
+                <div id="enemy">
+                	<p class="catch"><img src="./images/catch_enemy.gif" alt="" /></p>
                     	<div class="player">
                    			<dl>
                          		<dt><img src="cardImage?key=${f:h(enemy.key)}" alt="" width="150"/></dt>
@@ -61,11 +60,19 @@
                         		勝率：60% 　○戦×勝△負</dd>
                        		</dl>
                     	</div>
-					</div>
-            	</div>
+                    <p class="btn"><a href="./"><img src="./images/b_back.gif" alt="" /></a></p>
+                </div>
+                <div id="about">
+                    <dl>
+                        <dt><img src="./images/t_about.gif" alt="" /></dt>
+                        <dd>天下一武道会はKINECTを使って、カメハメ波の完成度を競い合うWebサービスです。勝敗の要素はポージング以外にもあるかも？<br>
+                    最強のカメハメ波をキメてアメリカの大会でニューヨーカーのド肝を抜いて抜いてヌキまくろう！</dd>
+                    </dl>
+                </div>
             </div>
         </div>
     </div>
+
 
     <div id="footer">
     	<div class="inner">
@@ -114,40 +121,3 @@
 </html>
 
 
-
-
-
-
-<!--
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>天下一武道会</title>
-</head>
-<body>
-	<h1>天下一武道会</h1>
-
-	<p>
-		<h2>対戦相手</h2>
-		<img src="cardImage?key=${f:h(enemy.key)}" width="100" />
-		ユーザー : ${f:h(enemy.userName)}
-		パワー : ${f:h(enemy.power)}
-	</p>
-
-	<p>
-		<h2>自分</h2>
-		<c:forEach var="e" items="${myCards}">
-			<a href="battle?key=${f:h(e.key)}&enemy=${f:h(enemy.key)}">
-				<img src="cardImage?key=${f:h(e.key)}" width="100" />
-				パワー : ${f:h(e.power)}
-			</a>
-			<hr />
-		</c:forEach>
-	</p>
-
-	<p>
-		<a href="./">天下一武道会 トップ</a>
-	</p>
-</body>
-</html>
--->

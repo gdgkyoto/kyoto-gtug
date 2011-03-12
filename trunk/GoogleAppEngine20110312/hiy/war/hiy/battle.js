@@ -35,9 +35,9 @@ function displayGatagata() {
 		var win = meWin($('#me_power').val(), $('#me_color').val(), $('#enemy_power').val(), $('#enemy_color').val());
 		console.log(win);
 		if(win) {
-			displayResult('.me', 'win');
+			displayResult('.me', 'lose');
 		} else {
-			displayResult('.enemy', 'lose');
+			displayResult('.enemy', 'win');
 		}
 	}
 }
@@ -54,7 +54,7 @@ function meWin(mePower, meColor, enemyPower, enemyColor) {
 		}
 	}
 	*/
-	if(Number(mePower) > Number(enemyPower)) {
+	if(Number(mePower) < Number(enemyPower)) {
 		return true;
 	}
 	return false;
@@ -82,7 +82,7 @@ function displayCountDown() {
 
 function displayWin() {
 	$('#result').text('Win');
-	var left = Math.floor(($(window).width() - $("#result").width()) / 2);  
+	var left = Math.floor(($(window).width() - $("#result").width()) / 2);
     var top  = Math.floor(($(window).height() - $("#result").height()) / 2);
 	$('#result').css({
 		display:'block'
@@ -103,7 +103,7 @@ function displayWin() {
 
 function displayLose() {
 	$('#result').text('Lose');
-	var left = Math.floor(($(window).width() - $("#result").width()) / 2);  
+	var left = Math.floor(($(window).width() - $("#result").width()) / 2);
     var top  = Math.floor(($(window).height() - $("#result").height()) / 2);
 	$('#result').css({
 		display:'block'

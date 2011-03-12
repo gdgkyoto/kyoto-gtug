@@ -15,14 +15,15 @@ canvas{
 	display:block;
 	width:1200px;
 }
-	
+
+
 
 #layer {
 	position:absolute;
 	top:0;
 	left:0;
 	z-index:100;
-	
+
 	background-color:rgba(0, 0, 0, .8);
 	width:100%;
 	height:100%;
@@ -47,7 +48,7 @@ canvas{
 	margin:0;
 	padding:0;
 	font-size:300px;
-	color:#808080;
+	color:#cc0000;
 	display:none;
 	-webkit-transform: scale(10);
 }
@@ -59,6 +60,16 @@ canvas{
 	margin: 0 auto;
 	padding: 0;
 	background:url('./images/stage_battle.jpg') no-repeat 0 0;
+}
+
+#top-link a{
+	display:block;
+	position:absolute;
+	top:20px;
+	left:110px;
+	width:600px;
+	height:150px;
+	text-indent:-9999px;
 }
 
 #container .player{

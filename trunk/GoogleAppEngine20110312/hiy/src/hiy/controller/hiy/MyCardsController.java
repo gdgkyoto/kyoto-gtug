@@ -24,11 +24,11 @@ public class MyCardsController extends Controller {
         User user = userService.getCurrentUser();
 
         List<Card> cards;
-        if ( user != null ) {
-            cards = service.getCardsWith( user.getUserId() );
-        } else {
+     //   if ( user != null ) {
+    //        cards = service.getCardsWith( user.getUserId() );
+    //    } else {
             cards = service.getCards();
-        }
+     //   }
 
         requestScope("myCards", cards);
 
