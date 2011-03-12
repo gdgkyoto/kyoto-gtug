@@ -17,7 +17,7 @@ class Competition
 
 class RecordLine(db.Model):
   user = kay.db.OwnerProperty()
-  competition = db.ReferenceProperty(Competition,collection_name='competitions'
+  competition = db.ReferenceProperty(Competition,collection_name='competitions')
   time = db.IntegerProperty(required=True)
   youtubeurl = db.TextProperty(required=True)
   respect = db.IntegerProperty(required=True)
