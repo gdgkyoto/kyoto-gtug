@@ -85,7 +85,7 @@ public class HotTweetsController extends RestfulWebServiceController {
 		JSON json = new JSON(JSON.Mode.STRICT);
 		json.setPrettyPrint("true".equals(strict));
 		String ret = json.format(map);
-		System.out.println(ret);
+		//System.out.println(ret);
 		responseWriter(ret, CONTENT_TYPE_JSON);
 	}
 }
