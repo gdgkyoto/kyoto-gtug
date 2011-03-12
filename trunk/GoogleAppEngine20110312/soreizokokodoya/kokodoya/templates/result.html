@@ -16,10 +16,15 @@
   <header id="gHeader">
     <p class="put-left"><a href="{{url_for('kokodoya/measure')}}"><img src="/media/img/btn_back.png" alt="戻る" /></a></p>
     <h1 class="put-center"><img src="/media/img/logo_header.png" alt="Koko-Doya?" /></h1>
+    <p class="put-right"><a href="{{url_for('kokodoya/measure')}}"><img src="/media/img/btn_index.png" alt="ホームへ" /></a></p>
+  </header>
+
+  <header id="gHeader">
     <p class="put-right"><a href=""><img src="/media/img/btn_stop.png" alt="キャンセル" /></a></p>
     </header>
   <div id="content">
 
+    <div class="speed-img" id="speed2"></div>
     <p class="boldtext">{{ speed }} Mbps</p>
     <table summary="計測環境" id="environment">
       <tr>
@@ -49,7 +54,8 @@
 	<td><textarea name="comment" id="" cols="30" rows="6"></textarea></td>
 	</tr>
       </table>
-    </div>
+  <p style="margin-bottom:15px;"><a href="home.html"><img src="img/btn_submit.png" alt="送信" width="300" height="44" /></a></p>
+</div>
 
 </div>
 

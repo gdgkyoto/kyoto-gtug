@@ -2,7 +2,7 @@ var map;
 var url = '/media/js/sites.json';
 
 function initialize() {
-  var initLatLng = new google.maps.LatLng(35.9565, 136.1844);
+  var initLatLng = new google.maps.LatLng( 35.943191, 136.18869900000004);
   var myOptions = {
     zoom: 14,
     center: initLatLng,
