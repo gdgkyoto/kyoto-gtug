@@ -1,13 +1,36 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>KokoDoya</title>
+  <meta charset="utf-8">
+  <title>計測する | Koko-Doya?</title>
+  <meta name="viewport" content="width=device-width" />
+  <meta name="format-detection" content="telephone=no" />
+  <!--<meta name="apple-mobile-web-app-capable" content="yes" />-->
+  <link rel="stylesheet" href="/media/style/iphone.css" media="screen" />
+  <script type="text/javascript" src="/media/js/iphone.js"></script>
+
 </head>
 <body>
-    <img src="media/img/measure.png">
-    <br>
-    <a href="{{url_for('kokodoya/result')}}">測定結果</a>
-    <a href="{{url_for('kokodoya/index')}}">インデックス</a>
+<div id="container">
+  <header id="gHeader">
+    <p class="put-left"><a href=""><img src="/media/img/btn_back.png" alt="戻る" /></a></p>
+    <h1 class="put-center"><img src="/media/img/logo_header.png" alt="Koko-Doya?" /></h1>
+    <p class="put-right"><a href=""><img src="/media/img/btn_stop.png" alt="キャンセル" /></a></p>
+  </header>
+  <div id="content">
+    <p class="boldtext">触って計測する</p>
+
+    <a href="result.html"><img src="/media/img/btn_measure.png" alt="" width="223" height="224" /></a>
+  </div>
+  <footer id="gFooter">
+    <nav>
+      <ul>
+	<li><a href="{{url_for('kokodoya/index')}}" class="nav01">測定</a></li>
+	<li><a href="{{url_for('kokodoya/map')}}" class="nav02">マップ</a></li>
+	<li><a href="" class="nav03">設定</a></li>
+      </ul>
+    </nav>
+  </footer>
+</div>
 </body>
 </html>
