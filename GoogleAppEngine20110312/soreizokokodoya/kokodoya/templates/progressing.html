@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>マップ | ココドヤ？</title>
+  <title>測定中 | ココドヤ？</title>
   <meta name="viewport" content="width=device-width" />
   <meta name="format-detection" content="telephone=no" />
   <link rel="apple-touch-icon" href="/media/img/home.png" />
@@ -10,6 +10,14 @@
   <link rel="stylesheet" href="/media/style/iphone.css" media="screen" />
 
   <script type="text/javascript" src="/media/js/iphone.js"></script>
+  <script type="text/javascript">
+      var wait = 5000;
+      var url = "{{ url_for('kokodoya/result') }}";
+      function go_result() {
+          document.location.href = url;
+      }
+      setTimeout("go_result()", wait);
+  </script>
 </head>
 <body style="background:none;">
 <div id="container">
