@@ -49,3 +49,8 @@ INSTALLED_APPS = (
 APP_MOUNT_POINTS = {
   'myone': '/',
 }
+
+MIDDLEWARE_CLASSES = (
+  'kay.auth.middleware.AuthenticationMiddleware',
+)
+AUTH_USER_MODEL = 'myapp.models.MyUser'
