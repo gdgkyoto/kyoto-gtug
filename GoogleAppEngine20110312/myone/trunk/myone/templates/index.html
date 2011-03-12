@@ -61,18 +61,18 @@
 		<ul>
 			{% for top_runking in top_runkings %}
 			<li>
-				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking.youtubeurl }}" allowfullscreen></iframe>
+				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking[0].youtubeurl }}" allowfullscreen></iframe>
 				<div>
-					<h3>{{ top_runking.competition.name }}</h3>
+					<h3>{{ top_runking[0].competition.name }}</h3>
 					<p class="time">
 						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">
 						<span>
-							{% for i in range(top_runking.respect) %}
+							{% for i in range(top_runking[0].respect) %}
 								<img src="{{media_url}}/img/star_1.png">
 							{% endfor %}
 						</span>
 					</p>
-					<p class="data">{{ top_runking.created }}<span>再生回数：{{ top_runking.play_count }}回</span></p>
+					<p class="data">{{ top_runking[0].created }}<span>再生回数：{{ top_runking[0].play_count }}回</span></p>
 				</div>
 			</li>
 			{% endfor %}
