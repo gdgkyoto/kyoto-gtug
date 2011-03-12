@@ -25,7 +25,7 @@ from kay.routing import (
 view_groups = [
   ViewGroup(
     Rule('/', endpoint='index', view='myone.views.index'),
-    Rule('/a/', endpoint='a', view='myone.views.a'),
+    Rule('/challenge_list/', endpoint='challenge_list', view='myone.views.challenge_list'),
  )
 ]
 

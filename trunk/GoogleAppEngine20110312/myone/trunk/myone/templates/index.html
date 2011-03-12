@@ -38,9 +38,9 @@
 <nav>
 	<p>MY-1 メニュー</p>
 	<table cellspacing="0">
-		{% for event in events %}
+		{% for challenge in challenges %}
 		<tr>
-			<td><a href="" class="select"><img src="{{media_url}}/img/i_nav1.png">{{ event }}</a></td>
+			<td><a href="" class="select"><img src="{{media_url}}/img/i_nav1.png">{{ challenge }}</a></td>
 		</tr>
 		{% endfor %}
 	</table>
@@ -54,7 +54,7 @@
 			<li>
 				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking.movie_id }}" allowfullscreen></iframe>
 				<div>
-					<h3>{{ top_runking.event_title }}</h3>
+					<h3>{{ top_runking.title }}</h3>
 					<p class="time">
 						<img src="{{media_url}}/img/i_time.png" style="padding-right: 5px;">00:01:20
 						<span>
@@ -79,7 +79,7 @@
 			<li>
 				<iframe title="YouTube video player" width="110" height="65" src="http://www.youtube.com/embed/{{ top_runking.movie_id }}" allowfullscreen></iframe>
 				<div>
-					<h3>{{ top_runking.event_title }}</h3>
+					<h3>{{ top_runking.title }}</h3>
 					<p class="time">
 						<img src="{{media_url}}img/i_time.png" style="padding-right: 5px;">00:01:20
 						<span>
