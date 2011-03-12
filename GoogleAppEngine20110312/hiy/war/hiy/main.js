@@ -22,7 +22,7 @@ _GADGET.selectItem = function(res) {
 
 }
 
-_GADGET.SLIDE_VALUE = 95;
+_GADGET.SLIDE_VALUE = 200;
 $(document).ready(function() {
     $('label').inFieldLabels({"fadeOpacity": 0.1});
     $('#slide-next').click(function() {
