@@ -70,6 +70,24 @@ a {
 	position: fixed;
 	bottom: 0;
 }
+.speed-img {
+	margin: 10px auto 0;
+	padding: 0;
+	background: url(../img/speed.png) no-repeat;
+	width: 300px;
+	height: 80px;
+	text-align: center;
+}
+#speed1 {
+	background-position: 0 -82px;
+	width: 300px;
+	height: 80px;
+}
+#speed2 {
+	background-position: 0 -164px;
+	width: 300px;
+	height: 80px;
+}
 
 #gHeader {
 	background: url(../img/bg_header.png) repeat-x left top;
@@ -135,7 +153,7 @@ a {
 
 table#environment {
 	margin: 0 10px 10px;
-	width: 100%;
+	width: 95%;
 }
 table#environment th {
 	text-align: right;
