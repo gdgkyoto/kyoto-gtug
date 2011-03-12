@@ -33,6 +33,7 @@ from kay.utils import (
 from kay.utils import render_to_response
 from myone.forms import RecordForm
 from myone.models import Competition
+from myone.models import Record
 
 # Create your views here.
 from myone.models import Competition
@@ -40,12 +41,9 @@ from myone.models import Competition
 def index(request):
   query = Competition.all()
   competitions = query.fetch(10)
-
-##多分こんな感じ
-  for competition in competitions
-    Comment.all().filter('competitions =', competition).fetch(3)
-##
-
+  ranking = {}
+  for competition in competitions:
+    ranking[competition] = Record.all().filter('competitions =', competition).order('-time').fetch(3)
   return render_to_response('myone/index.html' , {'scrolls': [u'牛乳早飲み 挑戦者挑む - ハッカソン - ', u'タイヤ早交換 挑戦者挑む - ハッカソン - ', u'カップ麺早食い 挑戦者挑む - ハッカソン - ']
 												, 'challenges': competitions
 												, 'top_runkings': [{ 'movie_id': 'XzUILaTGA5k' , 'title': u'パン早食い' , 'rank': 5 , 'update_time': u'1週間前' , 'play_count': 200000}
