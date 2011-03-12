@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+	<cron>
+		<url>/getStream</url>
+		<description>get twitter stream and analyze</description>
+		<schedule>every 1 minutes</schedule>
+		<timezone>Asia/Tokyo</timezone>
+	</cron>
+</cronentries>
