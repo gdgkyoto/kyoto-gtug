@@ -39,16 +39,16 @@ public class HotWordsController extends RestfulWebServiceController {
 	
 	private List<HotWord> getDummyHotWords() {
 		List<HotWord> list = new ArrayList<HotWord>();
+		list.add(new HotWord("原発", 12));
 		list.add(new HotWord("地震", 40));
 		list.add(new HotWord("津波", 25));
-		list.add(new HotWord("AKB", 12));
-		list.add(new HotWord("東京", 12));
-		list.add(new HotWord("ハッカソン", 5));
-		list.add(new HotWord("デモ", 4));
-		list.add(new HotWord("昼食", 3));
-		list.add(new HotWord("リラックマ", 2));
-		list.add(new HotWord("開発", 2));
-		list.add(new HotWord("鯖江", 1));
+		list.add(new HotWord("募金", 12));
+		list.add(new HotWord("避難所", 5));
+		list.add(new HotWord("電車", 4));
+		list.add(new HotWord("Google", 3));
+		list.add(new HotWord("美人時計", 2));
+		list.add(new HotWord("ハッカソン", 2));
+		list.add(new HotWord("ソースかつ丼", 1));
 		return list;
 	}
 }

@@ -13,12 +13,16 @@
 <script src="js/jquery.vgrid.0.1.6.min.js" type="text/javascript" charset="UTF-8"></script>
 <script>
 window.onload = function() {
+	var keywords;
+	
 	$.getJSON("hotWords",
 			function(json) {
+				keywords = json;
 				var tweets = $("#grid-content");
 				for(var i=0; i < json.length; i++) {
 					//console.log(json[i]);
-					tweets.append("<div class='tweet' id='tw" + i + "'>" + json[i].word + "</div>");
+					//tweets.append("<div class='tweet' id='tw" + i + "'>" + '<div class="keyword">' + json[i].word + '</div>' + "</div>");
+					tweets.append("<div class='tweet' id='tw" + i + "'></div>");
 				}
 				updateTweets(json);
 			}
@@ -35,6 +39,7 @@ window.onload = function() {
 					//console.log(tweet);
 					$("#tw" + json.hot_index).append(
 				    '<div class="profileImageUrl"><a href="http://twitter.com/#!/' + tweet.fromUser + '"><img src="' + tweet.profileImageUrl + '" alt="" /></a></div>'
+				    + '<div class="keyword">' + keywords[json.hot_index].word + '</div>'
 				    + '<div class="text">' + tweet.text + '</div>'
 				    + '<div class="tweet-footer">'
 				    + '  <span class="fromUser">@' + tweet.fromUser + '</span>'
