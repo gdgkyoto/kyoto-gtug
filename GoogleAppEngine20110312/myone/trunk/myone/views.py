@@ -32,3 +32,6 @@ from kay.utils import render_to_response
 
 def index(request):
   return render_to_response('myone/index.html', {'message': 'Hello'})
+
+def a(request):
+  return render_to_response('myone/a.html', {'scrolls': u'牛乳早飲み 挑戦者挑む - ハッカソン - '})
