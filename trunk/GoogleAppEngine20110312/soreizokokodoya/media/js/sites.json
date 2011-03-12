@@ -1,0 +1,44 @@
+setMarkers (
+[
+{
+  "carrier": "docomo"
+  , "speed": 1000
+  , "out_of_service": false
+  , "measured_time": 1299896579000
+  , "latitude": 35.943191
+  , "longitude": 136.18869900000004
+  , "address": "鯖江駅"
+  , "comment": "foo"
+}
+,{
+  "carrier": "docomo"
+  , "speed": 1500
+  , "out_of_service": false
+  , "measured_time": 1299896579000
+  , "latitude": 36.0640669
+  , "longitude": 136.2194938
+  , "address": "鯖江市"
+  , "comment": "hoge"
+}
+,{
+  "carrier": "docomo"
+  , "speed": 2000
+  , "out_of_service": false
+  , "measured_time": 1299896579000
+  , "latitude": 35.951932
+  , "longitude": 136.18564400000002
+  , "address": "西山公園"
+  , "comment": "レッサーパンダ！！！"
+}
+,{
+  "carrier": "docomo"
+  , "speed": 2500
+  , "out_of_service": false
+  , "measured_time": 1299896579000
+  , "latitude": 35.9462967
+  , "longitude": 136.19607870000004
+  , "address": "めがね会館"
+  , "comment": "Hackathon中 :)"
+}
+]
+)
