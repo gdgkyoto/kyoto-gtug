@@ -40,3 +40,12 @@ CONTEXT_PROCESSORS = (
   'kay.context_processors.url_functions',
   'kay.context_processors.media_url',
 )
+
+INSTALLED_APPS = (
+  'kay.auth',
+  'myone',
+)
+
+APP_MOUNT_POINTS = {
+  'myone': '/',
+}
