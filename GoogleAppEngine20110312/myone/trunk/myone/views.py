@@ -44,4 +44,4 @@ def a(request):
   
 def challenge_list(request):
   return render_to_response('myone/challenge_list.html', {'challeng_lists': [{ 'movie_id': 'XzUILaTGA5k' , 'title': u'パン早食い' , 'rank': 5 , 'update_time': u'1週間前' , 'play_count': 200000}
-																	,{ 'movie_id': 'XzUILaTGA5k' , 'event_title': u'早食いパン222' , 'rank': 3 , 'update_time': u'3日前' , 'play_count': 100000}]})
+																	,{ 'movie_id': 'XzUILaTGA5k' , 'title': u'早食いパン222' , 'rank': 3 , 'update_time': u'3日前' , 'play_count': 100000}]})
