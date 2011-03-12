@@ -1,0 +1,134 @@
+@charset "utf-8";
+
+/*=================================================
+ * ブラウザのデフォルトのスタイルをリセットする
+ * ================================================= */
+html, body, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p,
+header, hgroup, section, article, aside, hgroup, footer, figure, figcaption, nav {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+}
+body {
+	line-height: 1.0;
+	-webkit-text-size-adjust: none;
+}
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary { 
+	display:block;
+}
+img {
+	border: 0;
+	vertical-align: bottom;
+}
+ul, ol {
+	list-style: none;
+}
+table {
+	border-spacing: 0;
+	empty-cells: show;
+}
+
+/*=================================================
+ * サイト全体の基本スタイル
+ * ================================================= */
+body {
+	font-family: Arial, san-serif;
+	font-size: 14px;
+	line-height: 1.6;
+	text-align: center;
+	background: url(../img/bg.png) repeat-x left bottom;
+}
+a {
+	color: #333;
+}
+.put-left {
+	float: left;
+	text-align: left;
+	width: 12%;
+	margin-top: 3px;
+	margin-left: 3px;
+}
+.put-right {
+	float: right;
+	text-align: right;
+	width: 12%;
+	margin-top: 3px;
+	margin-right: 3px;
+}
+.put-center {
+	float: left;
+	text-align: center;
+	width: 74%;
+}
+
+#container {
+	position: relative;
+	width: 100%;
+}
+.startup {
+	position: fixed;
+	bottom: 0;
+}
+
+#gHeader {
+	background: url(../img/bg_header.png) repeat-x left top;
+	height: 45px;
+}
+#gHeader h1 {
+	margin-top: 8px;
+}
+#gFooter {
+	widows: ;
+	position: fixed;
+	bottom: 0;
+	height: 45px;
+}
+#gFooter ul {
+	margin: 0 auto;
+}
+#gFooter li {
+	font-size: x-small;
+	display: inline;
+}
+#gFooter ul a {
+	background: url(../img/nav.png);
+	float: left;
+	text-indent: -9999px;
+	overflow: hidden;
+}
+#gFooter ul a.nav01 {
+	width: 107px;
+	height: 46px;
+	background-position: 0 0;
+}
+#gFooter ul a:hover.nav01 {
+	width: 107px;
+	height: 46px;
+	background-position: 0 -46px;
+}
+#gFooter ul a.nav02 {
+	width: 107px;
+	height: 46px;
+	background-position: -107px 0;
+}
+#gFooter ul a:hover.nav02 {
+	width: 107px;
+	height: 46px;
+	background-position: -107px -46px;
+}
+#gFooter ul a.nav03 {
+	width: 106px;
+	height: 46px;
+	background-position: -214px 0;
+}
+#gFooter ul a:hover.nav03 {
+	width: 106px;
+	height: 46px;
+	background-position: -214px -46px;
+}
+
+.boldtext {
+	font-size: 36px;
+	font-weight: bold;
+}
