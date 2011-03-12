@@ -20,11 +20,11 @@ public class CardsController extends Controller {
         User user = userService.getCurrentUser();
 
         List<Card> cards;
-        if ( user != null ) {
-            cards = service.getCardsWithout( user.getUserId() );
-        } else {
+       // if ( user != null ) {
+       //     cards = service.getCardsWithout( user.getUserId() );
+       // } else {
             cards = service.getCards();
-        }
+       // }
         requestScope("cards", cards);
 
         return forward("cards.jsp");
