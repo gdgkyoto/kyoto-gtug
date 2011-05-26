@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Account">
+	<fx:Declarations>
+		<!-- 非ビジュアルエレメント (サービス、値オブジェクトなど) をここに配置 -->
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			private var mail:String;
+			private var password:String;
+			private var liveId:String;
+			private var ticket:String;
+			private var rtmp:String;
+			protected function btn_ok_clickHandler(event:MouseEvent):void
+			{
+				mail = text_mail.text;
+				password = text_password.text;
+				liveId = text_liveId.text;
+				login4Cookie();
+				function login4Ticket_success():void
+				{
+					function getPlayerStatus_success():void
+					{
+						playLive();
+					}
+					getPlayerStatus(getPlayerStatus_success, function():void{});
+				}
+				login4Ticket(login4Ticket_success, function():void{});
+			}
+			private function login4Cookie():void
+			{
+				var request:URLRequest = new URLRequest("https://secure.nicovideo.jp/secure/login?site=nicolive");
+				var loader:URLLoader = new URLLoader();
+				request.method = "POST";
+				request.contentType = "application/x-www-form-urlencoded";
+				request.data = "next_url=&mail=" + encodeURIComponent(mail) + "&password=" + encodeURIComponent(password);
+				loader.addEventListener(Event.COMPLETE, function (event:Event):void { });
+				loader.load(request);
+			}
+			private function login4Ticket(callbackSuccess:Function, callbackFailure:Function):void
+			{
+				var request:URLRequest = new URLRequest("https://secure.nicovideo.jp/secure/login?site=nicolive_antenna");
+				var loader:URLLoader = new URLLoader();
+				request.method = "POST";
+				request.contentType = "application/x-www-form-urlencoded";
+				request.data = "mail=" + encodeURIComponent(mail) + "&password=" + encodeURIComponent(password);
+				loader.addEventListener(Event.COMPLETE, function (event:Event):void {
+					var xml:XML = new XML(event.target.data);
+					var status:String = xml.attribute("status").toXMLString();
+					if (status == 'ok') {
+						callbackSuccess();
+					} else {
+						callbackFailure();
+					}
+				});
+				loader.load(request);
+			}
+			private function getPlayerStatus(callbackSuccess:Function, callbackFailure:Function):void
+			{
+				var request:URLRequest = new URLRequest("http://live.nicovideo.jp/api/getplayerstatus?v=" + liveId);
+				var loader:URLLoader = new URLLoader();
+				request.method = "GET";
+				loader.addEventListener(Event.COMPLETE, function (event:Event):void {
+					var xml:XML = new XML(event.target.data);
+					rtmp = xml.child("rtmp")[0].child("url")[0].text();
+					ticket = xml.child("rtmp")[0].child("ticket")[0].text();
+					callbackSuccess();
+				});
+				loader.load(request);
+			}
+			private function playLive():void
+			{
+				var video:Video = new Video();
+				textarea.text = rtmp;
+//				video_panel.addChild(video);
+				var nc:NetConnection = new NetConnection();
+				nc.addEventListener(NetStatusEvent.NET_STATUS, function(event:NetStatusEvent):void{
+					switch (event.info.code)
+					{
+						case "NetConnection.Connect.Success":
+							var ns:NetStream = new NetStream(nc, NetStream.CONNECT_TO_FMS);
+							video.attachNetStream(ns);
+							ns.play();
+							break;
+					}
+				});
+				nc.connect(rtmp);
+			}
+		]]>
+	</fx:Script>
+
+	<s:VGroup x="10" y="10" width="460" height="599">
+		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+				  paddingTop="10">
+			<s:Label width="120" height="80" text="Mail" verticalAlign="middle"/>
+			<s:TextInput id="text_mail" width="300" height="80"/>
+		</s:HGroup>
+		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+				  paddingTop="10">
+			<s:Label width="120" height="80" text="Pass&#xd;word" verticalAlign="middle"/>
+			<s:TextInput id="text_password" width="300" height="80"/>
+		</s:HGroup>
+		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+				  paddingTop="10">
+			<s:Label width="120" height="80" text="LiveID" verticalAlign="middle"/>
+			<s:TextInput id="text_liveId" width="300" height="80"/>
+		</s:HGroup>
+		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+				  paddingTop="10">
+			<s:Label width="120" height="80" verticalAlign="middle"/>
+			<s:Button width="300" height="80" label="OK" click="btn_ok_clickHandler(event)"/>
+		</s:HGroup>
+		<s:HGroup id="video_panel" width="460" height="335">
+			<s:TextArea id="textarea" width="453" height="160"/>
+		</s:HGroup>
+	</s:VGroup>
+</s:View>
