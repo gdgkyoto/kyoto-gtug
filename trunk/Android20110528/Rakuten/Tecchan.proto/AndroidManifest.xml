@@ -14,9 +14,12 @@
         </activity>
 
         <!-- 詳細 -->
-        <activity android:name="Detail" android:label="詳細"
+        <activity android:name=".Detail" android:label="詳細"
             android:configChanges="keyboard|keyboardHidden" android:theme="@android:style/Theme.Black"></activity>
 
+        <!-- 楽天 -->
+        <activity android:name=".Rakuten" android:label="想像してみてください"
+            android:configChanges="keyboard|keyboardHidden" android:theme="@android:style/Theme.Light"></activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

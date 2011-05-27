@@ -16,7 +16,7 @@
             <ImageButton android:id="@+id/btn03" android:layout_height="60dp"
                 android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn03" />
             <ImageButton android:id="@+id/btn04" android:layout_height="60dp"
-                android:layout_width="120dp" android:scaleType="center" android:onClick="OnClick_Btn04" android:src="@drawable/rakuten"/>
+                android:layout_width="120dp" android:onClick="OnClick_Btn04" android:src="@drawable/rakuten"/>
         </TableRow>
     </TableLayout>
 
