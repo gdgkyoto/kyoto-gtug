@@ -99,7 +99,7 @@
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
 			<s:Label width="120" height="80" text="Pass&#xd;word" verticalAlign="middle"/>
-			<s:TextInput id="text_password" width="300" height="80"/>
+			<s:TextInput id="text_password" displayAsPassword="true" width="300" height="80"/>
 		</s:HGroup>
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
