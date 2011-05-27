@@ -3,6 +3,7 @@ package com.google.ktygtug.droid2.tecchan;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -88,12 +89,7 @@ public class Detail extends Activity {
 
     //  ボタン４クリックリスナ
     public void OnClick_Btn04(View v) {
-
-    }
-
-    //  ボタン５クリックリスナ
-    public void OnClick_Btn05(View v) {
-
+        startActivityForResult(new Intent(this,Rakuten.class),1);
     }
 
 }
