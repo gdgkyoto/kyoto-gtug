@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal" android:layout_marginTop="10dp">
+    <ImageView android:id="@+id/imageMain" android:src="@drawable/icon"
+        android:layout_width="240dp" android:layout_height="180dp" android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal"></ImageView>
+
+    <TableLayout android:orientation="vertical" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_gravity="center_horizontal">
+        <TableRow>
+            <ImageButton android:id="@+id/btn01" android:layout_height="60dp"
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn01" />
+            <ImageButton android:id="@+id/btn02" android:layout_height="60dp"
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn02" />
+            <ImageButton android:id="@+id/btn03" android:layout_height="60dp"
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn03" />
+            <ImageButton android:id="@+id/btn04" android:layout_height="60dp"
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn04" />
+            <ImageButton android:id="@+id/btn05" android:layout_height="60dp"
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn05" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent"
+        android:layout_height="fill_parent" android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView android:text="TextView" android:id="@+id/textInfo" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+    </LinearLayout>
+
+
+
+</LinearLayout>
