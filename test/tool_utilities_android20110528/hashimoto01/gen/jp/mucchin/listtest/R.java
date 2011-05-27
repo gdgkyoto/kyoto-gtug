@@ -46,7 +46,10 @@ public final class R {
         public static final int second=0x7f030002;
     }
     public static final class raw {
-        public static final int moukae=0x7f050000;
+        public static final int kyaa01mayu=0x7f050000;
+        public static final int moukae=0x7f050001;
+        public static final int yoxsya01hal=0x7f050002;
+        public static final int yoxsya01hal_1=0x7f050003;
     }
     public static final class string {
         public static final int activity_animation_duration=0x7f060004;
