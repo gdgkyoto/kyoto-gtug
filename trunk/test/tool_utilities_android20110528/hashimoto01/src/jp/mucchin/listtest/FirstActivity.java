@@ -126,8 +126,29 @@ public class FirstActivity extends Activity {
             }
             
             if(resultsString.toString().equals("きゅうり")){           	
-		        MediaPlayer mp = MediaPlayer.create(getBaseContext() ,R.raw.moukae);
-		        mp.start();            
+		        MediaPlayer mp = MediaPlayer.create(getBaseContext() ,R.raw.yoxsya01hal_1);
+		        mp.start();
+				ImageView1.setImageResource(R.drawable.p01501); 
+		        RotateAnimation rotate = new RotateAnimation(0, 360, ImageView1.getWidth()/2, ImageView1.getHeight()/2); // imgの中心を軸に、0度から360度にかけて回転
+		        rotate.setDuration(3000); // 3000msかけてアニメーションする
+		        ImageView1.startAnimation(rotate); // アニメーション適用
+				Textview1.setPadding(100, 300, 100, 100);
+				Textview1.setTextColor(Color.BLUE);
+				Textview1.setTextSize(25);
+		        Textview1.setText("あああああああ"); 		        
+            }
+		    else if(resultsString.toString().equals("トマト")){           	
+			    MediaPlayer mp = MediaPlayer.create(getBaseContext() ,R.raw.kyaa01mayu);
+			    mp.start();		
+				ImageView1.setImageResource(R.drawable.p01502); 
+		        AlphaAnimation alpha = new AlphaAnimation(0.1f,1); // 透明度を1から0.1に変化させる
+		        alpha.setDuration(3000); // 3000msかけてアニメーションする
+		        ImageView1.startAnimation(alpha); // アニメーション適用
+				Textview1.setPadding(100, 300, 100, 100);
+				Textview1.setTextColor(Color.BLUE);
+				Textview1.setTextSize(25);
+		        Textview1.setText("いいいいいいいいいいい"); 				    
+
             }//End of if
     }//End of onActivityResult    
     }
