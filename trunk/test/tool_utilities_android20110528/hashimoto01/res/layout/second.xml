@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/hello"
+    />
+
+
+
+<LinearLayout
+  android:orientation="horizontal"
+  android:layout_height="wrap_content" android:layout_width="wrap_content">
+<TextView android:layout_width="100px" android:layout_height="wrap_content" android:text="予算金額"></TextView>
+<TextView android:layout_width="100px" android:layout_height="wrap_content" android:id="@+id/budget"></TextView>
+<TextView android:layout_width="100px" android:layout_height="wrap_content" android:text="総計金額"></TextView>
+<TextView android:layout_width="100px" android:layout_height="wrap_content" android:text="10000"></TextView>
+</LinearLayout>
+
+<LinearLayout
+  android:orientation="vertical"
+  android:layout_height="wrap_content" android:layout_width="wrap_content">
+  
+<LinearLayout
+  android:orientation="horizontal"
+  android:layout_height="wrap_content" android:layout_width="wrap_content">  
+<EditText android:layout_height="wrap_content"  android:text="品物はなによ"  android:id="@+id/InputName"  android:layout_width="fill_parent"></EditText>
+<Button android:layout_height="wrap_content"  android:text="音声入力"  android:id="@+id/InputNameButton"  android:layout_width="fill_parent"></Button >
+</LinearLayout>
+
+<LinearLayout
+  android:orientation="horizontal"
+  android:layout_height="wrap_content" android:layout_width="wrap_content">  
+<EditText android:layout_height="wrap_content"  android:text="値段はなによ"  android:id="@+id/InputPrice"  android:layout_width="fill_parent"></EditText>
+<Button android:layout_height="wrap_content"  android:text="音声入力"  android:id="@+id/InputPriceButton"  android:layout_width="fill_parent"></Button >
+</LinearLayout>
+
+<LinearLayout
+  android:orientation="horizontal"
+  android:layout_height="wrap_content" android:layout_width="wrap_content">  
+<EditText android:layout_height="wrap_content"  android:text="個数はなによ"  android:id="@+id/InputItemCount"  android:layout_width="fill_parent"></EditText>
+<Button android:layout_height="wrap_content"  android:text="音声入力"  android:id="@+id/InputItemCountButton"  android:layout_width="fill_parent"></Button >
+</LinearLayout>
+
+<LinearLayout
+  android:orientation="horizontal"
+  android:layout_height="wrap_content" android:layout_width="wrap_content">  
+<TextView android:layout_height="wrap_content"  android:text="合計xxxxx"  android:id="@+id/InputPriceSum"  android:layout_width="fill_parent"></TextView>
+</LinearLayout>
+<ImageView
+    android:id="@+id/ImageView1"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+      >
+</ImageView>   
+
+</LinearLayout>
+
+<ListView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/android:list"></ListView>
+
+</LinearLayout>
