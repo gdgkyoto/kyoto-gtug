@@ -46,20 +46,20 @@ public class Fragrance implements Parcelable {
     }
     
     public Fragrance(JSONObject o){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss");
         try {
-            date = format.parse(o.getString("createdby"));
-            latitude = o.getDouble("");
-            longitude = o.getDouble("");
-            epara1 = o.getInt("");
-            epara2 = o.getInt("");
-            epara3 = o.getInt("");
-            epara4 = o.getInt("");
-            epara5 = o.getInt("");
-            epara6 = o.getInt("");
-            epara7 = o.getInt("");
-            epara8 = o.getInt("");
-            period = o.getInt("");
+            date = format.parse(o.getString("createdAt"));
+            latitude = o.getDouble("latitude");
+            longitude = o.getDouble("longitude");
+            epara1 = o.getInt("epara1");
+            epara2 = o.getInt("epara2");
+            epara3 = o.getInt("epara3");
+            epara4 = o.getInt("epara4");
+            epara5 = o.getInt("epara5");
+            epara6 = o.getInt("epara6");
+            epara7 = o.getInt("epara7");
+            epara8 = o.getInt("epara8");
+            period = o.getInt("period");
         } catch (Exception e) {
             Logger.e("JSONパース処理", e);
         }
