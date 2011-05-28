@@ -36,6 +36,7 @@ package views
 			request.method = "POST";
 			request.contentType = "application/x-www-form-urlencoded";
 			request.data = "thread=" + threadId;
+			trace("POST_KEY_URL="+POST_KEY_URL+" thread="+threadId);
 			loader.addEventListener(Event.COMPLETE, function (event:Event):void {
 				var data:String = loader.data;
 				data = data.replace("postkey=","");
