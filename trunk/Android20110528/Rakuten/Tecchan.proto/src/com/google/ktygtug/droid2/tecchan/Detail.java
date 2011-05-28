@@ -101,7 +101,6 @@ public class Detail extends Activity {
             mStreamId = mSoundPool.play(mSoundIds[2],1f,1f,0,0,1f);
         }
 
-
     }
 
     //  ボタン４クリックリスナ
