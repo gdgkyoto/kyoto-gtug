@@ -27,6 +27,7 @@ import android.widget.Toast;
 	        findViewById(R.id.button_select_power).setOnClickListener(this);
 	        findViewById(R.id.button_toSelectRival).setOnClickListener(this);
     }
+		
 	public void onClick(View view){
 	   	switch(view.getId() ){
 	   	//スタンドを選択
