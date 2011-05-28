@@ -122,9 +122,44 @@ public class SheManager {
 	}
 	// レスポンスを得るための情報セット
 	public void SetResponseInfomation(String Name, String price, String itemCount) {
+		Random r = new Random();
+		
+		//好き嫌いは決め打ち
+		if(IsTasting(Name, m_SheProfile.veryLikeItem))
+		{
+			m_SheResponse.situation = "buy";
+			m_SheResponse.emotion = "best";
+		}
+		else if(IsTasting(Name, m_SheProfile.likeItem))
+		{
+			m_SheResponse.situation = "buy";
+			m_SheResponse.emotion = "good";
+		}
+		else if(IsTasting(Name, m_SheProfile.veryNotLikeItem))
+		{
+			m_SheResponse.situation = "buy";
+			m_SheResponse.emotion = "worst";
+		}
+		else if(IsTasting(Name, m_SheProfile.notLikeItem))
+		{
+			m_SheResponse.situation = "buy";
+			m_SheResponse.emotion = "bad";
+		}
+		//好きでも嫌いでもないものはランダム
+		else
+		{
+			int result = analyzeItem(Name);
+			
+			if(result > 0)
+			{
+				m_SheResponse.faceNumber = SheFaceType.NORMAL;
+				m_SheResponse.speak = "私は普通です";
+			}
+		}
 		
 		//
 		
+		/*			
 
 		
 		Random r = new Random();
@@ -138,7 +173,6 @@ public class SheManager {
 			m_SheResponse.emotion = "best";
 
 			
-/*			
 			m_SheResponse.faceNumber = SheFaceType.VERY_HAPPY;
 			if(n == 0){
 				m_SheResponse.speak = "やった！" + Name + "！もう一個買おうよ！！";
@@ -149,7 +183,6 @@ public class SheManager {
 				m_SheResponse.speak = "美味しそ" + m_SheProfile.firstPerson +  "それ大好きなんだ！！";
 				m_SheResponse.speak = "oishiso-" + m_SheProfile.romajiFirstPerson +  "sore daisukinanda!!";
 			}
-*/			
 		}
 		else if(IsTasting(Name, m_SheProfile.likeItem))
 		{
@@ -177,5 +210,7 @@ public class SheManager {
 				m_SheResponse.speak = "私は普通です";
 			}
 		}
+*/			
+		
 	}
 }
