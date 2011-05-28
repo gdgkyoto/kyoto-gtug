@@ -7,8 +7,6 @@ import android.widget.ImageButton;
 public class Rakuten extends Activity {
     public final static String LOG_TAG = "tecchan";
 
-
-
     ImageButton btn01 = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -17,7 +15,6 @@ public class Rakuten extends Activity {
         setResult(Activity.RESULT_CANCELED);
 
         setContentView(R.layout.rakuten);
-
 
 
 
