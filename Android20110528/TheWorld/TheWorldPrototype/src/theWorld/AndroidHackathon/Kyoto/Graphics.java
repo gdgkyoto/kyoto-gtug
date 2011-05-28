@@ -6,57 +6,57 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 
-//ƒOƒ‰ƒtƒBƒbƒNƒXƒNƒ‰ƒX(
-// TODO OpenGL‚É‘‚«Š·‚¦‚é
+//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚¯ãƒ©ã‚¹(
+// TODO OpenGLã«æ›¸ãæ›ãˆã‚‹
 public class Graphics {
     private SurfaceHolder holder;
     private Paint         paint;
     private Canvas        canvas;
 
-    //ƒOƒ‰ƒtƒBƒbƒNƒX
+    //ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹
     public Graphics(SurfaceHolder holder) {
         this.holder=holder;
         paint=new Paint();
         paint.setAntiAlias(true);
     }
     
-    //ƒƒbƒN
+    //ãƒ­ãƒƒã‚¯
     public void lock() {
         canvas=holder.lockCanvas();
     }
     
-    //ƒAƒ“ƒƒbƒN
+    //ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
     public void unlock() {
         holder.unlockCanvasAndPost(canvas);
     }
     
-    //F‚Ìw’è
+    //è‰²ã®æŒ‡å®š
     public void setColor(int color) {
         paint.setColor(color);
     }
 
-    //ƒtƒHƒ“ƒgƒTƒCƒY‚Ìw’è
+    //ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºã®æŒ‡å®š
     public void setFontSize(int fontSize) {
         paint.setTextSize(fontSize);
     }
     
-    //•¶š•‚Ìæ“¾
+    //æ–‡å­—å¹…ã®å–å¾—
     public int stringWidth(String string) {
         return (int)paint.measureText(string);
     }
 
-    //‹éŒ`‚Ì•`‰æ
+    //çŸ©å½¢ã®æç”»
     public void fillRect(int x,int y,int w,int h) {
         paint.setStyle(Paint.Style.FILL);
         canvas.drawRect(new Rect(x,y,x+w,y+h),paint);
     }
     
-    //ƒrƒbƒgƒ}ƒbƒv‚Ì•`‰æ
+    //ãƒ“ãƒƒãƒˆãƒãƒƒãƒ—ã®æç”»
     public void drawBitmap(Bitmap bitmap,int x,int y) {
         canvas.drawBitmap(bitmap,x,y,null);
     }
     
-    //•¶š—ñ‚Ì•`‰æ
+    //æ–‡å­—åˆ—ã®æç”»
     public void drawString(String string,int x,int y) {
         canvas.drawText(string,x,y,paint);
     }
