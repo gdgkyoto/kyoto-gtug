@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<LinearLayout android:id="@+id/bottom"
+		android:layout_width="fill_parent" android:layout_height="54dip"
+		android:layout_alignParentBottom="true" android:background="@android:drawable/bottom_bar">
+		<Button android:text="Button" android:layout_height="wrap_content"
+			android:id="@+id/button1" android:layout_width="fill_parent"
+			android:layout_marginTop="7px" android:layout_marginLeft="5px"
+			android:layout_marginRight="5px" android:layout_marginBottom="0px"></Button>
+	</LinearLayout>
+	<LinearLayout android:layout_above="@id/bottom"
+		android:layout_height="fill_parent" android:layout_width="fill_parent"
+		android:orientation="vertical" android:background="#61B4CF">
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:layout_marginTop="10dip"
+			android:text="地域指定方法の選択" android:textColor="#ffffff" />
+		<Spinner android:prompt="@string/select_region"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:id="@+id/Spinner01" android:entries="@array/Entry1"></Spinner>
+		<TextView android:text="TextView" android:id="@+id/textView1"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:textColor="#ffffff"></TextView>
+		<Spinner android:prompt="@string/select_region"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:id="@+id/Spinner02" android:entries="@array/Entry2"></Spinner>
+	</LinearLayout>
+</RelativeLayout>

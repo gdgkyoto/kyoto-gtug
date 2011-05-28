@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="app_name">LiferoidWidget</string>
+	<string name="select_region">地域指定方法を選択してください</string>
+
+	<string name="Item_1">GPS</string>
+	<string name="Item_2">手動</string>
+	<string name="Item_3">Home</string>
+	<string name="Item_4">Tweet</string>
+</resources>
+
