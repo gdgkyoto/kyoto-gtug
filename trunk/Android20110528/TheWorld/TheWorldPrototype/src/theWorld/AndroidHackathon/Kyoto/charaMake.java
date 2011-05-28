@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 	public class charaMake extends Activity implements OnClickListener{
 		// 返ってきた時の認証用コード(数字は適当なもので良い)
 	    private static final int REQUEST_CODE_VOICE_RECO = 123;
