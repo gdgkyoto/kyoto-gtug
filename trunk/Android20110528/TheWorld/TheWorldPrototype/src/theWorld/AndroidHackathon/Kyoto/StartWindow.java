@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -35,7 +36,8 @@ public class StartWindow extends Activity implements OnClickListener {
         TextView count = (TextView)findViewById(R.id.Count_TextView);
         String text = "バトル開始まで";
         count.setText((CharSequence)text);
-        count.setTextSize(40.0f);
+        count.setTextColor(Color.RED);
+        count.setTextSize(70.0f);
 
 
 
@@ -63,7 +65,8 @@ public class StartWindow extends Activity implements OnClickListener {
 		                	TextView count = (TextView)findViewById(R.id.Count_TextView);
 		                    String text = String.valueOf(counter);
 		                    count.setText((CharSequence)text);
-		                    count.setTextSize(40.0f);
+		                    count.setTextColor(Color.RED);
+		                    count.setTextSize(80.0f);
 		                    counter--;
 	                	}else{
 	                		mTimer.cancel();
