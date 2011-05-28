@@ -2,6 +2,7 @@ package com.lifevar;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 
 import com.google.android.maps.GeoPoint;
@@ -121,6 +123,10 @@ public class SmellMap extends MapActivity {
 		return false;
 	}
 
+	public void onClick(View view){
+	    Intent i = new Intent(this, FragranceSenseActivity.class);
+	    startActivity(i);
+	}
 
 	private void setOverlay(GeoPoint point, int c) {
 
