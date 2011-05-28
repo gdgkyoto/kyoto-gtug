@@ -30,8 +30,6 @@ package views
 		{
 			var accVector:Vector3D = new Vector3D(event.accelerationX,event.accelerationY,event.accelerationZ);
 			
-			trace("Acc Vector Size is " + accVector.length);
-			
 			if((accVector.length > threshold) && ((lastBukkomiedTime + 2500) < (new Date()).getTime())){
 				/* 大きさが指定値より大きい場合にコメントを投稿 */
 				bukkomaretaCallback();
