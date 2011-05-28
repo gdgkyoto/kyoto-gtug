@@ -16,13 +16,13 @@
 			private var ticket:String;
 			private var rtmp:String;
 			
-			public var niconamaConnector:NiconamaConnector;
+			//public var niconamaConnector:NiconamaConnector = NiconamaConnector.niconamaConnector;
+			//public var authData:NiconamaAuthData = NiconamaAuthData.authData;
+			//public var niconamaConnector:NiconamaConnector = new NiconamaConnector();
+			//public var authData:NiconamaAuthData = new NiconamaAuthData();
 			
 			protected function btn_ok_clickHandler(event:MouseEvent):void
-			{
-				niconamaConnector = new NiconamaConnector();
-				
-				
+			{	
 				mail = text_mail.text;
 				password = text_password.text;
 				liveId = text_liveId.text;
@@ -76,9 +76,16 @@
 					trace("event.target.data="+event.target.data);
 					rtmp = xml.child("rtmp")[0].child("url")[0].text();
 					ticket = xml.child("rtmp")[0].child("ticket")[0].text();
-					var authData:NiconamaAuthData = new NiconamaAuthData();
-					authData.parseGetPlayerStatusResult(event.target.data);
-					this.niconamaConnector.connectCommentServer(authData);
+					//authData = new NiconamaAuthData();
+					NiconamaAuthData.authData.parseGetPlayerStatusResult(event.target.data);
+					
+					// イベントハンドラテスト
+					function receiveHandler(mes):void{
+						trace("受信"+mes);
+					}
+					
+					NiconamaConnector.niconamaConnector.setReceiveHandler(receiveHandler);
+					NiconamaConnector.niconamaConnector.connectCommentServer(NiconamaAuthData.authData);
 					callbackSuccess();
 				});
 				loader.load(request);
@@ -135,7 +142,7 @@
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
 			<s:Label width="120" height="80" text="LiveID" verticalAlign="middle"/>
-			<s:TextInput id="text_liveId" width="300" height="80" text="lv51413410 "/>
+			<s:TextInput id="text_liveId" width="300" height="80" text="lv51423804 "/>
 		</s:HGroup>
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
