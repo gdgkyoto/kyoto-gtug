@@ -2,7 +2,8 @@
 <s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 								  xmlns:s="library://ns.adobe.com/flex/spark">
 	<s:ViewNavigator label="Account" width="100%" height="100%" firstView="views.AccountView"/>
-	<s:ViewNavigator label="Video" width="100%" height="100%" firstView="views.VideoView"/>
+	<s:ViewNavigator label="Comment" width="100%" height="100%" firstView="views.CommentView"/>
+	<!--<s:ViewNavigator label="Video" width="100%" height="100%" firstView="views.VideoView"/>-->
 	<fx:Declarations>
 		<!-- 非ビジュアルエレメント (サービス、値オブジェクトなど) をここに配置 -->
 	</fx:Declarations>
