@@ -46,7 +46,7 @@ public class Fragrance implements Parcelable {
     }
     
     public Fragrance(JSONObject o){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
             date = format.parse(o.getString("createdAt"));
             latitude = o.getDouble("latitude");
