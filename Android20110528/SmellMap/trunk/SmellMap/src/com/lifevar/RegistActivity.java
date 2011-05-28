@@ -81,12 +81,11 @@ public class RegistActivity extends Activity implements OnClickListener {
         startActivity(i);
     }
     
-    private static final String postUrl = "http://lifevar.com/g/map/put";
     private void sendServe(Fragrance frag){
         //ここでサーバーに登録
     	HttpClient objHttp = new DefaultHttpClient();
         try {  
-            HttpPost objPost   = new HttpPost(postUrl);  
+            HttpPost objPost   = new HttpPost(getString(R.string.postUrl)); 
             List<NameValuePair> objValuePairs = new ArrayList<NameValuePair>(2);    
             objValuePairs.add(new BasicNameValuePair("mp.latitude", Double.toString(frag.latitude)));  
             objValuePairs.add(new BasicNameValuePair("mp.longitude", Double.toString(frag.longitude)));  
