@@ -10,16 +10,41 @@
 	
 	<fx:Script>
 		<![CDATA[
-			var bukkomiDetector:BukkomiDetector = new BukkomiDetector(bukkomareta)
+			import mx.core.SoundAsset;
+			
+			[Embed(source="../../assets/SF.mp3")]
+			public var bukkomiSound:Class;
+			public var bukkomiSoundAsset:SoundAsset = new bukkomiSound() as SoundAsset;
+			
+			private var bukkomiDetector:BukkomiDetector = new BukkomiDetector(bukkomareta)
 			
 			protected function btn_send_clickHandler(event:MouseEvent):void
 			{
 				//commentList.
+				/* ブッコミ用 fff*/
 			}
 			
-			protected function bukkomareta(){
+			protected function bukkomareta():void{
+				bukkomiSoundAsset.play();
+				
+				NiconamaConnector.niconamaConnector.sendComment(comment.text);
 				trace("ぶっこまれました。");
 			}
+			
+			NiconamaConnector.niconamaConnector.setReceiveHandler(function(comment){
+				var xml:XML = new XML(comment);
+				trace(comment);
+				trace("コメントは" + xml.text() + " : " + xml.attribute("date"));
+				
+				var commentTime:Number = parseInt(xml.attribute("date")) * 1000;
+				var currentTime:Number = ((new Date()).time - 1500);
+				if(commentTime > currentTime){
+					
+					var synthesisOfSpeech:SynthesisOfSpeech = new SynthesisOfSpeech();
+					synthesisOfSpeech.SpeechInJpn(xml.text(),SynthesisOfSpeech.MALE,true);
+				
+				}
+			});
 		]]>
 	</fx:Script>
 </s:View>
