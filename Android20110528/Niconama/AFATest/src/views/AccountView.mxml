@@ -82,6 +82,7 @@
 					
 					// イベントハンドラ
 					function receiveHandler(mes):void{
+						
 						trace("受信"+mes);
 						var xml:XML = new XML(mes);
 						var cmtStr = xml.text();
@@ -91,6 +92,8 @@
 						//commen0.text = cmtStr;
 						//label.text = cmtStr;
 						textarea.text = cmtStr + "\r" + textarea.text;
+						
+						speechComment(mes);
 					}
 
 					
@@ -147,10 +150,11 @@
 				bukkomiSoundAsset.play();
 				
 				NiconamaConnector.niconamaConnector.sendComment(comment.text);
+				comment.text="";
 				trace("ぶっこまれました。");
 			}
 			
-			NiconamaConnector.niconamaConnector.setReceiveHandler(function(comment){
+			public function speechComment(comment){
 				var xml:XML = new XML(comment);
 				trace(comment);
 				trace("コメントは" + xml.text() + " : " + xml.attribute("date"));
@@ -161,11 +165,12 @@
 					var synthesisOfSpeech:SynthesisOfSpeech = new SynthesisOfSpeech();
 					synthesisOfSpeech.SpeechInJpn(xml.text(),SynthesisOfSpeech.MALE,true);
 				}
-			});
+			};
 			
 			protected function btn_send_clickHandler(event:MouseEvent):void
 			{
 				NiconamaConnector.niconamaConnector.sendComment(comment.text);
+				comment.text = "";
 				trace("送信しました。");
 			}
 			
