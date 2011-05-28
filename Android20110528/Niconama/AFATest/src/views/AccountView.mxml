@@ -142,7 +142,7 @@
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
 			<s:Label width="120" height="80" text="LiveID" verticalAlign="middle"/>
-			<s:TextInput id="text_liveId" width="300" height="80" text="lv51423804 "/>
+			<s:TextInput id="text_liveId" width="300" height="80" text="lv51425638 "/>
 		</s:HGroup>
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
