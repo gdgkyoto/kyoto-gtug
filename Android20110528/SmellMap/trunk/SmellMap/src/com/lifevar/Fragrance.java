@@ -1,6 +1,11 @@
 package com.lifevar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -38,6 +43,26 @@ public class Fragrance implements Parcelable {
         epara7 = par.readInt();
         epara8 = par.readInt();
         period = par.readInt();
+    }
+    
+    public Fragrance(JSONObject o){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = format.parse(o.getString("createdby"));
+            latitude = o.getDouble("");
+            longitude = o.getDouble("");
+            epara1 = o.getInt("");
+            epara2 = o.getInt("");
+            epara3 = o.getInt("");
+            epara4 = o.getInt("");
+            epara5 = o.getInt("");
+            epara6 = o.getInt("");
+            epara7 = o.getInt("");
+            epara8 = o.getInt("");
+            period = o.getInt("");
+        } catch (Exception e) {
+            Logger.e("JSONパース処理", e);
+        }
     }
     
     public static final Parcelable.Creator CREATOR
