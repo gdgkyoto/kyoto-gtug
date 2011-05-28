@@ -14,4 +14,5 @@
     <string name="str_param6">パラメータ6</string>
     <string name="str_param7">パラメータ7</string>
     <string name="str_param8">パラメータ8</string>
+    <string name="postUrl">http://lifevar.com/g/map/put</string>
 </resources>
