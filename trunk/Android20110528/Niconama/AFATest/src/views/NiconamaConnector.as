@@ -6,6 +6,12 @@ package views
 	
 	public class NiconamaConnector
 	{
+		/* BEGIN of 設定情報フィールド */
+		private var hard_coded_post_key = ""; //POST_KEY
+		private var use_hard_coded_post_key:Boolean = false; //ハードコーディングされたPOST_KEYを利用する
+		private var is_premium = "0"; // プレミアムフラグ (プレミアム会員 1, 非プレミアム会員 0)
+		/* END of 設定情報フィールド */
+		
 		private var POST_KEY_URL:String = "http://live.nicovideo.jp/api/getpostkey?block_no=0";
 		
 		private var socket:XMLSocket;
@@ -41,10 +47,17 @@ package views
 				var data:String = loader.data;
 				data = data.replace("postkey=","");
 				trace("PostKey:"+data+" thread="+threadId);
-				postKey = data;
+				
+				if(use_hard_coded_post_key){
+					trace("ハードコーディングされたポストキーを利用します : " + hard_coded_post_key);
+					postKey = hard_coded_post_key;
+				}else{
+					trace("取得されたポストキー : " + data);
+					postKey = data;
+				}
 				
 				// 投稿テスト
-				sendComment("テスト");
+				//sendComment("テスト");
 			});
 			loader.load(request);
 		}
@@ -67,7 +80,7 @@ package views
 			trace("sendComment1");
 			var vpos:Number = getVpos(authData.openTime);
 			trace("sendComment2");
-			var data:String = "<chat thread=\""+authData.threadId+"\" ticket=\""+authData.commentTicket+"\" vpos=\""+vpos+"\" postkey=\""+postKey+"\" mail=\" 184\" user_id=\""+authData.loginUserId+"\" premium=\"1\">"+message+"</chat>\0";
+			var data:String = "<chat thread=\""+authData.threadId+"\" ticket=\""+authData.commentTicket+"\" vpos=\""+vpos+"\" postkey=\""+postKey+"\" mail=\" 184\" user_id=\""+authData.loginUserId+"\" premium=\"" + is_premium + "\">"+message+"</chat>\0";
 			trace("send:"+data);
 			socket.send(data);
 		}
