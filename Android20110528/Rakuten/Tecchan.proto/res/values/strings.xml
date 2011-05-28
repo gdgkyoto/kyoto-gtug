@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Main!</string>
     <string name="app_name">鉄っちゃん</string>
+    <string name="txt_info_011">阪和線（はんわせん）は、大阪府大阪市天王寺区の天王寺駅から和歌山県和歌山市の和歌山駅までを結ぶ西日本旅客鉄道（JR西日本）の鉄道路線（幹線）である。</string>
+    <string name="txt_info_012">ほかに大阪府堺市西区の鳳駅から大阪府高石市の東羽衣駅までを結ぶ支線（通称：羽衣線）を持つ。</string>
+    <string name="txt_info_013">だみー013</string>
+    <string name="txt_info_021">長尾線（ながおせん）は、香川県高松市の瓦町駅と香川県さぬき市の長尾駅とを結ぶ高松琴平電気鉄道（ことでん）の鉄道路線。</string>
+    <string name="txt_info_022">終点の長尾駅のすぐ東には四国八十八箇所の長尾寺があり、当寺への参拝路線としての性格を持っていたが、現在は高松の郊外路線である。</string>
+    <string name="txt_info_023">ほぼ全線にわたって香川県道10号高松長尾大内線（通称・長尾街道）が並行する。</string>
+    <string name="txt_info_121">きかんしゃトーマス（Thomas and Friends）は、イギリス及びカナダ制作の幼児向けテレビ番組。</string>
+    <string name="txt_info_122">2002年ごろまでは、「Thomas the Tank Engine and Friends」が正式なタイトルだった。</string>
+    <string name="txt_info_123">日本語版の正式名称は「きかんしゃトーマスとなかまたち」だが、基本は「きかんしゃトーマス」と称してきた。</string>
 </resources>

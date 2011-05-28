@@ -10,21 +10,23 @@
         android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_gravity="center_horizontal">
         <TableRow>
             <ImageButton android:id="@+id/btn01" android:layout_height="60dp"
-                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn01" />
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn01"
+                android:src="@drawable/detailicon1" />
             <ImageButton android:id="@+id/btn02" android:layout_height="60dp"
-                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn02" />
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn02"
+                android:src="@drawable/detailicon2" />
             <ImageButton android:id="@+id/btn03" android:layout_height="60dp"
-                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn03" />
+                android:layout_width="60dp" android:scaleType="fitXY" android:onClick="OnClick_Btn03"
+                android:src="@drawable/detailicon3" />
             <ImageButton android:id="@+id/btn04" android:layout_height="60dp"
                 android:layout_width="120dp" android:onClick="OnClick_Btn04" android:src="@drawable/rakuten" />
         </TableRow>
     </TableLayout>
-
     <LinearLayout android:orientation="vertical" android:layout_width="fill_parent"
         android:layout_height="fill_parent" android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp" android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-        <TextView android:id="@+id/textInfo" android:layout_width="wrap_content"
+        <TextView android:id="@+id/txtInfo" android:layout_width="wrap_content"
             android:layout_height="wrap_content"></TextView>
     </LinearLayout>
 
