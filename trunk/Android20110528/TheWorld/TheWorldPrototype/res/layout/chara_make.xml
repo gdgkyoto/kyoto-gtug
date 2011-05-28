@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent" android:orientation="vertical">
+    <TextView android:layout_height="wrap_content" android:text="@string/charaMake01" android:layout_width="wrap_content" android:id="@+id/charaMake01"></TextView>
+    <EditText android:id="@+id/editText1" android:text="EditText" android:layout_height="wrap_content" android:layout_width="wrap_content"></EditText>
+    <TextView android:layout_height="wrap_content" android:text="@string/charaMake02" android:layout_width="wrap_content" android:id="@+id/textView1"></TextView>
+    <Button android:text="@string/charaMake04" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button_select_stand"></Button>
+    <TextView android:layout_height="wrap_content" android:text="@string/charaMake05" android:layout_width="wrap_content" android:id="@+id/stand_name"></TextView>
+    <TextView android:layout_height="wrap_content" android:text="@string/charaMake03" android:layout_width="wrap_content" android:id="@+id/textView3"></TextView>
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/charaMake04" android:id="@+id/button_select_power"></Button>
+    <Button android:text="@string/charaMake08" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button_toSelectRival"></Button>
+    
+</LinearLayout>
