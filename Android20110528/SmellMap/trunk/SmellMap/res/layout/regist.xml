@@ -2,6 +2,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
+   	android:gravity="center_horizontal"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
     <LinearLayout 
@@ -28,14 +29,14 @@
             <TextView 
             	android:text="測定日付" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:id="@+id/textView1" 
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="2011年5月28日4時" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/textView2" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -47,13 +48,13 @@
             <TextView 
             	android:text="@string/str_param1" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param1" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -65,13 +66,13 @@
             <TextView 
             	android:text="@string/str_param2" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param2" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -83,13 +84,13 @@
             <TextView 
             	android:text="@string/str_param3" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param3" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -101,13 +102,13 @@
             <TextView 
             	android:text="@string/str_param4" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param4" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -119,13 +120,13 @@
             <TextView 
             	android:text="@string/str_param5" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param5" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -137,13 +138,13 @@
             <TextView 
             	android:text="@string/str_param6" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param6" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -155,13 +156,13 @@
             <TextView 
             	android:text="@string/str_param7" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param7" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
@@ -173,16 +174,34 @@
             <TextView 
             	android:text="@string/str_param8" 
             	android:textStyle="bold"
-            	android:textSize="20sp"
+            	android:textSize="14sp"
             	android:layout_marginRight="10dip"
             	android:layout_width="wrap_content" 
             	android:layout_height="wrap_content" />
 		    <TextView 
 		    	android:text="" 
-            	android:textSize="20sp"
+            	android:textSize="14sp"
 		    	android:id="@+id/param8" 
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"></TextView>
+        </TableRow>
+        <TableRow 
+        	android:id="@+id/tableRow9"
+        	android:layout_width="fill_parent" 
+        	android:layout_height="wrap_content">
+            <TextView 
+            	android:text="持続日数" 
+            	android:textStyle="bold"
+            	android:textSize="14sp"
+            	android:layout_marginRight="10dip"
+            	android:layout_width="wrap_content" 
+            	android:layout_height="wrap_content" />
+            <SeekBar 
+            	android:layout_height="wrap_content" 
+            	android:id="@+id/seekBar1"
+            	android:max="31"
+            	android:progress="10"
+            	android:layout_width="fill_parent"></SeekBar>
         </TableRow>
     </TableLayout>
     <EditText 
