@@ -4,34 +4,34 @@
     android:layout_gravity="center_horizontal" android:layout_marginTop="10dp">
     <TableRow>
         <ImageButton android:id="@+id/btn01" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="1"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon01" />
         <ImageButton android:id="@+id/btn02" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="2"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon02" />
         <ImageButton android:id="@+id/btn03" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="3"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon03" />
     </TableRow>
     <TableRow>
         <ImageButton android:id="@+id/btn04" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="4"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon04" />
         <ImageButton android:id="@+id/btn05" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="5"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon05" />
         <ImageButton android:id="@+id/btn06" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="6"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon06" />
     </TableRow>
     <TableRow>
         <ImageButton android:id="@+id/btn07" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="7"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon07" />
         <ImageButton android:id="@+id/btn08" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="8"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon08" />
         <ImageButton android:id="@+id/btn09" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="9"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon09" />
     </TableRow>
     <TableRow>
         <ImageButton android:id="@+id/btn10" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="10"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon10" />
         <ImageButton android:id="@+id/btn11" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="11"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon11" />
         <ImageButton android:id="@+id/btn12" android:layout_height="100dp"
-            android:layout_width="100dp" android:scaleType="fitXY" android:tag="12"/>
+            android:layout_width="100dp" android:scaleType="fitXY" android:src="@drawable/menuicon12" />
     </TableRow>
 </TableLayout>

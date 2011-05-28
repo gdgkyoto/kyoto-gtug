@@ -4,12 +4,11 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.XmlResourceParser;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,18 +34,24 @@ public class Detail extends Activity {
         setResult(Activity.RESULT_CANCELED);
 
         mMenuIdx = getIntent().getIntExtra(Main.KEY_IDX,-1);
+
+        Log.d(LOG_TAG,"mMenuIdx: " + mMenuIdx);
+
         if(mMenuIdx == -1){
             finish();
         }else{
             setContentView(R.layout.detail);
             mImgInfo = (ImageView)findViewById(R.id.imageMain);
 
-            mTxtInfo = (TextView)findViewById(R.id.textInfo);
-            mTxtInfo.setText(null);
+            mImgInfo.setImageDrawable(getResources().getDrawable(R.drawable.main01 + mMenuIdx));
+
+            mTxtInfo = (TextView)findViewById(R.id.txtInfo);
+            mTxtInfo.setText(getInfoText(0));
 
             mSoundPool = new SoundPool(5,AudioManager.STREAM_MUSIC,0);
 
             int baseid = R.raw.whistle011 + mMenuIdx * 3;
+            if(mMenuIdx == 11) baseid = R.raw.whistle011;
             mSoundIds[0] = mSoundPool.load(this,baseid + 0,0);
             mSoundIds[1] = mSoundPool.load(this,baseid + 1,0);
             mSoundIds[2] = mSoundPool.load(this,baseid + 2,0);
@@ -76,13 +81,29 @@ public class Detail extends Activity {
         }
     }
 
+    private String getInfoText(int btnidx){
+        String ret = null;
+        switch(mMenuIdx){
+        case 0:
+            ret = getString(R.string.txt_info_011 + btnidx);
+            break;
+        case 1:
+            ret = getString(R.string.txt_info_021 + btnidx);
+            break;
+        case 11:
+            ret = getString(R.string.txt_info_121 + btnidx);
+            break;
+        }
+        return ret;
+    }
+
     //  ボタン１クリックリスナ
     public void OnClick_Btn01(View v) {
         if(mSoundIds[0] > 0){
             stopSound();
             mStreamId = mSoundPool.play(mSoundIds[0],1f,1f,0,0,1f);
         }
-
+        mTxtInfo.setText(getInfoText(0));
     }
 
     //  ボタン２クリックリスナ
@@ -91,7 +112,7 @@ public class Detail extends Activity {
             stopSound();
             mStreamId = mSoundPool.play(mSoundIds[1],1f,1f,0,0,1f);
         }
-
+        mTxtInfo.setText(getInfoText(1));
     }
 
     //  ボタン３クリックリスナ
@@ -100,7 +121,7 @@ public class Detail extends Activity {
             stopSound();
             mStreamId = mSoundPool.play(mSoundIds[2],1f,1f,0,0,1f);
         }
-
+        mTxtInfo.setText(getInfoText(2));
     }
 
     //  ボタン４クリックリスナ

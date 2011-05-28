@@ -27,13 +27,48 @@ public class Main extends Activity {
     private int mMenuIdx = -1;
 
     private boolean tag2Idx(View v){
-        boolean ret = false;
-
-        int idx = v.getId() - R.id.btn01;
-        if(idx >= 0 && idx < 12){
-            mMenuIdx = idx;
-            ret = true;
+        boolean ret = true;
+        switch(v.getId()){
+        case R.id.btn01:
+            mMenuIdx = 0;
+            break;
+        case R.id.btn02:
+            mMenuIdx = 1;
+            break;
+        case R.id.btn03:
+            mMenuIdx = 2;
+            break;
+        case R.id.btn04:
+            mMenuIdx = 3;
+            break;
+        case R.id.btn05:
+            mMenuIdx = 4;
+            break;
+        case R.id.btn06:
+            mMenuIdx = 5;
+            break;
+        case R.id.btn07:
+            mMenuIdx = 6;
+            break;
+        case R.id.btn08:
+            mMenuIdx = 7;
+            break;
+        case R.id.btn09:
+            mMenuIdx = 8;
+            break;
+        case R.id.btn10:
+            mMenuIdx = 9;
+            break;
+        case R.id.btn11:
+            mMenuIdx = 10;
+            break;
+        case R.id.btn12:
+            mMenuIdx = 11;
+            break;
+        default:
+            ret = false;
         }
+
         return ret;
     }
 
@@ -130,7 +165,7 @@ public class Main extends Activity {
         mSountIds[1][8] = mSoundPool.load(this,R.raw.whistle091,0);
         mSountIds[1][9] = mSoundPool.load(this,R.raw.whistle101,0);
         mSountIds[1][10] = mSoundPool.load(this,R.raw.whistle111,0);
-        mSountIds[1][11] = mSoundPool.load(this,R.raw.whistle111,0);
+        mSountIds[1][11] = mSoundPool.load(this,R.raw.whistle121,0);
     }
 
     @Override
