@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="Widget Setting">
+	<PreferenceCategory android:title="放射線量表示設定">
+		<ListPreference android:entryValues="@array/EntryValue1"
+			android:summary="1st item" android:entries="@array/Entry1"
+			android:dialogTitle="1st item" android:title="1st item" android:key="@string/pref1"
+			android:selectable="true" android:enabled="true"
+			android:positiveButtonText="OK" android:negativeButtonText="Cancel"
+			android:defaultValue="0"></ListPreference>
+		<ListPreference android:entryValues="@array/EntryValue2"
+			android:summary="2nd item" android:entries="@array/Entry2"
+			android:dialogTitle="2nd item" android:title="2nd item" android:key="@string/pref2"
+			android:selectable="true" android:enabled="true"
+			android:positiveButtonText="OK" android:negativeButtonText="Cancel"
+			android:defaultValue="1"></ListPreference>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="Widget更新頻度設定">
+		<ListPreference android:entryValues="@array/EntryValue1"
+			android:summary="更新頻度設定をします" android:entries="@array/Entry1"
+			android:dialogTitle="Widget更新頻度設定" android:title="Widget更新頻度設定" android:key="@string/pref3"
+			android:selectable="true" android:enabled="true"
+			android:positiveButtonText="OK" android:negativeButtonText="Cancel"
+			android:defaultValue="0"></ListPreference>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="文字色の設定">
+		<Preference android:summary="Summary for Preference"
+			android:title="Title for Preference" android:key="@string/pref3" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="背景設定">
+		<ListPreference android:entryValues="@array/EntryValue1"
+			android:summary="1st item" android:entries="@array/Entry1"
+			android:dialogTitle="1st item" android:title="1st item" android:key="@string/pref1"
+			android:selectable="true" android:enabled="true"
+			android:positiveButtonText="OK" android:negativeButtonText="Cancel"
+			android:defaultValue="0"></ListPreference>
+	</PreferenceCategory>
+</PreferenceScreen>
