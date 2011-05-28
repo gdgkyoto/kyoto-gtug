@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StartWindow extends Activity implements OnClickListener {
+public class StartWindow extends Activity{
 
 
 	int counter = 5;
@@ -66,7 +66,7 @@ public class StartWindow extends Activity implements OnClickListener {
 		                    String text = String.valueOf(counter);
 		                    count.setText((CharSequence)text);
 		                    count.setTextColor(Color.RED);
-		                    count.setTextSize(80.0f);
+		                    count.setTextSize(100.0f);
 		                    counter--;
 	                	}else{
 	                		mTimer.cancel();
@@ -105,16 +105,7 @@ public class StartWindow extends Activity implements OnClickListener {
 	}
 
 
-	public void onClick(View v) {
-		switch(v.getId()){
-    	case R.id.start_Button:
-
-    		Toast.makeText(StartWindow.this, "start", Toast.LENGTH_LONG).show();
-            break;
-        default:
-        	break;
-	}
 
 	}
 
-}
+
