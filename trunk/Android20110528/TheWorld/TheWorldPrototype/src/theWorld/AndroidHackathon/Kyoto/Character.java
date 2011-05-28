@@ -4,16 +4,16 @@ import android.graphics.Bitmap;
 
 public class Character {
 	
-	    //�C���[�W
+	    //・ｽC・ｽ・ｽ・ｽ[・ｽW
 	    public static Bitmap[] bmp=new Bitmap[3];
 
-	    //�ϐ�
+	    //・ｽﾏ撰ｿｽ
 	    public int state;//(4)
 	    public int life;
 	    public int offence;
 	    
 	    /*
-	    //�R���X�g���N�^
+	    //・ｽR・ｽ・ｽ・ｽX・ｽg・ｽ・ｽ・ｽN・ｽ^
 	    public character(int life) {
 	        this.life=life;
 	        this.state=1;
@@ -21,7 +21,7 @@ public class Character {
 	    */
 	    
 	    /*
-	    //���
+	    //・ｽ・ｽ・ｽ
 	    public void tick() {
 	        state++;
 	        if (state==19 || state==39) {
