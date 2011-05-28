@@ -146,11 +146,13 @@ public class AndroidTest2 extends Activity {
 		}
 
 		case 4: {// これでいい？
-			
-			
 			SheManager.getInstance().SetResponseInfomation(item_from_voice, price_from_voice, itemCount_from_voice);
 			
-			showHerMessage("まあまあじゃない？");// ここは判定しだい
+			String situation = SheManager.getInstance().GetSituation();
+			String emotion = SheManager.getInstance().GetSituation();
+			String mes =  selectHerMessage(situation, emotion, item_from_voice);
+			
+			showHerMessage(mes);// ここは判定しだい
 			showPicture(5);
 			execBtn.setText("これでいく");
 			cancelBtn.setText("やり直す");
