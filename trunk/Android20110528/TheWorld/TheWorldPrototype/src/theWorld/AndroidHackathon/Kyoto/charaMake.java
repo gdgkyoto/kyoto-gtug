@@ -1,10 +1,11 @@
 package theWorld.AndroidHackathon.Kyoto;
 
 import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
@@ -12,12 +13,22 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.media.AudioManager;
 
 
 	public class charaMake extends Activity implements OnClickListener{
 		// 返ってきた時の認証用コード(数字は適当なもので良い)
 	    private static final int REQUEST_CODE_VOICE_RECO = 123;
 		private static final String PROMPT_MES = null;
+		
+		// 効果音再生用オブジェクト
+		SoundPool soundPool;
+		int zukyun_se;
+		int hit_se;
+		
+		// 音楽再生用：
+		private MediaPlayer mPlayer;
+		
 		@Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -25,10 +36,25 @@ import android.widget.Toast;
 	        findViewById(R.id.button_select_stand).setOnClickListener(this);
 	        findViewById(R.id.button_select_power).setOnClickListener(this);
 	        findViewById(R.id.button_toSelectRival).setOnClickListener(this);
+	        
+	        //効果音再生　初期化
+	         soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+	        	zukyun_se = soundPool.load(this, R.raw.zukyun    , 1);
+	        	hit_se = soundPool.load(this, R.raw.hit_se01    , 1);
+	        	
+	        	 mPlayer = MediaPlayer.create(this, R.raw.opening_bgm );
+	        	 mPlayer.seekTo(0);
+	        	 mPlayer.setLooping(true);
+	             mPlayer.start();
+	        	
+	        	
     }
 		
 	public void onClick(View view){
 	   	switch(view.getId() ){
+	   	
+	    	
+	   	
 	   	//スタンドを選択
 	   	case R.id.button_select_stand:
 	   	//	Intent intent = new Intent(this, charaMake.class);
@@ -36,18 +62,28 @@ import android.widget.Toast;
 	   	//	finish();
 	   		Log.i("aaa" ,"aa");
 	   		StartVoiceRecognition();
+	   		
+	   		soundPool.play(hit_se, 100.0f, 100.0f, 0, 0, 1.0f);
+	   		
 	   		break;
 	   	//パワーを検出
 	   	case R.id.button_select_power:
-	   		Intent intent = new Intent(this, charaMake.class);
-		   	startActivity(intent);
-		   	finish();
+	   		//Intent intent = new Intent(this, charaMake.class);
+		   	//startActivity(intent);
+		   	//finish();
+		   	
+		   	soundPool.play(hit_se, 100.0f, 100.0f, 0, 0, 1.0f);
+		   	
 		   	break;
 		//次へ進む
 		case R.id.button_toSelectRival:
 	   		Intent intent2 = new Intent(this, selectRival.class);
 		   	startActivity(intent2);
 		   	//finish();
+		   	
+		   	mPlayer.stop();
+		   	soundPool.play(zukyun_se, 100.0f, 100.0f, 0, 0, 1.0f);
+		   	
 		   	break;
 	   	}
 	   
@@ -116,5 +152,32 @@ import android.widget.Toast;
        
        super.onActivityResult(requestCode, resultCode, data);
    }
+   
+  
+   //中断時処理
+   @Override
+   protected void onPause(){
+   	
+   	super.onPause();
+   	mPlayer.stop();
+   	
+   	
+   } 
+  
+   
+   
+   
+   //終了時処理
+   @Override
+   protected void onDestroy(){
+   	
+   	super.onDestroy();
+   	mPlayer.stop();
+   	mPlayer.release();
+   	
+   	
+   } 
+   
+   
 }
 
