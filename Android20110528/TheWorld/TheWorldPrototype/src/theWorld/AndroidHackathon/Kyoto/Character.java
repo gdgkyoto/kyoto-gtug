@@ -12,15 +12,15 @@ public class Character {
 	    public int life;
 	    public int offence;
 	    
-	    
+	    /*
 	    //�R���X�g���N�^
 	    public character(int life) {
 	        this.life=life;
 	        this.state=1;
 	    }
+	    */
 	    
-	    
-	    
+	    /*
 	    //���
 	    public void tick() {
 	        state++;
@@ -28,7 +28,7 @@ public class Character {
 	            state=-MoguraView.rand(500);
 	        }
 	    }
-	    
+	    */
 	    
 	
 
