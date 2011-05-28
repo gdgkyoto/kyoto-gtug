@@ -1,3 +1,7 @@
+
+
+
+
 package org.ochilab;
 
 import java.io.BufferedReader;
@@ -7,18 +11,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.view.View.OnClickListener;
 
 public class AndroidTest2 extends Activity {
@@ -34,6 +43,11 @@ public class AndroidTest2 extends Activity {
 	int msgDataNum = 0;
 	MsgData msgData[] = new MsgData[100];
 
+	private int REQUEST_CODE = 0;  //M.hashimoto
+	private String item_from_voice;  //M.hashimoto
+	private String price_from_voice; //M.hashimoto
+	private String itemCount_from_voice; //M.hashimoto
+	
 	/** Called when the activity is first created. */
 
 	@Override
@@ -41,7 +55,7 @@ public class AndroidTest2 extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		// GUIéƒ¨å“ã¨ã®å¯¾å¿œã¥ã‘
+		// GUI•”•i‚Æ‚Ì‘Î‰‚Ã‚¯
 		herMessage = (TextView) findViewById(R.id.textView1);
 		myMessage = (TextView) findViewById(R.id.textView0);
 		img = (ImageView) findViewById(R.id.imageView1);
@@ -85,7 +99,7 @@ public class AndroidTest2 extends Activity {
 	}
 
 	/**
-	 * å„ãƒ¢ãƒ¼ãƒ‰ã§ã®GUIå¤‰æ›´å‡¦ç†
+	 * Šeƒ‚[ƒh‚Å‚ÌGUI•ÏXˆ—
 	 * 
 	 * @param modeID
 	 */
@@ -93,48 +107,48 @@ public class AndroidTest2 extends Activity {
 		this.modeID = modeID;
 		switch (modeID) {
 		case 0: {
-			showHerMessage("ã•ã‚ã€ã„ã£ã—ã‚‡ã«ãŠã‹ã„ã‚‚ã®ã—ã¾ã—ã‚‡ï¼");
+			showHerMessage("‚³‚ A‚¢‚Á‚µ‚å‚É‚¨‚©‚¢‚à‚Ì‚µ‚Ü‚µ‚åI");
 			showPicture(6);
 			playSound(1);
-			execBtn.setText("è²·ã„ç‰©ã‚’ã¯ã˜ã‚ã‚‹");
-			cancelBtn.setText("ã‚„ã‚ã‚‹");
+			execBtn.setText("”ƒ‚¢•¨‚ğ‚Í‚¶‚ß‚é");
+			cancelBtn.setText("‚â‚ß‚é");
 			break;
 		}
-		case 1: {// ä½•ã‚’è²·ã†ï¼Ÿ
-			showHerMessage("ä½•ã‚’è²·ã†ã®ï¼Ÿ");// ã“ã“ã¯ãƒ©ãƒ³ãƒ€ãƒ ã«å¤‰ãˆãŸã„
+		case 1: {// ‰½‚ğ”ƒ‚¤H
+			showHerMessage("‰½‚ğ”ƒ‚¤‚ÌH");// ‚±‚±‚Íƒ‰ƒ“ƒ_ƒ€‚É•Ï‚¦‚½‚¢
 			showPicture(2);
 			playSound(4);
-			execBtn.setText("å…¥åŠ›");
-			cancelBtn.setText("è²·ã„ç‰©ã‚’ã‚„ã‚ã‚‹");
+			execBtn.setText("“ü—Í");
+			cancelBtn.setText("”ƒ‚¢•¨‚ğ‚â‚ß‚é");
 
 			break;
 		}
 		case 2: {
-			showHerMessage("å€¤æ®µã¯ã„ãã‚‰ï¼Ÿ");
+			showHerMessage("’l’i‚Í‚¢‚­‚çH");
 			showPicture(3);
 			playSound(4);
-			execBtn.setText("å…¥åŠ›");
-			cancelBtn.setText("æˆ»ã‚‹");
+			execBtn.setText("“ü—Í");
+			cancelBtn.setText("–ß‚é");
 			break;
 		}
-		case 3: {// ã„ãã‚‰ï¼Ÿ
-			showHerMessage("ã„ãã¤ã‹ã†ï¼Ÿ");
+		case 3: {// ‚¢‚­‚çH
+			showHerMessage("‚¢‚­‚Â‚©‚¤H");
 			showPicture(4);
 			playSound(8);
-			execBtn.setText("å…¥åŠ›");
-			cancelBtn.setText("æˆ»ã‚‹");
+			execBtn.setText("“ü—Í");
+			cancelBtn.setText("–ß‚é");
 			break;
 		}
 
-		case 4: {// ã“ã‚Œã§ã„ã„ï¼Ÿ
-			showHerMessage("ã¾ã‚ã¾ã‚ã˜ã‚ƒãªã„ï¼Ÿ");// ã“ã“ã¯åˆ¤å®šã—ã ã„
+		case 4: {// ‚±‚ê‚Å‚¢‚¢H
+			showHerMessage("‚Ü‚ ‚Ü‚ ‚¶‚á‚È‚¢H");// ‚±‚±‚Í”»’è‚µ‚¾‚¢
 			showPicture(5);
-			execBtn.setText("ã“ã‚Œã§ã„ã");
-			cancelBtn.setText("ã‚„ã‚Šç›´ã™");
+			execBtn.setText("‚±‚ê‚Å‚¢‚­");
+			cancelBtn.setText("‚â‚è’¼‚·");
 			break;
 		}
-		case 5: {// ã“ã‚Œã§ã„ã„ï¼Ÿ
-			showHerMessage("ãŒã‚“ã°ã£ãŸã­ï¼Ÿ");// ã“ã“ã¯åˆ¤å®šã—ã ã„
+		case 5: {// ‚±‚ê‚Å‚¢‚¢H
+			showHerMessage("‚ª‚ñ‚Î‚Á‚½‚ËH");// ‚±‚±‚Í”»’è‚µ‚¾‚¢
 			showPicture(6);
 			playSound(5);
 			execBtn.setEnabled(false);
@@ -146,49 +160,56 @@ public class AndroidTest2 extends Activity {
 	}
 
 	/**
-	 * å®Ÿè¡Œãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸå ´åˆã®å‡¦ç†
+	 * Àsƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½ê‡‚Ìˆ—
 	 */
 	private void execBtnClick() {
 
-		// ã“ã“ã®modeIDã¯ç¾åœ¨ã®ãƒ¢ãƒ¼ãƒ‰ã§ã™ã€‚
+		// ‚±‚±‚ÌmodeID‚ÍŒ»İ‚Ìƒ‚[ƒh‚Å‚·B
 
 		switch (modeID) {
 		case 0: {
 
-			//ã‚ãŸã‚‰ã—ãã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ãå ´åˆã®ã‚µãƒ³ãƒ—ãƒ«
+			//‚ ‚½‚ç‚µ‚­ƒEƒBƒ“ƒhƒE‚ğŠJ‚­ê‡‚ÌƒTƒ“ƒvƒ‹
 			//Intent test = new Intent(this, testActibity.class);
 			//startActivity(test);
 
-			 //é–‹å§‹å‡¦ç†
+			 //ŠJnˆ—
 			 setMode(1);
+			 
+
+			 
+			 
 			break;
 		}
 		case 1: {//
 
-			// å“ç‰©ã®å…¥åŠ›å‡¦ç†
-
+			// •i•¨‚Ì“ü—Íˆ—
+			getInputfromVoice(101);//‰¹º“ü—Í@
 			setMode(2);
 			break;
 		}
 		case 2: {//
-			// å€¤æ®µã®å…¥åŠ›å‡¦ç†
-
+			// ’l’i‚Ì“ü—Íˆ—
+			getInputfromVoice(201);//‰¹º“ü—Í@
 			setMode(3);
 			break;
 		}
 		case 3: {//
-			// å€‹æ•°ã®å…¥åŠ›å‡¦ç†
-
+			// ŒÂ”‚Ì“ü—Íˆ—
+			getInputfromVoice(301);//‰¹º“ü—Í@
 			setMode(4);
+			
+			 Toast.makeText(AndroidTest2.this,item_from_voice+"/"+price_from_voice+"/"+itemCount_from_voice, Toast.LENGTH_LONG).show();
+			
 			break;
 		}
 
 		case 4: {//
-			// åˆ¤å®šã«OKã‚’ã—ãŸ
+			// ”»’è‚ÉOK‚ğ‚µ‚½
 
-			// è³¼å…¥æƒ…å ±ã‚’ãƒªã‚¹ãƒˆã¸ã€‚ã€‚ã€‚
+			// w“üî•ñ‚ğƒŠƒXƒg‚ÖBBB
 
-			// ãµãŸãŸã³è³¼å…¥ãƒ¢ãƒ¼ãƒ‰ã¸
+			// ‚Ó‚½‚½‚Ñw“üƒ‚[ƒh‚Ö
 			setMode(1);
 			break;
 		}
@@ -197,31 +218,98 @@ public class AndroidTest2 extends Activity {
 	}
 
 	/**
-	 * ã‚­ãƒ£ãƒ³ã‚»ãƒ«å´ã®ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸå ´åˆã®å‡¦ç†
+	 * ƒLƒƒƒ“ƒZƒ‹‘¤‚Ìƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½ê‡‚Ìˆ—
 	 */
 	private void cancelBtnClick() {
 		switch (modeID) {
 
-		case 1: {// ä½•ã‚’è²·ã†ï¼Ÿ
+		case 1: {// ‰½‚ğ”ƒ‚¤H
 			setMode(5);
 			break;
 		}
-		case 2: {// ã“ã‚Œã§ã„ã„ï¼Ÿ
+		case 2: {// ‚±‚ê‚Å‚¢‚¢H
 			setMode(1);
 			break;
 		}
-		case 3: {// ã„ãã‚‰ï¼Ÿ
+		case 3: {// ‚¢‚­‚çH
 			setMode(2);
 			break;
 		}
 
-		case 4: {// ã“ã‚Œã§ã„ã„ï¼Ÿ
+		case 4: {// ‚±‚ê‚Å‚¢‚¢H
 			setMode(3);
 			break;
 		}
 		}
 	}
 
+	public void getInputfromVoice(int requestCode){
+		
+		///M.hashimoto ‰¹º“ü—Í
+        try {
+            // ƒCƒ“ƒeƒ“ƒgì¬
+            Intent intent = new Intent(
+                    RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // ACTION_WEB_SEARCH
+            intent.putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(
+                    RecognizerIntent.EXTRA_PROMPT,
+                    "VoiceRecognitionTest"); // ‚¨D‚«‚È•¶š‚É•ÏX‚Å‚«‚Ü‚·
+            
+            REQUEST_CODE = requestCode ;
+            // ƒCƒ“ƒeƒ“ƒg”­s
+            startActivityForResult(intent, REQUEST_CODE);
+        } catch (ActivityNotFoundException e) {
+            // ‚±‚ÌƒCƒ“ƒeƒ“ƒg‚É‰“š‚Å‚«‚éƒAƒNƒeƒBƒrƒeƒB‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚È‚¢ê‡
+            Toast.makeText(AndroidTest2.this,"ActivityNotFoundException", Toast.LENGTH_LONG).show();
+        }	
+		///M.hashimoto ‰¹º“ü—Í
+		
+		
+		
+		
+	}
+	
+	
+    // ƒAƒNƒeƒBƒrƒeƒBI—¹‚ÉŒÄ‚Ño‚³‚ê‚é
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // ©•ª‚ª“Š‚°‚½ƒCƒ“ƒeƒ“ƒg‚Å‚ ‚ê‚Î‰“š‚·‚é
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            String resultsString = "";
+            
+            // Œ‹‰Ê•¶š—ñƒŠƒXƒg
+            ArrayList<String> results = data.getStringArrayListExtra(
+                    RecognizerIntent.EXTRA_RESULTS);
+            
+            //ÅI“I‚É•\¦‚³‚ê‚é•¶š—ñ‚ÍAresultString‚ÉŠi”[‚³‚ê‚Ä‚¢‚é
+            for (int i = 0; i< results.size(); i++) {
+                // ‚±‚±‚Å‚ÍA•¶š—ñ‚ª•¡”‚ ‚Á‚½ê‡‚ÉŒ‹‡‚µ‚Ä‚¢‚Ü‚·
+                resultsString += results.get(i);
+            }
+            
+            if(requestCode == 101){
+                Toast.makeText(AndroidTest2.this,"•i•¨"+resultsString, Toast.LENGTH_LONG).show();
+           	    item_from_voice = resultsString;  //M.hashimoto
+            }
+            else if(requestCode == 201){
+                Toast.makeText(AndroidTest2.this,"ŒÂ”"+resultsString, Toast.LENGTH_LONG).show();
+                price_from_voice = resultsString;  //M.hashimoto
+            }           
+            else if(requestCode == 301){
+                Toast.makeText(AndroidTest2.this,"’l’i"+resultsString, Toast.LENGTH_LONG).show();
+           	    itemCount_from_voice = resultsString;  //M.hashimoto
+            }                       
+        
+            
+        }//End of if
+    }//End of onActivityResult    	
+	
+	
+	
+	
+	
 	private String selectHerMessage(String situation, String emotion,
 			String item) {
 
@@ -229,17 +317,17 @@ public class AndroidTest2 extends Activity {
 
 		String[] candidateMsg = new String[num];
 
-		// String item = "ã«ã‚“ã˜ã‚“";
+		// String item = "‚É‚ñ‚¶‚ñ";
 
 		int conditionNum = 0;
 		
 		System.out.println(situation + ":" + emotion);
 		for (int i = 0; i < msgDataNum; i++) {
-			// æ¡ä»¶ãŒåŒã˜ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¦‹ã¤ã‘ã‚‹
+			// ğŒ‚ª“¯‚¶ƒƒbƒZ[ƒW‚ğŒ©‚Â‚¯‚é
 			if (msgData[i].emotion.equals(emotion)
 					&& msgData[i].situation.equals(situation)) {
 				//String result = String.format(msgData[i].message, item);
-				// å€™è£œã«è¿½åŠ 
+				// Œó•â‚É’Ç‰Á
 				candidateMsg[conditionNum] = msgData[i].message;
 				conditionNum++;
 				// System.out.println(result);
@@ -247,12 +335,12 @@ public class AndroidTest2 extends Activity {
 			}
 		}
 
-		// ä¹±æ•°ã‚’ã‚Šã‚ˆã†ã—ã¦ã©ã®å€™è£œã‚’å‡ºåŠ›ã™ã‚‹ã‹æ±ºã‚ã‚‹
-		long seed = System.currentTimeMillis(); // ç¾åœ¨æ™‚åˆ»ã®ãƒŸãƒªç§’
+		// —”‚ğ‚è‚æ‚¤‚µ‚Ä‚Ç‚ÌŒó•â‚ğo—Í‚·‚é‚©Œˆ‚ß‚é
+		long seed = System.currentTimeMillis(); // Œ»İ‚Ìƒ~ƒŠ•b
 		Random r = new Random(seed);
 		int rand = Math.abs(r.nextInt());
 
-		System.out.println(rand + "ã¨" + conditionNum);
+		System.out.println(rand + "‚Æ" + conditionNum);
 		int target = (int) rand % conditionNum;
 
 		return (String.format(candidateMsg[target], item));
@@ -265,12 +353,12 @@ public class AndroidTest2 extends Activity {
 					Resource.openRawResource(R.raw.message));
 			BufferedReader br = new BufferedReader(in);
 
-			// æœ€çµ‚è¡Œã¾ã§èª­ã¿è¾¼ã‚€
+			// ÅIs‚Ü‚Å“Ç‚İ‚Ş
 			String line = "";
 			int i = 0;
 			while ((line = br.readLine()) != null) {
 
-				// 1è¡Œã‚’ãƒ‡ãƒ¼ã‚¿ã®è¦ç´ ã«åˆ†å‰²
+				// 1s‚ğƒf[ƒ^‚Ì—v‘f‚É•ªŠ„
 				String[] format = line.split(",");
 				msgData[i] = new MsgData();
 				msgData[i].situation = format[1];
@@ -278,22 +366,22 @@ public class AndroidTest2 extends Activity {
 				msgData[i].message = format[3];
 				i++;
 			}
-			System.out.println(i + "å€‹ã®ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´");
+			System.out.println(i + "ŒÂ‚Ìƒf[ƒ^‚ğŠi”[");
 			msgDataNum = i;
 			br.close();
 
 		} catch (FileNotFoundException e) {
-			// Fileã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆæ™‚ã®ä¾‹å¤–æ•æ‰
+			// FileƒIƒuƒWƒFƒNƒg¶¬‚Ì—áŠO•ß‘¨
 			e.printStackTrace();
 		} catch (IOException e) {
-			// BufferedReaderã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒ­ãƒ¼ã‚ºæ™‚ã®ä¾‹å¤–æ•æ‰
+			// BufferedReaderƒIƒuƒWƒFƒNƒg‚ÌƒNƒ[ƒY‚Ì—áŠO•ß‘¨
 			e.printStackTrace();
 		}
 
 	}
 
 	/**
-	 * ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ã¨ã®å¯¾å¿œå‡¦ç†ã¯ã“ã“ã«æ›¸ã
+	 * ƒCƒxƒ“ƒgƒŠƒXƒi[‚Æ‚Ì‘Î‰ˆ—‚Í‚±‚±‚É‘‚­
 	 */
 	private void setBtnEvent() {
 		execBtn.setOnClickListener(new OnClickListener() {
