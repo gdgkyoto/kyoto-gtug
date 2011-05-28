@@ -1,6 +1,7 @@
 package org.ochilab;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 import org.ochilab.SheProfile;
 
@@ -13,6 +14,14 @@ public class SheManager {
 
 	public enum SheFaceType { VERY_HAPPY, HAPPY, NORMAL, UNHAPPY, VERY_UNHAPPY }
 
+
+	private class SheInfomation {
+		String Name;
+		String price;
+		String itemCount;
+	};
+	
+	ArrayList<SheInfomation> m_SheInfomation = new ArrayList<SheInfomation>(); 
 	
 	// レスポンス
 	private class SheResponse {
@@ -31,6 +40,12 @@ public class SheManager {
 	public static SheManager getInstance() {
 		return instance;
 	}
+	
+    public int textToMoney(String msg){
+        String result[] = msg.split("個|円|こ");
+        System.out.println(result[0]);
+        return Integer.parseInt(result[0]);
+    }	
 
 	public void SetSheProfile(SheProfile.SheType type) {
 		
@@ -88,17 +103,17 @@ public class SheManager {
 	// 味見
 	public Boolean IsTasting(String Name, String item) {
 		//複数チェック
-		if(item.indexOf(",") != -1){
-			String[] likes = item.split(",");
+		if(item.indexOf("，") != -1){
+			String[] likes = item.split("，");
 			for (String like : likes) {
-				if (like == Name) {
+				if (like.equals(Name)) {
 					return true;
 				}
 			}
 		}
 		//単数チェック
 		else{
-			if (item == Name) {
+			if (item.equals(Name)) {
 				return true;
 			}
 		}
@@ -120,8 +135,20 @@ public class SheManager {
         System.out.println(result);
         return result;
 	}
+	
+	
 	// レスポンスを得るための情報セット
 	public void SetResponseInfomation(String Name, String price, String itemCount) {
+		
+		//情報をためる
+		SheInfomation info = new SheInfomation();
+		info.Name = Name;
+		info.price = price;
+		info.itemCount = itemCount;
+		m_SheInfomation.add(info);		
+
+		//判定をする
+		
 		Random r = new Random();
 		
 		//好き嫌いは決め打ち
@@ -152,9 +179,9 @@ public class SheManager {
 			
 			if(result > 0)
 			{
-				m_SheResponse.faceNumber = SheFaceType.NORMAL;
-				m_SheResponse.speak = "私は普通です";
 			}
+			m_SheResponse.situation = "normal";
+			m_SheResponse.emotion = "front";
 		}
 		
 		//

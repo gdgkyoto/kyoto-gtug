@@ -12,12 +12,21 @@ public final class R {
     }
     public static final class drawable {
         public static final int icon=0x7f020000;
-        public static final int p01302=0x7f020001;
-        public static final int p01501=0x7f020002;
-        public static final int p01502=0x7f020003;
-        public static final int p01601=0x7f020004;
-        public static final int p01602=0x7f020005;
-        public static final int p019021=0x7f020006;
+        public static final int opening=0x7f020001;
+        public static final int p00=0x7f020002;
+        public static final int p01=0x7f020003;
+        public static final int p01302=0x7f020004;
+        public static final int p01501=0x7f020005;
+        public static final int p01502=0x7f020006;
+        public static final int p01601=0x7f020007;
+        public static final int p01602=0x7f020008;
+        public static final int p019021=0x7f020009;
+        public static final int p02=0x7f02000a;
+        public static final int p03=0x7f02000b;
+        public static final int p04=0x7f02000c;
+        public static final int p05=0x7f02000d;
+        public static final int p06=0x7f02000e;
+        public static final int p07=0x7f02000f;
     }
     public static final class id {
         public static final int button1=0x7f060003;
@@ -32,17 +41,18 @@ public final class R {
         public static final int submain=0x7f030001;
     }
     public static final class raw {
-        public static final int irasyai=0x7f040000;
-        public static final int keikoku01mayu=0x7f040001;
-        public static final int kyaa=0x7f040002;
-        public static final int madamada01mayu=0x7f040003;
-        public static final int madamadane01kawamoto=0x7f040004;
-        public static final int message=0x7f040005;
-        public static final int moukae=0x7f040006;
-        public static final int mousukosi=0x7f040007;
-        public static final int saitei=0x7f040008;
-        public static final int syuryo01kawamoto=0x7f040009;
-        public static final int yoxsya=0x7f04000a;
+        public static final int facestatetable=0x7f040000;
+        public static final int irasyai=0x7f040001;
+        public static final int keikoku01mayu=0x7f040002;
+        public static final int kyaa=0x7f040003;
+        public static final int madamada01mayu=0x7f040004;
+        public static final int madamadane01kawamoto=0x7f040005;
+        public static final int message=0x7f040006;
+        public static final int moukae=0x7f040007;
+        public static final int mousukosi=0x7f040008;
+        public static final int saitei=0x7f040009;
+        public static final int syuryo01kawamoto=0x7f04000a;
+        public static final int yoxsya=0x7f04000b;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
