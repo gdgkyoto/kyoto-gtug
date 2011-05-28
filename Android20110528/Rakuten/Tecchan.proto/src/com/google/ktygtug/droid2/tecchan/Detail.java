@@ -26,7 +26,6 @@ public class Detail extends Activity {
         }
     };
 
-
     ImageButton btn01 = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,8 +35,6 @@ public class Detail extends Activity {
 
         setContentView(R.layout.detail);
 
-
-
         mSoundPool = new SoundPool(10,AudioManager.STREAM_MUSIC,0);
 
 
@@ -45,8 +42,6 @@ public class Detail extends Activity {
         mSoundMap.put("zugyan",soundid);
         soundid = mSoundPool.load(this,R.raw.gyuin,0);
         mSoundMap.put("gyuin",soundid);
-
-
     }
 
     @Override
