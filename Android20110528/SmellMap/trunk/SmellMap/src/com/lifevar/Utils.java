@@ -22,10 +22,10 @@ public class Utils {
             StringBuilder u = new StringBuilder();
             u.append("http://lifevar.com/g/map/get?");
             u.append("x1=").append(x1);
-            u.append("y1=").append(y1);
-            u.append("x2=").append(x2);
-            u.append("y2=").append(y2);
-            u.append("zoom=").append(zoom);
+            u.append("&y1=").append(y1);
+            u.append("&x2=").append(x2);
+            u.append("&y2=").append(y2);
+            u.append("&zoom=").append(zoom);
             URL url = new URL(u.toString());
 
             // 接続します
@@ -43,11 +43,15 @@ public class Utils {
                 json.append(line);
             }
             
-            JSONArray root = new JSONArray(json.toString());
-            for(int i=0; i<root.length(); i++){
-                JSONObject o = root.getJSONObject(i);
-                Fragrance f = new Fragrance(o);
-                ret.add(f);
+            //Logger.d(u.toString());
+            //Logger.d(json.toString());
+            if(json.equals("error")!=true){
+	            JSONArray root = new JSONArray(json.toString());
+	            for(int i=0; i<root.length(); i++){
+	                JSONObject o = root.getJSONObject(i);
+	                Fragrance f = new Fragrance(o);
+	                ret.add(f);
+	            }
             }
             return ret;
         } finally {
