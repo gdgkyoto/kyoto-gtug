@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Account">
+		xmlns:s="library://ns.adobe.com/flex/spark" title="ニコ生コメントビューア">
 	<fx:Declarations>
 		<!-- 非ビジュアルエレメント (サービス、値オブジェクトなど) をここに配置 -->
 	</fx:Declarations>
@@ -79,10 +79,19 @@
 					//authData = new NiconamaAuthData();
 					NiconamaAuthData.authData.parseGetPlayerStatusResult(event.target.data);
 					
-					// イベントハンドラテスト
+					// イベントハンドラ
 					function receiveHandler(mes):void{
 						trace("受信"+mes);
+						var xml:XML = new XML(mes);
+						var cmtStr = xml.text();
+						trace("コメント=" + cmtStr);
+						var label:Label = new Label();
+						
+						//commen0.text = cmtStr;
+						//label.text = cmtStr;
+						textarea.text = cmtStr + "\r" + textarea.text;
 					}
+
 					
 					NiconamaConnector.niconamaConnector.setReceiveHandler(receiveHandler);
 					NiconamaConnector.niconamaConnector.connectCommentServer(NiconamaAuthData.authData);
@@ -125,32 +134,48 @@
 				nc.connect(rtmp,ticket);
 				trace("playLive4");
 			}
+
+			var bukkomiDetector:BukkomiDetector = new BukkomiDetector(bukkomareta)
+			
+			protected function btn_send_clickHandler(event:MouseEvent):void
+			{
+				//commentList.
+			}
+			
+			protected function bukkomareta(){
+				trace("ぶっこまれました。");
+			}
 		]]>
 	</fx:Script>
 
 	<s:VGroup x="10" y="10" width="460" height="599">
-		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+		<s:HGroup width="460" height="60" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
-			<s:Label width="120" height="80" text="Mail" verticalAlign="middle"/>
-			<s:TextInput id="text_mail" width="300" height="80" text="kenji@rainbowdevil.jp"/>
+			<s:Label width="120" height="40" text="Mail" verticalAlign="middle"/>
+			<s:TextInput id="text_mail" width="300" height="40" text="katou.akihiro@gmail.com"/>
 		</s:HGroup>
-		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+		<s:HGroup width="460" height="60" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
-			<s:Label width="120" height="80" text="Pass&#xd;word" verticalAlign="middle"/>
-			<s:TextInput id="text_password" displayAsPassword="true" width="300" height="80" text="kita1203"/>
+			<s:Label width="120" height="40" text="Pw" verticalAlign="middle"/>
+			<s:TextInput id="text_password" width="300" height="40" displayAsPassword="true"/>
 		</s:HGroup>
-		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+		<s:HGroup width="460" height="60" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
-			<s:Label width="120" height="80" text="LiveID" verticalAlign="middle"/>
-			<s:TextInput id="text_liveId" width="300" height="80" text="lv51425638 "/>
+			<s:Label width="120" height="40" text="LiveID" verticalAlign="middle"/>
+			<s:TextInput id="text_liveId" width="300" height="40" text="lv51439269"/>
 		</s:HGroup>
-		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
+		<s:HGroup width="460" height="60" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
-			<s:Label width="120" height="80" verticalAlign="middle"/>
-			<s:Button width="300" height="80" label="OK" click="btn_ok_clickHandler(event)"/>
+			<s:Label width="120" height="40" verticalAlign="middle"/>
+			<s:Button width="300" height="40" label="OK" click="btn_ok_clickHandler(event)"/>
 		</s:HGroup>
 		<s:HGroup id="video_panel" width="460" height="335">
-			<s:TextArea id="textarea" width="453" height="160"/>
+			<s:TextArea id="textarea" width="460" height="337"/>
 		</s:HGroup>
 	</s:VGroup>
+	<s:HGroup x="10" y="617" width="460" height="60" paddingBottom="5" paddingLeft="5"
+			  paddingRight="5" paddingTop="5">
+		<s:TextInput id="comment" width="360" height="50"/>
+		<s:Button width="88" height="49" label="送信" click="btn_send_clickHandler(event)"/>
+	</s:HGroup>
 </s:View>
