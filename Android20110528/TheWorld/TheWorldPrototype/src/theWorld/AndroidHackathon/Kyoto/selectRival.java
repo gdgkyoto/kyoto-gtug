@@ -11,13 +11,23 @@ public class selectRival extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_rival);
         findViewById(R.id.button_serch).setOnClickListener(this);
+        findViewById(R.id.button_ok).setOnClickListener(this);
+        
 	}
 	public void onClick(View view){
 	   	switch(view.getId() ){
-	   	//スタンドを選択
+	   
 	   	case R.id.button_serch:
 	   		//対戦相手検索の処理
+	   		break;
+	   		
+	   	
+		case R.id.button_ok:
+			//３，２，１のカウントへ
+			break;
 	   	}
+	   	
+   	
 	   	
 	}
 }
