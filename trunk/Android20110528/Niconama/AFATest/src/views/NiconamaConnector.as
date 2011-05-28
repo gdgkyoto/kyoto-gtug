@@ -44,7 +44,7 @@ package views
 				postKey = data;
 				
 				// 投稿テスト
-				//sendComment("初見!");
+				sendComment("テスト");
 			});
 			loader.load(request);
 		}
