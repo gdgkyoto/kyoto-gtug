@@ -11,10 +11,15 @@ package views
 		private var socket:XMLSocket;
 		private var postKey:String;
 		private var authData:NiconamaAuthData;
+		private var receiveCallback:Function;
 		
 		public function NiconamaConnector()
 		{
 			trace("hogehoge");
+		}
+		
+		public function setReceiveHandler(handler:Function){
+			this.receiveCallback = handler;
 		}
 		
 		/**
@@ -52,7 +57,7 @@ package views
 		/**
 		 *  コメントを送信する。
 		 */
-		private function sendComment(message:String){
+		public function sendComment(message:String){
 			trace("sendComment1");
 			var vpos:Number = getVpos(authData.openTime);
 			trace("sendComment2");
@@ -67,12 +72,12 @@ package views
 		 * 接続した後は
 		 * 
 		 */
-		private function connectCommentServer(address:String, port:int, authData:NiconamaAuthData){
+		public function connectCommentServer( authData:NiconamaAuthData){
 			this.authData = authData;
 			getPostKey(authData.threadId);
 			trace("コメントサーバ接続");
 			socket = new XMLSocket();
-			socket.connect(address, port);
+			socket.connect(authData.commentServerAddress, authData.commentServerPort);
 			
 			function connectHandler(event:Event):void {
 				trace("接続成功");
@@ -99,6 +104,8 @@ package views
 					var xml:XML = new XML(s.data);
 					authData.commentTicket =  xml.@ticket;// .child("thread")[0].text();
 					trace("commentTicket="+authData.commentTicket);
+				}else{
+					this.receiveCallback(s);
 				}
 				
 			}

@@ -7,13 +7,22 @@
 
 	<fx:Script>
 		<![CDATA[
+			
+			import views.NiconamaConnector;
+			
 			private var mail:String;
 			private var password:String;
 			private var liveId:String;
 			private var ticket:String;
 			private var rtmp:String;
+			
+			public var niconamaConnector:NiconamaConnector;
+			
 			protected function btn_ok_clickHandler(event:MouseEvent):void
 			{
+				niconamaConnector = new NiconamaConnector();
+				
+				
 				mail = text_mail.text;
 				password = text_password.text;
 				liveId = text_liveId.text;
@@ -22,7 +31,8 @@
 				{
 					function getPlayerStatus_success():void
 					{
-						playLive();
+						// 動画再生は未実装のためコメントアウト
+						//playLive();
 					}
 					getPlayerStatus(getPlayerStatus_success, function():void{});
 				}
@@ -63,29 +73,50 @@
 				request.method = "GET";
 				loader.addEventListener(Event.COMPLETE, function (event:Event):void {
 					var xml:XML = new XML(event.target.data);
+					trace("event.target.data="+event.target.data);
 					rtmp = xml.child("rtmp")[0].child("url")[0].text();
 					ticket = xml.child("rtmp")[0].child("ticket")[0].text();
+					var authData:NiconamaAuthData = new NiconamaAuthData();
+					authData.parseGetPlayerStatusResult(event.target.data);
+					this.niconamaConnector.connectCommentServer(authData);
 					callbackSuccess();
 				});
 				loader.load(request);
 			}
 			private function playLive():void
 			{
+				trace("playLive1 "+rtmp);
 				var video:Video = new Video();
 				textarea.text = rtmp;
 //				video_panel.addChild(video);
 				var nc:NetConnection = new NetConnection();
+				trace("playLive2");
 				nc.addEventListener(NetStatusEvent.NET_STATUS, function(event:NetStatusEvent):void{
+					trace(event.info.code);
 					switch (event.info.code)
 					{
 						case "NetConnection.Connect.Success":
+							trace("Event NetConnection.Connect.Success1");
 							var ns:NetStream = new NetStream(nc, NetStream.CONNECT_TO_FMS);
+							
+							function nsHandler(e):void
+							{
+							    trace("nsHandler "+e);
+							}
+							ns.addEventListener(NetStatusEvent.NET_STATUS,nsHandler);
+							trace("Event NetConnection.Connect.Success2");
+							
+							trace("Event NetConnection.Connect.Success3");
+							
+							ns.play(rtmp);
+							trace("Event NetConnection.Connect.Success4");
 							video.attachNetStream(ns);
-							ns.play();
 							break;
 					}
 				});
-				nc.connect(rtmp);
+				trace("playLive3");
+				nc.connect(rtmp,ticket);
+				trace("playLive4");
 			}
 		]]>
 	</fx:Script>
@@ -94,17 +125,17 @@
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
 			<s:Label width="120" height="80" text="Mail" verticalAlign="middle"/>
-			<s:TextInput id="text_mail" width="300" height="80"/>
+			<s:TextInput id="text_mail" width="300" height="80" text="kenji@rainbowdevil.jp"/>
 		</s:HGroup>
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
 			<s:Label width="120" height="80" text="Pass&#xd;word" verticalAlign="middle"/>
-			<s:TextInput id="text_password" displayAsPassword="true" width="300" height="80"/>
+			<s:TextInput id="text_password" displayAsPassword="true" width="300" height="80" text="kita1203"/>
 		</s:HGroup>
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
 			<s:Label width="120" height="80" text="LiveID" verticalAlign="middle"/>
-			<s:TextInput id="text_liveId" width="300" height="80"/>
+			<s:TextInput id="text_liveId" width="300" height="80" text="lv51413410 "/>
 		</s:HGroup>
 		<s:HGroup width="460" height="100" paddingBottom="10" paddingLeft="10" paddingRight="10"
 				  paddingTop="10">
