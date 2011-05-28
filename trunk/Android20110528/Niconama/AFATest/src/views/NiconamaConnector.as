@@ -13,12 +13,14 @@ package views
 		private var authData:NiconamaAuthData;
 		private var receiveCallback:Function;
 		
+		public static var niconamaConnector:NiconamaConnector = new NiconamaConnector();
+		
 		public function NiconamaConnector()
 		{
-			trace("hogehoge");
+			//NiconamaConnector.niconamaConnector = new NiconamaConnector();
 		}
 		
-		public function setReceiveHandler(handler:Function){
+		public function setReceiveHandler(handler:Function):void{
 			this.receiveCallback = handler;
 		}
 		
@@ -33,12 +35,15 @@ package views
 			var loader:URLLoader = new URLLoader();
 			request.method = "POST";
 			request.contentType = "application/x-www-form-urlencoded";
-			request.data = "thread=" + encodeURIComponent(threadId);
+			request.data = "thread=" + threadId;
 			loader.addEventListener(Event.COMPLETE, function (event:Event):void {
 				var data:String = loader.data;
 				data = data.replace("postkey=","");
-				trace("PostKey:"+data);
+				trace("PostKey:"+data+" thread="+threadId);
 				postKey = data;
+				
+				// 投稿テスト
+				//sendComment("初見!");
 			});
 			loader.load(request);
 		}
@@ -100,12 +105,14 @@ package views
 			function receive( s ):void{
 				trace( "Receive! "+s );
 				if (s.data.search("<thread ") != -1){
-					trace("最初！"+s.data);
+					//trace("最初！"+s.data);
 					var xml:XML = new XML(s.data);
 					authData.commentTicket =  xml.@ticket;// .child("thread")[0].text();
 					trace("commentTicket="+authData.commentTicket);
+					
 				}else{
-					this.receiveCallback(s);
+					//trace("!!! "+s);
+					receiveCallback(s.data);
 				}
 				
 			}

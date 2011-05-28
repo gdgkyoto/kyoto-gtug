@@ -5,8 +5,11 @@ package views
 	 */
 	public class NiconamaAuthData
 	{
+		public static var authData:NiconamaAuthData = new NiconamaAuthData();
+		
 		public function NiconamaAuthData()
 		{
+			//NiconamaAuthData.authData = new NiconamaAuthData();
 		}
 		
 		/**
