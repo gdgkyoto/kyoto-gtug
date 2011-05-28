@@ -6,13 +6,13 @@
     <string name="timemachine">匂いタイムマッシーン</string>
     <string name="fragrance_title">匂い測定</string>
     <string name="lb_submit">取得</string>
-    <string name="str_param1">パラメータ1</string>
-    <string name="str_param2">パラメータ2</string>
-    <string name="str_param3">パラメータ3</string>
-    <string name="str_param4">パラメータ4</string>
-    <string name="str_param5">パラメータ5</string>
-    <string name="str_param6">パラメータ6</string>
-    <string name="str_param7">パラメータ7</string>
-    <string name="str_param8">パラメータ8</string>
+    <string name="str_param1">梅</string>
+    <string name="str_param2">ゆり</string>
+    <string name="str_param3">すみれ</string>
+    <string name="str_param4">ラベンダー</string>
+    <string name="str_param5">バラ</string>
+    <string name="str_param6">シベット</string>
+    <string name="str_param7">木の香り</string>
+    <string name="str_param8">シナモン</string>
     <string name="postUrl">http://lifevar.com/g/map/put</string>
 </resources>
