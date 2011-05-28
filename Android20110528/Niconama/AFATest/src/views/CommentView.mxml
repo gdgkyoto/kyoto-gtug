@@ -10,9 +10,15 @@
 	
 	<fx:Script>
 		<![CDATA[
+			var bukkomiDetector:BukkomiDetector = new BukkomiDetector(bukkomareta)
+			
 			protected function btn_send_clickHandler(event:MouseEvent):void
 			{
 				//commentList.
+			}
+			
+			protected function bukkomareta(){
+				trace("ぶっこまれました。");
 			}
 		]]>
 	</fx:Script>
