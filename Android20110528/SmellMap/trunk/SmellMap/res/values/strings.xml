@@ -2,4 +2,14 @@
 <resources>
     <string name="hello">Hello World, SmellMap!</string>
     <string name="app_name">SmellMap01</string>
+    <string name="fragrance_title">匂い測定</string>
+    <string name="lb_submit">取得</string>
+    <string name="str_param1">パラメータ1</string>
+    <string name="str_param2">パラメータ2</string>
+    <string name="str_param3">パラメータ3</string>
+    <string name="str_param4">パラメータ4</string>
+    <string name="str_param5">パラメータ5</string>
+    <string name="str_param6">パラメータ6</string>
+    <string name="str_param7">パラメータ7</string>
+    <string name="str_param8">パラメータ8</string>
 </resources>
