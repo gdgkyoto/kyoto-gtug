@@ -126,7 +126,7 @@ public class Detail extends Activity {
 
     //  ボタン４クリックリスナ
     public void OnClick_Btn04(View v) {
-        startActivityForResult(new Intent(this,Rakuten.class),1);
+        startActivityForResult(new Intent(this,RakutenList.class),1);
     }
 
 }
