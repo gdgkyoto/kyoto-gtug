@@ -10,4 +10,6 @@
     <string name="txt_info_121">きかんしゃトーマス（Thomas and Friends）は、イギリス及びカナダ制作の幼児向けテレビ番組。</string>
     <string name="txt_info_122">2002年ごろまでは、「Thomas the Tank Engine and Friends」が正式なタイトルだった。</string>
     <string name="txt_info_123">日本語版の正式名称は「きかんしゃトーマスとなかまたち」だが、基本は「きかんしゃトーマス」と称してきた。</string>
+    <color name ="text_color">#000000</color>
+    <color name ="screenname_color">#111111</color>
 </resources>
