@@ -21,6 +21,10 @@
         <activity android:name=".Rakuten" android:label="想像してみてください"
             android:configChanges="keyboard|keyboardHidden" android:theme="@android:style/Theme.Light"></activity>
 
+        <!-- 楽天ListView -->
+        <activity android:name=".RakutenList" android:label="検索結果"
+            android:configChanges="keyboard|keyboardHidden" android:theme="@android:style/Theme.Light"></activity>
+
     </application>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
