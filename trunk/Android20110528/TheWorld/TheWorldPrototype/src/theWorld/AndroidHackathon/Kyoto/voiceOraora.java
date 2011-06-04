@@ -78,5 +78,6 @@ public class voiceOraora extends Activity {
 	       }
 	       
 	       super.onActivityResult(requestCode, resultCode, data);
+	       
 	   }
 }

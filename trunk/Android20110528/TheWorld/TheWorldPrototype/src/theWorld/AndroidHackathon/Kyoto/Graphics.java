@@ -1,5 +1,9 @@
 package theWorld.AndroidHackathon.Kyoto;
 
+/**
+ * ※このクラスは未使用 
+ *
+ */
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;

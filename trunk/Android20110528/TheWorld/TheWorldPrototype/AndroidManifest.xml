@@ -21,6 +21,10 @@
         <activity android:name=".StartWindow"
         		  android:label="@string/app_name">
         </activity>
+        
+        <activity android:name=".voiceOraora"
+        		  android:label="@string/app_name">
+        </activity>
 
     </application>
     <uses-sdk android:minSdkVersion="4" />

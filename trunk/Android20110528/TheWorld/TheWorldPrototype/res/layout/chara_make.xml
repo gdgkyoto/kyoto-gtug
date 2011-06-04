@@ -8,8 +8,7 @@
 
 	<TextView
 		android:text="@string/charaMake01"
-		android:textColor="@color/black"
-		android:textSize="30px"
+		style="@style/defaultTheme"
 		android:layout_height="wrap_content" 
 		android:layout_width="wrap_content"
 		android:id="@+id/charaMake01">
@@ -22,8 +21,7 @@
 	
 	<TextView 
 		android:text="@string/charaMake02"
-		android:textColor="@color/black"
-		android:textSize="30px"
+		style="@style/defaultTheme"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content" 
 		android:id="@+id/textView1">
@@ -34,19 +32,18 @@
 		android:layout_width="wrap_content"
 		android:id="@+id/button_select_stand">
 	</Button>
-
 	<TextView 
 		android:text="@string/charaMake05"
-		android:textColor="@color/black"
-		android:textSize="30px"
+		android:textColor="@color/red"
+		style="@style/defaultTheme"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:id="@+id/stand_name">
 	</TextView>
+	
 	<TextView 
 		android:text="@string/charaMake03"
-		android:textColor="@color/black"
-		android:textSize="30px"
+		style="@style/defaultTheme"
 		android:layout_height="wrap_content" 
 		android:layout_width="wrap_content" 
 		android:id="@+id/textView3">

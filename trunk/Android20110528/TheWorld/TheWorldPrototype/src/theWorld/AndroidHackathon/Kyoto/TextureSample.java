@@ -13,6 +13,10 @@ import theWorld.AndroidHackathon.Kyoto.TextureDrawer;
 import java.util.Random;
 
 /**
+ * ※このクラスは未使用 
+ *
+ */
+/**
  * Activity, GLSurfaceView.Renderer?ｽ?ｽ?ｽp?ｽ?ｽ?ｽ?ｽ?ｽ?ｽ?ｽN?ｽ?ｽ?ｽX
  */
 public class TextureSample extends Activity implements GLSurfaceView.Renderer

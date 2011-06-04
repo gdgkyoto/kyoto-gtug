@@ -4,6 +4,10 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 
+/**
+ * ※このクラスは未使用 
+ *
+ */
 public class Sound {
 
 	public MediaPlayer mPlayer;

@@ -82,8 +82,8 @@ public class charaMake extends Activity implements OnClickListener {
 			break;
 		// パワーを検出
 		case R.id.button_select_power:
-			// Intent intent = new Intent(this, charaMake.class);
-			// startActivity(intent);
+			Intent intent = new Intent(this, voiceOraora.class);
+			startActivity(intent);
 			// finish();
 
 			soundPool.play(hit_se, 100.0f, 100.0f, 0, 0, 1.0f);
