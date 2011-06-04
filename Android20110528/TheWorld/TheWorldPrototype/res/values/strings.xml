@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, TheWorldPrototype!</string>
-    <string name="app_name">TheWorldPrototype</string>
+    <string name="app_name">The World</string>
     <string name="charaMake01">名前を入力してくれッ！</string>
     <string name="charaMake02">スタンドを決めてくれッ！</string>
     <string name="charaMake03">スタンドの能力値を決めるぞッ！</string>
@@ -14,4 +13,6 @@
     <string name="charaMake10">検索開始</string>
     <string name="charaMake11">OK</string>
     <string name="charaMake12">声パワー</string>
+
+    <string name="fontsize01">30px</string>
 </resources>

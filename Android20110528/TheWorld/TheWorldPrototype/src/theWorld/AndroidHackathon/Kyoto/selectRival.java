@@ -1,6 +1,7 @@
 package theWorld.AndroidHackathon.Kyoto;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +25,8 @@ public class selectRival extends Activity implements OnClickListener{
 	   	
 		case R.id.button_ok:
 			//３，２，１のカウントへ
+			Intent intent = new Intent(this, StartWindow.class);
+			startActivity(intent);
 			break;
 	   	}
 	   	
