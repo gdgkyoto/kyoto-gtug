@@ -10,53 +10,57 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
 /**
- * ƒeƒNƒXƒ`ƒƒ“Ç‚Ýž‚Ý‚ðs‚¤ƒNƒ‰ƒX
+ * â€»ã“ã®ã‚¯ãƒ©ã‚¹ã¯æœªä½¿ç”¨ 
+ *
+ */
+/**
+ * ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ç‚Ýï¿½ï¿½Ý‚ï¿½ï¿½sï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
  */
 public class TextureLoader
 {
     /**
-     * ƒeƒNƒXƒ`ƒƒ‚ð“Ç‚Ýž‚Þ
+     * ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½Ç‚Ýï¿½ï¿½ï¿½
      *
      * @param gl
-     * @param context ƒAƒNƒeƒBƒrƒeƒB‚ð“n‚·
-     * @param resource_id “Ç‚Ýž‚ÞƒŠƒ\[ƒX‚ÌID‚ð“n‚·
-     * @return ¶¬‚µ‚½ƒeƒNƒXƒ`ƒƒ‚ÌID‚ð•Ô‚·
+     * @param context ï¿½Aï¿½Nï¿½eï¿½Bï¿½rï¿½eï¿½Bï¿½ï¿½nï¿½ï¿½
+     * @param resource_id ï¿½Ç‚Ýï¿½ï¿½Þƒï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½IDï¿½ï¿½nï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ô‚ï¿½
      */
     static int loadTexture(GL10 gl, Context context, int resource_id)
     {
         int[] textures = new int[1];
-        // ƒeƒNƒXƒ`ƒƒ‚ðì¬‚·‚é‚½‚ß‚ÌŒÅ—L–¼‚ð1‚Âì¬
+        // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½é‚½ï¿½ß‚ÌŒÅ—Lï¿½ï¿½ï¿½ï¿½1ï¿½Âì¬
         gl.glGenTextures(1, textures, 0);
 
-        // ì¬‚³‚ê‚½ƒeƒNƒXƒ`ƒƒ‚ÌID‚ðƒZƒbƒg
+        // ï¿½ì¬ï¿½ï¿½ï¿½ê‚½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½Zï¿½bï¿½g
         int texture_id = textures[0];
-        // Žw’è‚µ‚½ŒÅ—L–¼‚ðŽ‚ÂƒeƒNƒXƒ`ƒƒ‚ðì¬
+        // ï¿½wï¿½è‚µï¿½ï¿½ï¿½Å—Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âƒeï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ì¬
         gl.glBindTexture(GL10.GL_TEXTURE_2D, texture_id);
 
-        // ƒoƒCƒ“ƒh‚³‚ê‚Ä‚¢‚éƒeƒNƒXƒ`ƒƒ‚ÉAƒeƒNƒXƒ`ƒƒ‚ÌŠg‘åEk¬•û–@‚ðŽw’èB
-        // k¬ˆ—‚É‚Í‚‘¬‰»‚Ì‚½‚ß‚ÉƒjƒAƒŒƒXƒgƒlƒCƒo[–@‚ð—p‚¢‚é
+        // ï¿½oï¿½Cï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÉAï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌŠgï¿½ï¿½Eï¿½kï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½wï¿½ï¿½B
+        // ï¿½kï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚Íï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ß‚Éƒjï¿½Aï¿½ï¿½ï¿½Xï¿½gï¿½lï¿½Cï¿½oï¿½[ï¿½@ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,
                 GL10.GL_NEAREST);
-        // Šg‘å‚ÍüŒ`•âŠ®‚Æ‚·‚éBd‚¢‚æ‚¤‚È‚çƒjƒAƒŒƒXƒgƒlƒCƒo[–@(GL_NEAREST)‚Ö•ÏX‚·‚é‚±‚Æ
+        // ï¿½gï¿½ï¿½Íï¿½`ï¿½âŠ®ï¿½Æ‚ï¿½ï¿½ï¿½Bï¿½dï¿½ï¿½ï¿½æ‚¤ï¿½È‚ï¿½jï¿½Aï¿½ï¿½ï¿½Xï¿½gï¿½lï¿½Cï¿½oï¿½[ï¿½@(GL_NEAREST)ï¿½Ö•ÏXï¿½ï¿½ï¿½é‚±ï¿½ï¿½
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER,
                 GL10.GL_LINEAR);
 
-        // ƒoƒCƒ“ƒh‚³‚ê‚Ä‚¢‚éƒeƒNƒXƒ`ƒƒ‚ÉAŒJ‚è•Ô‚µ•û–@‚ðŽw’è
+        // ï¿½oï¿½Cï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÉAï¿½Jï¿½ï¿½Ô‚ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½wï¿½ï¿½
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
                 GL10.GL_CLAMP_TO_EDGE);
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
                 GL10.GL_CLAMP_TO_EDGE);
 
-        // ƒoƒCƒ“ƒh‚³‚ê‚Ä‚¢‚éƒeƒNƒXƒ`ƒƒ‚ÉAƒeƒNƒXƒ`ƒƒ‚ÌF‚ª‰º’n‚ÌF‚ð’u‚«Š·‚¦‚é‚æ‚¤Žw’è(GL_REPLACE)
+        // ï¿½oï¿½Cï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÉAï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌFï¿½ï¿½ï¿½ï¿½ï¿½nï¿½ÌFï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½wï¿½ï¿½(GL_REPLACE)
         gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
                 GL10.GL_REPLACE);
 
-        // ƒŠƒ\[ƒX‚ðƒI[ƒvƒ“
+        // ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
         InputStream is = context.getResources().openRawResource(resource_id);
         Bitmap bitmap;
         try
         {
-            // ƒŠƒ\[ƒX‚©‚çƒrƒbƒgƒ}ƒbƒvƒf[ƒ^‚ðì¬
+            // ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½rï¿½bï¿½gï¿½}ï¿½bï¿½vï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ì¬
             bitmap = BitmapFactory.decodeStream(is);
         }
         finally
@@ -67,16 +71,16 @@ public class TextureLoader
             }
             catch (IOException e)
             {
-                // —áŠOˆ—
+                // ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½
             }
         }
 
-        // ƒrƒbƒgƒ}ƒbƒv‚©‚çƒeƒNƒXƒ`ƒƒ‚ðì¬‚·‚é
+        // ï¿½rï¿½bï¿½gï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ì¬ï¿½ï¿½ï¿½ï¿½
         GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
-        // •s—v‚É‚È‚Á‚½ƒrƒbƒgƒ}ƒbƒvƒf[ƒ^‚ðŠJ•ú‚·‚é
+        // ï¿½sï¿½vï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½rï¿½bï¿½gï¿½}ï¿½bï¿½vï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½
         bitmap.recycle();
 
-        // ƒeƒNƒXƒ`ƒƒ‚ÉƒAƒNƒZƒX‚·‚é‚½‚ß‚ÌID‚ð•Ô‚·
+        // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÉƒAï¿½Nï¿½Zï¿½Xï¿½ï¿½ï¿½é‚½ï¿½ß‚ï¿½IDï¿½ï¿½Ô‚ï¿½
         return texture_id;
     }
 }

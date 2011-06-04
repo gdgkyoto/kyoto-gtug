@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent" android:orientation="vertical">
-    <TextView android:layout_height="wrap_content" android:text="@string/charaMake12" android:layout_width="wrap_content" android:id="@+id/textView1"></TextView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" 
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@drawable/jojo_a4">
+	
+	<TextView 
+		android:text="@string/charaMake12"
+		android:textColor="@color/orange"
+		style="@style/defaultTheme"
+		android:layout_height="wrap_content" 
+		android:layout_width="wrap_content" 
+		android:id="@+id/textView1">
+	</TextView>
 </LinearLayout>

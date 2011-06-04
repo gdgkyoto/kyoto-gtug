@@ -2,6 +2,10 @@ package theWorld.AndroidHackathon.Kyoto;
 
 import android.graphics.Bitmap;
 
+/**
+ * ※このクラスは未使用 
+ *
+ */
 public class Character {
 	
 	    //・ｽC・ｽ・ｽ・ｽ[・ｽW

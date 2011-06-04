@@ -3,25 +3,29 @@ package theWorld.AndroidHackathon.Kyoto;
 import java.nio.IntBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
+/**
+ * â€»ã“ã®ã‚¯ãƒ©ã‚¹ã¯æœªä½¿ç”¨ 
+ *
+ */
 public class TextureDrawer
 {
     /**
-     * 2DƒeƒNƒXƒ`ƒƒ‚ğ•`‰æ‚·‚é
+     * 2Dï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½`ï¿½æ‚·ï¿½ï¿½
      *
      * @param gl
-     * @param tex_id ƒeƒNƒXƒ`ƒƒID
-     * @param x, y •`‰æ‚·‚éÀ•W
-     * @param width, height lŠpŒ`‚Ì•E‚‚³
-     * @param angle ‰ñ“]Šp“x
-     * @param scale_x, scale_y Šg‘å—¦
+     * @param tex_id ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ID
+     * @param x, y ï¿½`ï¿½æ‚·ï¿½ï¿½ï¿½ï¿½W
+     * @param width, height ï¿½lï¿½pï¿½`ï¿½Ì•ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½
+     * @param angle ï¿½ï¿½]ï¿½pï¿½x
+     * @param scale_x, scale_y ï¿½gï¿½å—¦
      */
     static void drawTexture(GL10 gl, int tex_id, float x, float y, int width,
             int height, float angle, float scale_x, float scale_y)
     {
-        // ŒÅ’è¬”“_’l‚Å1.0
+        // ï¿½Å’è¬ï¿½ï¿½ï¿½_ï¿½lï¿½ï¿½1.0
         int one = 0x10000;
 
-        // ’¸“_À•W
+        // ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½W
         int vertices[] = {
             -width*one/2, -height*one/2, 0,
             width*one/2, -height*one/2, 0,
@@ -29,58 +33,58 @@ public class TextureDrawer
             width*one/2, height*one/2, 0,
         };
 
-        // ƒeƒNƒXƒ`ƒƒÀ•W”z—ñ
+        // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½zï¿½ï¿½
         int texCoords[] = {
             0, one, one, one, 0, 0, one, 0,
         };
 
-        // ’¸“_”z—ñ‚ğg‚¤‚±‚Æ‚ğéŒ¾
+        // ï¿½ï¿½ï¿½_ï¿½zï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½éŒ¾
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 
-        // ƒeƒNƒXƒ`ƒƒÀ•W”z—ñ‚ğg‚¤‚±‚Æ‚ğéŒ¾
+        // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½zï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½éŒ¾
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 
-        // ƒuƒŒƒ“ƒfƒBƒ“ƒO‚ğ—LŒø‰»
+        // ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½fï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½Lï¿½ï¿½
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-        // 2DƒeƒNƒXƒ`ƒƒ‚ğ—LŒø‚É
+        // 2Dï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½
         gl.glEnable(GL10.GL_TEXTURE_2D);
-        // ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg0”Ô‚ğƒAƒNƒeƒBƒu‚É
+        // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½bï¿½g0ï¿½Ô‚ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½ï¿½
         gl.glActiveTexture(GL10.GL_TEXTURE0);
-        // ƒeƒNƒXƒ`ƒƒID‚É‘Î‰‚·‚éƒeƒNƒXƒ`ƒƒ‚ğƒoƒCƒ“ƒh
+        // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½IDï¿½É‘Î‰ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Cï¿½ï¿½ï¿½h
         gl.glBindTexture(GL10.GL_TEXTURE_2D, tex_id);
 
-        // ƒ‚ƒfƒ‹ƒrƒ…[s—ñ‚ğ‘I‘ğ
+        // ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½rï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½ï¿½Iï¿½ï¿½
         gl.glMatrixMode(GL10.GL_MODELVIEW);
 
-        // Œ»İ‘I‘ğ‚³‚ê‚Ä‚¢‚és—ñ(ƒ‚ƒfƒ‹ƒrƒ…[s—ñ)‚ÉA’PˆÊs—ñ‚ğƒZƒbƒg
+        // ï¿½ï¿½ï¿½İ‘Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½sï¿½ï¿½(ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½rï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½)ï¿½ÉAï¿½Pï¿½Êsï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
         gl.glLoadIdentity();
 
-        // s—ñƒXƒ^ƒbƒN‚ÉŒ»İ‚Ìs—ñ‚ğƒvƒbƒVƒ…
+        // ï¿½sï¿½ï¿½Xï¿½^ï¿½bï¿½Nï¿½ÉŒï¿½ï¿½İ‚Ìsï¿½ï¿½ï¿½ï¿½vï¿½bï¿½Vï¿½ï¿½
         gl.glPushMatrix();
 
-        // ƒ‚ƒfƒ‹‚ğ•½sˆÚ“®‚·‚és—ñ‚ğŠ|‚¯‡‚í‚¹‚é
+        // ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ğ•½sï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½í‚¹ï¿½ï¿½
         gl.glTranslatef(x, y, 0);
-        // ƒ‚ƒfƒ‹‚ğZ²’†S‚É‰ñ“]‚·‚és—ñ‚ğŠ|‚¯‡‚í‚¹‚é
+        // ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½Sï¿½É‰ï¿½]ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½í‚¹ï¿½ï¿½
         gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
-        // ƒ‚ƒfƒ‹‚ğŠg‘åk¬‚·‚és—ñ‚ğŠ|‚¯‡‚í‚¹‚é
+        // ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½kï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½í‚¹ï¿½ï¿½
         gl.glScalef(scale_x, scale_y, 1.0f);
 
-        // F‚ğƒZƒbƒg
+        // ï¿½Fï¿½ï¿½ï¿½Zï¿½bï¿½g
         gl.glColor4x(0x10000, 0x10000, 0x10000, 0x10000);
-        // ’¸“_À•W”z—ñ‚ğƒZƒbƒg
+        // ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½zï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
         gl.glVertexPointer(3, GL10.GL_FIXED, 0, IntBuffer.wrap(vertices));
-        // ƒeƒNƒXƒ`ƒƒî•ñ‚ğƒZƒbƒg
+        // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
         gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, IntBuffer.wrap(texCoords));
 
-        // ƒZƒbƒg‚µ‚½”z—ñ‚ğŒ³‚É•`‰æ
+        // ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É•`ï¿½ï¿½
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
 
-        // ‚³‚«‚Ù‚ÇƒvƒbƒVƒ…‚µ‚½ó‘Ô‚És—ñƒXƒ^ƒbƒN‚ğ–ß‚·
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ù‚Çƒvï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚Ésï¿½ï¿½Xï¿½^ï¿½bï¿½Nï¿½ï¿½ß‚ï¿½
         gl.glPopMatrix();
 
-        // —LŒø‚É‚µ‚½‚à‚Ì‚ğ–³Œø‰»
+        // ï¿½Lï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ğ–³Œï¿½
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glDisable(GL10.GL_TEXTURE_2D);
