@@ -7,7 +7,8 @@
     			 android:label="@string/app_name">
 
         <activity android:name=".charaMake"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -15,15 +16,23 @@
         </activity>
         
         <activity android:name=".selectRival"
-        		  android:label="@string/app_name">
+        		  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".StartWindow"
-        		  android:label="@string/app_name">
+        		  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
         </activity>
         
         <activity android:name=".voiceOraora"
-        		  android:label="@string/app_name">
+        		  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".BattleMainActivity"
+        		  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
         </activity>
 
     </application>

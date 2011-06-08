@@ -9,18 +9,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 
-import android.text.Layout;
-import android.text.Layout.Alignment;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class StartWindow extends Activity{
-
-
 	int counter = 5;
 
 	Timer   mTimer   = null;
@@ -32,18 +23,12 @@ public class StartWindow extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startwindow);
 
-
         TextView count = (TextView)findViewById(R.id.Count_TextView);
         String text = "バトル開始まで";
         count.setText((CharSequence)text);
         count.setTextColor(Color.RED);
         count.setTextSize(70.0f);
-
-
-
-
     }
-
 
     /**
      * 入力待ち状態時処理。
@@ -53,8 +38,11 @@ public class StartWindow extends Activity{
 	protected void onResume() {
 		super.onResume();
 
+		// バトル画面へ遷移するインテント準備
+		final Intent intent = new Intent(this, BattleMainActivity.class);
+		
+		// タイマー
 		mTimer = new Timer();
-
 		mTimer.schedule( new TimerTask(){
 	        @Override
 	        public void run() {
@@ -72,11 +60,9 @@ public class StartWindow extends Activity{
 	                		mTimer.cancel();
 	                		mTimer = null;
 
-	                		//Intent記述
-//	                		Intent intent = new Intent(this, .class);
-//	                		startActivity(intent);
-
-
+	                		// バトル画面に遷移する
+	                		startActivity(intent);
+	                		finish();
 	                	}
 	                }
 	            });
@@ -103,9 +89,6 @@ public class StartWindow extends Activity{
 		super.onDestroy();
 
 	}
-
-
-
-	}
+}
 
 
