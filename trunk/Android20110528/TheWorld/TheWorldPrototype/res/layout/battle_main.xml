@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" 
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@color/white">
+	<LinearLayout 
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:layout_weight="1">
+		
+		<LinearLayout 
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:layout_weight="1.5">
+			<ImageView 
+				android:layout_height="match_parent"
+				android:layout_width="match_parent" 
+				android:src="@drawable/jojo_a5"
+				android:id="@+id/imageView1" 
+				android:scaleType="fitStart">
+			</ImageView>
+		</LinearLayout>
+		
+		<LinearLayout 
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:layout_weight="1">
+			<TextView 
+				android:text="@string/bar01" 
+				style="@style/boxBarTheme"
+				android:id="@+id/textView1"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content">
+			</TextView>
+			<TextView 
+				android:text="@string/bar01" 
+				style="@style/boxBarTheme"
+				android:id="@+id/textView3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+			</TextView>
+			<RatingBar 
+				android:id="@+id/ratingBar2" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:numStars="3"
+				android:isIndicator="true">
+			</RatingBar>
+		</LinearLayout>
+		
+	</LinearLayout>
+	
+	<LinearLayout 
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:layout_weight="1"
+		android:gravity="right|bottom">
+		
+		<LinearLayout 
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:gravity="right|bottom"
+			android:layout_weight="1">
+			<RatingBar 
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content" 
+				android:id="@+id/ratingBar1"
+				android:numStars="3"
+				android:isIndicator="true">
+			</RatingBar>
+			<TextView 
+				android:text="@string/bar01" 
+				style="@style/boxBarTheme"
+				android:id="@+id/textView4"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content">
+			</TextView>
+			<TextView 
+				android:text="@string/bar01" 
+				style="@style/boxBarTheme"
+				android:id="@+id/textView2"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content">
+			</TextView>
+		</LinearLayout>
+		
+		<LinearLayout 
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:layout_weight="1.5"
+			android:gravity="right|bottom">
+			<ImageView 
+				android:layout_height="match_parent"
+				android:layout_width="match_parent" 
+				android:src="@drawable/jojo_a6"
+				android:id="@+id/imageView2"  
+				android:scaleType="fitEnd">
+			</ImageView>
+		</LinearLayout>
+		
+	</LinearLayout>
+</LinearLayout>

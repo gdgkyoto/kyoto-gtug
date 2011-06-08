@@ -24,35 +24,44 @@ public final class R {
         public static final int jojo_a2=0x7f020002;
         public static final int jojo_a3=0x7f020003;
         public static final int jojo_a4=0x7f020004;
-        public static final int lose=0x7f020005;
-        public static final int ready=0x7f020006;
-        public static final int ready2=0x7f020007;
-        public static final int ready3=0x7f020008;
-        public static final int sp_fight=0x7f020009;
-        public static final int star_fist=0x7f02000a;
-        public static final int star_p=0x7f02000b;
-        public static final int th_fight=0x7f02000c;
-        public static final int the_world=0x7f02000d;
-        public static final int win=0x7f02000e;
+        public static final int jojo_a5=0x7f020005;
+        public static final int jojo_a6=0x7f020006;
+        public static final int lose=0x7f020007;
+        public static final int ready=0x7f020008;
+        public static final int ready2=0x7f020009;
+        public static final int ready3=0x7f02000a;
+        public static final int sp_fight=0x7f02000b;
+        public static final int star_fist=0x7f02000c;
+        public static final int star_p=0x7f02000d;
+        public static final int th_fight=0x7f02000e;
+        public static final int the_world=0x7f02000f;
+        public static final int win=0x7f020010;
     }
     public static final class id {
-        public static final int Count_TextView=0x7f08000a;
-        public static final int button_ok=0x7f080009;
-        public static final int button_select_power=0x7f080006;
-        public static final int button_select_stand=0x7f080003;
-        public static final int button_serch=0x7f080008;
-        public static final int button_toSelectRival=0x7f080007;
-        public static final int charaMake01=0x7f080000;
-        public static final int editText1=0x7f080001;
-        public static final int stand_name=0x7f080004;
-        public static final int textView1=0x7f080002;
-        public static final int textView3=0x7f080005;
+        public static final int Count_TextView=0x7f080010;
+        public static final int button_ok=0x7f08000f;
+        public static final int button_select_power=0x7f08000c;
+        public static final int button_select_stand=0x7f08000a;
+        public static final int button_serch=0x7f08000e;
+        public static final int button_toSelectRival=0x7f08000d;
+        public static final int charaMake01=0x7f080008;
+        public static final int editText1=0x7f080009;
+        public static final int imageView1=0x7f080000;
+        public static final int imageView2=0x7f080007;
+        public static final int ratingBar1=0x7f080004;
+        public static final int ratingBar2=0x7f080003;
+        public static final int stand_name=0x7f08000b;
+        public static final int textView1=0x7f080001;
+        public static final int textView2=0x7f080006;
+        public static final int textView3=0x7f080002;
+        public static final int textView4=0x7f080005;
     }
     public static final class layout {
-        public static final int chara_make=0x7f030000;
-        public static final int select_rival=0x7f030001;
-        public static final int startwindow=0x7f030002;
-        public static final int voice_oraora=0x7f030003;
+        public static final int battle_main=0x7f030000;
+        public static final int chara_make=0x7f030001;
+        public static final int select_rival=0x7f030002;
+        public static final int startwindow=0x7f030003;
+        public static final int voice_oraora=0x7f030004;
     }
     public static final class raw {
         public static final int character_select_bgm=0x7f040000;
@@ -63,6 +72,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f060000;
+        public static final int bar01=0x7f06000d;
         public static final int charaMake01=0x7f060001;
         public static final int charaMake02=0x7f060002;
         public static final int charaMake03=0x7f060003;
@@ -75,9 +85,9 @@ public final class R {
         public static final int charaMake10=0x7f06000a;
         public static final int charaMake11=0x7f06000b;
         public static final int charaMake12=0x7f06000c;
-        public static final int fontsize01=0x7f06000d;
     }
     public static final class style {
+        public static final int boxBarTheme=0x7f070001;
         public static final int defaultTheme=0x7f070000;
     }
 }

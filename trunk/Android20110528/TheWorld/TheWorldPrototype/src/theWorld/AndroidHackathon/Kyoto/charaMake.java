@@ -93,11 +93,11 @@ public class charaMake extends Activity implements OnClickListener {
 		case R.id.button_toSelectRival:
 			Intent intent2 = new Intent(this, selectRival.class);
 			startActivity(intent2);
-			// finish();
 
 			mPlayer.stop();
 			soundPool.play(zukyun_se, 100.0f, 100.0f, 0, 0, 1.0f);
 
+			finish();
 			break;
 		}
 

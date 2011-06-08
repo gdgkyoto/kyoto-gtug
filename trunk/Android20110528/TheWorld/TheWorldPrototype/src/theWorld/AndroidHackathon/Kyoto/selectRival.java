@@ -27,6 +27,7 @@ public class selectRival extends Activity implements OnClickListener{
 			//３，２，１のカウントへ
 			Intent intent = new Intent(this, StartWindow.class);
 			startActivity(intent);
+			finish();
 			break;
 	   	}
 	   	
