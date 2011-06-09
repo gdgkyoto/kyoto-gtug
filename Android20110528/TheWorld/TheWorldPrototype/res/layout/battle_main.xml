@@ -18,7 +18,7 @@
 				android:layout_height="match_parent"
 				android:layout_width="match_parent" 
 				android:src="@drawable/jojo_a5"
-				android:id="@+id/imageView1" 
+				android:id="@+id/imageView" 
 				android:scaleType="fitStart">
 			</ImageView>
 		</LinearLayout>
@@ -31,19 +31,19 @@
 			<TextView 
 				android:text="@string/bar01" 
 				style="@style/boxBarTheme"
-				android:id="@+id/textView1"
+				android:id="@+id/power"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content">
 			</TextView>
 			<TextView 
 				android:text="@string/bar01" 
 				style="@style/boxBarTheme"
-				android:id="@+id/textView3"
+				android:id="@+id/pointGauge"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content">
 			</TextView>
 			<RatingBar 
-				android:id="@+id/ratingBar2" 
+				android:id="@+id/ratingBar" 
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:numStars="3"
@@ -51,6 +51,19 @@
 			</RatingBar>
 		</LinearLayout>
 		
+	</LinearLayout>
+	
+	<LinearLayout 
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:layout_weight="1.5">
+		<TextView 
+			style="@style/battleMesTheme"
+			android:id="@+id/battleMes"
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:gravity="center">
+		</TextView>
 	</LinearLayout>
 	
 	<LinearLayout 
@@ -69,21 +82,21 @@
 			<RatingBar 
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content" 
-				android:id="@+id/ratingBar1"
+				android:id="@+id/enemyRatingBar"
 				android:numStars="3"
 				android:isIndicator="true">
 			</RatingBar>
 			<TextView 
 				android:text="@string/bar01" 
 				style="@style/boxBarTheme"
-				android:id="@+id/textView4"
+				android:id="@+id/enemyPower"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content">
 			</TextView>
 			<TextView 
 				android:text="@string/bar01" 
 				style="@style/boxBarTheme"
-				android:id="@+id/textView2"
+				android:id="@+id/enemyPointGauge"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content">
 			</TextView>
@@ -98,7 +111,7 @@
 				android:layout_height="match_parent"
 				android:layout_width="match_parent" 
 				android:src="@drawable/jojo_a6"
-				android:id="@+id/imageView2"  
+				android:id="@+id/enemyImageView"  
 				android:scaleType="fitEnd">
 			</ImageView>
 		</LinearLayout>
