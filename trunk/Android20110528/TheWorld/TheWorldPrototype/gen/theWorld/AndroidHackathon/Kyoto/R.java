@@ -38,23 +38,26 @@ public final class R {
         public static final int win=0x7f020010;
     }
     public static final class id {
-        public static final int Count_TextView=0x7f080010;
-        public static final int button_ok=0x7f08000f;
-        public static final int button_select_power=0x7f08000c;
-        public static final int button_select_stand=0x7f08000a;
-        public static final int button_serch=0x7f08000e;
-        public static final int button_toSelectRival=0x7f08000d;
-        public static final int charaMake01=0x7f080008;
-        public static final int editText1=0x7f080009;
-        public static final int imageView1=0x7f080000;
-        public static final int imageView2=0x7f080007;
-        public static final int ratingBar1=0x7f080004;
-        public static final int ratingBar2=0x7f080003;
-        public static final int stand_name=0x7f08000b;
-        public static final int textView1=0x7f080001;
-        public static final int textView2=0x7f080006;
-        public static final int textView3=0x7f080002;
-        public static final int textView4=0x7f080005;
+        public static final int Count_TextView=0x7f080013;
+        public static final int battleMes=0x7f080004;
+        public static final int button_ok=0x7f080012;
+        public static final int button_select_power=0x7f08000f;
+        public static final int button_select_stand=0x7f08000c;
+        public static final int button_serch=0x7f080011;
+        public static final int button_toSelectRival=0x7f080010;
+        public static final int charaMake01=0x7f080009;
+        public static final int editText1=0x7f08000a;
+        public static final int enemyImageView=0x7f080008;
+        public static final int enemyPointGauge=0x7f080007;
+        public static final int enemyPower=0x7f080006;
+        public static final int enemyRatingBar=0x7f080005;
+        public static final int imageView=0x7f080000;
+        public static final int pointGauge=0x7f080002;
+        public static final int power=0x7f080001;
+        public static final int ratingBar=0x7f080003;
+        public static final int stand_name=0x7f08000d;
+        public static final int textView1=0x7f08000b;
+        public static final int textView3=0x7f08000e;
     }
     public static final class layout {
         public static final int battle_main=0x7f030000;
@@ -73,6 +76,7 @@ public final class R {
     public static final class string {
         public static final int app_name=0x7f060000;
         public static final int bar01=0x7f06000d;
+        public static final int battleMes01=0x7f06000e;
         public static final int charaMake01=0x7f060001;
         public static final int charaMake02=0x7f060002;
         public static final int charaMake03=0x7f060003;
@@ -85,8 +89,12 @@ public final class R {
         public static final int charaMake10=0x7f06000a;
         public static final int charaMake11=0x7f06000b;
         public static final int charaMake12=0x7f06000c;
+        /**  エラーメッセージ 
+         */
+        public static final int err_mes_001=0x7f06000f;
     }
     public static final class style {
+        public static final int battleMesTheme=0x7f070002;
         public static final int boxBarTheme=0x7f070001;
         public static final int defaultTheme=0x7f070000;
     }

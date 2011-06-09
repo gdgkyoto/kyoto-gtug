@@ -15,4 +15,8 @@
     <string name="charaMake12">声パワー</string>
 
     <string name="bar01">□□□□□□□□□□</string>
+    <string name="battleMes01">Fight!!</string>
+    
+    <!-- エラーメッセージ -->
+    <string name="err_mes_001">音声認識対応ツールがインストールされていません</string>
 </resources>
