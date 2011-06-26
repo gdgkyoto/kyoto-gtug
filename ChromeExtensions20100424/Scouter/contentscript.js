@@ -102,7 +102,7 @@ function showPageRank(selector) {
 // background.htmlにmessage passing
 chrome.extension.sendRequest({
 		'action': 'fetchSearchResult',
-		'query': document.forms.gs.q.value
+		'query': (document.forms.gs || document.forms.f).q.value
 		}, onResult);
 
 chrome.extension.sendRequest({
